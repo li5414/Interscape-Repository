@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: a3d910cc3c32441dc8b8dc535b48b0d6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - chunkGO: {fileID: 629446099502681975, guid: 90c2b5a694e7d4ba2980920e510c0c69,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

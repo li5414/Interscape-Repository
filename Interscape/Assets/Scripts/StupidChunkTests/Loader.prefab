@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &20578654501061876
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 20578654501061874}
+  - component: {fileID: 20578654501061875}
+  m_Layer: 0
+  m_Name: Loader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &20578654501061874
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20578654501061876}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &20578654501061875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20578654501061876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52414c058a5a04a86baca685c3a807c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapWidth: 1000
+  mapHeight: 1000
+  radius: 100
+  treeParent: {fileID: 0}
+  shrubParent: {fileID: 0}
+  player: {fileID: 0}
+  BaseTilemap: {fileID: 0}
+  DetailTilemap: {fileID: 0}
+  tile1: {fileID: 11400000, guid: c1454f438dff64d2bb21e060c241b0bc, type: 2}
+  tile2: {fileID: 11400000, guid: a59a9523617074d04879c378ffe24dd4, type: 2}
+  detail1: {fileID: 11400000, guid: 5665b0f2fa8064ebcbb3a253aab2ccc3, type: 2}
+  detail2: {fileID: 11400000, guid: badfbb3efcbd4461eae33c1d33a88956, type: 2}
+  detail3: {fileID: 11400000, guid: f33a20be3a6ae403c829410bc9f35f22, type: 2}
+  detail4: {fileID: 11400000, guid: a27f2cfb764904713ba41f044f0c3f92, type: 2}
+  detail5: {fileID: 0}
+  treeFab1: {fileID: 2622879361031999019, guid: 1164f33815c5b47cdb520b459edd80c2,
+    type: 3}
+  treeFab2: {fileID: 2245224683475841482, guid: b77bd723d2d4c4e8f98bcef8fce3d462,
+    type: 3}
+  treeFab3: {fileID: 8391695742837209047, guid: 0c37d11b00078470c8d1eda40fae0da0,
+    type: 3}
+  treeFab4: {fileID: 3513770438246997754, guid: c8b92b7e5d98648318e6fbe2d3316645,
+    type: 3}

@@ -1,0 +1,389 @@
+fileFormatVersion: 2
+guid: ee3c7ae0da0842845a427297ddca1f8b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: golden tree sheet_0
+  - first:
+      213: 21300002
+    second: golden tree sheet_1
+  - first:
+      213: 21300004
+    second: golden tree sheet_2
+  - first:
+      213: 21300006
+    second: golden tree sheet_3
+  - first:
+      213: 21300008
+    second: golden tree sheet_4
+  - first:
+      213: 21300010
+    second: golden tree sheet_5
+  - first:
+      213: 21300012
+    second: golden tree sheet_6
+  - first:
+      213: 21300014
+    second: golden tree sheet_7
+  - first:
+      213: 21300016
+    second: golden tree sheet_8
+  - first:
+      213: 21300018
+    second: golden tree sheet_9
+  - first:
+      213: 21300020
+    second: golden tree sheet_10
+  - first:
+      213: 21300022
+    second: golden tree sheet_11
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 20
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: golden tree sheet_0
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 99
+        width: 76
+        height: 95
+      alignment: 9
+      pivot: {x: 0.52, y: 0.104}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d220b59a092494549b12112d1509d683
+      internalID: 21300000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golden tree sheet_1
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 99
+        width: 76
+        height: 95
+      alignment: 9
+      pivot: {x: 0.52, y: 0.104}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b694ad1948a84136b80748e7d53cadc
+      internalID: 21300002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golden tree sheet_2
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 99
+        width: 76
+        height: 95
+      alignment: 9
+      pivot: {x: 0.52, y: 0.104}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4e1dc0a8ec354b4ba1aa3b8d614cac7
+      internalID: 21300004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golden tree sheet_3
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 99
+        width: 76
+        height: 95
+      alignment: 9
+      pivot: {x: 0.52, y: 0.104}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f73355cd5a3248408b5220922aef605
+      internalID: 21300006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golden tree sheet_4
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 99
+        width: 76
+        height: 95
+      alignment: 9
+      pivot: {x: 0.52, y: 0.104}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3ce2b8a248f74a7b94657129846c894
+      internalID: 21300008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golden tree sheet_5
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 99
+        width: 76
+        height: 95
+      alignment: 9
+      pivot: {x: 0.52, y: 0.104}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e729f5f1600394dacaf2e1484ccbaefc
+      internalID: 21300010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golden tree sheet_6
+      rect:
+        serializedVersion: 2
+        x: 465
+        y: 99
+        width: 76
+        height: 95
+      alignment: 9
+      pivot: {x: 0.52, y: 0.104}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b6a3775758514ab28140b9d9cd6253f
+      internalID: 21300012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golden tree sheet_7
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 99
+        width: 76
+        height: 95
+      alignment: 9
+      pivot: {x: 0.52, y: 0.104}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b34eef4b033c4dbc90df211e94c808b
+      internalID: 21300014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golden tree sheet_8
+      rect:
+        serializedVersion: 2
+        x: 618
+        y: 99
+        width: 76
+        height: 95
+      alignment: 9
+      pivot: {x: 0.52, y: 0.104}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5e6ffbc726d547cd8ccf836131ed292
+      internalID: 21300016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golden tree sheet_9
+      rect:
+        serializedVersion: 2
+        x: 695
+        y: 99
+        width: 76
+        height: 95
+      alignment: 9
+      pivot: {x: 0.52, y: 0.104}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef279ca791dd84e3ba25c30003f09536
+      internalID: 21300018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golden tree sheet_10
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 99
+        width: 76
+        height: 95
+      alignment: 9
+      pivot: {x: 0.52, y: 0.104}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 185d1efa7e0fd44289bf9e1a707ef02e
+      internalID: 21300020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golden tree sheet_11
+      rect:
+        serializedVersion: 2
+        x: 849
+        y: 99
+        width: 76
+        height: 95
+      alignment: 9
+      pivot: {x: 0.52, y: 0.104}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a9f3847cefba4c489ed56611f8bb430
+      internalID: 21300022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

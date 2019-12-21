@@ -1,0 +1,24 @@
+﻿using System.Text;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class ItemTooltip : MonoBehaviour
+{
+	[SerializeField] Text ItemNameText;
+	[SerializeField] Text ItemSlotText;
+	[SerializeField] Text ItemStatsText;
+
+	public void ShowTooltip(Item item)
+	{
+		ItemNameText.text = item.ItemName;
+		ItemSlotText.text = "Slot?";
+		ItemStatsText.text = "Description should go here";
+
+		gameObject.SetActive (true);
+	}
+
+	public void HideTooltip ()
+	{
+		gameObject.SetActive (false);
+	}
+}
