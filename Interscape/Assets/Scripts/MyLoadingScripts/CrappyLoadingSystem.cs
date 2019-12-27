@@ -79,8 +79,9 @@ public class CrappyLoadingSystem : MonoBehaviour {
 		int xPos = (int)player.transform.position.x;
 		int yPos = (int)player.transform.position.y;
 
-		if (Mathf.Abs(xPos - lastUpdatePos.x) > 70 ||
-			Mathf.Abs (yPos - lastUpdatePos.y) > 70) {
+		if (Mathf.Abs(xPos - lastUpdatePos.x) > 20 ||
+			Mathf.Abs (yPos - lastUpdatePos.y) > 20)
+		{
 			UpdateMap ();
 		}
 	}
