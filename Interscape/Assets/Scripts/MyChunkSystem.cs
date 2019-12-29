@@ -5,23 +5,27 @@ using UnityEngine.Tilemaps;
 
 public class MyChunkSystem : MonoBehaviour
 {
-	public static int seed = 40;
-	static int chunkSize = 16;
-	public static Vector2 viewerPosition;
-	public Transform playerTrans;
-	public Tilemap tilemapObj;
+	public static int seed = 2;
+	public int renderDist = 4;            // no. chunks
+	public static int mapDimension = 5000; // no. tiles
+	static int chunkSize = 16;            // no. tiles
+	public Transform playerTrans;         // player reference
+	public Tilemap tilemapObj;            // used as empty tilemap to instantiate
 
-	// coordinates
+	// coordinate variables
+	public static Vector2 viewerPosition;
 	int currentChunkCoordX;
 	int currentChunkCoordY;
 	int lastChunkCoordX;
 	int lastChunkCoordY;
-	int renderDist = 4;
 
-	// number generator
+	// number generator and perlin noise stuff
 	System.Random prng = new System.Random (seed);
-	static int octaves = 4;
-	Vector2 [] octaveOffsets = new Vector2 [octaves]; // we want each octave to come from different location
+	Vector2 [] octaveOffsets = new Vector2 [octaves]; // we want each octave to come from different 'location' in the perlin noise
+	static int octaves = 4;               // number of noise layers
+	public float scale = 361.4f;          // the higher the number, the more 'zoomed in'. Needs to be likely to result in non-integer
+	float persistance = 0.5f;             // the higher the octave, the less of an effect
+	float lacunarity = 2.5f;              // value that decreases scale each octave
 
 	// chunk dictionary
 	Dictionary<Vector2, MyChunkClass> terrainChunkDictionary = new Dictionary<Vector2, MyChunkClass> ();
@@ -33,12 +37,10 @@ public class MyChunkSystem : MonoBehaviour
 			float offsetX = prng.Next (-10000, 10000); // too high numbers returns same value
 			float offsetY = prng.Next (-10000, 10000);
 			octaveOffsets [i] = new Vector2 (offsetX, offsetY);
-			Debug.Log (offsetX);
-			Debug.Log (offsetY);
 		}
 	}
 
-	public float GetHeightValue (int x, int y, float scale, float persistance, float lacunarity)
+	public float GetHeightValue (int x, int y)
 	{
 		float height = 0;
 		float amplitude = 1;
@@ -58,86 +60,102 @@ public class MyChunkSystem : MonoBehaviour
 		return height;
 	}
 
-	public float [,] GetHeightValues (int chunkX, int chunkY, float scale, float persistance, float lacunarity)
+	public float [,] GetHeightValues (int chunkX, int chunkY)
 	{
 		float [,] heights = new float [chunkSize, chunkSize];
 
-		for (int x = 0)
+		// loop through all tiles in chunk
+		for (int x = 0; x < chunkSize; x++) {
+			for (int y = 0; y < chunkSize; y++) {
 
-		float height = 0;
-		float amplitude = 1;
-		float frequency = 1;
+				// reset values each layer
+				float height = 0;
+				float amplitude = 1;
+				float frequency = 1;
 
-		// scale results in non-integer value
-		for (int i = 0; i < octaves; i++) {
-			float sampleX = chunkX / (scale / frequency) + octaveOffsets [i].x + 0.1f;
-			float sampleY = chunkY + YieldInstruction) / (scale / frequency) + octaveOffsets [i].y + 0.1f;
+				// scale results in non-integer value
+				for (int i = 0; i < octaves; i++) {
+					float sampleX = (chunkX + x) / (scale / frequency) + octaveOffsets [i].x + 0.1f;
+					float sampleY = (chunkY + y) / (scale / frequency) + octaveOffsets [i].y + 0.1f;
 
-			float perlinValue = Mathf.PerlinNoise (sampleX, sampleY) * 2 - 1; // make in range -1 to 1
+					float perlinValue = Mathf.PerlinNoise (sampleX, sampleY) * 2 - 1; // make in range -1 to 1
 
-			height += perlinValue * amplitude; // increase noise height each time
-			amplitude *= persistance; // decreases each octave as persistance below 1
-			frequency *= lacunarity; // increases each octave
+					height += perlinValue * amplitude; // increase noise height each time
+					amplitude *= persistance; // decreases each octave as persistance below 1
+					frequency *= lacunarity; // increases each octave
+				}
+				heights [x, y] = height;
+			}
 		}
-		return height;
+		return heights;
 	}
 
-	public float GetTemperature (int x, int y, int mapDimension, float heightVal)
+	public float GetTemperature (int x, int y, float heightVal)
 	{
+		int lat = Mathf.Abs(y - (mapDimension / 2)); // positive latitude at position given
 		float temp;
-		int lat = Mathf.Abs(y - (mapDimension / 2));
 		float freq = 0.1f;
-		int poleThresh = 100; // dist from equator
-		int coldThresh = 80;
-		int midThresh = 50;
-		int warmThresh = 20;
-		int equatorThresh = 10;
+
+		// putting a cap on latitude
+		if (lat > (mapDimension / 2)) {
+			lat = (mapDimension / 2);
+		}
 
 		// get noise based on seed
-		float perlinValue = Mathf.PerlinNoise (x + octaveOffsets [1].x * freq + 0.1f, y + octaveOffsets [1].y * freq + 0.1f);
-		perlinValue = perlinValue * 15; // make value larger so can subtract it
+		float perlinValue = Mathf.PerlinNoise ((x / scale) + octaveOffsets [1].x + freq,
+			(y / scale) + octaveOffsets [1].y + freq) * 2 - 1; // make in range -1 to 1;
+		perlinValue = perlinValue * 20; // make value larger so can directly subtract it
 
-		// choose value based on latitude
-		if (lat > poleThresh) {
-			temp = -20 - perlinValue;
-		}
-		else if (lat <= poleThresh && lat > coldThresh) {
-			temp = 0 - perlinValue;
-		}
-		else if (lat <= coldThresh && lat > midThresh) {
-			temp = 20 - perlinValue;
-		}
-		else if (lat <= midThresh && lat > warmThresh) {
-			temp = 40 - perlinValue;
-		}
-		else if (lat <= warmThresh && lat > equatorThresh) {
-			temp = 50 - perlinValue;
-		}
-		else {
-			temp = 55 - (perlinValue/2);
-		}
+		// choose value based on latitude and height
+		temp = 60 - perlinValue - (lat / 20f);
+		temp -= 20 * (1 - Mathf.Abs (heightVal));
 
-		// choose value based on height
-		if (heightVal > 0.2 || heightVal < -0.2) {
-			temp -= 10;
-		} else if (heightVal > 0.1 || heightVal < -0.1) {
-			temp -= 5;
-		}
-
-		//Debug.Log ("Temp is " + temp + " degrees");
 		return temp;
+	}
+
+	public float [,] GetTemperatures (int chunkX, int chunkY, float [,] heights)
+	{
+		float [,] temps = new float [chunkSize, chunkSize];
+		int lat;
+		float temp;
+		float freq = 0.1f;
+
+		// loop through all tiles in chunk
+		for (int x = 0; x < chunkSize; x++) {
+			for (int y = 0; y < chunkSize; y++) {
+
+				lat = Mathf.Abs ((chunkY + y) - (mapDimension / 2)); // positive latitude at tile position
+
+				// putting a cap on latitude
+				if (lat > (mapDimension / 2)) {
+					lat = (mapDimension / 2);
+				}
+
+				// get noise based on seed
+				float perlinValue = Mathf.PerlinNoise ((chunkX + x / scale) + octaveOffsets [1].x + freq,
+					(chunkY + y / scale) + octaveOffsets [1].y + freq) * 2 - 1; // make in range -1 to 1;
+				perlinValue = perlinValue * 20; // make value larger so can directly subtract it
+
+				// choose value based on latitude and height
+				temp = 60 - perlinValue - (lat / 20f);
+				temp -= 20 * (1 - Mathf.Abs (heights[x, y]));
+				temps [x, y] = temp;
+			}
+		}
+		return temps;
 	}
 
 	public float GetMoisture (int x, int y, float heightVal)
 	{
 		float freq = 0.1f;
 
-		// get noise based on seed
-		float offsetX = prng.Next (-100000, 100000); // too high numbers returns same value
-		float offsetY = prng.Next (-100000, 100000);
-		float perlinValue = Mathf.PerlinNoise (x + offsetX * freq, y + offsetY * freq);
-		float moisture = perlinValue * 10; // in range 1 to 10
-		moisture = moisture - heightVal;
+		// get noise based on offset, which is based on seed
+		float offsetX = prng.Next (-10000, 10000); 
+		float offsetY = prng.Next (-10000, 10000);
+		float perlinValue = Mathf.PerlinNoise (x / scale + offsetX + freq, y / scale + offsetY + freq);
+		float moisture = perlinValue * 6; // in range 0 to 6
+
+		moisture *= 1 - Mathf.Abs(heightVal); // should be more humid at sea level
 		return moisture;
 	}
 
@@ -176,7 +194,7 @@ public class MyChunkSystem : MonoBehaviour
 	{
 		InitialiseOctavesForHeight ();
 		UpdateVisibleChunks ();
-		//InvokeRepeating ("GetTemp", 1.0f, 0.5f);
+		InvokeRepeating ("PrintTempAtPos", 1.0f, 0.5f);
 	}
 
 	void Update ()
@@ -195,12 +213,14 @@ public class MyChunkSystem : MonoBehaviour
 		
 	}
 
-	void GetTemp ()
+	// for testing purposes
+	void PrintTempAtPos ()
 	{
 		Vector2 pos = new Vector2 (playerTrans.position.x, playerTrans.position.y);
-		float heightVal = GetHeightValue ((int)pos.x, (int)pos.y, 61.4f, 0.5f, 2);
-		Debug.Log ("Height is " + heightVal);
-		GetTemperature ((int)pos.x, (int)pos.y, 200, heightVal);
+		float heightVal = GetHeightValue ((int)pos.x, (int)pos.y);
+		//Debug.Log ("Height is " + heightVal);
+		float temp = GetTemperature ((int)pos.x, (int)pos.y, heightVal);
+		Debug.Log ("Temp is " + temp);
 	}
 
 	void UpdateVisibleChunks ()
@@ -226,8 +246,7 @@ public class MyChunkSystem : MonoBehaviour
 				else {
 					// add chunks coordinates to dictionary
 					Vector3Int pos = new Vector3Int (currentChunkCoordX + x, currentChunkCoordY + y, 200);
-					terrainChunkDictionary.Add (viewedChunkCoord, new MyChunkClass (pos, transform, seed, tilemapObj));
-					// initialise/generate
+					terrainChunkDictionary.Add (viewedChunkCoord, new MyChunkClass (pos, seed, tilemapObj));
 					terrainChunksVisibleLastUpdate.Add (terrainChunkDictionary [viewedChunkCoord]);
 				}
 

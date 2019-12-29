@@ -32,10 +32,8 @@ public class MyChunkClass
 	TileBase [] tileArray;
 	Vector3Int [] deetPositions;
 	TileBase [] deetArray;
-
-	// reference other script
-	MyChunkSystem sys = GameObject.Find ("System Placeholder").GetComponent<MyChunkSystem>();
-	
+	float [,] heights;
+	float [,] temps;
 
 	// tiles
 	Tile tileA = Resources.Load<Tile> ("Sprites/Map/Tiles/TileBase_0");
@@ -50,15 +48,19 @@ public class MyChunkClass
 	Tile detail4 = Resources.Load<Tile> ("Sprites/Map/Tiles/detail_4");
 	Tile detail5 = Resources.Load<Tile> ("Sprites/Map/Tiles/detail_5");
 
+	// reference other script
+	MyChunkSystem sys = GameObject.Find ("System Placeholder").GetComponent<MyChunkSystem> ();
 
-	public MyChunkClass (Vector3Int pos, Transform parent, int seed,
-		Tilemap tilemapObj)
+	public MyChunkClass (Vector3Int pos, int seed, Tilemap tilemapObj)
 	{
 		// create rand num generator from seed to use throughout
 		System.Random prng = new System.Random (seed);
 
 		// creates biome array
 		BiomeType [,] biomes = new BiomeType [chunkSize, chunkSize];
+
+		heights = sys.GetHeightValues (pos.x, pos.y);
+		temps = sys.GetTemperatures (pos.x, pos.y, heights);
 
 		// set up tilemap components
 		var grid = GameObject.FindGameObjectsWithTag ("Grid")[0];
@@ -76,8 +78,6 @@ public class MyChunkClass
 		// creates and sets tiles in tilearray to positions in position array
 		GenerateTiles (prng, pos);
 		tilemap.SetTiles (tilePositions, tileArray);
-
-		
 
 		// generate grass details
 		GenerateDetails (prng);
@@ -101,16 +101,16 @@ public class MyChunkClass
 			tilePositions [index] = new Vector3Int (index % chunkSize, index / chunkSize, 200);
 			tileArray [index] = randNum < 5 ? tileA : tileB;
 
-			heightVal = sys.GetHeightValue ((index % chunkSize) + chunkPos.x, (index / chunkSize) + chunkPos.y, 361.4f, 0.5f, 2.5f);
-			temp = sys.GetTemperature ((index % chunkSize) + chunkPos.x, (index / chunkSize) + chunkPos.y, 200, heightVal);
-			Debug.Log ("Temp:" + temp);
+			heightVal = heights[index % chunkSize, index / chunkSize];
+			temp = temps[index % chunkSize, index / chunkSize];
 
-			if (heightVal < -0.1) {
+			if (temp > 30) {
+				tileArray [index] = tileC;
+			}
+
+			if (temp < 10) {
 				tileArray [index] = tileD;
 			}
-			/*else if (heightVal > 0) {
-				tileArray [index] = tileC;
-			}*/
 		}
 	}
 

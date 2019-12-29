@@ -11,6 +11,6 @@ public class Depth : MonoBehaviour {
     {
         Xposition = transform.position.x;
         Yposition = transform.position.y;
-        transform.position = new Vector3(Xposition, Yposition, Yposition/10);
+        transform.position = new Vector3(Xposition, Yposition, Yposition/100);
 	}
 }
