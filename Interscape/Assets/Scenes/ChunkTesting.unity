@@ -288,6 +288,7 @@ GameObject:
   m_Component:
   - component: {fileID: 580340809}
   - component: {fileID: 580340808}
+  - component: {fileID: 580340807}
   m_Layer: 0
   m_Name: System Placeholder
   m_TagString: Untagged
@@ -295,6 +296,49 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &580340807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580340806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24163d3d590644638822e677bca97aae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  treeParent: {fileID: 1371011628}
+  tree_birch: {fileID: 8805742465986864053, guid: 2bfd3d132de354063bbd1931c8dd41ab,
+    type: 3}
+  tree_blue: {fileID: 2245224683475841482, guid: b77bd723d2d4c4e8f98bcef8fce3d462,
+    type: 3}
+  tree_fig: {fileID: 3513770438246997754, guid: 6e338fb651628486289c8b796a220f48,
+    type: 3}
+  tree_forest1: {fileID: 8391695742837209047, guid: e66fa261693fa423e993ffdd0ced0bc1,
+    type: 3}
+  tree_forest2: {fileID: 8391695742837209047, guid: ef63ebb1c10fd404f94ab45107d6d9ce,
+    type: 3}
+  tree_forest3: {fileID: 2582044933560987788, guid: 950c8e75f71ec43298e61f4b39d1f340,
+    type: 3}
+  tree_joshua: {fileID: 1242276516945958324, guid: 07dc7a2f745bb427184d937287e95e4f,
+    type: 3}
+  tree_oak: {fileID: 3513770438246997754, guid: c8b92b7e5d98648318e6fbe2d3316645,
+    type: 3}
+  tree_palm: {fileID: 4497950168139410147, guid: 30cd593695a40493cbbecb8ccb98f4eb,
+    type: 3}
+  tree_pine: {fileID: 2582044933560987788, guid: 950c8e75f71ec43298e61f4b39d1f340,
+    type: 3}
+  tree_pine_small: {fileID: 8391695742837209047, guid: e6fc39de35e2f4a44bc58c2dc4f07212,
+    type: 3}
+  tree_rainforest1: {fileID: 2245224683475841482, guid: 010ab95cfe7744c44ac5134061061786,
+    type: 3}
+  tree_red: {fileID: 2622879361031999019, guid: 1164f33815c5b47cdb520b459edd80c2,
+    type: 3}
+  tree_white: {fileID: 4497950168139410147, guid: 36438aebd59cb4765865b6c8f147ee91,
+    type: 3}
+  tree_yellow: {fileID: 8391695742837209047, guid: 0c37d11b00078470c8d1eda40fae0da0,
+    type: 3}
 --- !u!114 &580340808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,7 +399,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1062241005}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2500, z: 0}
+  m_LocalPosition: {x: 115, y: 1500, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1976623409}
@@ -438,7 +482,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 0.1
-  runSpeed: 0.2
+  runSpeed: 0.3
   crawlSpeed: 0.05
   hairFront: {fileID: -4000885516321944699, guid: 31d71012beb6746168c379a48c10c8f2,
     type: 3}
@@ -709,6 +753,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1371011628
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1371011629}
+  m_Layer: 0
+  m_Name: TreeParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1371011629
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371011628}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.014525, y: 2876.771, z: -388.54153}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1504253082
 GameObject:
   m_ObjectHideFlags: 0
@@ -746,7 +820,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -763,7 +837,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10.149986
+  orthographic size: 22.93628
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -787,7 +861,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1504253082}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2500, z: -10}
+  m_LocalPosition: {x: 115, y: 1500, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
