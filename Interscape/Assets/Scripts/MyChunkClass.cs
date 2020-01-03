@@ -10,22 +10,23 @@ public class MyChunkClass
 	// components
 	public static int chunkSize = 16;
 	Tilemap tilemap;
-	TilemapRenderer trender;
 	Tilemap detailTilemap;
+	TilemapRenderer trender;
 	TilemapRenderer drender;
+	GameObject treeParent;       // parent for this particular chunk
 
 	// arrays
-	Vector3Int [] tilePositions;
-	Tile [] tileArray;
-	Vector3Int [] deetPositions;
-	Tile [] deetArray;
+	Vector3Int [] tilePositions; // probably dont need?
+	Vector3Int [] deetPositions; // probably dont need?
+	Tile [] tileArray; // can make 2d
+	Tile [] deetArray; // can make 2d
 	float [,] heights;
 	float [,] temps;
 	float [,] humidities;
+	Color32 [,] colors;
 	GameObject [,] entities;
 	MyChunkSystem.BiomeType [,] biomes;
-	GameObject treeParent;
-
+	
 	// tiles
 	Tile tile1 = Resources.Load<Tile> ("Sprites/Map/Tiles/TileBase_1");
 	Tile tile0 = Resources.Load<Tile> ("Sprites/Map/Tiles/TileBase_0");
@@ -77,7 +78,7 @@ public class MyChunkClass
 		//tilemap.SetTiles (tilePositions, tileArray); // can't find a way to use settiles while keeping each colour seperate
 
 		// generate grass details
-		GenerateDetails (prng);
+		GenerateDetails (prng, pos);
 		//detailTilemap.SetTiles (deetPositions, deetArray);
 
 		// *list* of gameobject NEEDS IMPLEMENTING
@@ -87,99 +88,66 @@ public class MyChunkClass
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 	public void GenerateTiles (System.Random prng, Vector3Int chunkPos) {
+		float [] distances = new float [MyChunkSystem.specialCoords.Length];
 		int size = chunkSize * chunkSize;
 		tilePositions = new Vector3Int [size];
 		tileArray = new Tile [size];
-		float [] distances = new float [MyChunkSystem.specialCoords.Length];
-		float randNum;
-		float heightVal;
-		float temp;
-		float humidity;
+		colors = new Color32 [chunkSize, chunkSize];
 		MyChunkSystem.BiomeType biome;
 		Vector2 biomePos;
 		Color32 secondary;
-		int rDiff;
-		int gDiff;
-		int bDiff;
+		float distThreshold = 0.3f;
+		float heightVal;
+		float temp;
+		float humidity;
 
 		// in loop, enter all positions and tiles in arrays
 		for (int index = 0; index < size; index++) {
-			randNum = prng.Next (0, 10);
 			tilePositions [index] = new Vector3Int (index % chunkSize, index / chunkSize, 200);
-			//tileArray [index] = randNum < 5 ? tile1 : tile2;
+			Color32 tileColor = new Color32 (117, 173, 141, 255); // standard foresty colour
 
+			// get features for this tile
 			heightVal = heights[index % chunkSize, index / chunkSize];
 			temp = temps[index % chunkSize, index / chunkSize];
 			humidity = humidities [index % chunkSize, index / chunkSize];
 			biome = biomes [index % chunkSize, index / chunkSize];
-			Color32 tileColor = new Color32 (117, 173, 141, 255);
-
+			
 			// set tile sprite
 			tileArray [index] = tile1;
-			
-			if (biome != MyChunkSystem.BiomeType.Beach && biome != MyChunkSystem.BiomeType.Water && biome != MyChunkSystem.BiomeType.DeepWater
-				&& biome != MyChunkSystem.BiomeType.Ice) {
+
+			// choosing colour for certain biomes
+			if (biome != MyChunkSystem.BiomeType.Beach && biome != MyChunkSystem.BiomeType.Water
+				&& biome != MyChunkSystem.BiomeType.DeepWater && biome != MyChunkSystem.BiomeType.Ice) {
+
 				// get temp in range for lookup (assuming the max and min possible temperatures)
-				temp = Mathf.InverseLerp (-90f, 90f, temp);
+				temp = Mathf.InverseLerp (-80f, 80f, temp);
 				temp *= MyChunkSystem.tableSize;
 				biomePos = new Vector2 (humidity, temp);
 
+				// loop through coordinates to determine which biome colours to use
 				for (int i = 0; i < MyChunkSystem.specialCoords.Length; i++) {
 					distances [i] = Vector2.Distance (MyChunkSystem.specialCoords [i], biomePos);
 
 					// normalise distance to 0-1
 					distances [i] = Mathf.InverseLerp (0f, Mathf.Sqrt(MyChunkSystem.tableSize * MyChunkSystem.tableSize +
-						MyChunkSystem.tableSize * MyChunkSystem.tableSize), distances [i]); // diagonal length of array
+						MyChunkSystem.tableSize * MyChunkSystem.tableSize), distances [i]); // diagonal length of array is the upper range
 
-					// only take into account colours within a certain range
-					if (distances [i] < 0.3) {
+					// only take into account the nearest biome colours
+					if (distances [i] < distThreshold) {
+						secondary = MyChunkSystem.BiomeColours [MyChunkSystem.BiomeTable [MyChunkSystem.specialCoords [i].x,
+							MyChunkSystem.specialCoords [i].y]];
+						float weighting = 1 - Mathf.InverseLerp (0f, distThreshold, distances [i]); // lerp creates larger range of weightings
 
-						// get biome colour
-						secondary = MyChunkSystem.BiomeColours [MyChunkSystem.BiomeTable [MyChunkSystem.specialCoords [i].x, MyChunkSystem.specialCoords [i].y]];
+						//get difference, multiply by weighting value and add to original
+						int r = tileColor.r + Mathf.FloorToInt ((secondary.r - tileColor.r) * weighting);
+						int g = tileColor.g + Mathf.FloorToInt ((secondary.g - tileColor.g) * weighting);
+						int b = tileColor.b + Mathf.FloorToInt ((secondary.b - tileColor.b) * weighting);
 
-						// weight distance even further to create more drastic changes
-						float weighting = 1 - Mathf.InverseLerp (0f, 0.3f, distances [i]);
-
-						//get difference and multiply by weighting value
-						rDiff = (int)((secondary.r - tileColor.r) * weighting);
-						gDiff = (int)((secondary.g - tileColor.g) * weighting);
-						bDiff = (int)((secondary.b - tileColor.b) * weighting);
-
-						// grr need to account for negatives
-						if (rDiff > 0)
-							tileColor.r += (byte)rDiff;
-						else {
-							tileColor.r -= (byte)(Mathf.Abs (rDiff));
-						}
-						if (gDiff > 0)
-							tileColor.g += (byte)gDiff;
-						else
-							tileColor.g -= (byte) (Mathf.Abs (gDiff));
-						if (bDiff > 0)
-							tileColor.b += (byte)bDiff;
-						else
-							tileColor.b -= (byte) (Mathf.Abs (bDiff));
-
+						// check we dont have any extreme colours
+						tileColor.r = ReturnColourWithinBound (r, 40, 250);
+						tileColor.g = ReturnColourWithinBound (g, 40, 250);
+						tileColor.b = ReturnColourWithinBound (b, 40, 250);
 					}
-
-					//putting caps on the values
-					if (tileColor.r < 40)
-						tileColor.r = 40;
-					if (tileColor.g < 40)
-						tileColor.g = 40;
-					if (tileColor.b < 40)
-						tileColor.b = 40;
-
-					if (tileColor.r > 230)
-						tileColor.r = 230;
-					if (tileColor.g > 230)
-						tileColor.g = 230;
-					if (tileColor.b > 230)
-						tileColor.b = 230;
-
-					/*if (Random.value < 0.001) {
-						Debug.Log(tileColor.r);
-					}*/
 				}
 			}
 
@@ -192,11 +160,22 @@ public class MyChunkClass
 				tileColor.b = (byte)(tileColor.b * heightVal);
 			}
 
+			// water special case
+			else if (biome == MyChunkSystem.BiomeType.Water || biome == MyChunkSystem.BiomeType.DeepWater) {
+				tileColor = MyChunkSystem.BiomeColours [MyChunkSystem.BiomeType.Water];
+				heightVal = Mathf.InverseLerp (-3f, -0.2f, heightVal);
+
+				tileColor.r = ReturnColourWithinBound ((int)(tileColor.r * heightVal * 0.95), 40, 250);
+				tileColor.g = ReturnColourWithinBound ((int)(tileColor.g * heightVal * 0.95), 40, 250);
+				tileColor.b = ReturnColourWithinBound ((int)(tileColor.b * heightVal), 40, 250);
+			}
+
 			else {
 				tileColor = MyChunkSystem.BiomeColours [biome];
 			}
 
-			// set tile colour according to biome
+			// and finally... we can set the new tile colour
+			colors [index % chunkSize, index / chunkSize] = tileColor;
 			tileArray [index].color = tileColor;
 			tilemap.SetTileFlags (tilePositions [index], TileFlags.None);
 			tilemap.SetColor (tilePositions [index], tileColor);
@@ -206,22 +185,23 @@ public class MyChunkClass
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-
-	// - NEED TO FIX FLOWERS SPAWNING IN EXACT SAME SPOT EACH CHUNK
-	// - NEED TO FIX COLOURS NOT SETTING CORRECTLY
-	public void GenerateDetails (System.Random prng)
+	// IMPLEMENT FLOWERS SPAWNING IN PATCHES
+	public void GenerateDetails (System.Random prng, Vector3Int chunkPos)
 	{
-		int size = chunkSize * chunkSize * 16; // 4x4 = 16
+		int sizeFactor = 4; // the cell size is 0.25x the normal cell size
+		int size = chunkSize * chunkSize * sizeFactor * sizeFactor;
 		deetPositions = new Vector3Int [size];
 		deetArray = new Tile [size];
 		int randNum;
 		MyChunkSystem.BiomeType biome;
-		Color32 tileColor = new Color32 (0, 0, 0, 255);
+		Color32 tileColor;
 		bool isNotNull;
 
 		// in loop, enter all positions and tiles in arrays
 		for (int i = 0; i < size; i++) {
-			biome = biomes [Mathf.FloorToInt(i % (chunkSize * 4))/4, Mathf.FloorToInt(i / (chunkSize * 4))/4];
+			int xIndex = Mathf.FloorToInt (i % (chunkSize * sizeFactor)) / sizeFactor;
+			int yIndex = Mathf.FloorToInt (i / (chunkSize * sizeFactor)) / sizeFactor;
+			biome = biomes [xIndex, yIndex];
 			isNotNull = true;
 
 			// temporary grass spawning system
@@ -230,7 +210,8 @@ public class MyChunkClass
 				&& biome != MyChunkSystem.BiomeType.DeepWater) {
 
 				randNum = prng.Next (0, 15);
-				deetPositions [i] = new Vector3Int (i % (chunkSize * 4), i / (chunkSize * 4), 199);
+				deetPositions [i] = new Vector3Int (i % (chunkSize * sizeFactor),
+					i / (chunkSize * sizeFactor), 199);
 
 				// generate grass details using random numbers
 				if (randNum == 1)
@@ -248,11 +229,22 @@ public class MyChunkClass
 				else
 					isNotNull = false;
 
-				// set colour according to biome
+				// set colour according to biome and some extra perlin noise for variation
 				if (isNotNull == true && deetArray [i] != detail3) {
-					//tileColor = MyChunkSystem.BiomeColours [biome];
-					tileColor = tileArray [Mathf.FloorToInt(i / 16f)].color;
-					tileColor.b -= 5; // adjust colour slightly for grass
+					float perlinNoise = Mathf.PerlinNoise ((chunkPos.x + xIndex +
+						sys.octaveOffsets[3].x / 3.5f) * 0.1f,(chunkPos.y + yIndex +
+						sys.octaveOffsets [3].y / 3.5f) * 0.1f);
+					tileColor = colors [xIndex, yIndex];
+
+					// store new values in ints
+					int b = tileColor.b - (byte)(25 * perlinNoise);
+					int r = tileColor.r + (byte)(25 * perlinNoise);
+					int g = tileColor.g + (byte)(25 * perlinNoise);
+
+					// check for overflow while casting to byte
+					tileColor.r = ReturnColourWithinBound (r, 160, 254);
+					tileColor.g = ReturnColourWithinBound (g, 160, 254);
+					tileColor.b = ReturnColourWithinBound (b, 160, 254);
 
 					deetArray [i].color = tileColor;
 					detailTilemap.SetTileFlags (deetPositions [i], TileFlags.None);
@@ -265,6 +257,16 @@ public class MyChunkClass
 	}
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+	
+	public byte ReturnColourWithinBound (int val, int min, int max)
+	{
+		// only works if you provide min and max within 0-255
+		if (val < min)
+			return (byte)min;
+		if (val > max)
+			return (byte)max;
+		return (byte)val;
+	}
 
 	public void SetVisible (bool visible)
 	{

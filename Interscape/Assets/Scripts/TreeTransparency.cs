@@ -25,7 +25,7 @@ public class TreeTransparency : MonoBehaviour
 		Ypos = player.transform.position.y;
 		Xposition = transform.position.x;
 		Yposition = transform.position.y;
-		Color newColour = new Color(1, 1, 1, 0.5f);
+		Color newColour = new Color(1, 1, 1, 0.3f);
 
 		if ((Ypos > Yposition - 2 & Ypos < Yposition + 7) &
 			(Xpos > Xposition - 7 & Xpos < Xposition + 7)) {

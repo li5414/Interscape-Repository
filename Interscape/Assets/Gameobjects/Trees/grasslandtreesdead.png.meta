@@ -1,7 +1,19 @@
 fileFormatVersion: 2
 guid: 28a4f15d0d435422a915964aa1e39450
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 7848578459366615430
+    second: grasslandtreesdead_0
+  - first:
+      213: 9014042850590860977
+    second: grasslandtreesdead_1
+  - first:
+      213: -6399552584096062946
+    second: grasslandtreesdead_2
+  - first:
+      213: 4647567351082250916
+    second: grasslandtreesdead_3
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -31,7 +43,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
+    filterMode: 1
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -40,7 +52,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -60,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 2
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -71,7 +83,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Standalone
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -82,7 +94,91 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: grasslandtreesdead_0
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 198
+        width: 57
+        height: 96
+      alignment: 9
+      pivot: {x: 0.43514827, y: 0.061035473}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cdf56510df2c486e8875bd52e493ec3
+      internalID: 7848578459366615430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grasslandtreesdead_1
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 189
+        width: 134
+        height: 126
+      alignment: 9
+      pivot: {x: 0.54413754, y: 0.065802924}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 350576d2bb2934afcaef3b0696eec6c4
+      internalID: 9014042850590860977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grasslandtreesdead_2
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 29
+        width: 124
+        height: 105
+      alignment: 9
+      pivot: {x: 0.48807555, y: 0.056415014}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 055ebffcd96c04c41af41cb02c7504f0
+      internalID: -6399552584096062946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grasslandtreesdead_3
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 19
+        width: 96
+        height: 90
+      alignment: 9
+      pivot: {x: 0.5385049, y: 0.0646296}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3a179d7762464683918c4decfcc13d5
+      internalID: 4647567351082250916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

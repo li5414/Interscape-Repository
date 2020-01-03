@@ -9,7 +9,6 @@ public class MyChunkSystem : MonoBehaviour
 		Desert,
 		Savanna,
 		Rainforest,
-		Swamp,
 		Grassland,
 		SeasonalForest,
 		Taiga,
@@ -19,45 +18,35 @@ public class MyChunkSystem : MonoBehaviour
 		DeepWater,
 		Beach
 	}
-	// MAKE ARRAY BIGGER AND MORE DETAILED FOR BETTER BIOME BLENDING
+
 	public static BiomeType [,] BiomeTable = {   
     //                 <--Colder                                                      // Hotter -->            
-    { BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland, BiomeType.Grassland,      BiomeType.Savanna,    BiomeType.Desert,     BiomeType.Desert},     // Dryest
+    { BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland, BiomeType.Grassland,      BiomeType.Savanna,    BiomeType.Desert,     BiomeType.Desert},   // Dryest
     { BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland, BiomeType.SeasonalForest, BiomeType.Savanna,    BiomeType.Desert,     BiomeType.Desert},     
     { BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland, BiomeType.SeasonalForest, BiomeType.Savanna,    BiomeType.Savanna,    BiomeType.Desert },    
     { BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,     BiomeType.SeasonalForest, BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Desert },   
     { BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,     BiomeType.SeasonalForest, BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Desert }, 
-    { BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,     BiomeType.Rainforest,     BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Desert },       // Wettest
+    { BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,     BiomeType.Rainforest,     BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Desert },  // Wettest
 	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,     BiomeType.Rainforest,     BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Desert },
-	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,     BiomeType.Rainforest,     BiomeType.Swamp,      BiomeType.Savanna,    BiomeType.Desert }
+	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,     BiomeType.Rainforest,     BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Desert }
 	};
 
-	public static int tableSize = 8;
-	public static Vector2Int [] specialCoords = new Vector2Int [tableSize * tableSize]; /*= {
-		new Vector2Int (0, 5), new Vector2Int (1, 0),
+	public static BiomeType [] BiomeTable2 =  
+    //                 <--Lower                                                      // Higher -->            
+    { BiomeType.DeepWater, BiomeType.DeepWater, BiomeType.Water, BiomeType.Water, BiomeType.Water, BiomeType.Beach}; // beach should become transparent? use seperate layer
 
-		new Vector2Int (1, 2), new Vector2Int (2, 1),
-		new Vector2Int (2, 5), new Vector2Int (3, 3),
-		new Vector2Int (4, 0), new Vector2Int (4, 2),
-		new Vector2Int (5, 4), new Vector2Int (5, 5)};
-		*/
-	//    0 1 2 3 4 5
-	// 0   | | | | |X
-	// 1  X| |X| | |
-	// 2   |X| | | |X
-	// 3   | | |X| |
-	// 4  X| |X| | |
-	// 5   | | | |X|X
+	public static int tableSize = 8;
+	public static Vector2Int [] specialCoords = new Vector2Int [tableSize * tableSize]; 
 
 	// important values
 	public static int seed = 29;
-	public int renderDist = 8;            // no. chunks
+	public int renderDist;                 // no. chunks
 	public static int mapDimension = 5000; // no. tiles
-	static int chunkSize = 16;            // no. tiles
+	static int chunkSize = 16;             // no. tiles
 
 	// references / objects
-	public Transform playerTrans;         // player reference
-	public Tilemap tilemapObj;            // used as empty tilemap to instantiate
+	public Transform playerTrans;          // player reference
+	public Tilemap tilemapObj;             // used as empty tilemap to instantiate
 
 	// coordinate variables
 	public static Vector2 viewerPosition;
@@ -68,7 +57,7 @@ public class MyChunkSystem : MonoBehaviour
 
 	// number generator and perlin noise stuff
 	public static System.Random prng = new System.Random (seed);
-	Vector2 [] octaveOffsets = new Vector2 [octaves]; // we want each octave to come from different 'location' in the perlin noise
+	public Vector2 [] octaveOffsets = new Vector2 [octaves]; // we want each octave to come from different 'location' in the perlin noise
 	static int octaves = 4;               // number of noise layers
 	public float scale = 361.4f;          // the higher the number, the more 'zoomed in'. Needs to be likely to result in non-integer
 	float persistance = 0.5f;             // the higher the octave, the less of an effect
@@ -161,10 +150,7 @@ public class MyChunkSystem : MonoBehaviour
 
 		// choose value based on latitude and height
 		temp = 60 - perlinValue - (lat / 20f);
-		if (heightVal >= 0)
-			temp -= 20 * (1 - heightVal);
-		else
-			temp -= 10 * (1 - Mathf.Abs (heightVal)) / 2;
+		temp -= 20 * (1 - heightVal);
 
 		return temp;
 	}
@@ -193,10 +179,7 @@ public class MyChunkSystem : MonoBehaviour
 
 				// choose value based on latitude and height
 				temp = 60 - perlinValue - (lat / 20f);
-				if (heights [x, y] >= 0)
-					temp -= 20 * (1 - heights [x, y]);
-				else
-					temp -= 10 * (1 - Mathf.Abs (heights [x, y])) / 2;
+				temp -= 20 * (1 - heights [x, y]);
 
 				temps [x, y] = temp;
 			}
@@ -205,8 +188,7 @@ public class MyChunkSystem : MonoBehaviour
 	}
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-	// IMPLEMENT NOISE LAYERS
-
+	// IMPLEMENT NOISE LAYERS??
 
 	public float GetHumidity (int x, int y, float heightVal)
 	{
@@ -230,7 +212,7 @@ public class MyChunkSystem : MonoBehaviour
 				perlinValue = Mathf.PerlinNoise ((chunkX + x) / (scale/2) + octaveOffsets [2].x, (chunkY + y) / (scale/2) + octaveOffsets [2].y);
 				moisture = perlinValue * tableSize; // in range for array lookup
 
-				float height = Mathf.InverseLerp (-1f, 1f, heights[x, y]);
+				float height = Mathf.InverseLerp (-1f, 1f, heights[x, y]); // get height in range 0-1
 				moisture *= (1-height);
 				moistures [x, y] = moisture;
 			}
@@ -244,7 +226,7 @@ public class MyChunkSystem : MonoBehaviour
 	public BiomeType [,] GetBiomes (float [,] heights, float [,] temperatures, float [,] humidities)
 	{
 		BiomeType [,] biomeTypes = new BiomeType [chunkSize, chunkSize];
-		int temp;
+		float temp;
 		int humidity;
 		float height;
 
@@ -253,29 +235,19 @@ public class MyChunkSystem : MonoBehaviour
 			for (int y = 0; y < chunkSize; y++) {
 				height = heights [x, y];
 
-				// get temperature as a value in the range 0-5 for easy lookup in array
-				if (temperatures [x, y] > 40)
-					temp = 5;
-				else if (temperatures [x, y] > 30)
-					temp = 4;
-				else if (temperatures [x, y] > 20)
-					temp = 3;
-				else if (temperatures [x, y] > 5)
-					temp = 2;
-				else if (temperatures [x, y] > -15)
-					temp = 1;
-				else {
-					temp = 0;
-				}
+				// get temperature as an integer for easy lookup in biome array
+				temp = Mathf.InverseLerp (-80f, 80f, temperatures[x, y]);
+				temp *= tableSize;
+				temp = Mathf.FloorToInt (temp);
 
 				// putting a cap on vales so as not to over-index array
 				humidity = Mathf.FloorToInt (humidities [x, y]);
 				if (humidity < 0)
 					humidity = 0;
-				if (humidity > 5)
-					humidity = 5;
+				if (humidity > tableSize - 1)
+					humidity = tableSize - 1;
 
-				biomeTypes [x, y] = BiomeTable [humidity, temp];
+				biomeTypes [x, y] = BiomeTable [humidity, (int)temp];
 
 				// water and beach biomes
 				if (height < -0.6 && biomeTypes [x, y] != MyChunkSystem.BiomeType.Ice)
@@ -293,33 +265,23 @@ public class MyChunkSystem : MonoBehaviour
 	public BiomeType GetBiome (float height, float temperature, float humidity)
 	{
 
-		int temp;
+		float temp;
 		int humid;
 		BiomeType biome;
 
-		// get temperature as a value in the range 0-5 for easy lookup in array
-		if (temperature > 40)
-			temp = 5;
-		else if (temperature > 30)
-			temp = 4;
-		else if (temperature > 20)
-			temp = 3;
-		else if (temperature > 5)
-			temp = 2;
-		else if (temperature > -15)
-			temp = 1;
-		else {
-			temp = 0;
-		}
+		// get temperature as an integer for easy lookup in biome array
+		temp = Mathf.InverseLerp (-80f, 80f, temperature);
+		temp *= tableSize;
+		temp = Mathf.FloorToInt (temp);
 
 		// putting a cap on vales so as not to over-index array
 		humid = Mathf.FloorToInt (humidity);
 		if (humid < 0)
 			humid = 0;
-		if (humid > 5)
-			humid = 5;
+		if (humid > tableSize - 1)
+			humid = tableSize - 1;
 
-		biome = BiomeTable [humid, temp];
+		biome = BiomeTable [humid, (int)temp];
 
 		// water and beach biomes
 		if (height < -0.6 && biome != MyChunkSystem.BiomeType.Ice)
@@ -341,11 +303,12 @@ public class MyChunkSystem : MonoBehaviour
 		BiomeColours.Add (BiomeType.DeepWater, new Color32 (88, 115, 159, 255));
 		BiomeColours.Add (BiomeType.Beach, new Color32 (231, 213, 173, 255));
 		//BiomeColours.Add (BiomeType.Desert, new Color32 (254, 234, 184, 255));
-		BiomeColours.Add (BiomeType.Desert, new Color32 (255, 169, 100, 255));
+		//BiomeColours.Add (BiomeType.Desert, new Color32 (255, 169, 100, 255));
+		BiomeColours.Add (BiomeType.Desert, new Color32 (255, 202, 136, 255));
 		//BiomeColours.Add (BiomeType.Savanna, new Color32 (206, 206, 158, 255));
 		BiomeColours.Add (BiomeType.Savanna, new Color32 (254, 234, 184, 255));
 		BiomeColours.Add (BiomeType.Rainforest, new Color32 (94, 185, 141, 255));
-		BiomeColours.Add (BiomeType.Swamp, new Color32 (124, 145, 116, 255));
+		//BiomeColours.Add (BiomeType.Swamp, new Color32 (124, 145, 116, 255));
 		BiomeColours.Add (BiomeType.Grassland, new Color32 (189, 210, 151, 255));
 		BiomeColours.Add (BiomeType.SeasonalForest, new Color32 (117, 173, 141, 255));
 		BiomeColours.Add (BiomeType.Taiga, new Color32 (112, 168, 155, 255));
@@ -393,7 +356,7 @@ public class MyChunkSystem : MonoBehaviour
 		float temp = GetTemperature ((int)pos.x, (int)pos.y, heightVal);
 		//Debug.Log ("Temp is " + temp);
 		float humidity = GetHumidity ((int)pos.x, (int)pos.y, heightVal);
-		Debug.Log ("Humidity is " + humidity);
+		//Debug.Log ("Humidity is " + humidity);
 		BiomeType biome = GetBiome (heightVal, temp, humidity);
 		Debug.Log ("You are in a " + biome);
 	}
