@@ -5,7 +5,8 @@ using UnityEngine;
 public class GreeneryGeneration : MonoBehaviour {
 
 	int chunkSize = 16;
-	MyChunkSystem sys;
+	BiomeCalculations bCalc;
+	ChunkManager cMan;
 	float offsetX;
 	float offsetY;
 
@@ -44,29 +45,21 @@ public class GreeneryGeneration : MonoBehaviour {
 	private void Start ()
 	{
 		// reference other script
-		sys = GameObject.Find ("System Placeholder").GetComponent<MyChunkSystem> ();
+		bCalc = GameObject.Find ("System Placeholder").GetComponent<BiomeCalculations> ();
+		cMan = GameObject.Find ("System Placeholder").GetComponent<ChunkManager> ();
 
-		System.Random prng = MyChunkSystem.prng;
+		System.Random prng = ChunkManager.prng;
 		offsetX = prng.Next (-10000, 10000);
 		offsetY = prng.Next (-10000, 10000);
 
-		// tree fabs
-		/*tree_birch = Resources.Load<GameObject> ("Assets/Resources/Sprites/Map/TreeFabs/tree_birch");
-		tree_blue = Resources.Load<GameObject> ("Assets/Resources/Sprites/Map/TreeFabs/tree_blue");
-		tree_joshua = Resources.Load<GameObject> ("Assets/Resources/Sprites/Map/TreeFabs/tree_joshua");
-		tree_oak = Resources.Load<GameObject> ("Assets/Resources/Sprites/Map/TreeFabs/tree_oak");
-		tree_pine = Resources.Load<GameObject> ("Assets/Resources/Sprites/Map/TreeFabs/tree_pine");
-		tree_red = Resources.Load<GameObject> ("Assets/Resources/Sprites/Map/TreeFabs/tree_red");
-		tree_white = Resources.Load<GameObject> ("Assets/Resources/Sprites/Map/TreeFabs/tree_white");
-		tree_yellow = Resources.Load<GameObject> ("Assets/Resources/Sprites/Map/TreeFabs/tree_yellow");
-		*/
 	}
 	
-	public GameObject [,] GeneratePlants (System.Random prng, Vector3Int chunkPos, MyChunkSystem.BiomeType [,] biomes, GameObject parent)
+	public GameObject [,] GeneratePlants (System.Random prng, Vector3Int chunkPos,
+		BiomeCalculations.BiomeType [,] biomes, GameObject parent)
 	{
 		GameObject [,] entities = new GameObject [chunkSize, chunkSize];
 		float perlinNoise;
-		MyChunkSystem.BiomeType biome;
+		BiomeCalculations.BiomeType biome;
 		GameObject tree1;
 		GameObject tree2;
 		GameObject tree3;
@@ -85,7 +78,7 @@ public class GreeneryGeneration : MonoBehaviour {
 				isTreeBiome = true;
 
 				biome = biomes [x, y];
-				if (biome == MyChunkSystem.BiomeType.Grassland) {
+				if (biome == BiomeCalculations.BiomeType.Grassland) {
 					treeChance = 0.005f;
 					tree1 = tree_red;
 					tree2 = tree_blue;
@@ -95,7 +88,7 @@ public class GreeneryGeneration : MonoBehaviour {
 					shrub2 = wheat;
 					shrub3 = dead_bush;
 					shrub4 = rock2;
-				} else if (biome == MyChunkSystem.BiomeType.Savanna) {
+				} else if (biome == BiomeCalculations.BiomeType.Savanna) {
 					treeChance = 0.02f;
 					tree1 = tree_red;
 					tree2 = tree_yellow;
@@ -105,7 +98,7 @@ public class GreeneryGeneration : MonoBehaviour {
 					shrub2 = rock2;
 					shrub3 = rock1;
 					shrub4 = wheat;
-				} else if (biome == MyChunkSystem.BiomeType.Taiga) {
+				} else if (biome == BiomeCalculations.BiomeType.Taiga) {
 					treeChance = 0.15f;
 					tree1 = tree_pine;
 					tree2 = tree_birch;
@@ -115,7 +108,7 @@ public class GreeneryGeneration : MonoBehaviour {
 					shrub2 = stick;
 					shrub3 = rock2;
 					shrub4 = null;
-				} else if (biome == MyChunkSystem.BiomeType.SeasonalForest) {
+				} else if (biome == BiomeCalculations.BiomeType.SeasonalForest) {
 					treeChance = 0.15f;
 					tree1 = tree_forest1;
 					tree2 = tree_forest2;
@@ -125,7 +118,7 @@ public class GreeneryGeneration : MonoBehaviour {
 					shrub2 = bush2;
 					shrub3 = rock2;
 					shrub4 = null;
-				} else if (biome == MyChunkSystem.BiomeType.Rainforest) {
+				} else if (biome == BiomeCalculations.BiomeType.Rainforest) {
 					treeChance = 0.25f;
 					tree1 = tree_rainforest1;
 					tree2 = tree_palm;
@@ -135,7 +128,7 @@ public class GreeneryGeneration : MonoBehaviour {
 					shrub2 = fern1;
 					shrub3 = null;
 					shrub4 = null;
-				} else if (biome == MyChunkSystem.BiomeType.Tundra) {
+				} else if (biome == BiomeCalculations.BiomeType.Tundra) {
 					isTreeBiome = false;
 					tree1 = null;
 					tree2 = null;
@@ -145,7 +138,7 @@ public class GreeneryGeneration : MonoBehaviour {
 					shrub2 = bush2;
 					shrub3 = rock2;
 					shrub4 = rock1;
-				} else if (biome == MyChunkSystem.BiomeType.Desert) {
+				} else if (biome == BiomeCalculations.BiomeType.Desert) {
 					isTreeBiome = false;
 					tree1 = null;
 					tree2 = null;
