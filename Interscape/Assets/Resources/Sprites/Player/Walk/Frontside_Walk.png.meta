@@ -1,0 +1,389 @@
+fileFormatVersion: 2
+guid: 6c2b6166244a04f9c878609e654fecc0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1358705404613989213
+    second: Frontside_Walk_0
+  - first:
+      213: 4448706187465443818
+    second: Frontside_Walk_1
+  - first:
+      213: 7119303888803477739
+    second: Frontside_Walk_2
+  - first:
+      213: 4698530446019414872
+    second: Frontside_Walk_3
+  - first:
+      213: 2387098360227598985
+    second: Frontside_Walk_4
+  - first:
+      213: 8753356089629207061
+    second: Frontside_Walk_5
+  - first:
+      213: 6457131790715157573
+    second: Frontside_Walk_6
+  - first:
+      213: 4534028432059263624
+    second: Frontside_Walk_7
+  - first:
+      213: 7300479898861909643
+    second: Frontside_Walk_8
+  - first:
+      213: 4392929757482323447
+    second: Frontside_Walk_9
+  - first:
+      213: -8195555830521340232
+    second: Frontside_Walk_10
+  - first:
+      213: 1624877381120427825
+    second: Frontside_Walk_11
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Frontside_Walk_0
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 13
+        width: 15
+        height: 46
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fecbba860fbf4aa2812dea9e15bf99a
+      internalID: 1358705404613989213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontside_Walk_1
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 13
+        width: 15
+        height: 46
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8765977e662d44179b4e7c50b7568c61
+      internalID: 4448706187465443818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontside_Walk_2
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 13
+        width: 15
+        height: 46
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b592e14604cb24a3285dd070d4d705a1
+      internalID: 7119303888803477739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontside_Walk_3
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 13
+        width: 15
+        height: 46
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 013a3a7e59f7749ae94b67b9c9f3a7cd
+      internalID: 4698530446019414872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontside_Walk_4
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 13
+        width: 15
+        height: 46
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f337e1620d6e144b5840dcb47414e260
+      internalID: 2387098360227598985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontside_Walk_5
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 13
+        width: 15
+        height: 46
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec12019678f0847fba943780d2a2cce1
+      internalID: 8753356089629207061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontside_Walk_6
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 13
+        width: 15
+        height: 46
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6b1a7baf19f949ef9bb75afb88a9891
+      internalID: 6457131790715157573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontside_Walk_7
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 13
+        width: 15
+        height: 46
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b171579fff7854950ae4f1cb4efe255f
+      internalID: 4534028432059263624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontside_Walk_8
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 13
+        width: 15
+        height: 46
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be9b6efa838f44a8ab8e99b8eb25bae0
+      internalID: 7300479898861909643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontside_Walk_9
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 13
+        width: 15
+        height: 46
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a08eb11d2529e4b19b54a0151bd57a14
+      internalID: 4392929757482323447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontside_Walk_10
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 13
+        width: 15
+        height: 46
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 578237afb28894b339fba08c91561604
+      internalID: -8195555830521340232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontside_Walk_11
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 13
+        width: 15
+        height: 46
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 780f08654f3cf4880843aa05079ee872
+      internalID: 1624877381120427825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 81ce0e7816be342daa045acab8bfb936
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
