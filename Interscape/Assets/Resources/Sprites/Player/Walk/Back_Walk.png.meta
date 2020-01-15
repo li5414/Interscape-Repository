@@ -1,46 +1,43 @@
 fileFormatVersion: 2
-guid: 0d3211c58fadd4d1a9b212d1687b2ca5
+guid: f20595737151a4fd0b95373eba9a4712
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9180855934106413262
-    second: Back_Walk_0
+      213: 6874167643699164903
+    second: player_back_walk_0
   - first:
-      213: -8454231032502849824
-    second: Back_Walk_1
+      213: 8175265797057947020
+    second: player_back_walk_1
   - first:
-      213: 6989603478650511444
-    second: Back_Walk_2
+      213: -2908876695523163811
+    second: player_back_walk_2
   - first:
-      213: -7331058350991008912
-    second: Back_Walk_3
+      213: -4548601799239096321
+    second: player_back_walk_3
   - first:
-      213: -243682043571244544
-    second: Back_Walk_4
+      213: 5873379766605881221
+    second: player_back_walk_4
   - first:
-      213: -7901260062512524023
-    second: Back_Walk_5
+      213: -4584532000072004101
+    second: player_back_walk_5
   - first:
-      213: 7652674706864194516
-    second: Back_Walk_6
+      213: 8533187441206706742
+    second: player_back_walk_6
   - first:
-      213: -8506170430312536217
-    second: Back_Walk_7
+      213: 2238279421697299041
+    second: player_back_walk_7
   - first:
-      213: -2989403862050625978
-    second: Back_Walk_8
+      213: 6191402505210486316
+    second: player_back_walk_8
   - first:
-      213: 3105477139429397837
-    second: Back_Walk_9
+      213: 2096869439798423745
+    second: player_back_walk_9
   - first:
-      213: 8431446183200089688
-    second: Back_Walk_10
+      213: -893008360717763797
+    second: player_back_walk_10
   - first:
-      213: 7099964577177569390
-    second: Back_Walk_11
-  - first:
-      213: 8010297877158627119
-    second: Back_Walk_12
+      213: 2802833869978788906
+    second: player_back_walk_11
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -99,7 +96,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 2
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 512
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -110,7 +107,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Standalone
-    maxTextureSize: 512
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -123,13 +120,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Back_Walk_0
+      name: player_back_walk_0
       rect:
         serializedVersion: 2
-        x: 13
-        y: 12
-        width: 12
-        height: 47
+        x: 14
+        y: 14
+        width: 10
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,20 +134,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3dfa7a69b33f94f61a6ed2b149db6bcb
-      internalID: -9180855934106413262
+      spriteID: c2332857461784392ad5be18fdd04e31
+      internalID: 6874167643699164903
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Back_Walk_1
+      name: player_back_walk_1
       rect:
         serializedVersion: 2
-        x: 29
-        y: 12
-        width: 12
-        height: 47
+        x: 28
+        y: 14
+        width: 10
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,20 +155,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f251fec5ef92649ccbf60cef0b402c10
-      internalID: -8454231032502849824
+      spriteID: 3ee8b966e0dd341f1b2509e972ecfc09
+      internalID: 8175265797057947020
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Back_Walk_2
+      name: player_back_walk_2
       rect:
         serializedVersion: 2
-        x: 46
-        y: 12
+        x: 41
+        y: 14
         width: 12
-        height: 47
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,20 +176,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 40d4ea5604da24fbab21e351374082e1
-      internalID: 6989603478650511444
+      spriteID: 1bcfb819064c74b92bae1ec608f8670b
+      internalID: -2908876695523163811
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Back_Walk_3
+      name: player_back_walk_3
       rect:
         serializedVersion: 2
-        x: 62
-        y: 12
+        x: 57
+        y: 14
         width: 12
-        height: 47
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,20 +197,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ff233174f5d7a49be8161aab74834321
-      internalID: -7331058350991008912
+      spriteID: 7a8a057ef32874014b03bcd795a57528
+      internalID: -4548601799239096321
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Back_Walk_4
+      name: player_back_walk_4
       rect:
         serializedVersion: 2
-        x: 79
-        y: 12
+        x: 73
+        y: 14
         width: 12
-        height: 47
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -221,20 +218,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: da8aefb371e5c4f78915c8a75714670b
-      internalID: -243682043571244544
+      spriteID: 2453d49da4fb146598695efb38f7b375
+      internalID: 5873379766605881221
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Back_Walk_5
+      name: player_back_walk_5
       rect:
         serializedVersion: 2
-        x: 95
-        y: 12
-        width: 12
-        height: 47
+        x: 90
+        y: 14
+        width: 10
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -242,20 +239,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 13a83015c1c9348ed8d662fa1e33a94b
-      internalID: -7901260062512524023
+      spriteID: 1b7281b90ca354ed5986e98aad6a53bb
+      internalID: -4584532000072004101
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Back_Walk_6
+      name: player_back_walk_6
       rect:
         serializedVersion: 2
-        x: 110
-        y: 12
-        width: 12
-        height: 47
+        x: 108
+        y: 14
+        width: 10
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -263,20 +260,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f52587e87e5e74826ac8346ca6302c7b
-      internalID: 7652674706864194516
+      spriteID: bc8a8e6ccb97748ed971e62a8710f884
+      internalID: 8533187441206706742
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Back_Walk_7
+      name: player_back_walk_7
       rect:
         serializedVersion: 2
-        x: 124
-        y: 12
-        width: 12
-        height: 47
+        x: 125
+        y: 14
+        width: 10
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -284,20 +281,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ae9b72863a9684e0e93e7a7b249dcf49
-      internalID: -8506170430312536217
+      spriteID: 87d4eacc7138847378105e387b97f86b
+      internalID: 2238279421697299041
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Back_Walk_8
+      name: player_back_walk_8
       rect:
         serializedVersion: 2
-        x: 139
-        y: 12
+        x: 140
+        y: 14
         width: 12
-        height: 47
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -305,20 +302,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1f4792cb0224f4d7cb6b9dd369015057
-      internalID: -2989403862050625978
+      spriteID: 44f1169c74e304fd1800d2c5bea660b2
+      internalID: 6191402505210486316
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Back_Walk_9
+      name: player_back_walk_9
       rect:
         serializedVersion: 2
-        x: 155
-        y: 12
-        width: 12
-        height: 47
+        x: 158
+        y: 14
+        width: 10
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -326,20 +323,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 397ce6b03cd5642d8a9555368b9b40f9
-      internalID: 3105477139429397837
+      spriteID: bf80adbc0dd43446f9c2f7f99778da47
+      internalID: 2096869439798423745
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Back_Walk_10
+      name: player_back_walk_10
       rect:
         serializedVersion: 2
-        x: 170
-        y: 12
-        width: 12
-        height: 47
+        x: 175
+        y: 14
+        width: 10
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -347,20 +344,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4848b3f0f9f9c4dd99bfe3d580188571
-      internalID: 8431446183200089688
+      spriteID: 8e25f811825864d6181e25a8c1adc236
+      internalID: -893008360717763797
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Back_Walk_11
+      name: player_back_walk_11
       rect:
         serializedVersion: 2
-        x: 186
-        y: 12
-        width: 12
-        height: 47
+        x: 193
+        y: 14
+        width: 10
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -368,29 +365,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 22766248671a84b578f94b3a46c3c663
-      internalID: 7099964577177569390
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Back_Walk_12
-      rect:
-        serializedVersion: 2
-        x: 201
-        y: 12
-        width: 12
-        height: 47
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9f43aabe6f76d469391e80e9b1364205
-      internalID: 8010297877158627119
+      spriteID: 24537dc78ba9b4d13b41dfa4e9df0962
+      internalID: 2802833869978788906
       vertices: []
       indices: 
       edges: []
@@ -398,7 +374,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 7a09375bcf04043e59a7b41922a5d57d
+    spriteID: 50d35c4738e7642e1bcf01e30a3dbf3d
     internalID: 0
     vertices: []
     indices: 

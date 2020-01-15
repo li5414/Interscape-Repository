@@ -1,46 +1,43 @@
 fileFormatVersion: 2
-guid: 091e8168910f843458eb3aba0d93e21f
+guid: eac2f7c10379743e795c123342bb8540
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2042450815542558031
-    second: Backside_Walk_0
+      213: -8660120975040545193
+    second: backside_walk_0
   - first:
-      213: -4142768523894487470
-    second: Backside_Walk_1
+      213: -3760682867275843823
+    second: backside_walk_1
   - first:
-      213: 2506814763814851334
-    second: Backside_Walk_2
+      213: 7236173204087573793
+    second: backside_walk_2
   - first:
-      213: 3875020691918072286
-    second: Backside_Walk_3
+      213: 7287458977011676952
+    second: backside_walk_3
   - first:
-      213: -2442824207118559757
-    second: Backside_Walk_4
+      213: -2404484931070844101
+    second: backside_walk_4
   - first:
-      213: -3523364830413587693
-    second: Backside_Walk_5
+      213: 8861269870657516244
+    second: backside_walk_5
   - first:
-      213: 8537707368394839712
-    second: Backside_Walk_6
+      213: -5628063375544328910
+    second: backside_walk_6
   - first:
-      213: 6498283780350300791
-    second: Backside_Walk_7
+      213: -7510067321888878392
+    second: backside_walk_7
   - first:
-      213: 3240990862862959399
-    second: Backside_Walk_8
+      213: -2345949516593365496
+    second: backside_walk_8
   - first:
-      213: 4656182890176552179
-    second: Backside_Walk_9
+      213: -7185800361108992544
+    second: backside_walk_9
   - first:
-      213: -7237359470142540589
-    second: Backside_Walk_10
+      213: -4136213576934726990
+    second: backside_walk_10
   - first:
-      213: -1147318401432157868
-    second: Backside_Walk_11
-  - first:
-      213: -7654082354071573104
-    second: Backside_Walk_12
+      213: -9082352218778155857
+    second: backside_walk_11
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -99,7 +96,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 2
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 512
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -110,7 +107,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Standalone
-    maxTextureSize: 512
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -123,13 +120,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Backside_Walk_0
+      name: backside_walk_0
       rect:
         serializedVersion: 2
-        x: 15
+        x: 17
         y: 13
-        width: 13
-        height: 46
+        width: 10
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,20 +134,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 23f0545b8c61749f19282e89390a7931
-      internalID: 2042450815542558031
+      spriteID: ebf4be7eaacc749daabb72291e87714f
+      internalID: -8660120975040545193
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Backside_Walk_1
+      name: backside_walk_1
       rect:
         serializedVersion: 2
-        x: 30
+        x: 31
         y: 13
-        width: 13
-        height: 46
+        width: 12
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,20 +155,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3ecde7ab66f5d4a948859497b537125f
-      internalID: -4142768523894487470
+      spriteID: f44171b8e06ef46cba044538bdb9437f
+      internalID: -3760682867275843823
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Backside_Walk_2
+      name: backside_walk_2
       rect:
         serializedVersion: 2
-        x: 47
+        x: 48
         y: 13
-        width: 13
-        height: 46
+        width: 12
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,20 +176,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ed4d28f784b8146a0b0d7b5cd8a4c311
-      internalID: 2506814763814851334
+      spriteID: 857ca7b8a44824ed895b5d9c5f6a8d2a
+      internalID: 7236173204087573793
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Backside_Walk_3
+      name: backside_walk_3
       rect:
         serializedVersion: 2
         x: 66
         y: 13
-        width: 13
-        height: 46
+        width: 14
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,20 +197,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 771d765524cab453d98336d8a2d45ccd
-      internalID: 3875020691918072286
+      spriteID: d1245ba9a011741d39e02189b83c223c
+      internalID: 7287458977011676952
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Backside_Walk_4
+      name: backside_walk_4
       rect:
         serializedVersion: 2
         x: 85
         y: 13
-        width: 13
-        height: 46
+        width: 14
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -221,20 +218,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3f676527ea7934806a9ec99c8ada7906
-      internalID: -2442824207118559757
+      spriteID: 78b5f34452dfb4a5d8b72e2d7194beec
+      internalID: -2404484931070844101
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Backside_Walk_5
+      name: backside_walk_5
       rect:
         serializedVersion: 2
-        x: 104
+        x: 105
         y: 13
-        width: 13
-        height: 46
+        width: 12
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -242,20 +239,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b98f27b38a70245d48419647e766f1e1
-      internalID: -3523364830413587693
+      spriteID: ed499ca93c196427c8a618d73cd36152
+      internalID: 8861269870657516244
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Backside_Walk_6
+      name: backside_walk_6
       rect:
         serializedVersion: 2
-        x: 122
+        x: 124
         y: 13
-        width: 13
-        height: 46
+        width: 10
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -263,20 +260,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9b765d7bb423d4289b972ce385a1a6e2
-      internalID: 8537707368394839712
+      spriteID: 3dd54e35d3b7e4fb5a10c20d04f3dcfe
+      internalID: -5628063375544328910
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Backside_Walk_7
+      name: backside_walk_7
       rect:
         serializedVersion: 2
-        x: 139
+        x: 142
         y: 13
-        width: 13
-        height: 46
+        width: 8
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -284,20 +281,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ba3e17d992884b7fab63397799ca23a
-      internalID: 6498283780350300791
+      spriteID: 9012192b2c3a94276af48555e37d009e
+      internalID: -7510067321888878392
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Backside_Walk_8
+      name: backside_walk_8
       rect:
         serializedVersion: 2
-        x: 156
+        x: 158
         y: 13
-        width: 13
-        height: 46
+        width: 10
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -305,20 +302,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8fe6056525f7b468e9c27d32d9d20796
-      internalID: 3240990862862959399
+      spriteID: 43e00b4f6d1d14d38819569c55538efb
+      internalID: -2345949516593365496
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Backside_Walk_9
+      name: backside_walk_9
       rect:
         serializedVersion: 2
-        x: 171
+        x: 172
         y: 13
-        width: 13
-        height: 46
+        width: 12
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -326,20 +323,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 54b4f4d554a2d43d0a9bfb7fe63cdde2
-      internalID: 4656182890176552179
+      spriteID: 6b666ff08f3844cdc9f760f051be00cd
+      internalID: -7185800361108992544
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Backside_Walk_10
+      name: backside_walk_10
       rect:
         serializedVersion: 2
-        x: 190
+        x: 191
         y: 13
-        width: 13
-        height: 46
+        width: 12
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -347,20 +344,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d0a888722d91d474f9c3d0161b6b1437
-      internalID: -7237359470142540589
+      spriteID: 31aed9a4491bf4632bc19c37e7861513
+      internalID: -4136213576934726990
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Backside_Walk_11
+      name: backside_walk_11
       rect:
         serializedVersion: 2
-        x: 206
+        x: 207
         y: 13
-        width: 13
-        height: 46
+        width: 12
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -368,29 +365,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1a50d447b6b4c4014bc13dee2d25262a
-      internalID: -1147318401432157868
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Backside_Walk_12
-      rect:
-        serializedVersion: 2
-        x: 222
-        y: 13
-        width: 13
-        height: 46
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2b720b0b3579b45c684588e33c0f09a9
-      internalID: -7654082354071573104
+      spriteID: 7925bd958014c4a16b35ebc6fa1bff39
+      internalID: -9082352218778155857
       vertices: []
       indices: 
       edges: []
@@ -398,7 +374,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 7b263545c925748699d21f999af4dcba
+    spriteID: 96adadc8ad6754a668cd9745408b40d9
     internalID: 0
     vertices: []
     indices: 

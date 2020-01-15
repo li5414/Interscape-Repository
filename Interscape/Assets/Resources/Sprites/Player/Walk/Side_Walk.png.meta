@@ -1,43 +1,43 @@
 fileFormatVersion: 2
-guid: 61dff8d6cba70421d89e318382f763cd
+guid: 48a834867588d42dab20f4c341c8d305
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -117359101271690606
-    second: Side_Walk_0
+      213: -8072707352930148859
+    second: side_walk_0
   - first:
-      213: 404906943393158767
-    second: Side_Walk_1
+      213: -1488339128060760114
+    second: side_walk_1
   - first:
-      213: 9110855656009202502
-    second: Side_Walk_2
+      213: 6833351218820420055
+    second: side_walk_2
   - first:
-      213: 1161759599447222107
-    second: Side_Walk_3
+      213: -8980854037219245679
+    second: side_walk_3
   - first:
-      213: -7074941494848683158
-    second: Side_Walk_4
+      213: -5681706179473588618
+    second: side_walk_4
   - first:
-      213: 8769930389211801709
-    second: Side_Walk_5
+      213: -3229213664347928596
+    second: side_walk_5
   - first:
-      213: 7816172017789232635
-    second: Side_Walk_6
+      213: -4770602972497182875
+    second: side_walk_6
   - first:
-      213: -6224853419475803130
-    second: Side_Walk_7
+      213: -5784413096683764071
+    second: side_walk_7
   - first:
-      213: -2756931347883382200
-    second: Side_Walk_8
+      213: -8305720008263303639
+    second: side_walk_8
   - first:
-      213: -2225079624231462615
-    second: Side_Walk_9
+      213: -6941400813351737782
+    second: side_walk_9
   - first:
-      213: 4389314657724606449
-    second: Side_Walk_10
+      213: -2060504930464440222
+    second: side_walk_10
   - first:
-      213: -3257063416208955462
-    second: Side_Walk_11
+      213: -169637194058499788
+    second: side_walk_11
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -120,13 +120,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Side_Walk_0
+      name: side_walk_0
       rect:
         serializedVersion: 2
-        x: 3
+        x: 8
         y: 13
-        width: 18
-        height: 46
+        width: 10
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,20 +134,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 31b58860718ca44879510bbc367dc4de
-      internalID: -117359101271690606
+      spriteID: 499f28605afc14f1386f0e9b5e8e87ce
+      internalID: -8072707352930148859
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Side_Walk_1
+      name: side_walk_1
       rect:
         serializedVersion: 2
-        x: 23
+        x: 27
         y: 13
-        width: 18
-        height: 46
+        width: 12
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,20 +155,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dcc599dea9a39482292eae8fcaaf8c3e
-      internalID: 404906943393158767
+      spriteID: a1b37ee5fdb174fe3b5a96f194d69223
+      internalID: -1488339128060760114
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Side_Walk_2
+      name: side_walk_2
       rect:
         serializedVersion: 2
-        x: 46
+        x: 48
         y: 13
-        width: 18
-        height: 46
+        width: 16
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,20 +176,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ccff832dc6aeb426f94860da89e35bd5
-      internalID: 9110855656009202502
+      spriteID: 0f235d511e5744e91a916128d7a17987
+      internalID: 6833351218820420055
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Side_Walk_3
+      name: side_walk_3
       rect:
         serializedVersion: 2
         x: 71
         y: 13
-        width: 18
-        height: 46
+        width: 20
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,20 +197,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 89a7e354fc0db4451b7f6d5de33103e5
-      internalID: 1161759599447222107
+      spriteID: 7efad356d757447f3befb68925dc58c2
+      internalID: -8980854037219245679
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Side_Walk_4
+      name: side_walk_4
       rect:
         serializedVersion: 2
-        x: 93
+        x: 97
         y: 13
-        width: 18
-        height: 46
+        width: 12
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -218,20 +218,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c613b556553c84763aac85b49d860373
-      internalID: -7074941494848683158
+      spriteID: f4cdf87cb7422403187ed840d660b88a
+      internalID: -5681706179473588618
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Side_Walk_5
+      name: side_walk_5
       rect:
         serializedVersion: 2
-        x: 112
+        x: 117
         y: 13
-        width: 18
-        height: 46
+        width: 10
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -239,20 +239,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9c0887df4dc7c4cbd9bda8508ccb2196
-      internalID: 8769930389211801709
+      spriteID: 1ce244ae61fc24af6acb451c55e3a22e
+      internalID: -3229213664347928596
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Side_Walk_6
+      name: side_walk_6
       rect:
         serializedVersion: 2
-        x: 130
+        x: 133
         y: 13
-        width: 18
-        height: 46
+        width: 14
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -260,20 +260,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aacec4c53efc84252af42b3369d94ab1
-      internalID: 7816172017789232635
+      spriteID: 80e3e1197fdbc4974a982be61df719a3
+      internalID: -4770602972497182875
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Side_Walk_7
+      name: side_walk_7
       rect:
         serializedVersion: 2
-        x: 150
+        x: 152
         y: 13
-        width: 18
-        height: 46
+        width: 16
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -281,20 +281,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eaf6b01784931445b94196078cf8ff9a
-      internalID: -6224853419475803130
+      spriteID: 2430678a934f64a9eb363d79d9d947eb
+      internalID: -5784413096683764071
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Side_Walk_8
+      name: side_walk_8
       rect:
         serializedVersion: 2
-        x: 175
+        x: 177
         y: 13
-        width: 18
-        height: 46
+        width: 16
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -302,20 +302,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d313edbd2f3614b1891d88e0184d6881
-      internalID: -2756931347883382200
+      spriteID: 5eca6fc531b4046cf84805d137fff237
+      internalID: -8305720008263303639
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Side_Walk_9
+      name: side_walk_9
       rect:
         serializedVersion: 2
-        x: 198
+        x: 199
         y: 13
         width: 18
-        height: 46
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -323,20 +323,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 42102f83d7cc145b09341fb04f55c243
-      internalID: -2225079624231462615
+      spriteID: 2199b895dadaf46a99221fc6e4fd5d2e
+      internalID: -6941400813351737782
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Side_Walk_10
+      name: side_walk_10
       rect:
         serializedVersion: 2
-        x: 218
+        x: 221
         y: 13
-        width: 18
-        height: 46
+        width: 14
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -344,20 +344,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0263fa1e110224c6eb951f84a385a0ee
-      internalID: 4389314657724606449
+      spriteID: 523517142bdcf40e88938b6dc99f7a2b
+      internalID: -2060504930464440222
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Side_Walk_11
+      name: side_walk_11
       rect:
         serializedVersion: 2
-        x: 237
+        x: 242
         y: 13
-        width: 18
-        height: 46
+        width: 10
+        height: 44
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -365,8 +365,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bdf1a8c4acf0042378444a293c96eba1
-      internalID: -3257063416208955462
+      spriteID: 16c95e6ef2d2b493aa7dd298a0d2bef6
+      internalID: -169637194058499788
       vertices: []
       indices: 
       edges: []
@@ -374,7 +374,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 052b5432452004edcaaa8e9e93cda394
+    spriteID: 9c6df8ced5e614df7b048d6eef4e4a22
     internalID: 0
     vertices: []
     indices: 

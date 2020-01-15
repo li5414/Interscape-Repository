@@ -63,6 +63,8 @@ public class MyChunkClass
 		biomes = bCalc.GetBiomes (heights, temps, humidities);
 
 		// set up tilemap components
+		if (GameObject.FindGameObjectsWithTag ("Grid").Length != 2)
+			Debug.Log ("Dunno where tile grid is");
 		var grid = GameObject.FindGameObjectsWithTag ("Grid")[0];
 		tilemap = Object.Instantiate (tilemapObj, pos, Quaternion.identity);
 		trender = tilemap.GetComponent<TilemapRenderer> ();

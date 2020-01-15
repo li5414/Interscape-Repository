@@ -1,0 +1,341 @@
+fileFormatVersion: 2
+guid: 3bec2759b3de3420182f304b60bb6d08
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6993759718777649855
+    second: Angles_0
+  - first:
+      213: 8722381681992884298
+    second: Angles_1
+  - first:
+      213: 6715103034652938110
+    second: Angles_2
+  - first:
+      213: 5056622001901584666
+    second: Angles_3
+  - first:
+      213: 2637402303274903114
+    second: Angles_4
+  - first:
+      213: -1339620167722757197
+    second: Angles_5
+  - first:
+      213: 7142231652431079101
+    second: Angles_6
+  - first:
+      213: -6634688184795986241
+    second: Angles_7
+  - first:
+      213: -8428184944431272668
+    second: Angles_8
+  - first:
+      213: 610806770398556361
+    second: Angles_9
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 128
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 128
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Angles_0
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 45
+        width: 6
+        height: 5
+      alignment: 9
+      pivot: {x: 0.5, y: -2.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: faf2607067b71450fb165a359effa78b
+      internalID: 6993759718777649855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Angles_1
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 43
+        width: 7
+        height: 7
+      alignment: 9
+      pivot: {x: 0.5, y: -2.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51dd1a185c95444f19de9f6458d1b5ae
+      internalID: 8722381681992884298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Angles_2
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 43
+        width: 7
+        height: 7
+      alignment: 9
+      pivot: {x: 0.5, y: -2.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fdad90efafbb484b97d0fb9f1941845
+      internalID: 6715103034652938110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Angles_3
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 43
+        width: 7
+        height: 7
+      alignment: 9
+      pivot: {x: 0.5, y: -2.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45770339ae9364af6a59b7940a33077f
+      internalID: 5056622001901584666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Angles_4
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 43
+        width: 6
+        height: 7
+      alignment: 9
+      pivot: {x: 0.5, y: -2.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44e79b520040a42edaca8803c6c32607
+      internalID: 2637402303274903114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Angles_5
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 25
+        width: 8
+        height: 10
+      alignment: 9
+      pivot: {x: 0.5, y: -2.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9d61d591475348e1ad8dd3282fab40b
+      internalID: -1339620167722757197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Angles_6
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 25
+        width: 8
+        height: 10
+      alignment: 9
+      pivot: {x: 0.5, y: -2.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6b77f578e418482aa7735a78e38792b
+      internalID: 7142231652431079101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Angles_7
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 25
+        width: 8
+        height: 10
+      alignment: 9
+      pivot: {x: 0.5, y: -2.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67ce2ff68a3604cad8156d5030457184
+      internalID: -6634688184795986241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Angles_8
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 25
+        width: 8
+        height: 10
+      alignment: 9
+      pivot: {x: 0.5, y: -2.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f955af70c5d884da398cead8d265fd52
+      internalID: -8428184944431272668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Angles_9
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 25
+        width: 6
+        height: 10
+      alignment: 9
+      pivot: {x: 0.5, y: -2.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6339e0f8d19d8467cbad8e9285cdf83c
+      internalID: 610806770398556361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5bdc065fb48bd478781e7a456f2d0d39
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -24,7 +24,7 @@ public class PlayerController1 : MonoBehaviour {
 	/* assign player position and animator */
 	void Start() {
         a = GetComponent<Animator>();
-        player = GameObject.Find("PLAYER").GetComponent<Transform>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
 
     void Update() {
