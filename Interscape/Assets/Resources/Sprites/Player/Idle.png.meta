@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: df74066ae230d406bac928ac39c8eda3
+guid: 4be3b3a5cf2554b9ea9e1baec91def12
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -66,7 +66,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 2
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 128
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -77,7 +77,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Standalone
-    maxTextureSize: 128
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -93,8 +93,8 @@ TextureImporter:
       name: Idle_0
       rect:
         serializedVersion: 2
-        x: 18
-        y: 4
+        x: 5
+        y: 2
         width: 10
         height: 44
       alignment: 7
@@ -104,7 +104,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2318055382b104fd7bada11de1f7f2de
+      spriteID: a1f9dd7143eea4f40b3141773ce13d78
       internalID: 4723107735738678597
       vertices: []
       indices: 
@@ -114,8 +114,8 @@ TextureImporter:
       name: Idle_1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 4
+        x: 19
+        y: 2
         width: 10
         height: 44
       alignment: 7
@@ -125,7 +125,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a1383d60a25ca413992ed8cc7b4d8a67
+      spriteID: 3065cb42e1f1d4497a65c3ca3b088155
       internalID: -7385789195546760866
       vertices: []
       indices: 
@@ -134,7 +134,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 2182c53be5135462bb9dc871aff1ff3d
+    spriteID: 29d278a0907d94b1fae693d8c1dcbd20
     internalID: 0
     vertices: []
     indices: 

@@ -1,37 +1,7 @@
 fileFormatVersion: 2
-guid: 3bec2759b3de3420182f304b60bb6d08
+guid: 92fa3c73015d04865945a127b8911ed8
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 6993759718777649855
-    second: Angles_0
-  - first:
-      213: 8722381681992884298
-    second: Angles_1
-  - first:
-      213: 6715103034652938110
-    second: Angles_2
-  - first:
-      213: 5056622001901584666
-    second: Angles_3
-  - first:
-      213: 2637402303274903114
-    second: Angles_4
-  - first:
-      213: -1339620167722757197
-    second: Angles_5
-  - first:
-      213: 7142231652431079101
-    second: Angles_6
-  - first:
-      213: -6634688184795986241
-    second: Angles_7
-  - first:
-      213: -8428184944431272668
-    second: Angles_8
-  - first:
-      213: 610806770398556361
-    second: Angles_9
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -90,7 +60,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 2
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 128
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -101,7 +71,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Standalone
-    maxTextureSize: 128
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -114,211 +84,253 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Angles_0
+      name: Sweater_WalkBack_0
       rect:
         serializedVersion: 2
-        x: 20
-        y: 45
-        width: 6
-        height: 5
-      alignment: 9
-      pivot: {x: 0.5, y: -2.5}
+        x: 5
+        y: 19
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: faf2607067b71450fb165a359effa78b
-      internalID: 6993759718777649855
+      spriteID: 61256d471d59e4b1eb4fbf2293507382
+      internalID: 2301195050189936384
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Angles_1
+      name: Sweater_WalkBack_1
       rect:
         serializedVersion: 2
         x: 33
-        y: 43
-        width: 7
-        height: 7
-      alignment: 9
-      pivot: {x: 0.5, y: -2.5}
+        y: 19
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 51dd1a185c95444f19de9f6458d1b5ae
-      internalID: 8722381681992884298
+      spriteID: 5a226f487d7d3482e888fb10d4da568e
+      internalID: 1847354189786903199
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Angles_2
-      rect:
-        serializedVersion: 2
-        x: 46
-        y: 43
-        width: 7
-        height: 7
-      alignment: 9
-      pivot: {x: 0.5, y: -2.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4fdad90efafbb484b97d0fb9f1941845
-      internalID: 6715103034652938110
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Angles_3
+      name: Sweater_WalkBack_2
       rect:
         serializedVersion: 2
         x: 61
-        y: 43
-        width: 7
-        height: 7
-      alignment: 9
-      pivot: {x: 0.5, y: -2.5}
+        y: 19
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 45770339ae9364af6a59b7940a33077f
-      internalID: 5056622001901584666
+      spriteID: 5b77f8bf393e1466cb2a777225bd8895
+      internalID: 4681666510992559898
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Angles_4
+      name: Sweater_WalkBack_3
       rect:
         serializedVersion: 2
-        x: 75
-        y: 43
-        width: 6
-        height: 7
-      alignment: 9
-      pivot: {x: 0.5, y: -2.5}
+        x: 89
+        y: 19
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 44e79b520040a42edaca8803c6c32607
-      internalID: 2637402303274903114
+      spriteID: 6b6232dce2ad4461daaaa73a044e5d1d
+      internalID: 9096455681013871006
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Angles_5
+      name: Sweater_WalkBack_4
       rect:
         serializedVersion: 2
-        x: 18
-        y: 25
-        width: 8
-        height: 10
-      alignment: 9
-      pivot: {x: 0.5, y: -2.5}
+        x: 117
+        y: 19
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a9d61d591475348e1ad8dd3282fab40b
-      internalID: -1339620167722757197
+      spriteID: 721bdebbfafae4ac58cdced7f2ae45c0
+      internalID: 7563282930344175184
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Angles_6
+      name: Sweater_WalkBack_5
       rect:
         serializedVersion: 2
-        x: 32
-        y: 25
-        width: 8
-        height: 10
-      alignment: 9
-      pivot: {x: 0.5, y: -2.5}
+        x: 145
+        y: 19
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e6b77f578e418482aa7735a78e38792b
-      internalID: 7142231652431079101
+      spriteID: 63293e095a4044fdd94f24c282d9de67
+      internalID: 2121692955762991865
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Angles_7
+      name: Sweater_WalkBack_6
       rect:
         serializedVersion: 2
-        x: 45
-        y: 25
-        width: 8
-        height: 10
-      alignment: 9
-      pivot: {x: 0.5, y: -2.5}
+        x: 173
+        y: 19
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 67ce2ff68a3604cad8156d5030457184
-      internalID: -6634688184795986241
+      spriteID: 49b417a575eb64081b847c82d8c42d47
+      internalID: -5041617178297162883
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Angles_8
+      name: Sweater_WalkBack_7
       rect:
         serializedVersion: 2
-        x: 60
-        y: 25
-        width: 8
-        height: 10
-      alignment: 9
-      pivot: {x: 0.5, y: -2.5}
+        x: 201
+        y: 19
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f955af70c5d884da398cead8d265fd52
-      internalID: -8428184944431272668
+      spriteID: 0d015f953cad34fb080593f33fb4ce4c
+      internalID: 7396331639110436037
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Angles_9
+      name: Sweater_WalkBack_8
       rect:
         serializedVersion: 2
-        x: 75
-        y: 25
-        width: 6
-        height: 10
-      alignment: 9
-      pivot: {x: 0.5, y: -2.5}
+        x: 229
+        y: 19
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6339e0f8d19d8467cbad8e9285cdf83c
-      internalID: 610806770398556361
+      spriteID: 3ada2fad7e6eb41688655046eb16ae2f
+      internalID: -8102320749487702362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweater_WalkBack_9
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 19
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca13ec451540f464cb7f5b90ac59ae31
+      internalID: 2738973499654274040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweater_WalkBack_10
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 19
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2bf4367b24a64564be3fd1d2523d0bd
+      internalID: -4960902340287383297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sweater_WalkBack_11
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 19
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e50f924b1f984d21aa8c010823df660
+      internalID: -815583762097855670
       vertices: []
       indices: 
       edges: []
@@ -326,7 +338,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5bdc065fb48bd478781e7a456f2d0d39
+    spriteID: b0299ef39532a4327b8abb7556ed686b
     internalID: 0
     vertices: []
     indices: 
