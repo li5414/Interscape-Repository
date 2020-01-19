@@ -93,18 +93,18 @@ TextureImporter:
       name: Sweater_Idle_0
       rect:
         serializedVersion: 2
-        x: 17
-        y: 23
-        width: 11
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 6
+        y: 0
+        width: 14
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c4b0f21488cab464d92270e5ca1531cb
+      spriteID: fff32c81d9f554454a5761d361a165a7
       internalID: -6232121235824009222
       vertices: []
       indices: 
@@ -114,18 +114,18 @@ TextureImporter:
       name: Sweater_Idle_1
       rect:
         serializedVersion: 2
-        x: 31
-        y: 23
-        width: 11
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 20
+        y: 0
+        width: 14
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 197e18e4f23fc47eeaa80f0627679334
+      spriteID: f78d1748a609743899fabf044f40097d
       internalID: 5054819036350033350
       vertices: []
       indices: 
@@ -134,7 +134,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: faacc91eccf4448c1a9ca2dfcfc1be78
+    spriteID: 2f97e8f12cd844aacb6812a8cfe44c52
     internalID: 0
     vertices: []
     indices: 

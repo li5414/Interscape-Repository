@@ -3,41 +3,41 @@ guid: f20595737151a4fd0b95373eba9a4712
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6874167643699164903
-    second: player_back_walk_0
+      213: 8902085308911056958
+    second: WalkBack_0
   - first:
-      213: 8175265797057947020
-    second: player_back_walk_1
+      213: -2037991182235541006
+    second: WalkBack_1
   - first:
-      213: -2908876695523163811
-    second: player_back_walk_2
+      213: -5717688701713937607
+    second: WalkBack_2
   - first:
-      213: -4548601799239096321
-    second: player_back_walk_3
+      213: 8149656895999264185
+    second: WalkBack_3
   - first:
-      213: 5873379766605881221
-    second: player_back_walk_4
+      213: -1079926672931870984
+    second: WalkBack_4
   - first:
-      213: -4584532000072004101
-    second: player_back_walk_5
+      213: 3477396209057934131
+    second: WalkBack_5
   - first:
-      213: 8533187441206706742
-    second: player_back_walk_6
+      213: -8467925914938719458
+    second: WalkBack_6
   - first:
-      213: 2238279421697299041
-    second: player_back_walk_7
+      213: 2253765444804793852
+    second: WalkBack_7
   - first:
-      213: 6191402505210486316
-    second: player_back_walk_8
+      213: -5618938018417103340
+    second: WalkBack_8
   - first:
-      213: 2096869439798423745
-    second: player_back_walk_9
+      213: 4675185681545177256
+    second: WalkBack_9
   - first:
-      213: -893008360717763797
-    second: player_back_walk_10
+      213: -2601601443875522698
+    second: WalkBack_10
   - first:
-      213: 2802833869978788906
-    second: player_back_walk_11
+      213: 7175090174004684155
+    second: WalkBack_11
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -120,253 +120,253 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: player_back_walk_0
+      name: WalkBack_0
       rect:
         serializedVersion: 2
-        x: 14
-        y: 14
-        width: 10
-        height: 44
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 0
+        y: 50
+        width: 26
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c2332857461784392ad5be18fdd04e31
-      internalID: 6874167643699164903
+      spriteID: 6f9c5f0efd977495586063fb6fa35f0f
+      internalID: 8902085308911056958
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_back_walk_1
+      name: WalkBack_1
       rect:
         serializedVersion: 2
-        x: 28
-        y: 14
-        width: 10
-        height: 44
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 26
+        y: 50
+        width: 26
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3ee8b966e0dd341f1b2509e972ecfc09
-      internalID: 8175265797057947020
+      spriteID: c65497f6b390d4f9c93d8e0074a6368d
+      internalID: -2037991182235541006
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_back_walk_2
+      name: WalkBack_2
       rect:
         serializedVersion: 2
-        x: 41
-        y: 14
-        width: 12
-        height: 44
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 52
+        y: 50
+        width: 26
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1bcfb819064c74b92bae1ec608f8670b
-      internalID: -2908876695523163811
+      spriteID: 8b4fb0004844f415b9c1fbf38a55221d
+      internalID: -5717688701713937607
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_back_walk_3
+      name: WalkBack_3
       rect:
         serializedVersion: 2
-        x: 57
-        y: 14
-        width: 12
-        height: 44
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 78
+        y: 50
+        width: 26
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7a8a057ef32874014b03bcd795a57528
-      internalID: -4548601799239096321
+      spriteID: de6da7f66f4554d9eb2009d9841ad8f9
+      internalID: 8149656895999264185
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_back_walk_4
+      name: WalkBack_4
       rect:
         serializedVersion: 2
-        x: 73
-        y: 14
-        width: 12
-        height: 44
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 104
+        y: 50
+        width: 26
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2453d49da4fb146598695efb38f7b375
-      internalID: 5873379766605881221
+      spriteID: 53234529f39f34341ae2241d72fd4de5
+      internalID: -1079926672931870984
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_back_walk_5
+      name: WalkBack_5
       rect:
         serializedVersion: 2
-        x: 90
-        y: 14
-        width: 10
-        height: 44
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 130
+        y: 50
+        width: 26
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1b7281b90ca354ed5986e98aad6a53bb
-      internalID: -4584532000072004101
+      spriteID: 68276af4494664bb7a1a8dcc8eeb60ab
+      internalID: 3477396209057934131
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_back_walk_6
+      name: WalkBack_6
       rect:
         serializedVersion: 2
-        x: 108
-        y: 14
-        width: 10
-        height: 44
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 0
+        y: 0
+        width: 26
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc8a8e6ccb97748ed971e62a8710f884
-      internalID: 8533187441206706742
+      spriteID: 279c88e940357491aad17cc74624fb0c
+      internalID: -8467925914938719458
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_back_walk_7
+      name: WalkBack_7
       rect:
         serializedVersion: 2
-        x: 125
-        y: 14
-        width: 10
-        height: 44
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 26
+        y: 0
+        width: 26
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 87d4eacc7138847378105e387b97f86b
-      internalID: 2238279421697299041
+      spriteID: bbe804fb6e2b943d6b312642686167ea
+      internalID: 2253765444804793852
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_back_walk_8
+      name: WalkBack_8
       rect:
         serializedVersion: 2
-        x: 140
-        y: 14
-        width: 12
-        height: 44
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 52
+        y: 0
+        width: 26
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 44f1169c74e304fd1800d2c5bea660b2
-      internalID: 6191402505210486316
+      spriteID: f3d16e21d987d4d4aa1f1d9b32bec4a8
+      internalID: -5618938018417103340
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_back_walk_9
+      name: WalkBack_9
       rect:
         serializedVersion: 2
-        x: 158
-        y: 14
-        width: 10
-        height: 44
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 78
+        y: 0
+        width: 26
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bf80adbc0dd43446f9c2f7f99778da47
-      internalID: 2096869439798423745
+      spriteID: 2e7f91f3ad1034fe78baa77f5a330684
+      internalID: 4675185681545177256
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_back_walk_10
+      name: WalkBack_10
       rect:
         serializedVersion: 2
-        x: 175
-        y: 14
-        width: 10
-        height: 44
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 104
+        y: 0
+        width: 26
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8e25f811825864d6181e25a8c1adc236
-      internalID: -893008360717763797
+      spriteID: 81576da7e092a413490b96f05b0973aa
+      internalID: -2601601443875522698
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_back_walk_11
+      name: WalkBack_11
       rect:
         serializedVersion: 2
-        x: 193
-        y: 14
-        width: 10
-        height: 44
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 130
+        y: 0
+        width: 26
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 24537dc78ba9b4d13b41dfa4e9df0962
-      internalID: 2802833869978788906
+      spriteID: a04f0fc20464c4ccdbac6a83f08e0fb0
+      internalID: 7175090174004684155
       vertices: []
       indices: 
       edges: []
@@ -374,7 +374,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 50d35c4738e7642e1bcf01e30a3dbf3d
+    spriteID: 238cad817e89e4c1eab6db1825a74f04
     internalID: 0
     vertices: []
     indices: 

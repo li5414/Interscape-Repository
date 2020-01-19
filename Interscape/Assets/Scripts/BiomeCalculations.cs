@@ -51,6 +51,10 @@ public class BiomeCalculations : MonoBehaviour
 	// references / objects
 	public Transform playerTrans;         // player reference
 	public Tilemap tilemapObj;            // used as empty tilemap to instantiate
+	public GameObject grid;
+	public GameObject sandGrid;
+	public GameObject waterGrid;
+	public GameObject detailGrid;
 
 
 	// number generator and perlin noise stuff
@@ -73,21 +77,29 @@ public class BiomeCalculations : MonoBehaviour
 		// initialise biome colours dictionary
 		BiomeColours.Add(BiomeType.Water, new Color32(116, 144, 183, 255));
 		BiomeColours.Add(BiomeType.DeepWater, new Color32(88, 115, 159, 255));
-		BiomeColours.Add(BiomeType.Beach, new Color32(231, 213, 173, 255));
-		//BiomeColours.Add (BiomeType.Desert, new Color32 (254, 234, 184, 255)); // some old colours that didnt work as well are commented out
-		//BiomeColours.Add (BiomeType.Desert, new Color32 (255, 169, 100, 255));
-		//BiomeColours.Add(BiomeType.Desert, new Color32(255, 202, 136, 255));
+		BiomeColours.Add(BiomeType.Beach, new Color32(229, 209, 168, 255));
 		BiomeColours.Add (BiomeType.Desert, new Color32 (229, 204, 159, 255));
-		//BiomeColours.Add (BiomeType.Savanna, new Color32 (206, 206, 158, 255));
-		BiomeColours.Add(BiomeType.Savanna, new Color32(254, 234, 184, 255));
-		BiomeColours.Add(BiomeType.Rainforest, new Color32(94, 185, 141, 255));
-		//BiomeColours.Add (BiomeType.Swamp, new Color32 (124, 145, 116, 255));
-		BiomeColours.Add(BiomeType.Grassland, new Color32(189, 210, 151, 255));
+		BiomeColours.Add(BiomeType.Savanna, new Color32(246, 226, 176, 255));
+		BiomeColours.Add(BiomeType.Rainforest, new Color32(90, 181, 137, 255));
+		BiomeColours.Add(BiomeType.Grassland, new Color32(185, 205, 147, 255));
 		BiomeColours.Add(BiomeType.SeasonalForest, new Color32(117, 173, 141, 255));
 		BiomeColours.Add(BiomeType.Taiga, new Color32(112, 168, 155, 255));
 		BiomeColours.Add(BiomeType.Tundra, new Color32(144, 179, 164, 255));
 		BiomeColours.Add (BiomeType.Ice, new Color32 (218, 231, 235, 255));
 		//BiomeColours.Add(BiomeType.Ice, new Color32(255, 255, 255, 255));
+		/*
+		BiomeColours.Add(BiomeType.Water, new Color32(116, 144, 183, 255));
+		BiomeColours.Add(BiomeType.DeepWater, new Color32(88, 115, 159, 255));
+		BiomeColours.Add(BiomeType.Beach, new Color32(231, 213, 173, 255));
+		BiomeColours.Add (BiomeType.Desert, new Color32 (229, 204, 159, 255));
+		BiomeColours.Add(BiomeType.Savanna, new Color32(254, 234, 184, 255));
+		BiomeColours.Add(BiomeType.Rainforest, new Color32(94, 185, 141, 255));
+		BiomeColours.Add(BiomeType.Grassland, new Color32(189, 210, 151, 255));
+		BiomeColours.Add(BiomeType.SeasonalForest, new Color32(117, 173, 141, 255));
+		BiomeColours.Add(BiomeType.Taiga, new Color32(112, 168, 155, 255));
+		BiomeColours.Add(BiomeType.Tundra, new Color32(144, 179, 164, 255));
+		BiomeColours.Add (BiomeType.Ice, new Color32 (218, 231, 235, 255));
+		//BiomeColours.Add(BiomeType.Ice, new Color32(255, 255, 255, 255));*/
 
 		int count = 0;
 		for (int i = 0; i < tableSize; i++) {

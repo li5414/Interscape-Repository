@@ -11,8 +11,12 @@ public class MyChunkClass
 	public static int chunkSize = 16;
 	Tilemap tilemap;
 	Tilemap detailTilemap;
+	Tilemap sandTilemap;
+	Tilemap waterTilemap;
 	TilemapRenderer trender;
 	TilemapRenderer drender;
+	TilemapRenderer srender;
+	TilemapRenderer wrender;
 	GameObject treeParent;       // parent for this particular chunk
 
 	// arrays
@@ -28,8 +32,9 @@ public class MyChunkClass
 	BiomeCalculations.BiomeType [,] biomes;
 	
 	// tiles
-	Tile tile1 = Resources.Load<Tile> ("Sprites/Map/Tiles/TileBase_1");
-	Tile tile0 = Resources.Load<Tile> ("Sprites/Map/Tiles/TileBase_0");
+	Tile tileGrass = Resources.Load<Tile> ("Sprites/Map/Tiles/Tile_Grass");
+	Tile tileSand = Resources.Load<Tile> ("Sprites/Map/Tiles/Tile_Sand");
+	Tile tileWater = Resources.Load<Tile> ("Sprites/Map/Tiles/Tile_Water");
 
 	// grass details
 	Tile detail1 = Resources.Load<Tile> ("Sprites/Map/Tiles/detail_1");
@@ -62,20 +67,29 @@ public class MyChunkClass
 		humidities = bCalc.GetHumidityArray (pos.x, pos.y, heights);
 		biomes = bCalc.GetBiomes (heights, temps, humidities);
 
-		// set up tilemap components
-		if (GameObject.FindGameObjectsWithTag ("Grid").Length != 2)
-			Debug.Log ("Dunno where tile grid is");
-		var grid = GameObject.FindGameObjectsWithTag ("Grid")[0];
-		tilemap = Object.Instantiate (tilemapObj, pos, Quaternion.identity);
-		trender = tilemap.GetComponent<TilemapRenderer> ();
-		tilemap.transform.SetParent (grid.gameObject.transform);
+		// reference grid objects
+		GameObject grid = bCalc.grid;
+		GameObject detailGrid = bCalc.detailGrid;
+		GameObject sandGrid = bCalc.sandGrid;
+		GameObject waterGrid = bCalc.waterGrid;
 
-		// set up detail tilemap components
-		var detailGrid = GameObject.FindGameObjectsWithTag ("Grid")[1];
-		Vector3Int position = new Vector3Int (pos.x, pos.y, 199); // move further forward
+		// set up tilemap gameobject
+		tilemap = Object.Instantiate (tilemapObj, pos, Quaternion.identity);
 		detailTilemap = Object.Instantiate (tilemapObj, pos, Quaternion.identity);
+		sandTilemap = Object.Instantiate (tilemapObj, pos, Quaternion.identity);
+		waterTilemap = Object.Instantiate (tilemapObj, pos, Quaternion.identity);
+
+		// locate the renderer component for each
+		trender = tilemap.GetComponent<TilemapRenderer> ();
 		drender = detailTilemap.GetComponent<TilemapRenderer> ();
+		srender = sandTilemap.GetComponent<TilemapRenderer> ();
+		wrender = waterTilemap.GetComponent<TilemapRenderer> ();
+
+		// set the tilemaps to the correct grid parents, grid determines layout
+		tilemap.transform.SetParent (grid.gameObject.transform);
 		detailTilemap.transform.SetParent (detailGrid.gameObject.transform);
+		sandTilemap.transform.SetParent (sandGrid.gameObject.transform);
+		waterTilemap.transform.SetParent (waterGrid.gameObject.transform);
 
 		// creates and sets tiles in tilearray to positions in position array
 		GenerateTiles (prng, pos);
@@ -114,12 +128,26 @@ public class MyChunkClass
 			humidity = humidities [index % chunkSize, index / chunkSize];
 			biome = biomes [index % chunkSize, index / chunkSize];
 			
-			// set tile sprite
-			tileArray [index] = tile1;
+			// set tile sprite 
+			tileArray [index] = tileGrass;
+			if (biome == BiomeCalculations.BiomeType.Desert)
+				tileArray [index] = tileSand;
+			//if (biome == BiomeCalculations.BiomeType.Water || biome == BiomeCalculations.BiomeType.DeepWater)
+			//	tileArray [index] = tileWater;
 
-			// choosing colour for certain biomes
-			if (biome != BiomeCalculations.BiomeType.Beach && biome != BiomeCalculations.BiomeType.Water
-				&& biome != BiomeCalculations.BiomeType.DeepWater && biome != BiomeCalculations.BiomeType.Ice) {
+
+			// set sand layer
+			if (heightVal < -0.26) {
+				tileArray [index] = tileSand;
+				tileArray [index].color = BiomeCalculations.BiomeColours [BiomeCalculations.BiomeType.Beach];
+				sandTilemap.SetTileFlags (tilePositions [index], TileFlags.None);
+				sandTilemap.SetColor (tilePositions [index], tileColor);
+				sandTilemap.SetTile (tilePositions [index], tileArray [index]);
+			}
+
+			/***********************************************/
+			// choosing colour for grassy biome types
+			if (heightVal >= -0.3 && biome != BiomeCalculations.BiomeType.Ice) {
 
 				// get temp in range for lookup (assuming the max and min possible temperatures)
 				temp = Mathf.InverseLerp (-80f, 80f, temp);
@@ -131,7 +159,7 @@ public class MyChunkClass
 					distances [i] = Vector2.Distance (BiomeCalculations.coords [i], biomePos);
 
 					// normalise distance to 0-1
-					distances [i] = Mathf.InverseLerp (0f, Mathf.Sqrt(BiomeCalculations.tableSize * BiomeCalculations.tableSize +
+					distances [i] = Mathf.InverseLerp (0f, Mathf.Sqrt (BiomeCalculations.tableSize * BiomeCalculations.tableSize +
 						BiomeCalculations.tableSize * BiomeCalculations.tableSize), distances [i]); // diagonal length of array is the upper range
 
 					// only take into account the nearest biome colours, making sure its not ice cuz i dont want everything tinted white
@@ -153,37 +181,65 @@ public class MyChunkClass
 						}
 					}
 				}
+
+				// and finally... we can set the new tile colour
+				colors [index % chunkSize, index / chunkSize] = tileColor;
+				tileArray [index].color = tileColor;
+				tilemap.SetTileFlags (tilePositions [index], TileFlags.None);
+				tilemap.SetColor (tilePositions [index], tileColor);
+				tilemap.SetTile (tilePositions [index], tileArray [index]);
 			}
 
+			/***********************************************/
 			// ice biome special case
 			else if (biome == BiomeCalculations.BiomeType.Ice) {
 				tileColor = BiomeCalculations.BiomeColours [biome];
-				heightVal = Mathf.InverseLerp (-10f, 1f, heightVal);
-				tileColor.r = (byte)(tileColor.r * heightVal * 0.95);
-				tileColor.g = (byte)(tileColor.g * heightVal * 0.95);
-				tileColor.b = (byte)(tileColor.b * heightVal);
+				float darkness = Mathf.InverseLerp (-10f, 1f, heightVal);
+				tileColor.r = (byte)(tileColor.r * darkness * 0.95);
+				tileColor.g = (byte)(tileColor.g * darkness * 0.95);
+				tileColor.b = (byte)(tileColor.b * darkness);
+
+				// and finally... we can set the new tile colour
+				colors [index % chunkSize, index / chunkSize] = tileColor;
+				tileArray [index].color = tileColor;
+				tilemap.SetTileFlags (tilePositions [index], TileFlags.None);
+				tilemap.SetColor (tilePositions [index], tileColor);
+				tilemap.SetTile (tilePositions [index], tileArray [index]);
 			}
 
+			/***********************************************/
 			// water special case
-			else if (biome == BiomeCalculations.BiomeType.Water || biome == BiomeCalculations.BiomeType.DeepWater) {
+			else if (heightVal < -0.3f) {
 				tileColor = BiomeCalculations.BiomeColours [BiomeCalculations.BiomeType.Water];
-				heightVal = Mathf.InverseLerp (-3f, -0.2f, heightVal);
+				tileArray [index] = tileWater;
+				float darkness = Mathf.InverseLerp (-3f, -0.2f, heightVal);
 
-				tileColor.r = ReturnColourWithinBound ((int)(tileColor.r * heightVal * 0.95), 40, 250);
-				tileColor.g = ReturnColourWithinBound ((int)(tileColor.g * heightVal * 0.95), 40, 250);
-				tileColor.b = ReturnColourWithinBound ((int)(tileColor.b * heightVal), 40, 250);
+				// set water tile
+				tileColor.r = ReturnColourWithinBound ((int)(tileColor.r * darkness * 0.95), 40, 250);
+				tileColor.g = ReturnColourWithinBound ((int)(tileColor.g * darkness * 0.95), 40, 250);
+				tileColor.b = ReturnColourWithinBound ((int)(tileColor.b * darkness), 40, 250);
+				tileColor.a = (byte)(255 * (1 - Mathf.InverseLerp (-0.6f, -0.2f, heightVal)));
+
+				colors [index % chunkSize, index / chunkSize] = tileColor;
+				tileArray [index].color = tileColor;
+				waterTilemap.SetTileFlags (tilePositions [index], TileFlags.None);
+				waterTilemap.SetColor (tilePositions [index], tileColor);
+				waterTilemap.SetTile (tilePositions [index], tileArray [index]);
 			}
 
-			else {
+			
+			/***********************************************/
+			// beach biome case
+			/*else {
 				tileColor = BiomeCalculations.BiomeColours [biome];
-			}
 
-			// and finally... we can set the new tile colour
-			colors [index % chunkSize, index / chunkSize] = tileColor;
-			tileArray [index].color = tileColor;
-			tilemap.SetTileFlags (tilePositions [index], TileFlags.None);
-			tilemap.SetColor (tilePositions [index], tileColor);
-			tilemap.SetTile (tilePositions [index], tileArray [index]);
+				// and finally... we can set the new tile colour
+				colors [index % chunkSize, index / chunkSize] = tileColor;
+				tileArray [index].color = tileColor;
+				tilemap.SetTileFlags (tilePositions [index], TileFlags.None);
+				tilemap.SetColor (tilePositions [index], tileColor);
+				tilemap.SetTile (tilePositions [index], tileArray [index]);
+			}*/
 		}
 	}
 
@@ -275,6 +331,8 @@ public class MyChunkClass
 	{
 		trender.enabled = visible;
 		drender.enabled = visible;
+		srender.enabled = visible;
+		wrender.enabled = visible;
 		treeParent.SetActive (visible);
 	}
 
