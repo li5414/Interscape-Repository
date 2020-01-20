@@ -55,7 +55,7 @@ public class GreeneryGeneration : MonoBehaviour {
 	}
 	
 	public GameObject [,] GeneratePlants (System.Random prng, Vector3Int chunkPos,
-		BiomeCalculations.BiomeType [,] biomes, GameObject parent)
+		BiomeCalculations.BiomeType [,] biomes, float [,] heights, GameObject parent)
 	{
 		GameObject [,] entities = new GameObject [chunkSize, chunkSize];
 		float perlinNoise;
@@ -78,6 +78,10 @@ public class GreeneryGeneration : MonoBehaviour {
 				isTreeBiome = true;
 
 				biome = biomes [x, y];
+
+				if (heights [x, y] < -0.26)
+					biome = BiomeCalculations.BiomeType.Water;
+
 				if (biome == BiomeCalculations.BiomeType.Grassland) {
 					treeChance = 0.005f;
 					tree1 = tree_red;
@@ -159,6 +163,8 @@ public class GreeneryGeneration : MonoBehaviour {
 					shrub3 = null;
 					shrub4 = null;
 				}
+
+				
 
 				// generate noise values
 				perlinNoise = Mathf.PerlinNoise ((chunkPos.x + x + offsetX / 3.5f) * 0.1f,

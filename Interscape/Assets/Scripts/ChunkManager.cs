@@ -15,6 +15,7 @@ public class ChunkManager : MonoBehaviour
 	// references / objects
 	public Transform playerTrans;          // player reference
 	public Tilemap tilemapObj;             // used as empty tilemap to instantiate
+	public Tilemap sandTilemap;
 
 	// coordinate variables
 	public static Vector2 viewerPosition;
@@ -63,7 +64,7 @@ public class ChunkManager : MonoBehaviour
 		terrainChunksVisibleLastUpdate.Clear ();
 
 		// go through neighbouring chunks that need to be rendered
-		for (int x = -renderDist * chunkSize; x <= renderDist * chunkSize; x += chunkSize) {
+		for (int x = -(renderDist+1) * chunkSize; x <= renderDist * chunkSize; x += chunkSize) {
 			for (int y = -renderDist * chunkSize; y <= renderDist * chunkSize; y += chunkSize) {
 				Vector2Int viewedChunkCoord = new Vector2Int (currentChunkCoordX + x, currentChunkCoordY + y);
 
@@ -77,7 +78,7 @@ public class ChunkManager : MonoBehaviour
 				else {
 					// add chunks coordinates to dictionary and generate new
 					Vector3Int pos = new Vector3Int (currentChunkCoordX + x, currentChunkCoordY + y, 200);
-					terrainChunkDictionary.Add (viewedChunkCoord, new MyChunkClass (pos, seed, tilemapObj));
+					terrainChunkDictionary.Add (viewedChunkCoord, new MyChunkClass (pos, seed, tilemapObj, sandTilemap));
 					terrainChunksVisibleLastUpdate.Add (terrainChunkDictionary [viewedChunkCoord]);
 				}
 

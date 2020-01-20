@@ -33,8 +33,12 @@ public class MyChunkClass
 	
 	// tiles
 	Tile tileGrass = Resources.Load<Tile> ("Sprites/Map/Tiles/Tile_Grass");
+	RuleTile tileSandRule = Resources.Load<RuleTile> ("Sprites/Map/Tiles/Sand_Rule");
 	Tile tileSand = Resources.Load<Tile> ("Sprites/Map/Tiles/Tile_Sand");
-	Tile tileWater = Resources.Load<Tile> ("Sprites/Map/Tiles/Tile_Water");
+	Tile tileWater1 = Resources.Load<Tile> ("Sprites/Map/Tiles/Water_0");
+	Tile tileWater2 = Resources.Load<Tile> ("Sprites/Map/Tiles/Water_1");
+	Tile tileWater3 = Resources.Load<Tile> ("Sprites/Map/Tiles/Water_2");
+	Tile tileWater4 = Resources.Load<Tile> ("Sprites/Map/Tiles/Water_3");
 
 	// grass details
 	Tile detail1 = Resources.Load<Tile> ("Sprites/Map/Tiles/detail_1");
@@ -54,12 +58,13 @@ public class MyChunkClass
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-	public MyChunkClass (Vector3Int pos, int seed, Tilemap tilemapObj)
+	public MyChunkClass (Vector3Int pos, int seed, Tilemap tilemapObj, Tilemap sandTilemapObj)
 	{
 		// create rand num generator from seed to use throughout
 		System.Random prng = ChunkManager.prng;
 		treeParent = new GameObject();
 		treeParent.transform.SetParent (TreeParent.gameObject.transform);
+		//sandTilemap = sandTilemapObj;
 
 		// initialise arrays
 		heights = bCalc.GetHeightValues (pos.x, pos.y);
@@ -77,7 +82,7 @@ public class MyChunkClass
 		tilemap = Object.Instantiate (tilemapObj, pos, Quaternion.identity);
 		detailTilemap = Object.Instantiate (tilemapObj, pos, Quaternion.identity);
 		sandTilemap = Object.Instantiate (tilemapObj, pos, Quaternion.identity);
-		waterTilemap = Object.Instantiate (tilemapObj, pos, Quaternion.identity);
+		waterTilemap = Object.Instantiate (tilemapObj, new Vector3Int(pos.x, pos.y, 197), Quaternion.identity);
 
 		// locate the renderer component for each
 		trender = tilemap.GetComponent<TilemapRenderer> ();
@@ -98,7 +103,7 @@ public class MyChunkClass
 		GenerateDetails (prng, pos);
 
 		// array of gameobjects (use list instead?)
-		entities = gen.GeneratePlants (prng, pos, biomes, treeParent);
+		entities = gen.GeneratePlants (prng, pos, biomes, heights, treeParent);
 	}
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -138,11 +143,13 @@ public class MyChunkClass
 
 			// set sand layer
 			if (heightVal < -0.26) {
-				tileArray [index] = tileSand;
-				tileArray [index].color = BiomeCalculations.BiomeColours [BiomeCalculations.BiomeType.Beach];
-				sandTilemap.SetTileFlags (tilePositions [index], TileFlags.None);
-				sandTilemap.SetColor (tilePositions [index], tileColor);
-				sandTilemap.SetTile (tilePositions [index], tileArray [index]);
+				//tileSandRule.color = BiomeCalculations.BiomeColours [BiomeCalculations.BiomeType.Beach];
+				//sandTilemap.SetTileFlags (tilePositions [index], TileFlags.None);
+				//sandTilemap.SetColor (tilePositions [index], tileColor);
+				//Vector3Int sandPos = new Vector3Int (tilePositions [index].x + chunkPos.x, tilePositions [index].y + chunkPos.y, 198);
+				Vector3Int sandPos = new Vector3Int (tilePositions [index].x, tilePositions [index].y, 200);
+
+				sandTilemap.SetTile (sandPos, tileSandRule);
 			}
 
 			/***********************************************/
@@ -211,7 +218,23 @@ public class MyChunkClass
 			// water special case
 			else if (heightVal < -0.3f) {
 				tileColor = BiomeCalculations.BiomeColours [BiomeCalculations.BiomeType.Water];
-				tileArray [index] = tileWater;
+				Tile water;
+
+				// if x is odd
+				if ((index % chunkSize) % 2 == 1) { 
+					if (index / chunkSize % 2 == 1) // y odd
+						water = tileWater1;
+					else                            // y even
+						water = tileWater3;
+				}
+				// if x is even
+				else {
+					if (index / chunkSize % 2 == 1) // y odd
+						water = tileWater2;
+					else                            // y even
+						water = tileWater4;
+				}
+
 				float darkness = Mathf.InverseLerp (-3f, -0.2f, heightVal);
 
 				// set water tile
@@ -221,10 +244,10 @@ public class MyChunkClass
 				tileColor.a = (byte)(255 * (1 - Mathf.InverseLerp (-0.6f, -0.2f, heightVal)));
 
 				colors [index % chunkSize, index / chunkSize] = tileColor;
-				tileArray [index].color = tileColor;
+				water.color = tileColor;
 				waterTilemap.SetTileFlags (tilePositions [index], TileFlags.None);
 				waterTilemap.SetColor (tilePositions [index], tileColor);
-				waterTilemap.SetTile (tilePositions [index], tileArray [index]);
+				waterTilemap.SetTile (tilePositions [index], water);
 			}
 
 			
@@ -264,9 +287,8 @@ public class MyChunkClass
 			isNotNull = true;
 
 			// temporary grass spawning system
-			if ((biome != BiomeCalculations.BiomeType.Ice && biome != BiomeCalculations.BiomeType.Water
-				&& biome != BiomeCalculations.BiomeType.Desert && biome != BiomeCalculations.BiomeType.Beach)
-				&& biome != BiomeCalculations.BiomeType.DeepWater) {
+			if ((biome != BiomeCalculations.BiomeType.Ice && biome != BiomeCalculations.BiomeType.Desert)
+				&& heights[xIndex, yIndex] > -0.3) {
 
 				randNum = prng.Next (0, 15);
 				deetPositions [i] = new Vector3Int (i % (chunkSize * sizeFactor),

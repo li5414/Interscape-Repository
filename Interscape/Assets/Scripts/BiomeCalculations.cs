@@ -305,12 +305,13 @@ public class BiomeCalculations : MonoBehaviour
 				biomeTypes[x, y] = BiomeTable[humidity, (int)temp];
 
 				// water and beach biomes
+				/*
 				if (height < -0.6 && biomeTypes[x, y] != BiomeType.Ice)
 					biomeTypes[x, y] = BiomeType.DeepWater;
 				else if (height < -0.3 && biomeTypes[x, y] != BiomeType.Ice)
 					biomeTypes[x, y] = BiomeType.Water;
 				else if (height < -0.26 && biomeTypes[x, y] != BiomeType.Ice)
-					biomeTypes[x, y] = BiomeType.Beach;
+					biomeTypes[x, y] = BiomeType.Beach; */
 			}
 		}
 
