@@ -16,6 +16,7 @@ public class ChunkManager : MonoBehaviour
 	public Transform playerTrans;          // player reference
 	public Tilemap tilemapObj;             // used as empty tilemap to instantiate
 	public Tilemap sandTilemap;
+	public Tilemap waterTilemap;
 
 	// coordinate variables
 	public static Vector2 viewerPosition;
@@ -28,7 +29,7 @@ public class ChunkManager : MonoBehaviour
 	public static System.Random prng = new System.Random (seed);
 	
 	// chunk dictionary
-	Dictionary<Vector2, MyChunkClass> terrainChunkDictionary = new Dictionary<Vector2, MyChunkClass> ();
+	public Dictionary<Vector2, MyChunkClass> terrainChunkDictionary = new Dictionary<Vector2, MyChunkClass> ();
 	List<MyChunkClass> terrainChunksVisibleLastUpdate = new List<MyChunkClass> ();
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -78,7 +79,7 @@ public class ChunkManager : MonoBehaviour
 				else {
 					// add chunks coordinates to dictionary and generate new
 					Vector3Int pos = new Vector3Int (currentChunkCoordX + x, currentChunkCoordY + y, 200);
-					terrainChunkDictionary.Add (viewedChunkCoord, new MyChunkClass (pos, seed, tilemapObj, sandTilemap));
+					terrainChunkDictionary.Add (viewedChunkCoord, new MyChunkClass (pos, tilemapObj, sandTilemap, waterTilemap));
 					terrainChunksVisibleLastUpdate.Add (terrainChunkDictionary [viewedChunkCoord]);
 				}
 
