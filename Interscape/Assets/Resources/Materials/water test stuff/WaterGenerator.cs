@@ -140,6 +140,7 @@ public class WaterGenerator : MonoBehaviour
 
 	public void resetPixels()
 	{
+
 		// Goes through each pixel
 		for (int y = 0; y < texture.height; y++) {
 

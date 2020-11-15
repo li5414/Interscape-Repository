@@ -31,38 +31,6 @@ public class MyChunkClass
 	GameObject [,] entities;
 	BiomeCalculations.BiomeType [,] biomes;
 	
-	// tiles
-	Tile tileGrass = Resources.Load<Tile> ("Sprites/Map/Tiles/Tile_Grass");
-	RuleTile tileSandRule = Resources.Load<RuleTile> ("Sprites/Map/Tiles/Sand_Rule");
-	Tile tileSand = Resources.Load<Tile> ("Sprites/Map/Tiles/Tile_Sand");
-	Tile tileWater1 = Resources.Load<Tile> ("Sprites/Map/Tiles/Water_0");
-	Tile tileWater2 = Resources.Load<Tile> ("Sprites/Map/Tiles/Water_1");
-	Tile tileWater3 = Resources.Load<Tile> ("Sprites/Map/Tiles/Water_2");
-	Tile tileWater4 = Resources.Load<Tile> ("Sprites/Map/Tiles/Water_3");
-
-	Tile sandCentre = Resources.Load<Tile> ("Sprites/Map/Tiles/Sand_0");
-	Tile sandEdgeU = Resources.Load<Tile> ("Sprites/Map/Tiles/Sand_3");
-	Tile sandEdgeD = Resources.Load<Tile> ("Sprites/Map/Tiles/Sand_7");
-	Tile sandEdgeL = Resources.Load<Tile> ("Sprites/Map/Tiles/Sand_5");
-	Tile sandEdgeR = Resources.Load<Tile> ("Sprites/Map/Tiles/Sand_1");
-	Tile sandCornerOuterUR = Resources.Load<Tile> ("Sprites/Map/Tiles/Sand_2");
-	Tile sandCornerOuterDR = Resources.Load<Tile> ("Sprites/Map/Tiles/Sand_8");
-	Tile sandCornerOuterUL = Resources.Load<Tile> ("Sprites/Map/Tiles/Sand_4");
-	Tile sandCornerOuterDL = Resources.Load<Tile> ("Sprites/Map/Tiles/Sand_6");
-	Tile sandCornerInnerUR = Resources.Load<Tile> ("Sprites/Map/Tiles/Sand_10");
-	Tile sandCornerInnerDR = Resources.Load<Tile> ("Sprites/Map/Tiles/Sand_12");
-	Tile sandCornerInnerUL = Resources.Load<Tile> ("Sprites/Map/Tiles/Sand_9");
-	Tile sandCornerInnerDL = Resources.Load<Tile> ("Sprites/Map/Tiles/Sand_11");
-
-	// grass details
-	Tile detail1 = Resources.Load<Tile> ("Sprites/Map/Tiles/detail_1");
-	Tile detail2 = Resources.Load<Tile> ("Sprites/Map/Tiles/detail_2");
-	Tile detail3 = Resources.Load<Tile> ("Sprites/Map/Tiles/detail_3");
-	Tile detail4 = Resources.Load<Tile> ("Sprites/Map/Tiles/detail_4");
-	Tile detail5 = Resources.Load<Tile> ("Sprites/Map/Tiles/detail_5");
-
-
-
 	// reference other script
 	ChunkManager chunkManager = GameObject.Find ("System Placeholder").GetComponent<ChunkManager> ();
 	BiomeCalculations bCalc = GameObject.Find ("System Placeholder").GetComponent<BiomeCalculations> ();
@@ -198,31 +166,17 @@ public class MyChunkClass
 				biome = biomes [i, j];
 
 				// set tile sprite 
-				tileArray [i, j] = tileGrass;
+				tileArray [i, j] = TileResources.tileGrass;
 				if (biome == BiomeCalculations.BiomeType.Desert)
-					tileArray [i, j] = tileSand;
+					tileArray [i, j] = TileResources.tileSand;
 				//if (biome == BiomeCalculations.BiomeType.Water || biome == BiomeCalculations.BiomeType.DeepWater)
 				//	tileArray [index] = tileWater;
 
 
 				// set sand layer
 				if (heightVal < -0.26) {
-					//tileSandRule.color = BiomeCalculations.BiomeColours [BiomeCalculations.BiomeType.Beach];
-					//sandTilemap.SetTileFlags (tilePositions [index], TileFlags.None);
-					//sandTilemap.SetColor (tilePositions [index], tileColor);
-
-					
-
-					// get neighbouring tiles - check which directions are edges
-					
-
-					
 					Vector3Int sandPos = new Vector3Int (tilePositions [i,j].x + chunkPos.x, tilePositions [i,j].y + chunkPos.y, 198);
-					sandTilemap.SetTile (sandPos, tileSandRule);
-					/*sandTilemap.SetTile(sandPos, CheckTileType (sandCentre, sandEdgeU, sandEdgeD, sandEdgeL, sandEdgeR,
-						sandCornerOuterUR, sandCornerOuterDR, sandCornerOuterUL, sandCornerOuterDL, sandCornerInnerUR,
-						sandCornerInnerDR, sandCornerInnerUL, sandCornerInnerDL));*/
-
+					sandTilemap.SetTile (sandPos, TileResources.tileSandRule);
 				}
 
 				/***********************************************/
@@ -299,16 +253,16 @@ public class MyChunkClass
 					// if x is odd
 					if ((i) % 2 == 1) {
 						if (j % 2 == 1) // y odd
-							water = tileWater1;
+							water = TileResources.tileWater1;
 						else                            // y even
-							water = tileWater3;
+							water = TileResources.tileWater3;
 					}
 					// if x is even
 					else {
 						if (j % 2 == 1) // y odd
-							water = tileWater2;
+							water = TileResources.tileWater2;
 						else                            // y even
-							water = tileWater4;
+							water = TileResources.tileWater4;
 					}
 
 					float darkness = Mathf.InverseLerp (-3f, -0.2f, heightVal);
@@ -359,23 +313,17 @@ public class MyChunkClass
 					i / (chunkSize * sizeFactor), 199);
 
 				// generate grass details using random numbers
-				if (randNum == 1)
-					deetArray [i] = detail1;
-				else if (randNum == 2)
-					deetArray [i] = detail2;
-				else if (randNum == 3)
-					deetArray [i] = detail4;
-				else if (randNum == 4)
-					deetArray [i] = detail5;
+				if (randNum < 4)
+					deetArray [i] = TileResources.grassDetails[randNum];
 
 				// flower generation less likely
 				else if (randNum == 5 & prng.Next (0, 15) == 1)
-					deetArray [i] = detail3;
+					deetArray [i] = TileResources.grassDetails[4];
 				else
 					isNotNull = false;
 
 				// set colour according to biome and some extra perlin noise for variation
-				if (isNotNull == true && deetArray [i] != detail3) {
+				if (isNotNull == true && deetArray [i] != TileResources.grassDetails [4]) {
 					float perlinNoise = Mathf.PerlinNoise ((chunkPos.x + xIndex +
 						bCalc.octaveOffsets [3].x / 3.5f) * 0.1f,(chunkPos.y + yIndex +
 						bCalc.octaveOffsets [3].y / 3.5f) * 0.1f);
@@ -403,11 +351,7 @@ public class MyChunkClass
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-	//public Tile CheckTileType(Tile centre, Tile edgeU, Tile edgeD, Tile edgeL, Tile edgeR, Tile cOutUR, Tile cOutDR,
-	//	Tile cOutUL, Tile cOutDL, Tile cInUR, Tile cInDR, Tile cInUL, Tile cInDL)
-	//{
-
-	//}
+	
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
