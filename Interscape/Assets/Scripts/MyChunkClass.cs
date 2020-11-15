@@ -38,12 +38,15 @@ public class MyChunkClass
 	GreeneryGeneration gen = GameObject.Find ("System Placeholder").GetComponent<GreeneryGeneration> ();
 	GameObject TreeParent = GameObject.Find ("TreeParent");
 
+	// random number generator
+	System.Random prng;
+
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-	public MyChunkClass (Vector3Int pos, Tilemap tilemapObj, Tilemap sandTilemapObj, Tilemap waterTilemapObj)
+	public MyChunkClass (System.Random prng, Vector3Int pos, Tilemap tilemapObj, Tilemap sandTilemapObj, Tilemap waterTilemapObj)
 	{
 		// get/initialise some important things
-		System.Random prng = ChunkManager.prng;
+		this.prng = prng;
 		treeParent = new GameObject();
 		treeParent.transform.SetParent (TreeParent.gameObject.transform);
 		sandTilemap = sandTilemapObj;
@@ -80,18 +83,18 @@ public class MyChunkClass
 		waterTilemap.transform.SetParent (waterGrid.gameObject.transform);
 
 		// creates and sets tiles in tilearray to positions in position array
-		GenerateTiles (prng, pos);
+		GenerateTiles (pos);
 
 		// generate grass details
-		GenerateDetails (prng, pos);
+		GenerateDetails (pos);
 
 		// array of gameobjects (use list instead?)
-		entities = gen.GeneratePlants (prng, pos, biomes, heights, treeParent);
+		entities = gen.GeneratePlants (pos, biomes, heights, treeParent);
 	}
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-	public void GenerateTiles (System.Random prng, Vector3Int chunkPos) {
+	public void GenerateTiles (Vector3Int chunkPos) {
 		float [] distances = new float [BiomeCalculations.coords.Length];
 		tilePositions = new Vector3Int [chunkSize, chunkSize];
 		tileArray = new Tile [chunkSize, chunkSize];
@@ -103,55 +106,7 @@ public class MyChunkClass
 		float heightVal;
 		float temp;
 		float humidity;
-		float [,] overlapArray = new float [chunkSize + 1, chunkSize + 1];
 
-		// variables for neighbouring chunks and tiles
-		MyChunkClass chunkU;
-		MyChunkClass chunkR;
-		MyChunkClass chunkL;
-		MyChunkClass chunkD;
-		MyChunkClass chunkUR;
-		MyChunkClass chunkDR;
-		MyChunkClass chunkDL;
-		MyChunkClass chunkUL;
-		bool neighbourU;
-		bool neighbourUR;
-		bool neighbourR;
-		bool neighbourDR;
-		bool neighbourD;
-		bool neighbourDL;
-		bool neighbourL;
-		bool neighbourUL;
-
-		// get neighbouring chunks
-		/*if (chunkManager.terrainChunkDictionary.ContainsKey (new Vector2 (chunkPos.x, chunkPos.y + chunkSize)))
-			chunkU = chunkManager.terrainChunkDictionary [new Vector2 (chunkPos.x, chunkPos.y + chunkSize)];
-		else
-			chunkU = null;
-		if (chunkManager.terrainChunkDictionary.ContainsKey (new Vector2 (chunkPos.x, chunkPos.y - chunkSize)))
-			chunkD = chunkManager.terrainChunkDictionary [new Vector2 (chunkPos.x, chunkPos.y - chunkSize)];
-		else
-			chunkD = null;
-		if (chunkManager.terrainChunkDictionary.ContainsKey (new Vector2 (chunkPos.x - chunkSize, chunkPos.y)))
-			chunkL = chunkManager.terrainChunkDictionary [new Vector2 (chunkPos.x - chunkSize, chunkPos.y)];
-		else
-			chunkL = null;
-		if (chunkManager.terrainChunkDictionary.ContainsKey (new Vector2 (chunkPos.x + chunkSize, chunkPos.y)))
-			chunkR = chunkManager.terrainChunkDictionary [new Vector2 (chunkPos.x + chunkSize, chunkPos.y)];
-		else
-			chunkR = null;
-
-
-		// create a larger overlap array with the heightmap
-		if (chunkU != null) {
-			for ()
-		}
-		for (int i = 1; i < chunkSize + 1; i++) {
-			for (int j = 1; j < chunkSize + 1; j++) {
-				overlapArray [i, j] = heights [i, j];
-			}
-		}
-		*/
 		// in loop, enter all positions and tiles in arrays
 		for (int i = 0; i < chunkSize; i++) {
 			for (int j = 0; j < chunkSize; j++) {
@@ -169,9 +124,6 @@ public class MyChunkClass
 				tileArray [i, j] = TileResources.tileGrass;
 				if (biome == BiomeCalculations.BiomeType.Desert)
 					tileArray [i, j] = TileResources.tileSand;
-				//if (biome == BiomeCalculations.BiomeType.Water || biome == BiomeCalculations.BiomeType.DeepWater)
-				//	tileArray [index] = tileWater;
-
 
 				// set sand layer
 				if (heightVal < -0.26) {
@@ -286,7 +238,7 @@ public class MyChunkClass
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-	public void GenerateDetails (System.Random prng, Vector3Int chunkPos)
+	public void GenerateDetails (Vector3Int chunkPos)
 	{
 		int sizeFactor = 4; // the cell size is 0.25x the normal cell size
 		int size = chunkSize * chunkSize * sizeFactor * sizeFactor;

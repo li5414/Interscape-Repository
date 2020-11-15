@@ -19,14 +19,14 @@ public class ChunkManager : MonoBehaviour
 	public Tilemap waterTilemap;
 
 	// coordinate variables
-	public static Vector2 viewerPosition;
+	public static Vector2 viewerPosition; //?? not sure why static
 	int currentChunkCoordX;
 	int currentChunkCoordY;
 	int lastChunkCoordX;
 	int lastChunkCoordY;
 
 	// number generator
-	public static System.Random prng = new System.Random (seed);
+	public System.Random prng = new System.Random (seed);
 	
 	// chunk dictionary
 	public Dictionary<Vector2, MyChunkClass> terrainChunkDictionary = new Dictionary<Vector2, MyChunkClass> ();
@@ -79,7 +79,7 @@ public class ChunkManager : MonoBehaviour
 				else {
 					// add chunks coordinates to dictionary and generate new
 					Vector3Int pos = new Vector3Int (currentChunkCoordX + x, currentChunkCoordY + y, 200);
-					terrainChunkDictionary.Add (viewedChunkCoord, new MyChunkClass (pos, tilemapObj, sandTilemap, waterTilemap));
+					terrainChunkDictionary.Add (viewedChunkCoord, new MyChunkClass (prng, pos, tilemapObj, sandTilemap, waterTilemap));
 					terrainChunksVisibleLastUpdate.Add (terrainChunkDictionary [viewedChunkCoord]);
 				}
 

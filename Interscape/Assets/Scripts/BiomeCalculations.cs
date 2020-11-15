@@ -58,7 +58,7 @@ public class BiomeCalculations : MonoBehaviour
 
 
 	// number generator and perlin noise stuff
-	System.Random prng = ChunkManager.prng;
+	System.Random prng;
 	public Vector2[] octaveOffsets = new Vector2[octaves]; // we want each octave to come from different 'location' in the perlin noise
 	static int octaves = 4;               // number of noise layers
 	float scale = 361.4f;                 // the higher the number, the more 'zoomed in'. Needs to be likely to result in non-integer
@@ -73,6 +73,7 @@ public class BiomeCalculations : MonoBehaviour
 	private void Awake()
 	{
 		chunkManager = GameObject.Find ("System Placeholder").GetComponent<ChunkManager> ();
+		prng = chunkManager.prng;
 
 		// initialise biome colours dictionary
 		BiomeColours.Add(BiomeType.Water, new Color32(116, 144, 183, 255));
@@ -86,20 +87,6 @@ public class BiomeCalculations : MonoBehaviour
 		BiomeColours.Add(BiomeType.Taiga, new Color32(112, 168, 155, 255));
 		BiomeColours.Add(BiomeType.Tundra, new Color32(144, 179, 164, 255));
 		BiomeColours.Add (BiomeType.Ice, new Color32 (218, 231, 235, 255));
-		//BiomeColours.Add(BiomeType.Ice, new Color32(255, 255, 255, 255));
-		/*
-		BiomeColours.Add(BiomeType.Water, new Color32(116, 144, 183, 255));
-		BiomeColours.Add(BiomeType.DeepWater, new Color32(88, 115, 159, 255));
-		BiomeColours.Add(BiomeType.Beach, new Color32(231, 213, 173, 255));
-		BiomeColours.Add (BiomeType.Desert, new Color32 (229, 204, 159, 255));
-		BiomeColours.Add(BiomeType.Savanna, new Color32(254, 234, 184, 255));
-		BiomeColours.Add(BiomeType.Rainforest, new Color32(94, 185, 141, 255));
-		BiomeColours.Add(BiomeType.Grassland, new Color32(189, 210, 151, 255));
-		BiomeColours.Add(BiomeType.SeasonalForest, new Color32(117, 173, 141, 255));
-		BiomeColours.Add(BiomeType.Taiga, new Color32(112, 168, 155, 255));
-		BiomeColours.Add(BiomeType.Tundra, new Color32(144, 179, 164, 255));
-		BiomeColours.Add (BiomeType.Ice, new Color32 (218, 231, 235, 255));
-		//BiomeColours.Add(BiomeType.Ice, new Color32(255, 255, 255, 255));*/
 
 		int count = 0;
 		for (int i = 0; i < tableSize; i++) {
@@ -115,7 +102,7 @@ public class BiomeCalculations : MonoBehaviour
 
 	private void Start ()
 	{
-		InvokeRepeating ("PrintAtPos", 1.0f, 1.0f);
+		//InvokeRepeating ("PrintAtPos", 1.0f, 1.0f); //do not delete - is for testing!
 	}
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -304,14 +291,6 @@ public class BiomeCalculations : MonoBehaviour
 
 				biomeTypes[x, y] = BiomeTable[humidity, (int)temp];
 
-				// water and beach biomes
-				/*
-				if (height < -0.6 && biomeTypes[x, y] != BiomeType.Ice)
-					biomeTypes[x, y] = BiomeType.DeepWater;
-				else if (height < -0.3 && biomeTypes[x, y] != BiomeType.Ice)
-					biomeTypes[x, y] = BiomeType.Water;
-				else if (height < -0.26 && biomeTypes[x, y] != BiomeType.Ice)
-					biomeTypes[x, y] = BiomeType.Beach; */
 			}
 		}
 

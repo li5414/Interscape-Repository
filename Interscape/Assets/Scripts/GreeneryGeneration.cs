@@ -10,37 +10,9 @@ public class GreeneryGeneration : MonoBehaviour {
 	float offsetX;
 	float offsetY;
 
-	// trees
 	public GameObject treeParent;
-	public GameObject tree_birch;
-	public GameObject tree_blue;
-	public GameObject tree_fig;
-	public GameObject tree_forest1;
-	public GameObject tree_forest2;
-	public GameObject tree_forest3;
-	public GameObject tree_joshua;
-	public GameObject tree_oak;
-	public GameObject tree_palm;
-	public GameObject tree_pine;
-	public GameObject tree_pine_small;
-	public GameObject tree_rainforest1;
-	public GameObject tree_red;
-	public GameObject tree_white;
-	public GameObject tree_yellow;
-	public GameObject tree_dead1;
 
-	//shrubs
-	[Space (10)]
-	public GameObject wheat;
-	public GameObject cane;
-	public GameObject stick;
-	public GameObject dead_bush;
-	public GameObject bush1;
-	public GameObject bush2;
-	public GameObject fern1;
-	public GameObject cactus;
-	public GameObject rock1;
-	public GameObject rock2;
+	System.Random prng;
 
 	private void Start ()
 	{
@@ -48,13 +20,13 @@ public class GreeneryGeneration : MonoBehaviour {
 		bCalc = GameObject.Find ("System Placeholder").GetComponent<BiomeCalculations> ();
 		cMan = GameObject.Find ("System Placeholder").GetComponent<ChunkManager> ();
 
-		System.Random prng = ChunkManager.prng;
+		prng = cMan.prng;
 		offsetX = prng.Next (-10000, 10000);
 		offsetY = prng.Next (-10000, 10000);
 
 	}
 	
-	public GameObject [,] GeneratePlants (System.Random prng, Vector3Int chunkPos,
+	public GameObject [,] GeneratePlants (Vector3Int chunkPos,
 		BiomeCalculations.BiomeType [,] biomes, float [,] heights, GameObject parent)
 	{
 		GameObject [,] entities = new GameObject [chunkSize, chunkSize];
@@ -82,89 +54,99 @@ public class GreeneryGeneration : MonoBehaviour {
 				if (heights [x, y] < -0.26)
 					biome = BiomeCalculations.BiomeType.Water;
 
-				if (biome == BiomeCalculations.BiomeType.Grassland) {
-					treeChance = 0.005f;
-					tree1 = tree_red;
-					tree2 = tree_blue;
-					tree3 = tree_yellow;
-					tree4 = tree_oak;
-					shrub1 = cane;
-					shrub2 = wheat;
-					shrub3 = dead_bush;
-					shrub4 = rock2;
-				} else if (biome == BiomeCalculations.BiomeType.Savanna) {
-					treeChance = 0.02f;
-					tree1 = tree_red;
-					tree2 = tree_yellow;
-					tree3 = tree_joshua;
-					tree4 = tree_dead1;
-					shrub1 = dead_bush;
-					shrub2 = rock2;
-					shrub3 = rock1;
-					shrub4 = wheat;
-				} else if (biome == BiomeCalculations.BiomeType.Taiga) {
-					treeChance = 0.15f;
-					tree1 = tree_pine;
-					tree2 = tree_birch;
-					tree3 = tree_pine_small;
-					tree4 = tree_white;
-					shrub1 = bush2;
-					shrub2 = stick;
-					shrub3 = rock2;
-					shrub4 = null;
-				} else if (biome == BiomeCalculations.BiomeType.SeasonalForest) {
-					treeChance = 0.15f;
-					tree1 = tree_forest1;
-					tree2 = tree_forest2;
-					tree3 = tree_forest3;
-					tree4 = tree_oak;
-					shrub1 = bush1;
-					shrub2 = bush2;
-					shrub3 = rock2;
-					shrub4 = null;
-				} else if (biome == BiomeCalculations.BiomeType.Rainforest) {
-					treeChance = 0.25f;
-					tree1 = tree_rainforest1;
-					tree2 = tree_palm;
-					tree3 = tree_forest1;
-					tree4 = tree_fig;
-					shrub1 = cane;
-					shrub2 = fern1;
-					shrub3 = null;
-					shrub4 = null;
-				} else if (biome == BiomeCalculations.BiomeType.Tundra) {
-					isTreeBiome = false;
-					tree1 = null;
-					tree2 = null;
-					tree3 = null;
-					tree4 = null;
-					shrub1 = dead_bush;
-					shrub2 = bush2;
-					shrub3 = rock2;
-					shrub4 = rock1;
-				} else if (biome == BiomeCalculations.BiomeType.Desert) {
-					isTreeBiome = false;
-					tree1 = null;
-					tree2 = null;
-					tree3 = null;
-					tree4 = null;
-					shrub1 = cactus;
-					shrub2 = rock2;
-					shrub3 = rock1;
-					shrub4 = dead_bush;
-				} else {
-					isTreeBiome = false;
-					tree1 = null;
-					tree2 = null;
-					tree3 = null;
-					tree4 = null;
-					shrub1 = null;
-					shrub2 = null;
-					shrub3 = null;
-					shrub4 = null;
+				// choose what kind of trees/things to spawn depending on biome-----------------------------------
+				switch (biome)
+				{
+					case BiomeCalculations.BiomeType.Grassland:
+						treeChance = 0.005f;
+						tree1 = NatureResources.tree_red;
+						tree2 = NatureResources.tree_blue;
+						tree3 = NatureResources.tree_yellow;
+						tree4 = NatureResources.tree_oak;
+						shrub1 = NatureResources.cane;
+						shrub2 = NatureResources.wheat;
+						shrub3 = NatureResources.dead_bush;
+						shrub4 = NatureResources.rock2;
+						break;
+					case BiomeCalculations.BiomeType.Savanna:
+						treeChance = 0.02f;
+						tree1 = NatureResources.tree_red;
+						tree2 = NatureResources.tree_yellow;
+						tree3 = NatureResources.tree_joshua;
+						tree4 = NatureResources.tree_dead1;
+						shrub1 = NatureResources.dead_bush;
+						shrub2 = NatureResources.rock2;
+						shrub3 = NatureResources.rock1;
+						shrub4 = NatureResources.wheat;
+						break;
+					case BiomeCalculations.BiomeType.Taiga:
+						treeChance = 0.15f;
+						tree1 = NatureResources.tree_pine;
+						tree2 = NatureResources.tree_birch;
+						tree3 = NatureResources.tree_pine_small;
+						tree4 = NatureResources.tree_white;
+						shrub1 = NatureResources.bush2;
+						shrub2 = NatureResources.stick;
+						shrub3 = NatureResources.rock2;
+						shrub4 = null;
+						break;
+					case BiomeCalculations.BiomeType.SeasonalForest:
+						treeChance = 0.15f;
+						tree1 = NatureResources.tree_forest1;
+						tree2 = NatureResources.tree_forest2;
+						tree3 = NatureResources.tree_forest3;
+						tree4 = NatureResources.tree_oak;
+						shrub1 = NatureResources.bush1;
+						shrub2 = NatureResources.bush2;
+						shrub3 = NatureResources.rock2;
+						shrub4 = null;
+						break;
+					case BiomeCalculations.BiomeType.Rainforest:
+						treeChance = 0.25f;
+						tree1 = NatureResources.tree_rainforest1;
+						tree2 = NatureResources.tree_palm;
+						tree3 = NatureResources.tree_forest1;
+						tree4 = NatureResources.tree_fig;
+						shrub1 = NatureResources.cane;
+						shrub2 = NatureResources.fern1;
+						shrub3 = null;
+						shrub4 = null;
+						break;
+					case BiomeCalculations.BiomeType.Tundra:
+						isTreeBiome = false;
+						tree1 = null;
+						tree2 = null;
+						tree3 = null;
+						tree4 = null;
+						shrub1 = NatureResources.dead_bush;
+						shrub2 = NatureResources.bush2;
+						shrub3 = NatureResources.rock2;
+						shrub4 = NatureResources.rock1;
+						break;
+					case BiomeCalculations.BiomeType.Desert:
+						isTreeBiome = false;
+						tree1 = null;
+						tree2 = null;
+						tree3 = null;
+						tree4 = null;
+						shrub1 = NatureResources.cactus;
+						shrub2 = NatureResources.rock2;
+						shrub3 = NatureResources.rock1;
+						shrub4 = NatureResources.dead_bush;
+						break;
+					default:
+						isTreeBiome = false;
+						tree1 = null;
+						tree2 = null;
+						tree3 = null;
+						tree4 = null;
+						shrub1 = null;
+						shrub2 = null;
+						shrub3 = null;
+						shrub4 = null;
+						break;
 				}
-
-				
+				// end of choice depending on biome--------------------------------------------------
 
 				// generate noise values
 				perlinNoise = Mathf.PerlinNoise ((chunkPos.x + x + offsetX / 3.5f) * 0.1f,
