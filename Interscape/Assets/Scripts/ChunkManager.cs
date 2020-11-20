@@ -19,7 +19,7 @@ public class ChunkManager : MonoBehaviour
 	public Tilemap waterTilemap;
 
 	// coordinate variables
-	public static Vector2 viewerPosition; //?? not sure why static
+	public Vector2 viewerPosition; //?? not sure why static
 	int currentChunkCoordX;
 	int currentChunkCoordY;
 	int lastChunkCoordX;

@@ -24,6 +24,14 @@ public class GreeneryGeneration : MonoBehaviour {
 		offsetX = prng.Next (-10000, 10000);
 		offsetY = prng.Next (-10000, 10000);
 
+        for (int i = 0; i < NatureResources.objects.Length; i ++)
+		{
+            if (NatureResources.objects[i] == null)
+			{
+				Debug.Log("object " + i + " is null");
+			}
+		}
+
 	}
 	
 	public GameObject [,] GeneratePlants (Vector3Int chunkPos,
@@ -94,7 +102,7 @@ public class GreeneryGeneration : MonoBehaviour {
 						treeChance = 0.15f;
 						tree1 = NatureResources.tree_forest1;
 						tree2 = NatureResources.tree_forest2;
-						tree3 = NatureResources.tree_forest3;
+						tree3 = NatureResources.tree_pine;
 						tree4 = NatureResources.tree_oak;
 						shrub1 = NatureResources.bush1;
 						shrub2 = NatureResources.bush2;

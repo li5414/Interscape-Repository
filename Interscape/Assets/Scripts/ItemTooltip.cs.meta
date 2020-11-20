@@ -1,24 +1,11 @@
-﻿using System.Text;
-using UnityEngine;
-using UnityEngine.UI;
-
-public class ItemTooltip : MonoBehaviour
-{
-	[SerializeField] Text ItemNameText;
-	[SerializeField] Text ItemSlotText;
-	[SerializeField] Text ItemStatsText;
-
-	public void ShowTooltip(Item item)
-	{
-		ItemNameText.text = item.ItemName;
-		ItemSlotText.text = "Slot?";
-		ItemStatsText.text = "Description should go here";
-
-		gameObject.SetActive (true);
-	}
-
-	public void HideTooltip ()
-	{
-		gameObject.SetActive (false);
-	}
-}
+fileFormatVersion: 2
+guid: 6a846f9947f1f4da2a96a853b6fcec91
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

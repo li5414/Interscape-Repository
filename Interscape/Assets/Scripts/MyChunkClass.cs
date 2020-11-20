@@ -20,9 +20,11 @@ public class MyChunkClass
 	GameObject treeParent;       // parent for this particular chunk
 
 	// arrays
-	Vector3Int [,] tilePositions; // probably dont need?
+	Vector3Int [] tilePositions;
+	Vector3Int [] tilePositionsWorld;
 	Vector3Int [] deetPositions; // probably dont need?
-	Tile [,] tileArray; // can make 2d
+	Tile [,] tileArray;
+	RuleTile [] sandTileArray;
 	Tile [] deetArray; // can make 2d
 	float [,] heights;
 	float [,] temps;
@@ -88,7 +90,7 @@ public class MyChunkClass
 		// generate grass details
 		GenerateDetails (pos);
 
-		// array of gameobjects (use list instead?)
+		// array of gameobjects (use dict/list instead?)
 		entities = gen.GeneratePlants (pos, biomes, heights, treeParent);
 	}
 
@@ -96,8 +98,10 @@ public class MyChunkClass
 
 	public void GenerateTiles (Vector3Int chunkPos) {
 		float [] distances = new float [BiomeCalculations.coords.Length];
-		tilePositions = new Vector3Int [chunkSize, chunkSize];
+		tilePositions = new Vector3Int [chunkSize * chunkSize];
+		tilePositionsWorld = new Vector3Int [chunkSize * chunkSize];
 		tileArray = new Tile [chunkSize, chunkSize];
+		sandTileArray = new RuleTile [chunkSize * chunkSize];
 		colors = new Color32 [chunkSize, chunkSize];
 		BiomeCalculations.BiomeType biome;
 		Vector2 biomePos;
@@ -111,7 +115,8 @@ public class MyChunkClass
 		for (int i = 0; i < chunkSize; i++) {
 			for (int j = 0; j < chunkSize; j++) {
 				
-				tilePositions [i, j] = new Vector3Int (i, j, 200);
+				tilePositions [at(i, j)] = new Vector3Int (i, j, 200);
+				tilePositionsWorld [at (i, j)] = new Vector3Int (i + chunkPos.x, j + chunkPos.y, 200);
 				Color32 tileColor = new Color32 (117, 173, 141, 255); // standard foresty colour
 
 				// get features for this tile
@@ -127,8 +132,9 @@ public class MyChunkClass
 
 				// set sand layer
 				if (heightVal < -0.26) {
-					Vector3Int sandPos = new Vector3Int (tilePositions [i,j].x + chunkPos.x, tilePositions [i,j].y + chunkPos.y, 198);
-					sandTilemap.SetTile (sandPos, TileResources.tileSandRule);
+					//Vector3Int sandPos = new Vector3Int (tilePositions [at (i, j)].x + chunkPos.x, tilePositions [at (i, j)].y + chunkPos.y, 198);
+					//sandTilemap.SetTile (sandPos, TileResources.tileSandRule);
+					sandTileArray [at(i,j)] = TileResources.tileSandRule;
 				}
 
 				/***********************************************/
@@ -171,9 +177,9 @@ public class MyChunkClass
 					// and finally... we can set the new tile colour
 					colors [i, j] = tileColor;
 					tileArray [i,j].color = tileColor;
-					tilemap.SetTileFlags (tilePositions [i,j], TileFlags.None);
-					tilemap.SetColor (tilePositions [i,j], tileColor);
-					tilemap.SetTile (tilePositions [i,j], tileArray [i,j]);
+					tilemap.SetTileFlags (tilePositions [at (i, j)], TileFlags.None);
+					tilemap.SetColor (tilePositions [at (i, j)], tileColor);
+					tilemap.SetTile (tilePositions [at (i, j)], tileArray [i,j]);
 				}
 
 				/***********************************************/
@@ -188,9 +194,9 @@ public class MyChunkClass
 					// and finally... we can set the new tile colour
 					colors [i, j] = tileColor;
 					tileArray [i,j].color = tileColor;
-					tilemap.SetTileFlags (tilePositions [i,j], TileFlags.None);
-					tilemap.SetColor (tilePositions [i,j], tileColor);
-					tilemap.SetTile (tilePositions [i,j], tileArray [i,j]);
+					tilemap.SetTileFlags (tilePositions [at (i, j)], TileFlags.None);
+					tilemap.SetColor (tilePositions [at (i, j)], tileColor);
+					tilemap.SetTile (tilePositions [at (i, j)], tileArray [i,j]);
 				}
 
 				/***********************************************/
@@ -199,7 +205,7 @@ public class MyChunkClass
 					tileColor = BiomeCalculations.BiomeColours [BiomeCalculations.BiomeType.Water];
 					Tile water;
 
-					Vector3Int waterPos = new Vector3Int (tilePositions [i,j].x + chunkPos.x, tilePositions [i,j].y + chunkPos.y, 198);
+					Vector3Int waterPos = new Vector3Int (tilePositions [at (i, j)].x + chunkPos.x, tilePositions [at (i, j)].y + chunkPos.y, 198);
 
 
 					// if x is odd
@@ -232,8 +238,23 @@ public class MyChunkClass
 					waterTilemap.SetTile (waterPos, water);
 				}
 			}
-
 		}
+
+		sandTilemap.SetTiles (tilePositionsWorld, sandTileArray);
+	}
+
+	public Tile createNewTile (Sprite sprite, Color color)
+	{
+		Tile newTile = new Tile ();
+		newTile.sprite = sprite;
+		newTile.color = color;
+		return newTile;
+	}
+
+	// lookup index of 16x16 2D array condensed to 1D array
+	public int at(int x, int y)
+	{
+		return (x * 16 + y);
 	}
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */

@@ -10,7 +10,6 @@ public static class NatureResources
 	public static GameObject tree_fig = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/tree_fig");
 	public static GameObject tree_forest1 = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/tree_forest1");
 	public static GameObject tree_forest2 = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/tree_forest2");
-	public static GameObject tree_forest3 = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/tree_forest3");
 	public static GameObject tree_joshua = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/tree_joshua");
 	public static GameObject tree_oak = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/tree_oak");
 	public static GameObject tree_palm = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/tree_palm");
@@ -21,6 +20,11 @@ public static class NatureResources
 	public static GameObject tree_white = Resources.Load<GameObject>("Sprites/Map/TreeFabs/tree_white");
 	public static GameObject tree_yellow = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/tree_yellow");
 	public static GameObject tree_dead1 = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/tree_dead1");
+
+	// used only for null checking - can delete later
+	public static GameObject[] objects = { tree_birch, tree_blue, tree_fig, tree_forest1, tree_forest2,
+  tree_joshua, tree_oak, tree_palm, tree_pine, tree_pine_small, tree_rainforest1, tree_red, tree_white,
+  tree_yellow, tree_dead1};
 
 	//"shrubs"
 	public static GameObject wheat = Resources.Load<GameObject> ("Sprites/Map/ShrubFabs/Shrub 7");
