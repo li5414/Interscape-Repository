@@ -9,21 +9,23 @@ public class MyChunkClass
 {
 	// components
 	public static int chunkSize = 16;
+	bool isLoaded = true;
 	Tilemap tilemap;
 	Tilemap detailTilemap;
 	Tilemap sandTilemap;
 	Tilemap waterTilemap;
-	TilemapRenderer trender;
-	TilemapRenderer drender;
-	TilemapRenderer srender;
-	TilemapRenderer wrender;
+	Tilemap grassTilemap;
+	TilemapRenderer grassRenderer;
+	TilemapRenderer detailRenderer;
+	TilemapRenderer sandRenderer;
+	TilemapRenderer waterRenderer;
 	GameObject treeParent;       // parent for this particular chunk
 
 	// arrays
 	Vector3Int [] tilePositions;
 	Vector3Int [] tilePositionsWorld;
 	Vector3Int [] deetPositions; // probably dont need?
-	Tile [,] tileArray;
+	Tile [] tileArray;
 	RuleTile [] sandTileArray;
 	Tile [] deetArray; // can make 2d
 	float [,] heights;
@@ -45,14 +47,16 @@ public class MyChunkClass
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-	public MyChunkClass (System.Random prng, Vector3Int pos, Tilemap tilemapObj, Tilemap sandTilemapObj, Tilemap waterTilemapObj)
+	public MyChunkClass (System.Random prng, Vector3Int pos)
 	{
 		// get/initialise some important things
 		this.prng = prng;
 		treeParent = new GameObject();
 		treeParent.transform.SetParent (TreeParent.gameObject.transform);
-		sandTilemap = sandTilemapObj;
-		waterTilemap = waterTilemapObj;
+		Tilemap tilemapObj = chunkManager.tilemapObj;
+		sandTilemap = chunkManager.sandTilemap;
+		waterTilemap = chunkManager.waterTilemap;
+		grassTilemap = chunkManager.grassTilemap;
 
 		// initialise arrays
 		heights = bCalc.GetHeightValues (pos.x, pos.y);
@@ -67,19 +71,16 @@ public class MyChunkClass
 		GameObject waterGrid = bCalc.waterGrid;
 
 		// set up tilemap gameobject
-		tilemap = Object.Instantiate (tilemapObj, pos, Quaternion.identity);
 		detailTilemap = Object.Instantiate (tilemapObj, pos, Quaternion.identity);
-		//sandTilemap = Object.Instantiate (tilemapObj, pos, Quaternion.identity);
-		//waterTilemap = Object.Instantiate (tilemapObj, new Vector3Int(pos.x, pos.y, 197), Quaternion.identity);
 
 		// locate the renderer component for each
-		trender = tilemap.GetComponent<TilemapRenderer> ();
-		drender = detailTilemap.GetComponent<TilemapRenderer> ();
-		srender = sandTilemap.GetComponent<TilemapRenderer> ();
-		wrender = waterTilemap.GetComponent<TilemapRenderer> ();
+		grassRenderer = grassTilemap.GetComponent<TilemapRenderer> ();
+		detailRenderer = detailTilemap.GetComponent<TilemapRenderer> ();
+		sandRenderer = sandTilemap.GetComponent<TilemapRenderer> ();
+		waterRenderer = waterTilemap.GetComponent<TilemapRenderer> ();
 
 		// set the tilemaps to the correct grid parents, grid determines layout
-		tilemap.transform.SetParent (grid.gameObject.transform);
+		grassTilemap.transform.SetParent (grid.gameObject.transform);
 		detailTilemap.transform.SetParent (detailGrid.gameObject.transform);
 		sandTilemap.transform.SetParent (sandGrid.gameObject.transform);
 		waterTilemap.transform.SetParent (waterGrid.gameObject.transform);
@@ -100,7 +101,7 @@ public class MyChunkClass
 		float [] distances = new float [BiomeCalculations.coords.Length];
 		tilePositions = new Vector3Int [chunkSize * chunkSize];
 		tilePositionsWorld = new Vector3Int [chunkSize * chunkSize];
-		tileArray = new Tile [chunkSize, chunkSize];
+		tileArray = new Tile [chunkSize * chunkSize];
 		sandTileArray = new RuleTile [chunkSize * chunkSize];
 		colors = new Color32 [chunkSize, chunkSize];
 		BiomeCalculations.BiomeType biome;
@@ -114,9 +115,12 @@ public class MyChunkClass
 		// in loop, enter all positions and tiles in arrays
 		for (int i = 0; i < chunkSize; i++) {
 			for (int j = 0; j < chunkSize; j++) {
-				
+
+				// fill in tile position arrays
 				tilePositions [at(i, j)] = new Vector3Int (i, j, 200);
-				tilePositionsWorld [at (i, j)] = new Vector3Int (i + chunkPos.x, j + chunkPos.y, 200);
+				tilePositionsWorld [at (i, j)] = new Vector3Int (i + chunkPos.x, j + chunkPos.y, 0);
+
+				// colour variable used to set tile colour
 				Color32 tileColor = new Color32 (117, 173, 141, 255); // standard foresty colour
 
 				// get features for this tile
@@ -126,15 +130,14 @@ public class MyChunkClass
 				biome = biomes [i, j];
 
 				// set tile sprite 
-				tileArray [i, j] = TileResources.tileGrass;
 				if (biome == BiomeCalculations.BiomeType.Desert)
-					tileArray [i, j] = TileResources.tileSand;
+					tileArray [at (i, j)] = TileResources.tileSand;
+				else
+					tileArray [at (i, j)] = TileResources.tileGrass;
 
 				// set sand layer
 				if (heightVal < -0.26) {
-					//Vector3Int sandPos = new Vector3Int (tilePositions [at (i, j)].x + chunkPos.x, tilePositions [at (i, j)].y + chunkPos.y, 198);
-					//sandTilemap.SetTile (sandPos, TileResources.tileSandRule);
-					sandTileArray [at(i,j)] = TileResources.tileSandRule;
+					sandTileArray [at(i, j)] = TileResources.tileSandRule;
 				}
 
 				/***********************************************/
@@ -176,10 +179,11 @@ public class MyChunkClass
 
 					// and finally... we can set the new tile colour
 					colors [i, j] = tileColor;
-					tileArray [i,j].color = tileColor;
+					tileArray [at (i, j)] = createNewTile (tileArray [at (i, j)].sprite, tileColor);
+					/*tileArray [i,j].color = tileColor;
 					tilemap.SetTileFlags (tilePositions [at (i, j)], TileFlags.None);
 					tilemap.SetColor (tilePositions [at (i, j)], tileColor);
-					tilemap.SetTile (tilePositions [at (i, j)], tileArray [i,j]);
+					tilemap.SetTile (tilePositions [at (i, j)], tileArray [i,j]);*/
 				}
 
 				/***********************************************/
@@ -193,10 +197,11 @@ public class MyChunkClass
 
 					// and finally... we can set the new tile colour
 					colors [i, j] = tileColor;
-					tileArray [i,j].color = tileColor;
+					tileArray [at (i, j)] = createNewTile (tileArray [at (i, j)].sprite, tileColor);
+					/*tileArray [at (i, j)].color = tileColor;
 					tilemap.SetTileFlags (tilePositions [at (i, j)], TileFlags.None);
 					tilemap.SetColor (tilePositions [at (i, j)], tileColor);
-					tilemap.SetTile (tilePositions [at (i, j)], tileArray [i,j]);
+					tilemap.SetTile (tilePositions [at (i, j)], tileArray [at (i, j)]);*/
 				}
 
 				/***********************************************/
@@ -241,21 +246,10 @@ public class MyChunkClass
 		}
 
 		sandTilemap.SetTiles (tilePositionsWorld, sandTileArray);
+		grassTilemap.SetTiles (tilePositionsWorld, tileArray);
 	}
 
-	public Tile createNewTile (Sprite sprite, Color color)
-	{
-		Tile newTile = new Tile ();
-		newTile.sprite = sprite;
-		newTile.color = color;
-		return newTile;
-	}
-
-	// lookup index of 16x16 2D array condensed to 1D array
-	public int at(int x, int y)
-	{
-		return (x * 16 + y);
-	}
+	
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
@@ -271,55 +265,56 @@ public class MyChunkClass
 		bool isNotNull;
 
 		// in loop, enter all positions and tiles in arrays
-		for (int i = 0; i < size; i++) {
-			int xIndex = Mathf.FloorToInt (i % (chunkSize * sizeFactor)) / sizeFactor;
-			int yIndex = Mathf.FloorToInt (i / (chunkSize * sizeFactor)) / sizeFactor;
-			biome = biomes [xIndex, yIndex];
-			isNotNull = true;
+		for (int x = 0; x < chunkSize * sizeFactor; x++) {
+			for (int y = 0; y < chunkSize * sizeFactor; y++) {
+				int xIndex = (int)(x / sizeFactor);
+				int yIndex = (int)(y / sizeFactor);//potential integer division error idk??
+				biome = biomes [xIndex, yIndex];
+				isNotNull = true;
+	
+				// temporary grass spawning system
+				if (biome != BiomeCalculations.BiomeType.Ice && biome != BiomeCalculations.BiomeType.Desert
+					&& heights [xIndex, yIndex] > -0.3) {
+					randNum = prng.Next (0, 15);
+					
+					// generate grass details using random numbers
+					if (randNum < 4)
+						deetArray [at64 (x, y)] = TileResources.grassDetails [randNum];
 
-			// temporary grass spawning system
-			if ((biome != BiomeCalculations.BiomeType.Ice && biome != BiomeCalculations.BiomeType.Desert)
-				&& heights[xIndex, yIndex] > -0.3) {
+					// flower generation less likely
+					else if (randNum == 5 & prng.Next (0, 15) == 1)
+						deetArray [at64 (x, y)] = TileResources.grassDetails [4];
+					else
+						isNotNull = false;
 
-				randNum = prng.Next (0, 15);
-				deetPositions [i] = new Vector3Int (i % (chunkSize * sizeFactor),
-					i / (chunkSize * sizeFactor), 199);
+					
+					deetPositions [at64 (x, y)] = new Vector3Int (x, y, 199);
 
-				// generate grass details using random numbers
-				if (randNum < 4)
-					deetArray [i] = TileResources.grassDetails[randNum];
+					// alter colour according to biome and some extra perlin noise for variation
+					if (isNotNull && deetArray [at64 (x, y)] != TileResources.grassDetails [4]) {
+						float perlinNoise = Mathf.PerlinNoise ((chunkPos.x + xIndex +
+							bCalc.octaveOffsets [3].x / 3.5f) * 0.1f, (chunkPos.y + yIndex +
+							bCalc.octaveOffsets [3].y / 3.5f) * 0.1f);
+						tileColor = colors [xIndex, yIndex];
 
-				// flower generation less likely
-				else if (randNum == 5 & prng.Next (0, 15) == 1)
-					deetArray [i] = TileResources.grassDetails[4];
-				else
-					isNotNull = false;
+						// store new values in ints
+						int b = (int)(tileColor.b - (25 * perlinNoise));
+						int r = (int)(tileColor.r + (25 * perlinNoise));
+						int g = (int)(tileColor.g + (25 * perlinNoise));
 
-				// set colour according to biome and some extra perlin noise for variation
-				if (isNotNull == true && deetArray [i] != TileResources.grassDetails [4]) {
-					float perlinNoise = Mathf.PerlinNoise ((chunkPos.x + xIndex +
-						bCalc.octaveOffsets [3].x / 3.5f) * 0.1f,(chunkPos.y + yIndex +
-						bCalc.octaveOffsets [3].y / 3.5f) * 0.1f);
-					tileColor = colors [xIndex, yIndex];
+						// check for overflow while casting to byte
+						tileColor.r = ReturnColourWithinBound (r, 160, 254);
+						tileColor.g = ReturnColourWithinBound (g, 160, 254);
+						tileColor.b = ReturnColourWithinBound (b, 160, 254);
 
-					// store new values in ints
-					int b = (int)(tileColor.b - (25 * perlinNoise));
-					int r = (int)(tileColor.r + (25 * perlinNoise));
-					int g = (int)(tileColor.g + (25 * perlinNoise));
-
-					// check for overflow while casting to byte
-					tileColor.r = ReturnColourWithinBound (r, 160, 254);
-					tileColor.g = ReturnColourWithinBound (g, 160, 254);
-					tileColor.b = ReturnColourWithinBound (b, 160, 254);
-
-					deetArray [i].color = tileColor;
-					detailTilemap.SetTileFlags (deetPositions [i], TileFlags.None);
-					detailTilemap.SetColor (deetPositions [i], tileColor);
+						//alter colour
+						deetArray [at64 (x, y)] = createNewTile (deetArray [at64 (x, y)].sprite, tileColor);
+					}
 				}
-
-				detailTilemap.SetTile (deetPositions [i], deetArray [i]);
 			}
+			
 		}
+		detailTilemap.SetTiles (deetPositions, deetArray);
 	}
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -340,16 +335,37 @@ public class MyChunkClass
 
 	public void SetVisible (bool visible)
 	{
-		trender.enabled = visible;
-		drender.enabled = visible;
-		srender.enabled = visible;
-		wrender.enabled = visible;
+		//grassRenderer.enabled = visible;
+		detailRenderer.enabled = visible;
+		//sandRenderer.enabled = visible;
+		//waterRenderer.enabled = visible;
 		treeParent.SetActive (visible);
+		isLoaded = visible;
 	}
 
 	public bool IsVisible ()
 	{
-		return trender.enabled;
+		return isLoaded;
+	}
+
+	public Tile createNewTile (Sprite sprite, Color color)
+	{
+		Tile newTile = ScriptableObject.CreateInstance<Tile> ();
+		newTile.sprite = sprite;
+		newTile.color = color;
+		return newTile;
+	}
+
+	// lookup index of 16x16 2D array condensed to 1D array
+	public int at (int x, int y)
+	{
+		return (x * 16 + y);
+	}
+
+	// lookup index of 64x64 2D array condensed to 1D array
+	public int at64 (int x, int y)
+	{
+		return (x * 64 + y);
 	}
 }
 

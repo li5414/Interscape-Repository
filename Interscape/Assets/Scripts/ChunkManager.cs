@@ -15,11 +15,12 @@ public class ChunkManager : MonoBehaviour
 	// references / objects
 	public Transform playerTrans;          // player reference
 	public Tilemap tilemapObj;             // used as empty tilemap to instantiate
+	public Tilemap grassTilemap;
 	public Tilemap sandTilemap;
 	public Tilemap waterTilemap;
 
 	// coordinate variables
-	public Vector2 viewerPosition; //?? not sure why static
+	public Vector2 viewerPosition;
 	int currentChunkCoordX;
 	int currentChunkCoordY;
 	int lastChunkCoordX;
@@ -79,7 +80,7 @@ public class ChunkManager : MonoBehaviour
 				else {
 					// add chunks coordinates to dictionary and generate new
 					Vector3Int pos = new Vector3Int (currentChunkCoordX + x, currentChunkCoordY + y, 200);
-					terrainChunkDictionary.Add (viewedChunkCoord, new MyChunkClass (prng, pos, tilemapObj, sandTilemap, waterTilemap));
+					terrainChunkDictionary.Add (viewedChunkCoord, new MyChunkClass (prng, pos));
 					terrainChunksVisibleLastUpdate.Add (terrainChunkDictionary [viewedChunkCoord]);
 				}
 
