@@ -10,24 +10,30 @@ public class MyChunkClass
 	// components
 	public static int chunkSize = 16;
 	bool isLoaded = true;
+	GameObject treeParent;       // parent for this particular chunk
+
+	// tilemaps
 	Tilemap tilemap;
 	Tilemap detailTilemap;
 	Tilemap sandTilemap;
 	Tilemap waterTilemap;
 	Tilemap grassTilemap;
-	TilemapRenderer grassRenderer;
-	TilemapRenderer detailRenderer;
-	TilemapRenderer sandRenderer;
-	TilemapRenderer waterRenderer;
-	GameObject treeParent;       // parent for this particular chunk
 
-	// arrays
+	//renderers
+	TilemapRenderer detailRenderer;
+	
+	// position arrays
 	Vector3Int [] tilePositions;
 	Vector3Int [] tilePositionsWorld;
-	Vector3Int [] deetPositions; // probably dont need?
+	Vector3Int [] deetPositions;
+
+	// tile arrays
 	Tile [] tileArray;
 	RuleTile [] sandTileArray;
-	Tile [] deetArray; // can make 2d
+	Tile [] waterTileArray;
+	Tile [] deetArray;
+
+	// biome information
 	float [,] heights;
 	float [,] temps;
 	float [,] humidities;
@@ -74,10 +80,7 @@ public class MyChunkClass
 		detailTilemap = Object.Instantiate (tilemapObj, pos, Quaternion.identity);
 
 		// locate the renderer component for each
-		grassRenderer = grassTilemap.GetComponent<TilemapRenderer> ();
 		detailRenderer = detailTilemap.GetComponent<TilemapRenderer> ();
-		sandRenderer = sandTilemap.GetComponent<TilemapRenderer> ();
-		waterRenderer = waterTilemap.GetComponent<TilemapRenderer> ();
 
 		// set the tilemaps to the correct grid parents, grid determines layout
 		grassTilemap.transform.SetParent (grid.gameObject.transform);
@@ -99,10 +102,16 @@ public class MyChunkClass
 
 	public void GenerateTiles (Vector3Int chunkPos) {
 		float [] distances = new float [BiomeCalculations.coords.Length];
+
+		// initalise arrays to be be used for settiles()
 		tilePositions = new Vector3Int [chunkSize * chunkSize];
 		tilePositionsWorld = new Vector3Int [chunkSize * chunkSize];
 		tileArray = new Tile [chunkSize * chunkSize];
 		sandTileArray = new RuleTile [chunkSize * chunkSize];
+		waterTileArray = new Tile [chunkSize * chunkSize];
+
+
+		// other information
 		colors = new Color32 [chunkSize, chunkSize];
 		BiomeCalculations.BiomeType biome;
 		Vector2 biomePos;
@@ -180,10 +189,6 @@ public class MyChunkClass
 					// and finally... we can set the new tile colour
 					colors [i, j] = tileColor;
 					tileArray [at (i, j)] = createNewTile (tileArray [at (i, j)].sprite, tileColor);
-					/*tileArray [i,j].color = tileColor;
-					tilemap.SetTileFlags (tilePositions [at (i, j)], TileFlags.None);
-					tilemap.SetColor (tilePositions [at (i, j)], tileColor);
-					tilemap.SetTile (tilePositions [at (i, j)], tileArray [i,j]);*/
 				}
 
 				/***********************************************/
@@ -198,10 +203,6 @@ public class MyChunkClass
 					// and finally... we can set the new tile colour
 					colors [i, j] = tileColor;
 					tileArray [at (i, j)] = createNewTile (tileArray [at (i, j)].sprite, tileColor);
-					/*tileArray [at (i, j)].color = tileColor;
-					tilemap.SetTileFlags (tilePositions [at (i, j)], TileFlags.None);
-					tilemap.SetColor (tilePositions [at (i, j)], tileColor);
-					tilemap.SetTile (tilePositions [at (i, j)], tileArray [at (i, j)]);*/
 				}
 
 				/***********************************************/
@@ -209,9 +210,6 @@ public class MyChunkClass
 				else if (heightVal < -0.3f) {
 					tileColor = BiomeCalculations.BiomeColours [BiomeCalculations.BiomeType.Water];
 					Tile water;
-
-					Vector3Int waterPos = new Vector3Int (tilePositions [at (i, j)].x + chunkPos.x, tilePositions [at (i, j)].y + chunkPos.y, 198);
-
 
 					// if x is odd
 					if ((i) % 2 == 1) {
@@ -238,15 +236,14 @@ public class MyChunkClass
 
 					colors [i, j] = tileColor;
 					water.color = tileColor;
-					waterTilemap.SetTileFlags (waterPos, TileFlags.None);
-					waterTilemap.SetColor (waterPos, tileColor);
-					waterTilemap.SetTile (waterPos, water);
+					waterTileArray [at (i, j)] = createNewTile (water.sprite, tileColor);
 				}
 			}
 		}
 
 		sandTilemap.SetTiles (tilePositionsWorld, sandTileArray);
 		grassTilemap.SetTiles (tilePositionsWorld, tileArray);
+		waterTilemap.SetTiles (tilePositionsWorld, waterTileArray);
 	}
 
 	
@@ -335,10 +332,7 @@ public class MyChunkClass
 
 	public void SetVisible (bool visible)
 	{
-		//grassRenderer.enabled = visible;
 		detailRenderer.enabled = visible;
-		//sandRenderer.enabled = visible;
-		//waterRenderer.enabled = visible;
 		treeParent.SetActive (visible);
 		isLoaded = visible;
 	}
