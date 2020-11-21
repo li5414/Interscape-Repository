@@ -22,20 +22,20 @@ public class BiomeCalculations : MonoBehaviour
 
 	public static BiomeType[,] BiomeTable = {   
     //                                               <--Colder      Hotter -->            
-    { BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland,      BiomeType.Grassland,      BiomeType.Savanna,    BiomeType.Desert,     BiomeType.Desert},   // Dryest
-    { BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland,      BiomeType.Grassland,      BiomeType.Savanna,    BiomeType.Desert,     BiomeType.Desert},
-	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland,      BiomeType.SeasonalForest, BiomeType.Savanna,    BiomeType.Savanna,    BiomeType.Desert },
-	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.SeasonalForest, BiomeType.SeasonalForest, BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Desert },
-	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,          BiomeType.SeasonalForest, BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Desert },
-	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,          BiomeType.Rainforest,     BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Desert },  // Wettest
-	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,          BiomeType.Rainforest,     BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Desert },
-	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,          BiomeType.Rainforest,     BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Desert }
+    { BiomeType.Ice, BiomeType.Ice, BiomeType.Savanna, BiomeType.Savanna,      BiomeType.Savanna,            BiomeType.Savanna,    BiomeType.Desert,     BiomeType.Desert},   // Dryest
+    { BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland,      BiomeType.Grassland,          BiomeType.Savanna,    BiomeType.Desert,     BiomeType.Desert},
+	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland,      BiomeType.Grassland,          BiomeType.Savanna,    BiomeType.Savanna,    BiomeType.Desert },
+	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland,      BiomeType.SeasonalForest,     BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Desert },
+	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Savanna,  BiomeType.Savanna,      BiomeType.SeasonalForest,     BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Desert },
+	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,          BiomeType.SeasonalForest,     BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Desert },  // Wettest
+	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,          BiomeType.SeasonalForest,     BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Savanna },
+	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,          BiomeType.SeasonalForest,     BiomeType.Rainforest, BiomeType.Rainforest,    BiomeType.Savanna }
 	};
 
-    // currently unused
+    // currently unused colours
 	public static BiomeType[] BiomeTable2 =  
     //                 <--Lower                    Higher -->            
-    { BiomeType.DeepWater, BiomeType.DeepWater, BiomeType.Water, BiomeType.Water, BiomeType.Water, BiomeType.Beach}; // beach should become transparent? use seperate layer?
+    { BiomeType.DeepWater, BiomeType.DeepWater, BiomeType.Water, BiomeType.Water, BiomeType.Water, BiomeType.Beach};
 
     // values relating to BiomeTable
 	public static int tableSize = 8;
@@ -81,10 +81,13 @@ public class BiomeCalculations : MonoBehaviour
 		BiomeColours.Add(BiomeType.Beach, new Color32(229, 209, 168, 255));
 		BiomeColours.Add (BiomeType.Desert, new Color32 (229, 204, 159, 255));
 		BiomeColours.Add(BiomeType.Savanna, new Color32(246, 226, 176, 255));
-		BiomeColours.Add(BiomeType.Rainforest, new Color32(90, 181, 137, 255));
+		//BiomeColours.Add(BiomeType.Rainforest, new Color32(90, 181, 137, 255));
+		BiomeColours.Add (BiomeType.Rainforest, new Color32 (69, 163, 117, 255));
 		BiomeColours.Add(BiomeType.Grassland, new Color32(185, 205, 147, 255));
-		BiomeColours.Add(BiomeType.SeasonalForest, new Color32(117, 173, 141, 255));
-		BiomeColours.Add(BiomeType.Taiga, new Color32(112, 168, 155, 255));
+		//BiomeColours.Add(BiomeType.SeasonalForest, new Color32(117, 173, 141, 255)); //75ad8d
+		BiomeColours.Add (BiomeType.SeasonalForest, new Color32 (130, 181, 146, 255)); //82b592
+		//BiomeColours.Add(BiomeType.Taiga, new Color32(112, 168, 155, 255));
+		BiomeColours.Add(BiomeType.Taiga, new Color32(126, 166, 142, 255));
 		BiomeColours.Add(BiomeType.Tundra, new Color32(144, 179, 164, 255));
 		BiomeColours.Add (BiomeType.Ice, new Color32 (218, 231, 235, 255));
 
@@ -102,7 +105,7 @@ public class BiomeCalculations : MonoBehaviour
 
 	private void Start ()
 	{
-		//InvokeRepeating ("PrintAtPos", 1.0f, 1.0f); //do not delete - is for testing!
+		InvokeRepeating ("PrintAtPos", 1.0f, 1.0f); //do not delete - is for testing!
 	}
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -116,7 +119,6 @@ public class BiomeCalculations : MonoBehaviour
 			float offsetY = prng.Next(-10000, 10000);
 			octaveOffsets[i] = new Vector2(offsetX, offsetY);
 		}
-		Debug.Log ("Octaves set");
 	}
 
 	public float GetHeightValue(int x, int y)

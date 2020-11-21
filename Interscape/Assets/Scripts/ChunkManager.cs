@@ -28,8 +28,8 @@ public class ChunkManager : MonoBehaviour
 	public System.Random prng = new System.Random (seed);
 	
 	// chunk dictionary
-	public Dictionary<Vector2, MyChunkClass> chunkDictionary = new Dictionary<Vector2, MyChunkClass> ();
-	List<MyChunkClass> chunksVisibleLastUpdate = new List<MyChunkClass> ();
+	public Dictionary<Vector2, Chunk> chunkDictionary = new Dictionary<Vector2, Chunk> ();
+	List<Chunk> chunksVisibleLastUpdate = new List<Chunk> ();
 
 	int distToUpdate = 1 * chunkSize;
 
@@ -62,7 +62,7 @@ public class ChunkManager : MonoBehaviour
 	{
 		// unload unneeded chunks
 		for (int i = 0; i < chunksVisibleLastUpdate.Count; i++) {
-			MyChunkClass chunk = chunksVisibleLastUpdate [i];
+			Chunk chunk = chunksVisibleLastUpdate [i];
 
 			if (!isWithinRenderDistance(chunk) && chunk.IsLoaded()) {
 				chunk.UnloadChunk();
@@ -87,7 +87,7 @@ public class ChunkManager : MonoBehaviour
 				}
 				else {
 					// add chunks coordinates to dictionary and generate new
-					chunkDictionary.Add (chunkCoord, new MyChunkClass (prng, chunkCoord));
+					chunkDictionary.Add (chunkCoord, new Chunk (prng, chunkCoord));
 					chunksVisibleLastUpdate.Add (chunkDictionary [chunkCoord]);
 				}
 
@@ -95,7 +95,7 @@ public class ChunkManager : MonoBehaviour
 		}
 	}
 
-	bool isWithinRenderDistance(MyChunkClass chunk)
+	bool isWithinRenderDistance(Chunk chunk)
 	{
 		if ((Mathf.Abs (currentChunkCoord.x - chunk.chunkPos.x) < renderDist*chunkSize) &&
 			(Mathf.Abs (currentChunkCoord.y - chunk.chunkPos.y) < renderDist*chunkSize)) {
