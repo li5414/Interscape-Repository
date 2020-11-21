@@ -9,8 +9,9 @@ public class MyChunkClass
 {
 	// components
 	public static int chunkSize = 16;
-	bool isLoaded = true;
+	bool isLoaded;
 	GameObject treeParent;       // parent for this particular chunk
+	public Vector2Int chunkPos;
 
 	// tilemaps
 	Tilemap tilemap;
@@ -41,21 +42,22 @@ public class MyChunkClass
 	GameObject [,] entities;
 	BiomeCalculations.BiomeType [,] biomes;
 	
-	// reference other script
-	ChunkManager chunkManager = GameObject.Find ("System Placeholder").GetComponent<ChunkManager> ();
-	BiomeCalculations bCalc = GameObject.Find ("System Placeholder").GetComponent<BiomeCalculations> ();
+	// reference other scripts
+	static ChunkManager chunkManager = GameObject.Find ("System Placeholder").GetComponent<ChunkManager> ();
+	static BiomeCalculations bCalc = GameObject.Find ("System Placeholder").GetComponent<BiomeCalculations> ();
+	static GreeneryGeneration gen = GameObject.Find ("System Placeholder").GetComponent<GreeneryGeneration> ();
 
-	GreeneryGeneration gen = GameObject.Find ("System Placeholder").GetComponent<GreeneryGeneration> ();
-	GameObject TreeParent = GameObject.Find ("TreeParent");
+	static GameObject TreeParent = GameObject.Find ("TreeParent");
 
 	// random number generator
 	System.Random prng;
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-	public MyChunkClass (System.Random prng, Vector3Int pos)
+	public MyChunkClass (System.Random prng, Vector2Int pos)
 	{
 		// get/initialise some important things
+		chunkPos = new Vector2Int (pos.x, pos.y);
 		this.prng = prng;
 		treeParent = new GameObject();
 		treeParent.transform.SetParent (TreeParent.gameObject.transform);
@@ -65,9 +67,9 @@ public class MyChunkClass
 		grassTilemap = chunkManager.grassTilemap;
 
 		// initialise arrays
-		heights = bCalc.GetHeightValues (pos.x, pos.y);
-		temps = bCalc.GetTemperatures (pos.x, pos.y, heights);
-		humidities = bCalc.GetHumidityArray (pos.x, pos.y, heights);
+		heights = bCalc.GetHeightValues (chunkPos.x, chunkPos.y);
+		temps = bCalc.GetTemperatures (chunkPos.x, chunkPos.y, heights);
+		humidities = bCalc.GetHumidityArray (chunkPos.x, chunkPos.y, heights);
 		biomes = bCalc.GetBiomes (heights, temps, humidities);
 
 		// reference grid objects
@@ -77,7 +79,7 @@ public class MyChunkClass
 		GameObject waterGrid = bCalc.waterGrid;
 
 		// set up tilemap gameobject
-		detailTilemap = Object.Instantiate (tilemapObj, pos, Quaternion.identity);
+		detailTilemap = Object.Instantiate (tilemapObj, new Vector3Int (chunkPos.x, chunkPos.y, 200), Quaternion.identity);
 
 		// locate the renderer component for each
 		detailRenderer = detailTilemap.GetComponent<TilemapRenderer> ();
@@ -89,18 +91,22 @@ public class MyChunkClass
 		waterTilemap.transform.SetParent (waterGrid.gameObject.transform);
 
 		// creates and sets tiles in tilearray to positions in position array
-		GenerateTiles (pos);
+		GenerateTiles ();
 
 		// generate grass details
-		GenerateDetails (pos);
+		GenerateDetails ();
 
 		// array of gameobjects (use dict/list instead?)
-		entities = gen.GeneratePlants (pos, biomes, heights, treeParent);
+		entities = gen.GeneratePlants (chunkPos, biomes, heights, treeParent);
+
+		// load in the chunk
+		isLoaded = false;
+		LoadChunk ();
 	}
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-	public void GenerateTiles (Vector3Int chunkPos) {
+	public void GenerateTiles () {
 		float [] distances = new float [BiomeCalculations.coords.Length];
 
 		// initalise arrays to be be used for settiles()
@@ -240,17 +246,13 @@ public class MyChunkClass
 				}
 			}
 		}
-
-		sandTilemap.SetTiles (tilePositionsWorld, sandTileArray);
-		grassTilemap.SetTiles (tilePositionsWorld, tileArray);
-		waterTilemap.SetTiles (tilePositionsWorld, waterTileArray);
 	}
 
 	
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-	public void GenerateDetails (Vector3Int chunkPos)
+	public void GenerateDetails ()
 	{
 		int sizeFactor = 4; // the cell size is 0.25x the normal cell size
 		int size = chunkSize * chunkSize * sizeFactor * sizeFactor;
@@ -320,8 +322,7 @@ public class MyChunkClass
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-	public byte ReturnColourWithinBound (int val, int min, int max)
-	{
+	public byte ReturnColourWithinBound (int val, int min, int max) {
 		// only works if you provide min and max within 0-255
 		if (val < min)
 			return (byte)min;
@@ -330,20 +331,45 @@ public class MyChunkClass
 		return (byte)val;
 	}
 
-	public void SetVisible (bool visible)
-	{
-		detailRenderer.enabled = visible;
-		treeParent.SetActive (visible);
-		isLoaded = visible;
+	public void LoadChunk () {
+		if (isLoaded)
+			return;
+
+		// enable things
+		detailRenderer.enabled = true;
+		treeParent.SetActive (true);
+		isLoaded = true;
+
+		sandTilemap.SetTiles (tilePositionsWorld, sandTileArray);
+		grassTilemap.SetTiles (tilePositionsWorld, tileArray);
+		waterTilemap.SetTiles (tilePositionsWorld, waterTileArray);
 	}
 
-	public bool IsVisible ()
-	{
+	public void UnloadChunk () {
+		if (!isLoaded)
+			return;
+
+		// disable things
+		detailRenderer.enabled = false;
+		treeParent.SetActive (false);
+		isLoaded = false;
+
+		//sandTilemap.SetTiles (tilePositionsWorld, null);
+		//sandTilemap.SetTile (tilePositionsWorld [0], null);
+		//grassTilemap.SetTiles (tilePositionsWorld, null);
+		//waterTilemap.SetTiles (tilePositionsWorld, null);
+		for (int i = 0; i < tilePositionsWorld.Length; i++) {
+			sandTilemap.SetTile (tilePositionsWorld [i], null);
+			grassTilemap.SetTile (tilePositionsWorld [i], null);
+			waterTilemap.SetTile (tilePositionsWorld [i], null);
+		}
+	}
+
+	public bool IsLoaded () {
 		return isLoaded;
 	}
 
-	public Tile createNewTile (Sprite sprite, Color color)
-	{
+	public Tile createNewTile (Sprite sprite, Color color) {
 		Tile newTile = ScriptableObject.CreateInstance<Tile> ();
 		newTile.sprite = sprite;
 		newTile.color = color;

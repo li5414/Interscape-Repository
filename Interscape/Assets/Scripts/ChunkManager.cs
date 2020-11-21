@@ -8,7 +8,7 @@ public class ChunkManager : MonoBehaviour
 	
 	// important values
 	public static int seed = 130;
-	public int renderDist = 4;                 // no. chunks
+	public int renderDist = 5;                 // no. chunks
 	public static int mapDimension = 5000;     // no. tiles
 	public static int chunkSize = 16;          // no. tiles
 
@@ -21,17 +21,17 @@ public class ChunkManager : MonoBehaviour
 
 	// coordinate variables
 	public Vector2 viewerPosition;
-	int currentChunkCoordX;
-	int currentChunkCoordY;
-	int lastChunkCoordX;
-	int lastChunkCoordY;
+	Vector2Int currentChunkCoord;
+	Vector2Int lastChunkCoord;
 
 	// number generator
 	public System.Random prng = new System.Random (seed);
 	
 	// chunk dictionary
-	public Dictionary<Vector2, MyChunkClass> terrainChunkDictionary = new Dictionary<Vector2, MyChunkClass> ();
-	List<MyChunkClass> terrainChunksVisibleLastUpdate = new List<MyChunkClass> ();
+	public Dictionary<Vector2, MyChunkClass> chunkDictionary = new Dictionary<Vector2, MyChunkClass> ();
+	List<MyChunkClass> chunksVisibleLastUpdate = new List<MyChunkClass> ();
+
+	int distToUpdate = 1 * chunkSize;
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
@@ -44,14 +44,15 @@ public class ChunkManager : MonoBehaviour
 	{
 		// get viewer and chunk position
 		viewerPosition = new Vector2 (playerTrans.position.x, playerTrans.position.y);
-		currentChunkCoordX = (Mathf.RoundToInt (viewerPosition.x / chunkSize)) * chunkSize;
-		currentChunkCoordY = (Mathf.RoundToInt (viewerPosition.y / chunkSize)) * chunkSize;
+		currentChunkCoord.x = Mathf.RoundToInt (viewerPosition.x / chunkSize) * chunkSize;
+		currentChunkCoord.y = Mathf.RoundToInt (viewerPosition.y / chunkSize) * chunkSize;
 
-		// if player moved to a different chunk, update chunks
-		if ((currentChunkCoordX != lastChunkCoordX) ||  (currentChunkCoordY != lastChunkCoordY)){
+		// if player moved a few chunks, update chunks
+		if (Mathf.Abs(currentChunkCoord.x - lastChunkCoord.x) > distToUpdate ||
+			Mathf.Abs(currentChunkCoord.y - lastChunkCoord.y) > distToUpdate){
 			UpdateVisibleChunks ();
-			lastChunkCoordX = currentChunkCoordX;
-			lastChunkCoordY = currentChunkCoordY;
+			lastChunkCoord.x = currentChunkCoord.x;
+			lastChunkCoord.y = currentChunkCoord.y; // potential updating error here
 		}
 	}
 
@@ -59,34 +60,47 @@ public class ChunkManager : MonoBehaviour
 
 	void UpdateVisibleChunks ()
 	{
-		// clear all visible chunks
-		for (int i = 0; i < terrainChunksVisibleLastUpdate.Count; i++) {
-			terrainChunksVisibleLastUpdate[i].SetVisible (false);
+		// unload unneeded chunks
+		for (int i = 0; i < chunksVisibleLastUpdate.Count; i++) {
+			MyChunkClass chunk = chunksVisibleLastUpdate [i];
+
+			if (!isWithinRenderDistance(chunk) && chunk.IsLoaded()) {
+				chunk.UnloadChunk();
+				chunksVisibleLastUpdate.RemoveAt (i);
+			}
 		}
-		terrainChunksVisibleLastUpdate.Clear ();
+
+		int xRadius = renderDist * chunkSize;
+		int yRadius = xRadius - chunkSize;
 
 		// go through neighbouring chunks that need to be rendered
-		for (int x = -(renderDist+1) * chunkSize; x <= renderDist * chunkSize; x += chunkSize) {
-			for (int y = -renderDist * chunkSize; y <= renderDist * chunkSize; y += chunkSize) {
-				Vector2Int viewedChunkCoord = new Vector2Int (currentChunkCoordX + x, currentChunkCoordY + y);
+		for (int x = -xRadius; x < xRadius; x += chunkSize) {
+			for (int y = -yRadius; y < yRadius; y += chunkSize) {
+				Vector2Int chunkCoord = new Vector2Int (currentChunkCoord.x + x, currentChunkCoord.y + y);
 
 				// if chunk has been encountered before, just switch it to visible
-				if (terrainChunkDictionary.ContainsKey (viewedChunkCoord)) {
-					if (terrainChunkDictionary [viewedChunkCoord].IsVisible () == false) {
-						terrainChunkDictionary [viewedChunkCoord].SetVisible (true);
+				if (chunkDictionary.ContainsKey (chunkCoord)) {
+					if (!chunkDictionary [chunkCoord].IsLoaded ()) {
+						chunkDictionary [chunkCoord].LoadChunk();
+						chunksVisibleLastUpdate.Add (chunkDictionary [chunkCoord]);
 					}
-					terrainChunksVisibleLastUpdate.Add (terrainChunkDictionary [viewedChunkCoord]);
 				}
 				else {
 					// add chunks coordinates to dictionary and generate new
-					Vector3Int pos = new Vector3Int (currentChunkCoordX + x, currentChunkCoordY + y, 200);
-					terrainChunkDictionary.Add (viewedChunkCoord, new MyChunkClass (prng, pos));
-					terrainChunksVisibleLastUpdate.Add (terrainChunkDictionary [viewedChunkCoord]);
+					chunkDictionary.Add (chunkCoord, new MyChunkClass (prng, chunkCoord));
+					chunksVisibleLastUpdate.Add (chunkDictionary [chunkCoord]);
 				}
 
 			}
 		}
 	}
 
-	
+	bool isWithinRenderDistance(MyChunkClass chunk)
+	{
+		if ((Mathf.Abs (currentChunkCoord.x - chunk.chunkPos.x) < renderDist*chunkSize) &&
+			(Mathf.Abs (currentChunkCoord.y - chunk.chunkPos.y) < renderDist*chunkSize)) {
+			return true;
+		}
+		return false;
+	}
 }

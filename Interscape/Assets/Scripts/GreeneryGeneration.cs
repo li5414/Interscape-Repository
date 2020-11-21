@@ -34,7 +34,7 @@ public class GreeneryGeneration : MonoBehaviour {
 
 	}
 	
-	public GameObject [,] GeneratePlants (Vector3Int chunkPos,
+	public GameObject [,] GeneratePlants (Vector2Int chunkPos,
 		BiomeCalculations.BiomeType [,] biomes, float [,] heights, GameObject parent)
 	{
 		GameObject [,] entities = new GameObject [chunkSize, chunkSize];

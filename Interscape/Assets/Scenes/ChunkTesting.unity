@@ -3065,7 +3065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27e58bd85707d49b4bae781734f11911, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderDist: 2
+  renderDist: 4
   playerTrans: {fileID: 1062241006}
   tilemapObj: {fileID: 217185278}
   grassTilemap: {fileID: 1638469965}
