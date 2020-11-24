@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Threading;
+using System;
 
 public class ChunkManager : MonoBehaviour
 {
@@ -31,12 +33,17 @@ public class ChunkManager : MonoBehaviour
 	public Dictionary<Vector2, Chunk> chunkDictionary = new Dictionary<Vector2, Chunk> ();
 	List<Chunk> chunksVisibleLastUpdate = new List<Chunk> ();
 
+	List<Chunk> chunksLoading = new List<Chunk> ();
+
 	int distToUpdate = 1 * chunkSize;
 
+	TileResources tileResources;
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 	private void Start ()
 	{
+		tileResources = new TileResources ();
+
 		UpdateVisibleChunks ();
 	}
 
@@ -49,11 +56,26 @@ public class ChunkManager : MonoBehaviour
 
 		// if player moved a few chunks, update chunks
 		if (Mathf.Abs(currentChunkCoord.x - lastChunkCoord.x) > distToUpdate ||
-			Mathf.Abs(currentChunkCoord.y - lastChunkCoord.y) > distToUpdate){
+			Mathf.Abs(currentChunkCoord.y - lastChunkCoord.y) > distToUpdate) {
 			UpdateVisibleChunks ();
 			lastChunkCoord.x = currentChunkCoord.x;
-			lastChunkCoord.y = currentChunkCoord.y; // potential updating error here
+			lastChunkCoord.y = currentChunkCoord.y;
 		}
+
+		//Debug.Log ("pepee");
+		List<Chunk> readyChunks = new List<Chunk> (); 
+		foreach (Chunk chunk in chunksLoading) {
+			if (chunk.isReady()) {
+				readyChunks.Add (chunk);
+			}
+		}
+		//Debug.Log ("Size " + readyChunks.Count);
+		foreach (Chunk chunk in readyChunks) {
+			chunk.finishLoading ();
+			chunksLoading.Remove (chunk);
+		}
+		
+
 	}
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -87,7 +109,8 @@ public class ChunkManager : MonoBehaviour
 				}
 				else {
 					// add chunks coordinates to dictionary and generate new
-					chunkDictionary.Add (chunkCoord, new Chunk (prng, chunkCoord));
+					chunkDictionary.Add (chunkCoord, new Chunk (prng, chunkCoord, tileResources));
+					chunksLoading.Add (chunkDictionary [chunkCoord]);
 					chunksVisibleLastUpdate.Add (chunkDictionary [chunkCoord]);
 				}
 
@@ -102,5 +125,22 @@ public class ChunkManager : MonoBehaviour
 			return true;
 		}
 		return false;
+	}
+
+	public void allocate(Chunk chunk)
+	{
+		StartCoroutine (allocateMemory(chunk));
+	}
+
+	IEnumerator allocateMemory (Chunk chunk)
+	{
+		for (int i = 0; i < chunk.tileArray.Length; i++) {
+			chunk.tileArray [i] = ScriptableObject.CreateInstance<Tile> ();
+			chunk.waterTileArray [i] = ScriptableObject.CreateInstance<Tile> ();
+			//chunk.sandTileArray [i] = ScriptableObject.CreateInstance<RuleTile> ();
+			yield return null;
+		}
+		chunk.createThread ();
+		//chunk.GenerateChunkData ();
 	}
 }

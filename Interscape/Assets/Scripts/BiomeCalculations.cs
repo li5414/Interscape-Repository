@@ -105,7 +105,7 @@ public class BiomeCalculations : MonoBehaviour
 
 	private void Start ()
 	{
-		InvokeRepeating ("PrintAtPos", 1.0f, 1.0f); //do not delete - is for testing!
+		//InvokeRepeating ("PrintAtPos", 1.0f, 1.0f); //do not delete - is for testing!
 	}
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */

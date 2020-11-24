@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
   m_Name: Sand_Rule
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 8610565575992400378, guid: e2915a8b0d17448a4867a3ffbd01bc42,
+  m_DefaultSprite: {fileID: 8610565575992400378, guid: 6de5d0e4d51644b7b935435974836b0d,
     type: 3}
   m_DefaultGameObject: {fileID: 0}
-  m_DefaultColliderType: 1
+  m_DefaultColliderType: 0
   m_TilingRules:
   - m_Id: 0
     m_Sprites:
