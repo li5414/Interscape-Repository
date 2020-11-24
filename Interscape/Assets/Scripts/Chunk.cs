@@ -11,9 +11,12 @@ public class Chunk
 {
 	// components
 	public static int chunkSize = 16;
-	bool isLoaded;
-	GameObject treeParent;       // parent for this particular chunk
 	public Vector2Int chunkPos;
+
+	bool isLoaded = false;
+	bool dataRecieved = false;
+	GameObject treeParent;       // parent for this particular chunk
+	
 
 	// deet stuff
 	Tilemap detailTilemap;
@@ -29,6 +32,12 @@ public class Chunk
 	public RuleTile [] sandTileArray = new RuleTile [chunkSize * chunkSize];
 	public Tile [] waterTileArray = new Tile [chunkSize * chunkSize];
 	public Tile [] deetArray;
+
+	// bools to supposedly save time
+	bool containsNoWater = true;
+	bool containsNoGrass = true;
+	bool containsNoSand = true;
+
 
 	// biome information
 	float [,] heights;
@@ -48,18 +57,14 @@ public class Chunk
 	// random number generator
 	System.Random prng;
 
-	bool dataRecieved = false;
-
-	TileResources tileResources;
+	
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-	public Chunk (System.Random prng, Vector2Int pos, TileResources tileResources)
+	public Chunk (System.Random prng, Vector2Int pos)
 	{
-		this.tileResources = tileResources;
 
 		// get/initialise some important things
-		isLoaded = false;
 		chunkPos = new Vector2Int (pos.x, pos.y);
 		this.prng = prng;
 		treeParent = new GameObject();
@@ -86,13 +91,14 @@ public class Chunk
 		thread.Start ();
 	}
 
-	public void finishLoading()
+	public void FinishGenerating()
 	{
 		// array of gameobjects (use dict/list instead?)
-		entities = gen.GeneratePlants (chunkPos, biomes, heights, treeParent);
+		//entities = gen.GeneratePlants (chunkPos, biomes, heights, treeParent);
 
 		// load in the chunk
-		LoadChunk ();
+		/*LoadChunk ();*/
+		chunkManager.chunksToLoad.Enqueue (this);
 	}
 
 	public void GenerateChunkData() 
@@ -123,11 +129,6 @@ public class Chunk
 		return dataRecieved;
 	}
 
-	public static void staticGenerateChunkData(Chunk chunk)
-	{
-		chunk.GenerateChunkData ();
-	}
-
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
@@ -153,9 +154,7 @@ public class Chunk
 				tilePositionsWorld [at (i, j)] = new Vector3Int (i + chunkPos.x, j + chunkPos.y, 0);
 
 				// colour variable used to set tile colour
-				//Color32 tileColor = new Color32 (117, 173, 141, 255); // standard foresty colour
-				//Color32 tileColor = new Color32 (127, 181, 139, 255);
-				Color32 tileColor = new Color32 (139, 179, 148, 255);
+				Color32 tileColor = new Color32 (139, 179, 148, 255); // standard foresty colour
 
 				// get features for this tile
 				heightVal = heights [i, j];
@@ -165,13 +164,14 @@ public class Chunk
 
 				// set tile sprite 
 				if (biome == BiomeCalculations.BiomeType.Desert)
-					tileArray [at (i, j)].sprite = tileResources.tileSand.sprite;
+					tileArray [at (i, j)].sprite = ChunkManager.tileResources.tileSand.sprite;
 				else
-					tileArray [at (i, j)].sprite = tileResources.tileGrass.sprite;
+					tileArray [at (i, j)].sprite = ChunkManager.tileResources.tileGrass.sprite;
 
 				// set sand layer
 				if (heightVal < -0.26) {
-					sandTileArray [at (i, j)] = tileResources.tileSandRule;
+					sandTileArray [at (i, j)] = ChunkManager.tileResources.tileSandRule;
+					containsNoSand = false;
 				}
 
 				/***********************************************/
@@ -215,6 +215,7 @@ public class Chunk
 					// and finally... we can set the new tile colour
 					colors [i, j] = tileColor;
 					tileArray [at (i, j)].color = tileColor;
+					containsNoGrass = false;
 				}
 
 				/***********************************************/
@@ -240,16 +241,16 @@ public class Chunk
 					// if x is odd
 					if ((i) % 2 == 1) {
 						if (j % 2 == 1) // y odd
-							water.sprite = tileResources.tileWater1.sprite;
+							water.sprite = ChunkManager.tileResources.tileWater1.sprite;
 						else                            // y even
-							water.sprite = tileResources.tileWater3.sprite;
+							water.sprite = ChunkManager.tileResources.tileWater3.sprite;
 					}
 					// if x is even
 					else {
 						if (j % 2 == 1) // y odd
-							water.sprite = tileResources.tileWater2.sprite;
+							water.sprite = ChunkManager.tileResources.tileWater2.sprite;
 						else                            // y even
-							water.sprite = tileResources.tileWater4.sprite;
+							water.sprite = ChunkManager.tileResources.tileWater4.sprite;
 					}
 
 					float darkness = Mathf.InverseLerp (-3f, -0.2f, heightVal);
@@ -262,6 +263,8 @@ public class Chunk
 
 					colors [i, j] = tileColor;
 					water.color = tileColor;
+					containsNoWater = false;
+					tileArray [at (i, j)] = null; // removing tiles under ocean
 				}
 			}
 		}
@@ -297,11 +300,11 @@ public class Chunk
 					
 					// generate grass details using random numbers
 					if (randNum < 4)
-						deetArray [at64 (x, y)] = tileResources.grassDetails [randNum];
+						deetArray [at64 (x, y)] = ChunkManager.tileResources.grassDetails [randNum];
 
 					// flower generation less likely
 					else if (randNum == 5 & prng.Next (0, 15) == 1)
-						deetArray [at64 (x, y)] = tileResources.grassDetails [4];
+						deetArray [at64 (x, y)] = ChunkManager.tileResources.grassDetails [4];
 					else
 						isNotNull = false;
 
@@ -309,7 +312,7 @@ public class Chunk
 					deetPositions [at64 (x, y)] = new Vector3Int (x, y, 199);
 
 					// alter colour according to biome and some extra perlin noise for variation
-					if (isNotNull && deetArray [at64 (x, y)] != tileResources.grassDetails [4]) {
+					if (isNotNull && deetArray [at64 (x, y)] != ChunkManager.tileResources.grassDetails [4]) {
 						float perlinNoise = Mathf.PerlinNoise ((chunkPos.x + xIndex +
 							bCalc.octaveOffsets [3].x / 3.5f) * 0.1f, (chunkPos.y + yIndex +
 							bCalc.octaveOffsets [3].y / 3.5f) * 0.1f);
@@ -369,27 +372,48 @@ public class Chunk
 		detailRenderer.enabled = true;
 		treeParent.SetActive (true);
 
-		chunkManager.sandTilemap.SetTiles (tilePositionsWorld, sandTileArray);
-		chunkManager.grassTilemap.SetTiles (tilePositionsWorld, tileArray);
-		chunkManager.waterTilemap.SetTiles (tilePositionsWorld, waterTileArray);
+		if (!containsNoSand)
+			chunkManager.sandTilemap.SetTiles (tilePositionsWorld, sandTileArray);
+
+		if (!containsNoGrass)
+			chunkManager.grassTilemap.SetTiles (tilePositionsWorld, tileArray);
+
+		if (!containsNoWater)
+			chunkManager.waterTilemap.SetTiles (tilePositionsWorld, waterTileArray);
 
 		isLoaded = true;
 	}
 
 	public void UnloadChunk () {
-		if (!isLoaded)
+		if (!isLoaded || !dataRecieved)
 			return;
 
 		// disable things
 		detailRenderer.enabled = false;
 		treeParent.SetActive (false);
-		isLoaded = false;
 
-		/*for (int i = 0; i < tilePositionsWorld.Length; i++) {
-			chunkManager.sandTilemap.SetTile (tilePositionsWorld [i], null);
-			chunkManager.grassTilemap.SetTile (tilePositionsWorld [i], null);
-			chunkManager.waterTilemap.SetTile (tilePositionsWorld [i], null);
-		}*/
+		// unload sand if there is some
+		if (!containsNoSand) {
+			for (int i = 0; i < tilePositionsWorld.Length; i++) {
+				chunkManager.sandTilemap.SetTile (tilePositionsWorld [i], null);
+			}
+		}
+
+		// unload grass if there is some
+		if (!containsNoGrass) {
+			for (int i = 0; i < tilePositionsWorld.Length; i++) {
+				chunkManager.grassTilemap.SetTile (tilePositionsWorld [i], null);
+			}
+		}
+
+		// unload water if there is some
+		if (!containsNoWater) {
+			for (int i = 0; i < tilePositionsWorld.Length; i++) {
+				chunkManager.waterTilemap.SetTile (tilePositionsWorld [i], null);
+			}
+		}
+		
+		isLoaded = false;
 	}
 
 	public bool IsLoaded () {

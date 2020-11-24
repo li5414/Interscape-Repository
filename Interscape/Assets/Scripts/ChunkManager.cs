@@ -31,13 +31,17 @@ public class ChunkManager : MonoBehaviour
 	
 	// chunk dictionary
 	public Dictionary<Vector2, Chunk> chunkDictionary = new Dictionary<Vector2, Chunk> ();
-	List<Chunk> chunksVisibleLastUpdate = new List<Chunk> ();
+	List<Chunk> chunksVisible = new List<Chunk> ();
 
-	List<Chunk> chunksLoading = new List<Chunk> ();
+	/*List<Chunk> chunksLoading = new List<Chunk> ();*/
+
+	 Queue<Chunk> chunksToGenerate = new Queue<Chunk> ();
+	public Queue<Chunk> chunksToLoad = new Queue<Chunk> ();
+	 Queue<Chunk> chunksToUnload = new Queue<Chunk> ();
 
 	int distToUpdate = 1 * chunkSize;
 
-	TileResources tileResources;
+	public static TileResources tileResources;
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 	private void Start ()
@@ -45,50 +49,78 @@ public class ChunkManager : MonoBehaviour
 		tileResources = new TileResources ();
 
 		UpdateVisibleChunks ();
+
+		// initalise positions to avoid duplicate chunk loading :(
+		viewerPosition = new Vector2 (playerTrans.position.x, playerTrans.position.y);
+		currentChunkCoord = ToChunkCoord (viewerPosition);
+		lastChunkCoord = ToChunkCoord (viewerPosition);
+
 	}
 
 	void Update ()
 	{
 		// get viewer and chunk position
 		viewerPosition = new Vector2 (playerTrans.position.x, playerTrans.position.y);
-		currentChunkCoord.x = Mathf.RoundToInt (viewerPosition.x / chunkSize) * chunkSize;
-		currentChunkCoord.y = Mathf.RoundToInt (viewerPosition.y / chunkSize) * chunkSize;
+		currentChunkCoord = ToChunkCoord (viewerPosition);
 
 		// if player moved a few chunks, update chunks
 		if (Mathf.Abs(currentChunkCoord.x - lastChunkCoord.x) > distToUpdate ||
 			Mathf.Abs(currentChunkCoord.y - lastChunkCoord.y) > distToUpdate) {
 			UpdateVisibleChunks ();
+			//Debug.Log ("Before: " + lastChunkCoord.ToString () + " After: " + currentChunkCoord.ToString ());
 			lastChunkCoord.x = currentChunkCoord.x;
 			lastChunkCoord.y = currentChunkCoord.y;
+			
 		}
 
-		//Debug.Log ("pepee");
-		List<Chunk> readyChunks = new List<Chunk> (); 
-		foreach (Chunk chunk in chunksLoading) {
-			if (chunk.isReady()) {
-				readyChunks.Add (chunk);
+		// finishing generating chunks that need to be generated
+		if (chunksToGenerate.Count > 0) {
+			if (chunksToGenerate.Peek().isReady()) {
+				Chunk chunk;
+				chunk = chunksToGenerate.Dequeue ();
+				chunk.FinishGenerating ();
+				chunksVisible.Add (chunk);
 			}
 		}
-		//Debug.Log ("Size " + readyChunks.Count);
-		foreach (Chunk chunk in readyChunks) {
-			chunk.finishLoading ();
-			chunksLoading.Remove (chunk);
+
+		// fininish loading (rendering) chunks that need to be loaded
+		if (chunksToLoad.Count > 0) {
+			Chunk chunk = chunksToLoad.Dequeue ();
+			chunk.LoadChunk ();
+			chunksVisible.Add (chunk);
 		}
-		
+
+		// fininish unloading chunks
+		if (chunksToUnload.Count > 0) {
+			Chunk chunk = chunksToUnload.Dequeue ();
+			chunk.UnloadChunk ();
+			chunksVisible.Remove (chunk);
+		}
+
 
 	}
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+	public Vector2Int ToChunkCoord(Vector2 position)
+	{
+		Vector2Int chunkCoord = new Vector2Int ();
+		chunkCoord.x = Mathf.FloorToInt (viewerPosition.x / chunkSize) * chunkSize;
+		chunkCoord.y = Mathf.FloorToInt (viewerPosition.y / chunkSize) * chunkSize;
+		return chunkCoord;
+	}
 
 	void UpdateVisibleChunks ()
 	{
+		Debug.Log ("Generating " + chunksToGenerate.Count + " chunks...");
+		Debug.Log ("Loading " + chunksToLoad.Count + " chunks...");
+		Debug.Log ("Unloading " + chunksToUnload.Count + " chunks...");
+		
 		// unload unneeded chunks
-		for (int i = 0; i < chunksVisibleLastUpdate.Count; i++) {
-			Chunk chunk = chunksVisibleLastUpdate [i];
+		for (int i = 0; i < chunksVisible.Count; i++) {
+			Chunk chunk = chunksVisible [i];
 
 			if (!isWithinRenderDistance(chunk) && chunk.IsLoaded()) {
-				chunk.UnloadChunk();
-				chunksVisibleLastUpdate.RemoveAt (i);
+				chunksToUnload.Enqueue (chunk);
 			}
 		}
 
@@ -103,19 +135,20 @@ public class ChunkManager : MonoBehaviour
 				// if chunk has been encountered before, just switch it to visible
 				if (chunkDictionary.ContainsKey (chunkCoord)) {
 					if (!chunkDictionary [chunkCoord].IsLoaded ()) {
-						chunkDictionary [chunkCoord].LoadChunk();
-						chunksVisibleLastUpdate.Add (chunkDictionary [chunkCoord]);
+						chunksToLoad.Enqueue (chunkDictionary [chunkCoord]);
 					}
 				}
 				else {
-					// add chunks coordinates to dictionary and generate new
-					chunkDictionary.Add (chunkCoord, new Chunk (prng, chunkCoord, tileResources));
-					chunksLoading.Add (chunkDictionary [chunkCoord]);
-					chunksVisibleLastUpdate.Add (chunkDictionary [chunkCoord]);
+					// add chunks coordinates to dictionary and generate new chunk
+					chunkDictionary.Add (chunkCoord, new Chunk (prng, chunkCoord));
+					chunksToGenerate.Enqueue (chunkDictionary [chunkCoord]);
 				}
-
 			}
 		}
+		Debug.Log ("Generating " + chunksToGenerate.Count + " chunks...");
+		Debug.Log ("Loading " + chunksToLoad.Count + " chunks...");
+		Debug.Log ("Unloading " + chunksToUnload.Count + " chunks...");
+		Debug.Log ("--------------");
 	}
 
 	bool isWithinRenderDistance(Chunk chunk)
@@ -137,10 +170,9 @@ public class ChunkManager : MonoBehaviour
 		for (int i = 0; i < chunk.tileArray.Length; i++) {
 			chunk.tileArray [i] = ScriptableObject.CreateInstance<Tile> ();
 			chunk.waterTileArray [i] = ScriptableObject.CreateInstance<Tile> ();
-			//chunk.sandTileArray [i] = ScriptableObject.CreateInstance<RuleTile> ();
 			yield return null;
 		}
-		chunk.createThread ();
-		//chunk.GenerateChunkData ();
+		//chunk.createThread ();
+		chunk.GenerateChunkData ();
 	}
 }
