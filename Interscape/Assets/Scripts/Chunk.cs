@@ -12,9 +12,11 @@ public class Chunk
 	// components
 	public static int chunkSize = 16;
 	public Vector2Int chunkPos;
+	public Vector2Int chunkCoord;
 
 	bool isLoaded = false;
 	bool dataRecieved = false;
+	bool isGenerated = false;
 	GameObject treeParent;       // parent for this particular chunk
 	
 
@@ -65,7 +67,8 @@ public class Chunk
 	{
 
 		// get/initialise some important things
-		chunkPos = new Vector2Int (pos.x, pos.y);
+		chunkPos = new Vector2Int (pos.x * chunkSize, pos.y * chunkSize);
+		chunkCoord = new Vector2Int (pos.x, pos.y);
 		this.prng = prng;
 		treeParent = new GameObject();
 		treeParent.transform.SetParent (TreeParent.gameObject.transform);
@@ -94,10 +97,10 @@ public class Chunk
 	public void FinishGenerating()
 	{
 		// array of gameobjects (use dict/list instead?)
-		//entities = gen.GeneratePlants (chunkPos, biomes, heights, treeParent);
+		entities = gen.GeneratePlants (chunkPos, biomes, heights, treeParent);
 
 		// load in the chunk
-		/*LoadChunk ();*/
+		isGenerated = true;
 		chunkManager.chunksToLoad.Enqueue (this);
 	}
 
@@ -124,9 +127,14 @@ public class Chunk
 	}
 
 	
-	public bool isReady()
+	public bool IsReadyToFinishGeneration()
 	{
 		return dataRecieved;
+	}
+
+	public bool IsGenerated ()
+	{
+		return isGenerated;
 	}
 
 
@@ -353,23 +361,23 @@ public class Chunk
 		return (byte)val;
 	}
 
-	public Color32 ReturnColourWithinBiome (Color32 color, BiomeCalculations.BiomeType biome)
+	public void ColourWithinBounds (Color32 color, int min, int max)
 	{
-		if (color.r > BiomeCalculations.BiomeColours [biome].r)
-			color.r = BiomeCalculations.BiomeColours [biome].r;
-		if (color.g > BiomeCalculations.BiomeColours [biome].g)
-			color.g = BiomeCalculations.BiomeColours [biome].g;
-		if (color.b > BiomeCalculations.BiomeColours [biome].b)
-			color.b = BiomeCalculations.BiomeColours [biome].b;
-		return color;
+		// only works if you provide min and max within 0-255
+
+		color.r = (byte)Mathf.Clamp (color.r, min, max);
+		color.g = (byte)Mathf.Clamp (color.r, min, max);
+		color.b = (byte)Mathf.Clamp (color.r, min, max);
 	}
 
 	public void LoadChunk () {
 		if (isLoaded)
 			return;
 
+		Assert.IsTrue (isGenerated);
+
 		// enable things
-		detailRenderer.enabled = true;
+		detailTilemap.enabled = true;
 		treeParent.SetActive (true);
 
 		if (!containsNoSand)
@@ -385,11 +393,13 @@ public class Chunk
 	}
 
 	public void UnloadChunk () {
-		if (!isLoaded || !dataRecieved)
+		if (!isLoaded)
 			return;
 
+		Assert.IsTrue(isGenerated);
+
 		// disable things
-		detailRenderer.enabled = false;
+		detailTilemap.enabled = false;
 		treeParent.SetActive (false);
 
 		// unload sand if there is some

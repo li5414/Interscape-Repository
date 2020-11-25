@@ -22,11 +22,11 @@ public class BiomeCalculations : MonoBehaviour
 
 	public static BiomeType[,] BiomeTable = {   
     //                                               <--Colder      Hotter -->            
-    { BiomeType.Ice, BiomeType.Ice, BiomeType.Savanna, BiomeType.Savanna,      BiomeType.Savanna,            BiomeType.Savanna,    BiomeType.Desert,     BiomeType.Desert},   // Dryest
+    { BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland,      BiomeType.Savanna,            BiomeType.Savanna,    BiomeType.Desert,     BiomeType.Desert},   // Dryest
     { BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland,      BiomeType.Grassland,          BiomeType.Savanna,    BiomeType.Desert,     BiomeType.Desert},
 	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland,      BiomeType.Grassland,          BiomeType.Savanna,    BiomeType.Savanna,    BiomeType.Desert },
 	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland,      BiomeType.SeasonalForest,     BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Desert },
-	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Savanna,  BiomeType.Savanna,      BiomeType.SeasonalForest,     BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Desert },
+	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Grassland,      BiomeType.SeasonalForest,     BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Desert },
 	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,          BiomeType.SeasonalForest,     BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Desert },  // Wettest
 	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,          BiomeType.SeasonalForest,     BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Savanna },
 	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,          BiomeType.SeasonalForest,     BiomeType.Rainforest, BiomeType.Rainforest,    BiomeType.Savanna }
