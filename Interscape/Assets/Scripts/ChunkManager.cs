@@ -20,6 +20,7 @@ public class ChunkManager : MonoBehaviour
 	public Tilemap grassTilemap;
 	public Tilemap sandTilemap;
 	public Tilemap waterTilemap;
+	public Tilemap detailTilemap;
 
 	// coordinate variables
 	public Vector2 viewerPosition;
@@ -164,9 +165,13 @@ public class ChunkManager : MonoBehaviour
 
 	IEnumerator allocateMemory (Chunk chunk)
 	{
+		int deetWidth = Chunk.sizeFactor * Chunk.sizeFactor;
 		for (int i = 0; i < chunk.tileArray.Length; i++) {
 			chunk.tileArray [i] = ScriptableObject.CreateInstance<Tile> ();
 			chunk.waterTileArray [i] = ScriptableObject.CreateInstance<Tile> ();
+			for (int j = 0; j < deetWidth; j++) {
+				chunk.deetArray [(i * deetWidth) + j] = ScriptableObject.CreateInstance<Tile> ();
+			}
 			yield return null;
 		}
 		//chunk.createThread ();

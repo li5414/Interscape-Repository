@@ -15,12 +15,24 @@ public class TileResources {
 
 
 	// grass details
-	public Tile [] grassDetails = { Resources.Load<Tile> ("Sprites/Map/Tiles/detail_1"),
+	public Sprite [] grassDetails = Resources.LoadAll<Sprite>("Sprites/Map/Greenery/GrassBlades");
+
+
+	/*= { /*Resources.Load<Tile> ("Sprites/Map/Tiles/detail_1"),
 											Resources.Load<Tile> ("Sprites/Map/Tiles/detail_2"),
 											Resources.Load<Tile> ("Sprites/Map/Tiles/detail_4"),
 											Resources.Load<Tile> ("Sprites/Map/Tiles/detail_5"),
 											Resources.Load<Tile> ("Sprites/Map/Tiles/detail_3")
-											};
+											};*/
 
+	 public TileResources ()
+	{
+		/*grassDetails = new Tile [28];
+		for (int i = 0; i < 28; i ++) {
+			grassDetails [i] = ScriptableObject.CreateInstance<Tile> ();
+			grassDetails [i].sprite = Resources.Load<Sprite> ("Sprites/Map/Greenery/GrassBlades_" + i.ToString());
+		}*/
+		//Debug.Log (grassDetails [5].sprite.ToString ());
+	}
 
 }
