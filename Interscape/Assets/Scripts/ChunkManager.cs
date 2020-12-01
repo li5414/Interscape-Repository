@@ -78,15 +78,16 @@ public class ChunkManager : MonoBehaviour
 
 		// fininish unloading chunks
 		if (chunksToUnload.Count > 0) {
-			Chunk chunk = chunksToUnload.Dequeue ();
-			chunk.UnloadChunk ();
+			if (chunksToUnload.Peek ().IsGenerated ()) {
+				Chunk chunk = chunksToUnload.Dequeue ();
+				chunk.UnloadChunk ();
+			}
 		}
 
 		// if player moved a chunks, update chunks
 		if (currentChunkCoord.x != lastChunkCoord.x || currentChunkCoord.y != lastChunkCoord.y) {
-			lastChunkCoord.x = currentChunkCoord.x;
-			lastChunkCoord.y = currentChunkCoord.y;
 			UpdateVisibleChunks ();
+			lastChunkCoord = new Vector2Int (currentChunkCoord.x, currentChunkCoord.y);
 		}
 
 	}
