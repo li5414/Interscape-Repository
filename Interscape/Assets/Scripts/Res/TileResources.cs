@@ -16,6 +16,7 @@ public class TileResources {
 
 	// grass details
 	public Sprite [] grassDetails = Resources.LoadAll<Sprite>("Sprites/Map/Greenery/GrassBlades");
+	public Tile [] grassDetailsChunk;
 
 
 	/*= { /*Resources.Load<Tile> ("Sprites/Map/Tiles/detail_1"),
@@ -25,13 +26,13 @@ public class TileResources {
 											Resources.Load<Tile> ("Sprites/Map/Tiles/detail_3")
 											};*/
 
-	 public TileResources ()
+	public TileResources ()
 	{
-		/*grassDetails = new Tile [28];
-		for (int i = 0; i < 28; i ++) {
-			grassDetails [i] = ScriptableObject.CreateInstance<Tile> ();
-			grassDetails [i].sprite = Resources.Load<Sprite> ("Sprites/Map/Greenery/GrassBlades_" + i.ToString());
-		}*/
+		grassDetailsChunk = new Tile [8];
+		for (int i = 0; i < 8; i ++) {
+			grassDetailsChunk [i] = ScriptableObject.CreateInstance<Tile> ();
+			grassDetailsChunk [i].sprite = Resources.Load<Sprite> ("Sprites/Map/Tiles/GrassBlades/GrassChunk" + i.ToString());
+		}
 		//Debug.Log (grassDetails [5].sprite.ToString ());
 	}
 

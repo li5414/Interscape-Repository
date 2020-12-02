@@ -21,6 +21,7 @@ public class ChunkManager : MonoBehaviour
 	public Tilemap sandTilemap;
 	public Tilemap waterTilemap;
 	public Tilemap detailTilemap;
+	public Tilemap detailTilemapChunked;
 
 	// coordinate variables
 	public Vector2 viewerPosition;

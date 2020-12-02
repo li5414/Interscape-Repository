@@ -35,6 +35,7 @@ public class Chunk
 	public RuleTile [] sandTileArray = new RuleTile [chunkSize * chunkSize];
 	public Tile [] waterTileArray = new Tile [chunkSize * chunkSize];
 	public Tile [] deetArray = new Tile [chunkSize * chunkSize * sizeFactor * sizeFactor];
+	public Tile deetChunk;
 
 	// bools to supposedly save time
 	bool containsNoWater = true;
@@ -124,7 +125,8 @@ public class Chunk
 		GenerateTiles ();
 
 		// generate grass details
-		GenerateDetails ();
+		//GenerateDetails ();
+		GenerateDetailsChunk ();
 
 		dataRecieved = true;
 	}
@@ -312,10 +314,14 @@ public class Chunk
 				// temporary grass spawning system
 				if (biome != BiomeCalculations.BiomeType.Ice && biome != BiomeCalculations.BiomeType.Desert
 					&& heights [xIndex, yIndex] > -0.3) {
-					randNum = prng.Next (0, 60);
+					randNum = prng.Next (0, 50);
 
 					// generate grass details using random numbers
 					if (randNum < 28) {
+						if (randNum >= 8 && prng.Next (0, 50) < 30) {
+							randNum %= 8;
+						}
+
 						deetArray [at64 (x, y)].sprite = ChunkManager.tileResources.grassDetails [randNum];
 					} else
 						isNotNull = false;
@@ -349,9 +355,15 @@ public class Chunk
 		
 	}
 
+	public void GenerateDetailsChunk ()
+	{
+		int randNum = prng.Next (0, 7);
+		deetChunk = ChunkManager.tileResources.grassDetailsChunk [randNum];
+	
+	}
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-	
+
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
@@ -380,7 +392,6 @@ public class Chunk
 		Assert.IsTrue (isGenerated);
 
 		// enable things
-		//detailTilemap.enabled = true;
 		treeParent.SetActive (true);
 
 		if (!containsNoSand)
@@ -388,7 +399,8 @@ public class Chunk
 
 		if (!containsNoGrass) {
 			chunkManager.grassTilemap.SetTiles (tilePositionsWorld, tileArray);
-			chunkManager.detailTilemap.SetTiles (deetPositions, deetArray);
+			//chunkManager.detailTilemap.SetTiles (deetPositions, deetArray);
+			chunkManager.detailTilemapChunked.SetTile (new Vector3Int (chunkCoord.x, chunkCoord.y, 0), deetChunk);
 		}
 
 		if (!containsNoWater)
@@ -419,9 +431,10 @@ public class Chunk
 			for (int i = 0; i < tilePositionsWorld.Length; i++) {
 				chunkManager.grassTilemap.SetTile (tilePositionsWorld [i], null);
 			}
-			for (int i = 0; i < deetPositions.Length; i++) {
+			/*for (int i = 0; i < deetPositions.Length; i++) {
 				chunkManager.detailTilemap.SetTile (deetPositions [i], null);
-			}
+			}*/
+			chunkManager.detailTilemapChunked.SetTile (new Vector3Int (chunkCoord.x, chunkCoord.y, 0), null);
 		}
 
 		// unload water if there is some
