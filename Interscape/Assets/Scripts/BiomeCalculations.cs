@@ -20,13 +20,15 @@ public class BiomeCalculations : MonoBehaviour
 		Beach
 	}
 
+	public Texture2D biomeColourMap;
+
 	public static BiomeType[,] BiomeTable = {   
     //                                               <--Colder      Hotter -->            
-    { BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland,      BiomeType.Savanna,            BiomeType.Savanna,    BiomeType.Desert,     BiomeType.Desert},   // Dryest
+    { BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland,      BiomeType.Grassland,          BiomeType.Savanna,    BiomeType.Desert,     BiomeType.Desert},   // Dryest
     { BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland,      BiomeType.Grassland,          BiomeType.Savanna,    BiomeType.Desert,     BiomeType.Desert},
+	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland,      BiomeType.Grassland,          BiomeType.Savanna,    BiomeType.Desert,     BiomeType.Desert },
 	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland,      BiomeType.Grassland,          BiomeType.Savanna,    BiomeType.Savanna,    BiomeType.Desert },
-	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland,      BiomeType.SeasonalForest,     BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Desert },
-	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Grassland,      BiomeType.SeasonalForest,     BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Desert },
+	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Grassland,      BiomeType.SeasonalForest,     BiomeType.Savanna,    BiomeType.Savanna,    BiomeType.Desert },
 	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,          BiomeType.SeasonalForest,     BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Desert },  // Wettest
 	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,          BiomeType.SeasonalForest,     BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Savanna },
 	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,          BiomeType.SeasonalForest,     BiomeType.Rainforest, BiomeType.Rainforest,    BiomeType.Savanna }
@@ -79,6 +81,7 @@ public class BiomeCalculations : MonoBehaviour
 		BiomeColours.Add(BiomeType.Water, new Color32(116, 144, 183, 255));
 		BiomeColours.Add(BiomeType.DeepWater, new Color32(88, 115, 159, 255));
 		BiomeColours.Add(BiomeType.Beach, new Color32(229, 209, 168, 255));
+
 		BiomeColours.Add (BiomeType.Desert, new Color32 (229, 204, 159, 255));
 		BiomeColours.Add(BiomeType.Savanna, new Color32(246, 226, 176, 255));
 		//BiomeColours.Add(BiomeType.Rainforest, new Color32(90, 181, 137, 255));
@@ -105,7 +108,7 @@ public class BiomeCalculations : MonoBehaviour
 
 	private void Start ()
 	{
-		//InvokeRepeating ("PrintAtPos", 1.0f, 1.0f); //do not delete - is for testing!
+		InvokeRepeating ("PrintAtPos", 2.0f, 2.0f); //do not delete - is for testing!
 	}
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -236,11 +239,14 @@ public class BiomeCalculations : MonoBehaviour
 	public float GetHumidity(int x, int y, float heightVal)
 	{
 		float perlinValue = Mathf.PerlinNoise((x / (scale / 2)) + octaveOffsets[2].x, (y / (scale / 2)) + octaveOffsets[2].y);
-		float moisture = perlinValue * tableSize; // in range for array lookup
+		float moisture = perlinValue;
+		//float moisture = perlinValue * tableSize; // in range for array lookup
 
 		float height = Mathf.InverseLerp(-1f, 1f, heightVal);
-		moisture *= (1 - height);
-		return moisture;
+		//moisture *= (1 - height);
+		moisture -= height / 3;
+		moisture += 0.2f;
+		return Mathf.Clamp01(moisture);
 	}
 
 	public float[,] GetHumidityArray(int chunkX, int chunkY, float[,] heights)
@@ -253,11 +259,14 @@ public class BiomeCalculations : MonoBehaviour
 		for (int x = 0; x < chunkSize; x++) {
 			for (int y = 0; y < chunkSize; y++) {
 				perlinValue = Mathf.PerlinNoise((chunkX + x) / (scale / 2) + octaveOffsets[2].x, (chunkY + y) / (scale / 2) + octaveOffsets[2].y);
-				moisture = perlinValue * tableSize; // in range for array lookup
+				moisture = perlinValue;
+				//moisture = perlinValue * tableSize; // in range for array lookup
 
 				float height = Mathf.InverseLerp(-1f, 1f, heights[x, y]); // get height in range 0-1
-				moisture *= (1 - height);
-				moistures[x, y] = moisture;
+																		  //moisture *= (1 - height);
+				moisture -= height / 3;
+				moisture += 0.2f;
+				moistures [x, y] = Mathf.Clamp01 (moisture);
 			}
 		}
 		return moistures;
@@ -280,16 +289,13 @@ public class BiomeCalculations : MonoBehaviour
 				height = heights[x, y];
 
 				// get temperature as an integer for easy lookup in biome array
-				temp = Mathf.InverseLerp(-80f, 80f, temperatures[x, y]);
+				temp = Mathf.InverseLerp(-70f, 70f, temperatures[x, y]);
+				temp = Mathf.Clamp01 (temp);
 				temp *= tableSize;
 				temp = Mathf.FloorToInt(temp);
 
 				// putting a cap on vales so as not to over-index array
-				humidity = Mathf.FloorToInt(humidities[x, y]);
-				if (humidity < 0)
-					humidity = 0;
-				if (humidity > tableSize - 1)
-					humidity = tableSize - 1;
+				humidity = Mathf.FloorToInt(humidities[x, y] * tableSize);
 
 				biomeTypes[x, y] = BiomeTable[humidity, (int)temp];
 
@@ -307,16 +313,13 @@ public class BiomeCalculations : MonoBehaviour
 		BiomeType biome;
 
 		// get temperature as an integer for easy lookup in biome array
-		temp = Mathf.InverseLerp(-80f, 80f, temperature);
+		temp = Mathf.InverseLerp(-70f, 70f, temperature);
+		temp = Mathf.Clamp01 (temp);
 		temp *= tableSize;
 		temp = Mathf.FloorToInt(temp);
 
-		// putting a cap on vales so as not to over-index array
-		humid = Mathf.FloorToInt(humidity);
-		if (humid < 0)
-			humid = 0;
-		if (humid > tableSize - 1)
-			humid = tableSize - 1;
+		
+		humid = Mathf.FloorToInt (humidity * tableSize);
 
 		biome = BiomeTable[humid, (int)temp];
 
@@ -338,11 +341,11 @@ public class BiomeCalculations : MonoBehaviour
 	{
 		Vector2 pos = new Vector2(playerTrans.position.x, playerTrans.position.y);
 		float heightVal = GetHeightValue((int)pos.x, (int)pos.y);
-		//Debug.Log ("Height is " + heightVal);
+		Debug.Log ("Height is " + heightVal);
 		float temp = GetTemperature((int)pos.x, (int)pos.y, heightVal);
-		//Debug.Log ("Temp is " + temp);
+		Debug.Log ("Temp is " + temp);
 		float humidity = GetHumidity((int)pos.x, (int)pos.y, heightVal);
-		//Debug.Log ("Humidity is " + humidity);
+		Debug.Log ("Humidity is " + humidity + "%");
 		BiomeType biome = GetBiome(heightVal, temp, humidity);
 		Debug.Log("You are in a " + biome + "biome");
 	}

@@ -192,12 +192,12 @@ public class Chunk
 				if (heightVal >= -0.3 && biome != BiomeCalculations.BiomeType.Ice) {
 
 					// get temp in range for lookup (assuming the max and min possible temperatures)
-					temp = Mathf.InverseLerp (-80f, 80f, temp);
-					temp *= BiomeCalculations.tableSize;
-					biomePos = new Vector2 (humidity, temp);
+					//temp = Mathf.InverseLerp (-80f, 80f, temp);
+					//temp *= BiomeCalculations.tableSize;
+					//biomePos = new Vector2 (humidity, temp);
 
 					// loop through coordinates to determine which biome colours to use
-					for (int z = 0; z < BiomeCalculations.coords.Length; z++) {
+					/*for (int z = 0; z < BiomeCalculations.coords.Length; z++) {
 						distances [z] = Vector2.Distance (BiomeCalculations.coords [z], biomePos);
 
 						// normalise distance to 0-1
@@ -223,7 +223,8 @@ public class Chunk
 								
 							}
 						}
-					}
+					}*/
+					tileColor = NewBiomeColorAlgorithm (temp, humidity);
 
 					// and finally... we can set the new tile colour
 					colors [i, j] = tileColor;
@@ -284,6 +285,19 @@ public class Chunk
 	}
 
 	
+
+	public Color NewBiomeColorAlgorithm(float temp, float humidity)
+	{
+		temp = Mathf.InverseLerp (-80f, 80f, temp);
+		temp *= bCalc.biomeColourMap.width;
+
+		humidity = 1 - humidity;
+		humidity *= bCalc.biomeColourMap.width;
+		Color color = bCalc.biomeColourMap.GetPixel ((int)temp, (int)humidity);
+
+		return color;
+		
+	}
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 

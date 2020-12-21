@@ -3101,6 +3101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceb521a57e5d343228f7d21f9e7863d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  biomeColourMap: {fileID: 2800000, guid: cd3b7332accea4daa87ba89dc221568d, type: 3}
   playerTrans: {fileID: 1062241006}
   tilemapObj: {fileID: 217185278}
   grid: {fileID: 166071213}
@@ -3608,7 +3609,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!156049354 &734123509
 Grid:
   m_ObjectHideFlags: 0
@@ -10678,7 +10679,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 962b4ba1f88be4a10bf42baabe0e8ff9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
