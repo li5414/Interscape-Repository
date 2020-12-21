@@ -151,9 +151,6 @@ public class Chunk
 		// other information
 		colors = new Color32 [chunkSize, chunkSize];
 		BiomeCalculations.BiomeType biome;
-		Vector2 biomePos;
-		Color32 secondary;
-		float distThreshold = 0.25f;
 		float heightVal;
 		float temp;
 		float humidity;
@@ -189,61 +186,14 @@ public class Chunk
 
 				/***********************************************/
 				// choosing colour for grassy biome types
-				if (heightVal >= -0.3 && biome != BiomeCalculations.BiomeType.Ice) {
+				if (heightVal >= -0.3) {
 
-					// get temp in range for lookup (assuming the max and min possible temperatures)
-					//temp = Mathf.InverseLerp (-80f, 80f, temp);
-					//temp *= BiomeCalculations.tableSize;
-					//biomePos = new Vector2 (humidity, temp);
-
-					// loop through coordinates to determine which biome colours to use
-					/*for (int z = 0; z < BiomeCalculations.coords.Length; z++) {
-						distances [z] = Vector2.Distance (BiomeCalculations.coords [z], biomePos);
-
-						// normalise distance to 0-1
-						distances [z] = Mathf.InverseLerp (0f, Mathf.Sqrt (BiomeCalculations.tableSize * BiomeCalculations.tableSize +
-							BiomeCalculations.tableSize * BiomeCalculations.tableSize), distances [z]); // diagonal length of array is the upper range
-
-						// only take into account the nearest biome colours, making sure its not ice cuz i dont want everything tinted white
-						if (distances [z] < distThreshold) {
-							if (BiomeCalculations.BiomeTable [BiomeCalculations.coords [z].x, BiomeCalculations.coords [z].y] != BiomeCalculations.BiomeType.Ice) {
-								secondary = BiomeCalculations.BiomeColours [BiomeCalculations.BiomeTable [BiomeCalculations.coords [z].x,
-															BiomeCalculations.coords [z].y]];
-								float weighting = 1 - Mathf.InverseLerp (0f, distThreshold, distances [z]); // lerp creates larger range of weightings
-
-								//get difference, multiply by weighting value and add to original
-								int r = tileColor.r + Mathf.FloorToInt ((secondary.r - tileColor.r) * weighting);
-								int g = tileColor.g + Mathf.FloorToInt ((secondary.g - tileColor.g) * weighting);
-								int b = tileColor.b + Mathf.FloorToInt ((secondary.b - tileColor.b) * weighting);
-
-								// check we dont have any extreme colours
-								tileColor.r = ReturnColourWithinBound (r, 40, 250);
-								tileColor.g = ReturnColourWithinBound (g, 40, 250);
-								tileColor.b = ReturnColourWithinBound (b, 40, 250);
-								
-							}
-						}
-					}*/
 					tileColor = NewBiomeColorAlgorithm (temp, humidity);
 
 					// and finally... we can set the new tile colour
 					colors [i, j] = tileColor;
 					tileArray [at (i, j)].color = tileColor;
 					containsNoGrass = false;
-				}
-
-				/***********************************************/
-				// ice biome special case
-				else if (biome == BiomeCalculations.BiomeType.Ice) {
-					tileColor = BiomeCalculations.BiomeColours [biome];
-					float darkness = Mathf.InverseLerp (-10f, 1f, heightVal);
-					tileColor.r = (byte)(tileColor.r * darkness * 0.95);
-					tileColor.g = (byte)(tileColor.g * darkness * 0.95);
-					tileColor.b = (byte)(tileColor.b * darkness);
-
-					// and finally... we can set the new tile colour
-					colors [i, j] = tileColor;
-					tileArray [at (i, j)].color = tileColor;
 				}
 
 				/***********************************************/

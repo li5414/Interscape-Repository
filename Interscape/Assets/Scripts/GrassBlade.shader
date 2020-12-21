@@ -14,7 +14,7 @@ Shader "Unlit/GrassBlade"
     {
         Tags{"Queue" = "Transparent" "RenderType"="Transparent" }
 
-        //Blend SrcAlpha OneMinusSrcAlpha // not sure if need
+        Blend SrcAlpha OneMinusSrcAlpha
 
         Pass
         {
@@ -42,6 +42,7 @@ Shader "Unlit/GrassBlade"
             sampler2D _MainTex;
             sampler2D _NoiseTex;
             float _NoiseScale;
+            sampler2D _TileColours;
 
             v2f vert(appdata_t v)
             {
@@ -62,15 +63,33 @@ Shader "Unlit/GrassBlade"
             }
 
             
-            // pixel shader, no inputs needed
+            // pixel shader
             fixed4 frag (v2f IN) : SV_Target
             {
-                fixed4 c = SampleSpriteTexture (IN.texcoord) * IN.color;
+                //get biome color
                 float2 pos;
+                pos.x = (((abs (IN.worldPosition.x))) % 5000)/5000;
+                pos.y = (((abs (IN.worldPosition.y))) % 5000)/5000;
+                fixed4 col = tex2D (_TileColours, pos);
+
+                //get shape
+                fixed4 c = SampleSpriteTexture (IN.texcoord) * col;
+                
+                // get noise
                 pos.x = (((abs (IN.worldPosition.x)) * _NoiseScale) % 256)/256;
                 pos.y = (((abs (IN.worldPosition.y)) * _NoiseScale) % 256)/256;
                 float noise = tex2D (_NoiseTex, pos);
-                return noise * c;
+
+                
+
+                // store new values in ints
+                c.b = (c.b + (0.06 * noise));
+                c.r = (c.r + (0.10 * noise));
+                c.g = (c.g + (0.12 * noise));
+                c.rgb -= 0.03;
+
+
+                return c;
             }
             ENDCG
         }

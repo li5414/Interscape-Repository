@@ -3101,7 +3101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceb521a57e5d343228f7d21f9e7863d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  biomeColourMap: {fileID: 2800000, guid: cd3b7332accea4daa87ba89dc221568d, type: 3}
+  biomeColourMap: {fileID: 2800000, guid: 95d21e0bdc4ab40f189b786181d5f743, type: 3}
   playerTrans: {fileID: 1062241006}
   tilemapObj: {fileID: 217185278}
   grid: {fileID: 166071213}
@@ -3109,6 +3109,7 @@ MonoBehaviour:
   waterGrid: {fileID: 704830576}
   detailGrid: {fileID: 1108551853}
   octaveOffsets: []
+  GiantColourMap: {fileID: 2800000, guid: d55edb94c70ce434a881745d7a71e911, type: 3}
 --- !u!1001 &629298751
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3609,7 +3610,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!156049354 &734123509
 Grid:
   m_ObjectHideFlags: 0
@@ -5968,7 +5969,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1062241005}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 60, y: 2000, z: 0}
+  m_LocalPosition: {x: 2000, y: 2000, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1706663015}
@@ -8361,7 +8362,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1504253082}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 60, y: 2000, z: -100}
+  m_LocalPosition: {x: 2000, y: 2000, z: -100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

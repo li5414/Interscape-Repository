@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -28,10 +29,10 @@ public class BiomeCalculations : MonoBehaviour
     { BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland,      BiomeType.Grassland,          BiomeType.Savanna,    BiomeType.Desert,     BiomeType.Desert},
 	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland,      BiomeType.Grassland,          BiomeType.Savanna,    BiomeType.Desert,     BiomeType.Desert },
 	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland,      BiomeType.Grassland,          BiomeType.Savanna,    BiomeType.Savanna,    BiomeType.Desert },
-	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Grassland,      BiomeType.SeasonalForest,     BiomeType.Savanna,    BiomeType.Savanna,    BiomeType.Desert },
+	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,          BiomeType.SeasonalForest,     BiomeType.Grassland,  BiomeType.Savanna,    BiomeType.Desert },
 	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,          BiomeType.SeasonalForest,     BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Desert },  // Wettest
-	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,          BiomeType.SeasonalForest,     BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Savanna },
-	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,          BiomeType.SeasonalForest,     BiomeType.Rainforest, BiomeType.Rainforest,    BiomeType.Savanna }
+	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,          BiomeType.SeasonalForest,     BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Desert },
+	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,          BiomeType.SeasonalForest,     BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Desert }
 	};
 
     // currently unused colours
@@ -58,7 +59,6 @@ public class BiomeCalculations : MonoBehaviour
 	public GameObject waterGrid;
 	public GameObject detailGrid;
 
-
 	// number generator and perlin noise stuff
 	System.Random prng;
 	public Vector2[] octaveOffsets = new Vector2[octaves]; // we want each octave to come from different 'location' in the perlin noise
@@ -69,6 +69,10 @@ public class BiomeCalculations : MonoBehaviour
 
 	// colour dict
 	public static Dictionary<BiomeType, Color32> BiomeColours = new Dictionary<BiomeType, Color32>();
+
+	// color texture
+	public Texture2D GiantColourMap;
+
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
@@ -108,6 +112,11 @@ public class BiomeCalculations : MonoBehaviour
 
 	private void Start ()
 	{
+		GiantColourMap = Resources.Load<Texture2D> ("Sprites/Map/GiantColourMap");
+		if (GiantColourMap == null)
+			GenerateColourMap ();
+
+
 		InvokeRepeating ("PrintAtPos", 2.0f, 2.0f); //do not delete - is for testing!
 	}
 
@@ -335,6 +344,42 @@ public class BiomeCalculations : MonoBehaviour
 	}
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+	public Texture2D GenerateColourMap()
+	{
+		Texture2D tex = new Texture2D (5000, 5000);
+		for (int i = 0; i < tex.width; i ++) {
+			for (int j = 0; j < tex.width; j++) {
+				float height = GetHeightValue (i, j);
+
+				float temp = GetTemperature (i, j, height);
+				temp = Mathf.InverseLerp (-80f, 80f, temp);
+				temp *= biomeColourMap.width;
+
+				float humidity = GetHumidity (i, j, height);
+				humidity = 1 - humidity;
+				humidity *= biomeColourMap.width;
+				Color color = biomeColourMap.GetPixel ((int)temp, (int)humidity);
+
+				if (height < -0.3f)
+					color = BiomeColours [BiomeType.Water];
+
+				tex.SetPixel (i, j, color);
+			}
+		}
+		SavePNG (tex);
+		return tex;
+	}
+
+	void SavePNG (Texture2D tex)
+	{
+		byte [] bytes = tex.EncodeToPNG ();
+		var dirPath = Application.dataPath + "/Resources/Sprites/Map/";
+		if (!Directory.Exists (dirPath)) {
+			Directory.CreateDirectory (dirPath);
+		}
+		File.WriteAllBytes (dirPath + "GiantColourMap.png", bytes);
+	}
 
 	// for testing purposes
 	void PrintAtPos()
