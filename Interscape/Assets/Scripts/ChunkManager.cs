@@ -18,6 +18,7 @@ public class ChunkManager : MonoBehaviour
 	public Transform playerTrans;          // player reference
 	public Tilemap tilemapObj;             // used as empty tilemap to instantiate
 	public Tilemap grassTilemap;
+	public Tilemap grassTilemapChunked;
 	public Tilemap sandTilemap;
 	public Tilemap waterTilemap;
 	public Tilemap detailTilemap;

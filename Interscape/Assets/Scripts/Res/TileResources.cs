@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 public class TileResources {
 
 	public Tile tileGrass = Resources.Load<Tile> ("Sprites/Map/Tiles/Tile_Grass");
+	public Tile tileGrassBig = Resources.Load<Tile> ("Sprites/Map/Tiles/TileGrassLarge");
 	public RuleTile tileSandRule = Resources.Load<RuleTile> ("Sprites/Map/Tiles/Sand_Rule");
 	public Tile tileSand = Resources.Load<Tile> ("Sprites/Map/Tiles/Tile_Sand");
 	public Tile tileWater1 = Resources.Load<Tile> ("Sprites/Map/Tiles/Water_0");
