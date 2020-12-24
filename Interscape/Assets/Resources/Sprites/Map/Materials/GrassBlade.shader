@@ -71,9 +71,11 @@ Shader "Unlit/GrassBlade"
                 pos.x = (((abs (IN.worldPosition.x))) % 5000)/5000;
                 pos.y = (((abs (IN.worldPosition.y))) % 5000)/5000;
                 fixed4 col = tex2D (_TileColours, pos);
+                col.a = 1;
 
                 //get shape
                 fixed4 c = SampleSpriteTexture (IN.texcoord) * col;
+               
                 
                 // get noise
                 pos.x = (((abs (IN.worldPosition.x)) * _NoiseScale) % 256)/256;

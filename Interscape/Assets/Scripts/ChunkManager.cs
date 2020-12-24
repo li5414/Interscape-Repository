@@ -21,6 +21,7 @@ public class ChunkManager : MonoBehaviour
 	public Tilemap grassTilemapChunked;
 	public Tilemap sandTilemap;
 	public Tilemap waterTilemap;
+	public Tilemap waterTilemapChunked;
 	public Tilemap detailTilemap;
 	public Tilemap detailTilemapChunked;
 
@@ -167,13 +168,8 @@ public class ChunkManager : MonoBehaviour
 
 	IEnumerator allocateMemory (Chunk chunk)
 	{
-		int deetWidth = Chunk.sizeFactor * Chunk.sizeFactor;
-		for (int i = 0; i < chunk.tileArray.Length; i++) {
-			chunk.tileArray [i] = ScriptableObject.CreateInstance<Tile> ();
+		for (int i = 0; i < chunk.waterTileArray.Length; i++) {
 			chunk.waterTileArray [i] = ScriptableObject.CreateInstance<Tile> ();
-			for (int j = 0; j < deetWidth; j++) {
-				chunk.deetArray [(i * deetWidth) + j] = ScriptableObject.CreateInstance<Tile> ();
-			}
 			yield return null;
 		}
 		//chunk.createThread ();

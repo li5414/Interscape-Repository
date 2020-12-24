@@ -9,6 +9,7 @@ public class TileResources {
 	public Tile tileGrassBig = Resources.Load<Tile> ("Sprites/Map/Tiles/TileGrassLarge");
 	public RuleTile tileSandRule = Resources.Load<RuleTile> ("Sprites/Map/Tiles/Sand_Rule");
 	public Tile tileSand = Resources.Load<Tile> ("Sprites/Map/Tiles/Tile_Sand");
+	public Tile plainChunk = Resources.Load<Tile> ("Sprites/Map/Tiles/TilePlainChunk");
 	public Tile tileWater1 = Resources.Load<Tile> ("Sprites/Map/Tiles/Water_0");
 	public Tile tileWater2 = Resources.Load<Tile> ("Sprites/Map/Tiles/Water_1");
 	public Tile tileWater3 = Resources.Load<Tile> ("Sprites/Map/Tiles/Water_2");
@@ -19,14 +20,6 @@ public class TileResources {
 	public Sprite [] grassDetails = Resources.LoadAll<Sprite>("Sprites/Map/Greenery/GrassBlades");
 	public Tile [] grassDetailsChunk;
 
-
-	/*= { /*Resources.Load<Tile> ("Sprites/Map/Tiles/detail_1"),
-											Resources.Load<Tile> ("Sprites/Map/Tiles/detail_2"),
-											Resources.Load<Tile> ("Sprites/Map/Tiles/detail_4"),
-											Resources.Load<Tile> ("Sprites/Map/Tiles/detail_5"),
-											Resources.Load<Tile> ("Sprites/Map/Tiles/detail_3")
-											};*/
-
 	public TileResources ()
 	{
 		grassDetailsChunk = new Tile [8];
@@ -34,7 +27,6 @@ public class TileResources {
 			grassDetailsChunk [i] = ScriptableObject.CreateInstance<Tile> ();
 			grassDetailsChunk [i].sprite = Resources.Load<Sprite> ("Sprites/Map/Tiles/GrassBlades/GrassChunk" + i.ToString());
 		}
-		//Debug.Log (grassDetails [5].sprite.ToString ());
 	}
 
 }

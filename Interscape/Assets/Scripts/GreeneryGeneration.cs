@@ -59,8 +59,8 @@ public class GreeneryGeneration : MonoBehaviour {
 
 				biome = biomes [x, y];
 
-				if (heights [x, y] < -0.26)
-					biome = BiomeCalculations.BiomeType.Water;
+				//if (heights [x, y] < -0.26)
+				//	biome = BiomeCalculations.BiomeType.Water;
 
 				// choose what kind of trees/things to spawn depending on biome-----------------------------------
 				switch (biome)

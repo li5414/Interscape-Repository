@@ -20,34 +20,28 @@ public class Chunk
 	bool isGenerated = false;
 	GameObject treeParent;       // parent for this particular chunk
 	
-
-	// deet stuff
-	Tilemap detailTilemap;
-	TilemapRenderer detailRenderer;
-	
 	// position arrays
-	//Vector3Int [] tilePositions;
 	Vector3Int [] tilePositionsWorld;
-	Vector3Int [] deetPositions;
+	//Vector3Int [] deetPositions;
 
 	// tile arrays
-	public Tile [] tileArray = new Tile [chunkSize * chunkSize];
+	//public Tile [] tileArray = new Tile [chunkSize * chunkSize];
 	public RuleTile [] sandTileArray = new RuleTile [chunkSize * chunkSize];
 	public Tile [] waterTileArray = new Tile [chunkSize * chunkSize];
-	public Tile [] deetArray = new Tile [chunkSize * chunkSize * sizeFactor * sizeFactor];
+	//public Tile [] deetArray = new Tile [chunkSize * chunkSize * sizeFactor * sizeFactor];
 	public Tile deetChunk;
 
 	// bools to supposedly save time
-	bool containsNoWater = true;
-	bool containsNoSand = true;
-	bool containsGrass = false;
+	bool containsWater;
+	bool containsSand;
+	bool containsGrass;
 
 
 	// biome information
 	float [,] heights;
 	float [,] temps;
 	float [,] humidities;
-	Color32 [,] colors;
+	//Color32 [,] colors;
 	GameObject [,] entities;
 	BiomeCalculations.BiomeType [,] biomes;
 	
@@ -76,7 +70,9 @@ public class Chunk
 		treeParent.transform.SetParent (TreeParent.gameObject.transform);
 
 
-		chunkManager.allocate (this);
+		//chunkManager.allocate (this);
+		//GenerateChunkData();
+		createThread ();
 
 	}
 
@@ -84,7 +80,7 @@ public class Chunk
 
 	public void createThread()
 	{
-		var thread = new Thread (() => { this.GenerateChunkData (); });
+		Thread thread = new Thread (() => { this.GenerateChunkData (); });
 		thread.Start ();
 	}
 
@@ -109,17 +105,13 @@ public class Chunk
 		
 
 		// initalise arrays to be be used for settiles()
-		/*tilePositions = new Vector3Int [chunkSize * chunkSize];*/
 		tilePositionsWorld = new Vector3Int [chunkSize * chunkSize];
 		
 
 		// creates and sets tiles in tilearray to positions in position array
-		//GenerateTiles ();
-
 		GenerateTilesChunked ();
 
 		// generate grass details
-		//GenerateDetails ();
 		GenerateDetailsChunk ();
 
 		dataRecieved = true;
@@ -139,7 +131,7 @@ public class Chunk
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-	public void GenerateTiles () {
+	/*public void GenerateTiles () {
 		colors = new Color32 [chunkSize, chunkSize];
 		BiomeCalculations.BiomeType biome;
 		float heightVal;
@@ -151,7 +143,7 @@ public class Chunk
 			for (int j = 0; j < chunkSize; j++) {
 
 				// fill in tile position arrays
-				/*tilePositions [at(i, j)] = new Vector3Int (i, j, 200);*/
+				//tilePositions [at(i, j)] = new Vector3Int (i, j, 200);
 				tilePositionsWorld [at (i, j)] = new Vector3Int (i + chunkPos.x, j + chunkPos.y, 0);
 
 				// colour variable used to set tile colour
@@ -175,7 +167,7 @@ public class Chunk
 					containsNoSand = false;
 				}
 
-				/***********************************************/
+
 				// choosing colour for grassy biome types
 				if (heightVal >= -0.3) {
 
@@ -187,7 +179,6 @@ public class Chunk
 					containsGrass = true;
 				}
 
-				/***********************************************/
 				// water special case
 				else if (heightVal < -0.3f) {
 					tileColor = BiomeCalculations.BiomeColours [BiomeCalculations.BiomeType.Water];
@@ -223,81 +214,9 @@ public class Chunk
 				}
 			}
 		}
-	}
+	}*/
 
-	public void GenerateTilesChunked ()
-	{
-		//colors = new Color32 [chunkSize, chunkSize];
-		BiomeCalculations.BiomeType biome;
-		float heightVal;
-		float temp;
-		float humidity;
-
-		// in loop, enter all positions and tiles in arrays
-		for (int i = 0; i < chunkSize; i++) {
-			for (int j = 0; j < chunkSize; j++) {
-
-				// fill in tile position arrays
-				tilePositionsWorld [at (i, j)] = new Vector3Int (i + chunkPos.x, j + chunkPos.y, 0);
-
-
-				// get features for this tile
-				heightVal = heights [i, j];
-				temp = temps [i, j];
-				humidity = humidities [i, j];
-				biome = biomes [i, j];
-
-
-				// set sand layer
-				if (heightVal < -0.26) {
-					sandTileArray [at (i, j)] = ChunkManager.tileResources.tileSandRule;
-					containsNoSand = false;
-				}
-
-				/***********************************************/
-				// Make grass
-				if (heightVal >= -0.4) {
-					containsGrass = true;
-				}
-
-				/***********************************************/
-				// water special case
-				else if (heightVal < -0.3f) {
-					Color tileColor = BiomeCalculations.BiomeColours [BiomeCalculations.BiomeType.Water];
-					Tile water = waterTileArray [at (i, j)];
-
-					// if x is odd
-					if ((i) % 2 == 1) {
-						if (j % 2 == 1) // y odd
-							water.sprite = ChunkManager.tileResources.tileWater1.sprite;
-						else                            // y even
-							water.sprite = ChunkManager.tileResources.tileWater3.sprite;
-					}
-					// if x is even
-					else {
-						if (j % 2 == 1) // y odd
-							water.sprite = ChunkManager.tileResources.tileWater2.sprite;
-						else                            // y even
-							water.sprite = ChunkManager.tileResources.tileWater4.sprite;
-					}
-
-					float darkness = Mathf.InverseLerp (-3f, -0.2f, heightVal);
-
-					// set water tile
-					/*tileColor.r = ReturnColourWithinBound ((int)(tileColor.r * darkness * 0.95), 40, 250);
-					tileColor.g = ReturnColourWithinBound ((int)(tileColor.g * darkness * 0.95), 40, 250);
-					tileColor.b = ReturnColourWithinBound ((int)(tileColor.b * darkness), 40, 250);
-					tileColor.a = (byte)(255 * (1 - Mathf.InverseLerp (-0.6f, -0.2f, heightVal)));
-
-					colors [i, j] = tileColor;
-					water.color = tileColor;*/
-					containsNoWater = false;
-				}
-			}
-		}
-	}
-
-	public Color NewBiomeColorAlgorithm(float temp, float humidity)
+	/*public Color NewBiomeColorAlgorithm (float temp, float humidity)
 	{
 		temp = Mathf.InverseLerp (-80f, 80f, temp);
 		temp *= bCalc.biomeColourMap.width;
@@ -307,14 +226,10 @@ public class Chunk
 		Color color = bCalc.biomeColourMap.GetPixel ((int)temp, (int)humidity);
 
 		return color;
-		
-	}
 
-	
+	}*/
 
-	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-
-	public void GenerateDetails ()
+	/*public void GenerateDetails ()
 	{
 		
 		int size = chunkSize * chunkSize * sizeFactor * sizeFactor;
@@ -380,6 +295,41 @@ public class Chunk
 			
 		}
 		
+	}*/
+
+	public void GenerateTilesChunked ()
+	{
+		float heightVal;
+
+		// in loop, enter all positions and tiles in arrays
+		for (int i = 0; i < chunkSize; i++) {
+			for (int j = 0; j < chunkSize; j++) {
+
+				// fill in tile position arrays
+				tilePositionsWorld [at (i, j)] = new Vector3Int (i + chunkPos.x, j + chunkPos.y, 0);
+
+
+				// get features for this tile
+				heightVal = heights [i, j];
+
+
+				// sand layer
+				if (heightVal < -0.26) {
+					sandTileArray [at (i, j)] = ChunkManager.tileResources.tileSandRule;
+					containsSand = true;
+				}
+
+				// grass layer
+				if (heightVal >= -0.4) {
+					containsGrass = true;
+				}
+
+				// water layer
+				if (heightVal < -0.26f) { // used to be -0.3, but im doing some overlapping
+					containsWater = true;
+				}
+			}
+		}
 	}
 
 	public void GenerateDetailsChunk ()
@@ -388,7 +338,6 @@ public class Chunk
 		deetChunk = ChunkManager.tileResources.grassDetailsChunk [randNum];
 	
 	}
-	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
 
@@ -421,18 +370,19 @@ public class Chunk
 		// enable things
 		treeParent.SetActive (true);
 
-		if (!containsNoSand)
+		if (containsSand)
 			chunkManager.sandTilemap.SetTiles (tilePositionsWorld, sandTileArray);
 
 		if (containsGrass) {
-			//chunkManager.grassTilemap.SetTiles (tilePositionsWorld, tileArray);
-			//chunkManager.detailTilemap.SetTiles (deetPositions, deetArray);
 			chunkManager.grassTilemapChunked.SetTile (new Vector3Int (chunkCoord.x, chunkCoord.y, 0), ChunkManager.tileResources.tileGrassBig);
 			chunkManager.detailTilemapChunked.SetTile (new Vector3Int (chunkCoord.x, chunkCoord.y, 0), deetChunk);
 		}
 
-		if (!containsNoWater)
-			chunkManager.waterTilemap.SetTiles (tilePositionsWorld, waterTileArray);
+		if (containsWater) {
+			//chunkManager.waterTilemap.SetTiles (tilePositionsWorld, waterTileArray);
+			chunkManager.waterTilemapChunked.SetTile (new Vector3Int (chunkCoord.x, chunkCoord.y, 0), ChunkManager.tileResources.plainChunk);
+		}
+
 
 		isLoaded = true;
 	}
@@ -444,11 +394,10 @@ public class Chunk
 		Assert.IsTrue(isGenerated);
 
 		// disable things
-		/*detailTilemap.enabled = false;*/
 		treeParent.SetActive (false);
 
 		// unload sand if there is some
-		if (!containsNoSand) {
+		if (containsSand) {
 			for (int i = 0; i < tilePositionsWorld.Length; i++) {
 				chunkManager.sandTilemap.SetTile (tilePositionsWorld [i], null);
 			}
@@ -456,19 +405,17 @@ public class Chunk
 
 		// unload grass if there is some
 		if (containsGrass) {
-			/*for (int i = 0; i < tilePositionsWorld.Length; i++) {
-				chunkManager.grassTilemap.SetTile (tilePositionsWorld [i], null);
-			}*/
 
 			chunkManager.grassTilemapChunked.SetTile (new Vector3Int (chunkCoord.x, chunkCoord.y, 0), null);
 			chunkManager.detailTilemapChunked.SetTile (new Vector3Int (chunkCoord.x, chunkCoord.y, 0), null);
 		}
 
 		// unload water if there is some
-		if (!containsNoWater) {
-			for (int i = 0; i < tilePositionsWorld.Length; i++) {
+		if (containsWater) {
+			/*for (int i = 0; i < tilePositionsWorld.Length; i++) {
 				chunkManager.waterTilemap.SetTile (tilePositionsWorld [i], null);
-			}
+			}*/
+			chunkManager.waterTilemapChunked.SetTile (new Vector3Int (chunkCoord.x, chunkCoord.y, 0), null);
 		}
 		
 		isLoaded = false;

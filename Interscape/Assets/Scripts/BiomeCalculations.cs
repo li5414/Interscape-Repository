@@ -297,16 +297,24 @@ public class BiomeCalculations : MonoBehaviour
 			{
 				height = heights[x, y];
 
-				// get temperature as an integer for easy lookup in biome array
-				temp = Mathf.InverseLerp(-70f, 70f, temperatures[x, y]);
-				temp = Mathf.Clamp01 (temp);
-				temp *= tableSize;
-				temp = Mathf.FloorToInt(temp);
+				
+				if (height >= -0.26) {
+					// get temperature as an integer for easy lookup in biome array
+					temp = Mathf.InverseLerp (-70f, 70f, temperatures [x, y]);
+					temp = Mathf.Clamp01 (temp);
+					temp *= tableSize;
+					temp = Mathf.FloorToInt (temp);
 
-				// putting a cap on vales so as not to over-index array
-				humidity = Mathf.FloorToInt(humidities[x, y] * tableSize);
+					// putting a cap on vales so as not to over-index array
+					humidity = Mathf.FloorToInt (humidities [x, y] * tableSize);
 
-				biomeTypes[x, y] = BiomeTable[humidity, (int)temp];
+					biomeTypes [x, y] = BiomeTable [humidity, (int)temp];
+				}
+				
+				else if (height < -0.3)
+					biomeTypes [x, y] = BiomeType.Water;
+				else
+					biomeTypes [x, y] = BiomeType.Beach;
 
 			}
 		}
@@ -361,8 +369,12 @@ public class BiomeCalculations : MonoBehaviour
 				humidity *= biomeColourMap.width;
 				Color color = biomeColourMap.GetPixel ((int)temp, (int)humidity);
 
-				if (height < -0.3f)
-					color = BiomeColours [BiomeType.Water];
+				if (height < -0.29f) {
+					color = BiomeColours [BiomeType.Beach];
+					// could add water color here for minimap?
+				}
+
+				color.a = Mathf.Clamp01 (Mathf.InverseLerp (-1f, 1f, height)); // lower alpha is deeper
 
 				tex.SetPixel (i, j, color);
 			}
