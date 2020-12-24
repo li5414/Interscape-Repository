@@ -19,7 +19,7 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 			if (_item == null) {
 				image.enabled = false;
 			} else {
-				image.sprite = _item.Icon;
+				image.sprite = _item.icon;
 				image.enabled = true;
 			}
 		}
@@ -27,11 +27,13 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
 	protected virtual void OnValidate()
 	{
-		if (image == null)
+		if (image == null) {
 			image = GetComponent<Image> ();
+			Debug.Log ("image null");
+		}
 		if (tooltip == null) {
 			tooltip = FindObjectOfType<ItemTooltip> ();
-			
+			Debug.Log ("tooltip null");
 		}
 			
 
@@ -39,7 +41,6 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{
-		Debug.Log (tooltip == null);
 		tooltip.ShowTooltip(Item);
 	}
 

@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3748f5659716a45b58df23b834d1b92a, type: 3}
   m_Name: Pickaxe
   m_EditorClassIdentifier: 
-  ItemName: Pickaxe
-  Icon: {fileID: -8836843603882117597, guid: 0a4b852d07b484df68d9f85feed5c02c, type: 3}
+  itemName: Pickaxe
+  icon: {fileID: -8836843603882117597, guid: 0a4b852d07b484df68d9f85feed5c02c, type: 3}
+  description: Used for breaking rocks

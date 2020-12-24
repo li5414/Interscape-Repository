@@ -3,6 +3,10 @@
 [CreateAssetMenu]
 public class Item : ScriptableObject
 {
-	public string ItemName;
-	public Sprite Icon;
+	public string itemName;
+	public Sprite icon;
+	public string description;
+
 }
+
+

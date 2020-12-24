@@ -15,20 +15,18 @@ public class Chunk
 	public Vector2Int chunkCoord;
 	public static int sizeFactor = 2; // the cell size is 0.25x the normal cell size
 
-	bool isLoaded = false;
-	bool dataRecieved = false;
-	bool isGenerated = false;
+	bool isLoaded;
+	bool dataRecieved;
+	bool isGenerated;
 	GameObject treeParent;       // parent for this particular chunk
 	
 	// position arrays
 	Vector3Int [] tilePositionsWorld;
-	//Vector3Int [] deetPositions;
 
 	// tile arrays
 	//public Tile [] tileArray = new Tile [chunkSize * chunkSize];
 	public RuleTile [] sandTileArray = new RuleTile [chunkSize * chunkSize];
 	public Tile [] waterTileArray = new Tile [chunkSize * chunkSize];
-	//public Tile [] deetArray = new Tile [chunkSize * chunkSize * sizeFactor * sizeFactor];
 	public Tile deetChunk;
 
 	// bools to supposedly save time
@@ -41,7 +39,6 @@ public class Chunk
 	float [,] heights;
 	float [,] temps;
 	float [,] humidities;
-	//Color32 [,] colors;
 	GameObject [,] entities;
 	BiomeCalculations.BiomeType [,] biomes;
 	
@@ -70,7 +67,6 @@ public class Chunk
 		treeParent.transform.SetParent (TreeParent.gameObject.transform);
 
 
-		//chunkManager.allocate (this);
 		//GenerateChunkData();
 		createThread ();
 
@@ -367,7 +363,6 @@ public class Chunk
 
 		Assert.IsTrue (isGenerated);
 
-		// enable things
 		treeParent.SetActive (true);
 
 		if (containsSand)
@@ -379,7 +374,6 @@ public class Chunk
 		}
 
 		if (containsWater) {
-			//chunkManager.waterTilemap.SetTiles (tilePositionsWorld, waterTileArray);
 			chunkManager.waterTilemapChunked.SetTile (new Vector3Int (chunkCoord.x, chunkCoord.y, 0), ChunkManager.tileResources.plainChunk);
 		}
 
@@ -405,16 +399,12 @@ public class Chunk
 
 		// unload grass if there is some
 		if (containsGrass) {
-
 			chunkManager.grassTilemapChunked.SetTile (new Vector3Int (chunkCoord.x, chunkCoord.y, 0), null);
 			chunkManager.detailTilemapChunked.SetTile (new Vector3Int (chunkCoord.x, chunkCoord.y, 0), null);
 		}
 
 		// unload water if there is some
 		if (containsWater) {
-			/*for (int i = 0; i < tilePositionsWorld.Length; i++) {
-				chunkManager.waterTilemap.SetTile (tilePositionsWorld [i], null);
-			}*/
 			chunkManager.waterTilemapChunked.SetTile (new Vector3Int (chunkCoord.x, chunkCoord.y, 0), null);
 		}
 		
