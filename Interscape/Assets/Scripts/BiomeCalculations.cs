@@ -117,7 +117,7 @@ public class BiomeCalculations : MonoBehaviour
 			GenerateColourMap ();
 
 
-		InvokeRepeating ("PrintAtPos", 2.0f, 2.0f); //do not delete - is for testing!
+		//InvokeRepeating ("PrintAtPos", 2.0f, 2.0f); //do not delete - is for testing!
 	}
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */

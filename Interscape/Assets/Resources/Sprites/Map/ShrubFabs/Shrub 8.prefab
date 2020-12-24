@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5879521090032379259}
   - component: {fileID: 3009137643667948212}
   - component: {fileID: 6952457293644118411}
+  - component: {fileID: 6410797694646617789}
   m_Layer: 0
   m_Name: Shrub 8
   m_TagString: Untagged
@@ -99,7 +100,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0.012463331, y: 0.11571169}
   serializedVersion: 2
-  m_Radius: 0.23696947
+  m_Radius: 0.4
 --- !u!114 &3009137643667948212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,3 +132,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6410797694646617789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766169818958508154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06cd480ab5fcc437f98b1129339080d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  left: {fileID: 0}
+  right: {fileID: 0}
