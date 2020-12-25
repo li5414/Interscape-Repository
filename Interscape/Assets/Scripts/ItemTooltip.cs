@@ -19,10 +19,12 @@ public class ItemTooltip : MonoBehaviour
 
 	public void ShowTooltip(Item item)
 	{
-		itemNameText.text = item.itemName;
-		itemSlotText.text = item.description;
+		if (item) {
+			itemNameText.text = item.itemName;
+			itemSlotText.text = item.description;
 
-		gameObject.SetActive (true);
+			gameObject.SetActive (true);
+		}
 	}
 
 	public void HideTooltip ()

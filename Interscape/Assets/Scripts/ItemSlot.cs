@@ -2,12 +2,45 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
-public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
-{
+public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler {
 	
 	[SerializeField] Image image;
 	[SerializeField] ItemTooltip tooltip;
+	[SerializeField] int number;
+
+	private Inventory inventory;
+	private GraphicRaycaster graphicRaycaster;
+	private Canvas canvas;
+
+
+	void Awake()
+	{
+		inventory = GameObject.FindGameObjectWithTag ("Inventory").GetComponent<Inventory>();
+		image = GetComponentsInChildren<Image> ()[1];
+		//Debug.Log ("Image is " + (image != null).ToString());
+
+		
+
+		if (inventory == null) {
+			Debug.Log ("inventoyr null");
+		}
+
+		if (!canvas) {
+			canvas = GameObject.FindGameObjectWithTag ("Canvas").GetComponent<Canvas> ();
+			graphicRaycaster = canvas.GetComponent<GraphicRaycaster> ();
+		}
+
+		string numbersOnly = Regex.Replace (gameObject.name, "[^0-9]", "");
+		number = int.Parse (numbersOnly);
+
+		tooltip = GameObject.FindGameObjectWithTag ("ItemTooltip").GetComponent<ItemTooltip> ();
+		if (tooltip == null) {
+			Debug.Log ("Tooltip null????");
+		}
+	}
 
 	private Item _item;
 	public Item Item {
@@ -17,6 +50,8 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
 			// disable image component if no item in slot
 			if (_item == null) {
+				//image.sprite = UIResources.nullItemImage;
+				//image.sprite = null;
 				image.enabled = false;
 			} else {
 				image.sprite = _item.icon;
@@ -25,19 +60,19 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 		}
 	}
 
-	protected virtual void OnValidate()
+	/*protected virtual void OnValidate()
 	{
 		if (image == null) {
 			image = GetComponent<Image> ();
-			Debug.Log ("image null");
+			//Debug.Log ("image null");
 		}
 		if (tooltip == null) {
 			tooltip = FindObjectOfType<ItemTooltip> ();
-			Debug.Log ("tooltip null");
+			//Debug.Log ("tooltip null");
 		}
 			
 
-	}
+	}*/
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{
@@ -47,5 +82,39 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	public void OnPointerExit (PointerEventData eventData)
 	{
 		tooltip.HideTooltip();
+	}
+
+	public void OnBeginDrag (PointerEventData eventData)
+	{
+		inventory.SwapToHolding (number);
+		Debug.Log ("Pointer down at " + number);
+	}
+
+	public void OnEndDrag (PointerEventData eventData)
+	{
+		var results = new List<RaycastResult> ();
+		graphicRaycaster.Raycast (eventData, results);
+		// Check all hits.
+		Debug.Log (results.Count);
+
+		foreach (var hit in results) {
+			// If we found slot.
+			var slot = hit.gameObject.GetComponent<ItemSlot> ();
+			if (slot) {
+				inventory.SwapToInventory (slot.number);
+				Debug.Log ("Pointer up at " + slot.number);
+
+				break;
+			}
+			Debug.Log (hit.gameObject.name);
+		}
+
+		
+		
+	}
+
+	public void OnDrag (PointerEventData eventData)
+	{
+		//throw new NotImplementedException ();
 	}
 }
