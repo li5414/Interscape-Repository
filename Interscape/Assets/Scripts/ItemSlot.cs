@@ -87,7 +87,7 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	public void OnBeginDrag (PointerEventData eventData)
 	{
 		inventory.SwapToHolding (number);
-		Debug.Log ("Pointer down at " + number);
+		//Debug.Log ("Pointer down at " + number);
 	}
 
 	public void OnEndDrag (PointerEventData eventData)
@@ -95,22 +95,33 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 		var results = new List<RaycastResult> ();
 		graphicRaycaster.Raycast (eventData, results);
 		// Check all hits.
-		Debug.Log (results.Count);
+		//Debug.Log (results.Count);
 
 		foreach (var hit in results) {
 			// If we found slot.
 			var slot = hit.gameObject.GetComponent<ItemSlot> ();
 			if (slot) {
 				inventory.SwapToInventory (slot.number);
-				Debug.Log ("Pointer up at " + slot.number);
+				//Debug.Log ("Pointer up at " + slot.number);
 
-				break;
+				return;
 			}
-			Debug.Log (hit.gameObject.name);
+			//Debug.Log (hit.gameObject.name);
 		}
 
-		
-		
+		foreach (var hit in results) {
+			// If we found inventory
+			var inv = hit.gameObject.name.Equals ("ItemsParent");
+			if (inv) {
+				inventory.CancelHold();
+				return;
+			}
+		}
+
+		// else we must have hit nothing
+		inventory.DropHoldItem ();
+
+
 	}
 
 	public void OnDrag (PointerEventData eventData)

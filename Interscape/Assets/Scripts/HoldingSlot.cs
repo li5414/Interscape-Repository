@@ -22,7 +22,6 @@ public class HoldingSlot : MonoBehaviour
 		this.holdingFrom = holdingFrom;
 		image.enabled = true;
 		image.sprite = item.icon;
-		followCursor.enabled = true;
 		return true;
 	}
 
@@ -31,7 +30,6 @@ public class HoldingSlot : MonoBehaviour
 		Item returnItem = item;
 		item = null;
 		image.enabled = false;
-		followCursor.enabled = false;
 		return returnItem;
 	}
 
@@ -56,7 +54,5 @@ public class HoldingSlot : MonoBehaviour
 		item = null;
 		image = gameObject.GetComponent<Image>();
 		image.enabled = false;
-		followCursor.enabled = false;
-
     }
 }

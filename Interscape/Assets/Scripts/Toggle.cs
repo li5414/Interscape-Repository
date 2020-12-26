@@ -5,11 +5,14 @@ using UnityEngine;
 public class Toggle : MonoBehaviour
 {
 	public GameObject inventory;
+	public GameObject itemTooltip;
 
 	private void Update ()
 	{
 		if (Input.GetKeyDown(KeyCode.E)) {
-			inventory.SetActive (!inventory.activeSelf);
+			bool state = inventory.activeSelf;
+			inventory.SetActive (!state);
+			itemTooltip.SetActive (!state);
 		}
 	}
 }

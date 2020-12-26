@@ -122,6 +122,17 @@ public class Inventory : MonoBehaviour
 		return true;
 	}
 
+	public bool CancelHold ()
+	{
+		if (!holding.isHolding()) {
+			Debug.Log ("Tried to cancel holding nothing");
+			return false;
+		}
+		SwapToInventory (holding.getHoldingFrom ());
+
+		return true;
+	}
+
 	public bool SwapToInventory (int slot)
 	{
 		Item item = holding.removeHoldItem ();
@@ -138,6 +149,18 @@ public class Inventory : MonoBehaviour
 			Debug.Log ("Swapped item into place");
 		}
 			
+		return true;
+	}
+
+	public bool DropHoldItem()
+	{
+		if (!holding.isHolding ()) {
+			Debug.Log ("Tried to drop null item");
+			return false;
+		}
+
+		ItemDrop.dropItem (holding.removeHoldItem ());
+
 		return true;
 	}
 
