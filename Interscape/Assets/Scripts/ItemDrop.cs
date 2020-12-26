@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ItemDrop : MonoBehaviour
@@ -8,6 +9,7 @@ public class ItemDrop : MonoBehaviour
 	[SerializeField] Item item;
 	private SpriteRenderer image;
 	private static GameObject player;
+	private static Inventory inventory;
 	private static float dropRadius = 0.7f;
 	private static GameObject itemDropPrefab;
 	private static GameObject parent;
@@ -17,7 +19,7 @@ public class ItemDrop : MonoBehaviour
 	void Awake ()
 	{
 		player = GameObject.FindGameObjectWithTag ("Player");
-
+		inventory = GameObject.FindGameObjectWithTag ("Inventory").GetComponent<Inventory>();
 
 		image = GetComponentsInChildren<SpriteRenderer> ()[1];
 	}
@@ -59,4 +61,22 @@ public class ItemDrop : MonoBehaviour
 		return true;
 	}
 
+	public bool pickupItem (ItemDrop item)
+	{
+		if (inventory.AddItem(item.item)) {
+			Destroy (item.gameObject);
+			return true;
+		}
+
+
+		return false;
+	}
+
+	public void OnMouseOver ()
+	{
+		if (Input.GetMouseButton (1)) {
+			
+			pickupItem (this);
+		}
+	}
 }

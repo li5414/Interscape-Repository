@@ -143,7 +143,7 @@ public class Inventory : MonoBehaviour
 
 		if (items [slot] == null) {
 			AddItemAt (item, slot);
-			Debug.Log ("put back in inventory");
+			//Debug.Log ("put back in inventory");
 		} else {
 			swapWithHolding (item, slot, holding.getHoldingFrom());
 			Debug.Log ("Swapped item into place");
