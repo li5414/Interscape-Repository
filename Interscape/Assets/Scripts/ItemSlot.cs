@@ -111,9 +111,9 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
 		foreach (var hit in results) {
 			// If we found inventory
-			var inv = hit.gameObject.name.Equals ("ItemsParent");
+			var inv = hit.gameObject.name.Equals ("Inv Rect");
 			if (inv) {
-				inventory.CancelHold();
+				inventory.CancelHold ();
 				return;
 			}
 		}

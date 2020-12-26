@@ -17,7 +17,7 @@ public class WaterGenerator : MonoBehaviour
 	public int offset1 = 1; //pixels
 	public int offset2 = -1; //pixels
 	public int currentIterations = 0;
-	int nsaves = 0;
+	//int nsaves = 0;
 
 	[Space]
 	public SpriteRenderer spr1;

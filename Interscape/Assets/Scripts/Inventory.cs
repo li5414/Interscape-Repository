@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-	[SerializeField] Item [] items;
+	[SerializeField] Item [] items = null;
 	[SerializeField] Transform itemsParent;
-	[SerializeField] ItemSlot [] itemSlots;
+	[SerializeField] ItemSlot [] itemSlots = null; //null to surpress warning
 
 	private int count = 0;
 
-	[SerializeField] HoldingSlot holding;
+	public HoldingSlot holding;
 
 	private void Start()
 	{

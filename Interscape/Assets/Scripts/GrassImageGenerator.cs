@@ -66,7 +66,6 @@ public class GrassImageGenerator : MonoBehaviour
 
 	void DrawAllGrass ()
 	{
-		int sizeFactor = 4;
 		for (int j = imageSize - 1; j >= 3; j -= 1/*sizeFactor*/) {
 			for (int i = 0; i < imageSize - 2; i += 1/*sizeFactor*/) { 
 				int randNum = prng.Next (0, 90);
