@@ -11,8 +11,11 @@ public class Toggle : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.E)) {
 			bool state = inventory.activeSelf;
+			if (state)
+				itemTooltip.SetActive (false);
 			inventory.SetActive (!state);
-			itemTooltip.SetActive (!state);
+
+			
 		}
 	}
 }

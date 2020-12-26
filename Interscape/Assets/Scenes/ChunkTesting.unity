@@ -1295,8 +1295,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 687865855
-  m_fontColor: {r: 1, g: 1, b: 1, a: 0.15686275}
+    rgba: 1358954495
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0.3137255}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3567,7 +3567,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 20
+      scalar: 30
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -11351,6 +11351,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 430f9e747aa094fd1ab8b95e9ae67e29, type: 2}
   - {fileID: 11400000, guid: 2100ddf95738140da8c3948eed2a2501, type: 2}
   - {fileID: 11400000, guid: 42e40a02713aa4433987a0dd2d1fee3d, type: 2}
+  - {fileID: 11400000, guid: 430f9e747aa094fd1ab8b95e9ae67e29, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 2100ddf95738140da8c3948eed2a2501, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -11358,18 +11363,13 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 11400000, guid: 42e40a02713aa4433987a0dd2d1fee3d, type: 2}
-  - {fileID: 11400000, guid: 42e40a02713aa4433987a0dd2d1fee3d, type: 2}
-  - {fileID: 11400000, guid: 42e40a02713aa4433987a0dd2d1fee3d, type: 2}
-  - {fileID: 11400000, guid: 42e40a02713aa4433987a0dd2d1fee3d, type: 2}
-  - {fileID: 11400000, guid: 42e40a02713aa4433987a0dd2d1fee3d, type: 2}
-  - {fileID: 11400000, guid: 42e40a02713aa4433987a0dd2d1fee3d, type: 2}
-  - {fileID: 11400000, guid: 42e40a02713aa4433987a0dd2d1fee3d, type: 2}
-  - {fileID: 11400000, guid: 42e40a02713aa4433987a0dd2d1fee3d, type: 2}
-  - {fileID: 11400000, guid: 42e40a02713aa4433987a0dd2d1fee3d, type: 2}
-  - {fileID: 11400000, guid: 42e40a02713aa4433987a0dd2d1fee3d, type: 2}
-  - {fileID: 11400000, guid: 42e40a02713aa4433987a0dd2d1fee3d, type: 2}
-  - {fileID: 11400000, guid: 42e40a02713aa4433987a0dd2d1fee3d, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

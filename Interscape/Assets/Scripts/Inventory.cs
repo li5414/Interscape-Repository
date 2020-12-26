@@ -146,7 +146,7 @@ public class Inventory : MonoBehaviour
 			//Debug.Log ("put back in inventory");
 		} else {
 			swapWithHolding (item, slot, holding.getHoldingFrom());
-			Debug.Log ("Swapped item into place");
+			//Debug.Log ("Swapped item into place");
 		}
 			
 		return true;
@@ -166,8 +166,14 @@ public class Inventory : MonoBehaviour
 
 	public void swapWithHolding (Item item, int newSlot, int oldSlot)
 	{
-		AddItemAt (items[newSlot], oldSlot);
+
+		Item oldItem = items [newSlot];
+		RemoveItemAt(newSlot);
+		AddItemAt (oldItem, oldSlot);
+		//Debug.Log ("Addded " + oldItem.name + " at " + oldSlot);
+
 		AddItemAt (item, newSlot);
-		
+		//Debug.Log ("Addded " + item.name + " at " + newSlot);
+		//Debug.Log (oldItem.name);
 	}
 }
