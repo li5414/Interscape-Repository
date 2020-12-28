@@ -10,6 +10,7 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	[SerializeField] Image image;
 	[SerializeField] ItemTooltip tooltip;
 	[SerializeField] int number;
+	public bool isHotbar;
 
 	private Inventory inventory;
 	private GraphicRaycaster graphicRaycaster;
@@ -20,9 +21,7 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	{
 		inventory = GameObject.FindGameObjectWithTag ("Inventory").GetComponent<Inventory>();
 		image = GetComponentsInChildren<Image> ()[1];
-		//Debug.Log ("Image is " + (image != null).ToString());
 
-		
 
 		if (inventory == null) {
 			Debug.Log ("inventoyr null");
@@ -76,51 +75,55 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{
-		tooltip.ShowTooltip(Item);
+		if (!isHotbar)
+			tooltip.ShowTooltip(Item);
 	}
 
 	public void OnPointerExit (PointerEventData eventData)
 	{
-		tooltip.HideTooltip();
+		if (!isHotbar)
+			tooltip.HideTooltip();
 	}
 
 	public void OnBeginDrag (PointerEventData eventData)
 	{
-		inventory.SwapToHolding (number);
+		if (!isHotbar)
+			inventory.SwapToHolding (number);
 		//Debug.Log ("Pointer down at " + number);
 	}
 
 	public void OnEndDrag (PointerEventData eventData)
 	{
-		var results = new List<RaycastResult> ();
-		graphicRaycaster.Raycast (eventData, results);
-		// Check all hits.
-		//Debug.Log (results.Count);
+		if (!isHotbar) {
+			var results = new List<RaycastResult> ();
+			graphicRaycaster.Raycast (eventData, results);
+			// Check all hits.
+			//Debug.Log (results.Count);
 
-		foreach (var hit in results) {
-			// If we found slot.
-			var slot = hit.gameObject.GetComponent<ItemSlot> ();
-			if (slot) {
-				inventory.SwapToInventory (slot.number);
-				//Debug.Log ("Pointer up at " + slot.number);
+			foreach (var hit in results) {
+				// If we found slot.
+				var slot = hit.gameObject.GetComponent<ItemSlot> ();
+				if (slot) {
+					inventory.SwapToInventory (slot.number);
+					//Debug.Log ("Pointer up at " + slot.number);
 
-				return;
+					return;
+				}
+				//Debug.Log (hit.gameObject.name);
 			}
-			//Debug.Log (hit.gameObject.name);
-		}
 
-		foreach (var hit in results) {
-			// If we found inventory
-			var inv = hit.gameObject.name.Equals ("Inv Rect");
-			if (inv) {
-				inventory.CancelHold ();
-				return;
+			foreach (var hit in results) {
+				// If we found inventory
+				var inv = hit.gameObject.name.Equals ("Inv Rect");
+				if (inv) {
+					inventory.CancelHold ();
+					return;
+				}
 			}
+
+			// else we must have hit nothing
+			inventory.DropHoldItem ();
 		}
-
-		// else we must have hit nothing
-		inventory.DropHoldItem ();
-
 
 	}
 

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3748f5659716a45b58df23b834d1b92a, type: 3}
+  m_Name: Wire
+  m_EditorClassIdentifier: 
+  itemName: Wire
+  icon: {fileID: 4960122316858857151, guid: 0a4b852d07b484df68d9f85feed5c02c, type: 3}
+  description: Used in electronics
+  weight: 0.05

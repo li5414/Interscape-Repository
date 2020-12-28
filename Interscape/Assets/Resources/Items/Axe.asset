@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tool
   itemName: Axe
   icon: {fileID: 7124141387951956087, guid: 0a4b852d07b484df68d9f85feed5c02c, type: 3}
-  description: Useful for killing trees (and anything really) but quite heavy
+  description: Good for killing trees (and anything really) \nbut quite heavy
   weight: 5
   quality: 3
-  durability: 10
+  durability: 100

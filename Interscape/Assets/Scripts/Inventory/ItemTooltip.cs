@@ -6,14 +6,16 @@ using TMPro;
 public class ItemTooltip : MonoBehaviour
 {
 	[SerializeField] TextMeshProUGUI itemNameText;
-	[SerializeField] TextMeshProUGUI itemSlotText;
-	[SerializeField] TextMeshProUGUI itemStatsText;
+	[SerializeField] TextMeshProUGUI itemDescriptionText;
+	[SerializeField] TextMeshProUGUI itemWeightText;
+	[SerializeField] TextMeshProUGUI itemQualityText;
 
 	private void Start ()
 	{
-		itemNameText = (gameObject.GetComponentsInChildren<TextMeshProUGUI> ()) [0];
-		itemSlotText = (gameObject.GetComponentsInChildren<TextMeshProUGUI> ()) [1];
-		itemStatsText = (gameObject.GetComponentsInChildren<TextMeshProUGUI> ()) [2];
+		itemNameText = gameObject.GetComponentsInChildren<TextMeshProUGUI> () [0];
+		itemDescriptionText = gameObject.GetComponentsInChildren<TextMeshProUGUI> () [1];
+		itemWeightText = gameObject.GetComponentsInChildren<TextMeshProUGUI> () [2];
+		itemQualityText = gameObject.GetComponentsInChildren<TextMeshProUGUI> () [3];
 		gameObject.SetActive (false);
 	}
 
@@ -21,7 +23,14 @@ public class ItemTooltip : MonoBehaviour
 	{
 		if (item) {
 			itemNameText.text = item.itemName;
-			itemSlotText.text = item.description;
+			itemDescriptionText.text = item.description.Replace ("\\n", "\n");
+			itemWeightText.text = "Weight: " + item.weight + "kg";
+			if (item is Tool) {
+				itemQualityText.text = "Quality: " + ((Tool)item).quality;
+				itemQualityText.enabled = true;
+			} else {
+				itemQualityText.enabled = false;
+			}
 
 			gameObject.SetActive (true);
 		}

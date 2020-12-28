@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3748f5659716a45b58df23b834d1b92a, type: 3}
+  m_Script: {fileID: 11500000, guid: 3e83f2ce5246c4c58810c0146658bcf8, type: 3}
   m_Name: Sword
   m_EditorClassIdentifier: 
   itemName: Sword
   icon: {fileID: 5633491682399908833, guid: 0a4b852d07b484df68d9f85feed5c02c, type: 3}
-  description: Useful for murdery behaviour
+  description: Useful for murder
   weight: 2
+  quality: 6
+  durability: 100

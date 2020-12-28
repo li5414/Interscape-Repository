@@ -5,16 +5,28 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
 	[SerializeField] Item [] items = null;
-	[SerializeField] Transform itemsParent;
-	[SerializeField] ItemSlot [] itemSlots = null; //null to surpress warning
+	[SerializeField] GameObject itemsParent;
+	[SerializeField] GameObject hotbarParent;
+	ItemSlot [] itemSlots = new ItemSlot [50];
 	[SerializeField] TextMeshProUGUI weightText;
 	public float weight;
 	private int count = 0;
+	[SerializeField] Hotbar hotbar;
 
 	public HoldingSlot holding;
 
 	private void Start()
 	{
+		int hotbarLength = 10;
+		int i;
+		for (i = 0; i < hotbarLength; i++) {
+			itemSlots [i] = hotbarParent.GetComponentsInChildren<ItemSlot>() [i];
+		}
+		for (int j = i; j < items.Length; j++) {
+			itemSlots[j] = itemsParent.GetComponentsInChildren<ItemSlot> () [j - i];
+		}
+
+
 		RefreshUI();
 		gameObject.SetActive (false);
 		count = refreshCount ();
@@ -45,6 +57,9 @@ public class Inventory : MonoBehaviour
 		int i;
 		for (i = 0; i < items.Length && i < itemSlots.Length; i++) {
 			itemSlots[i].Item = items[i];
+			if (i < 10) {
+				hotbar.itemSlots [i].Item = items [i];
+			}
 		}
 		RecalculateWeight ();
 	}
