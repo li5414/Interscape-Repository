@@ -5,13 +5,14 @@ using System;
 public class PlayerController : MonoBehaviour {
 	
 	/* initialise variables */
-    public float walkSpeed = 0.1f;
-	public float runSpeed = 0.2f;
-	public float crawlSpeed = 0.05f;
-	private float speed;
-    bool right = true;
+    
+	public float speed;
+	public bool isBurdened = true;
+	bool right = true;
     Animator a;
     Transform player;
+	private PlayerStats playerStats;
+	public float burdenEffectCutoff = 0.75f;
 
 	// hair objects
 	public Sprite hairFront;
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour {
 	void Start() {
         a = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+		playerStats = GetComponent<PlayerStats> ();
     }
 
     void Update() {
@@ -40,17 +42,19 @@ public class PlayerController : MonoBehaviour {
                 Flip();
         }
 
+		
+
 		/* test which keys are being pressed */
         bool is_shift_key = Input.GetKey(KeyCode.LeftShift);
 		bool is_ctrl_key = Input.GetKey (KeyCode.LeftControl);
 		a.SetBool("is_shift_key", is_shift_key);
 		if (is_shift_key)
-			speed = crawlSpeed;
+			speed = adjustForBurden(playerStats.crawlSpeed);
 		else if (is_ctrl_key) {
-			speed = runSpeed;
+			speed = adjustForBurden(playerStats.runSpeed);
 		}
 		else {
-			speed = walkSpeed;
+			speed = adjustForBurden(playerStats.walkSpeed);
 		}
 		
 		bool is_w_key = Input.GetKey(KeyCode.W);	
@@ -130,7 +134,27 @@ public class PlayerController : MonoBehaviour {
 		a.SetFloat("speed", velocity.magnitude);
         player.Translate(velocity * speed);
     }
-	
+
+	private float adjustForBurden(float baseSpeed)
+	{
+		float lowerBound = playerStats.carryCapacity * burdenEffectCutoff;
+		if (!isBurdened || (playerStats.inventory.weight <= lowerBound)) {
+			return baseSpeed;
+		}
+
+		float minSpeedPercent = 0.25f;
+		float minSpeed = baseSpeed * minSpeedPercent;
+		if (playerStats.inventory.weight > playerStats.carryCapacity) {
+			return minSpeed;
+		}
+
+		float amount = Mathf.InverseLerp (lowerBound, playerStats.carryCapacity, playerStats.inventory.weight);
+		amount = Mathf.InverseLerp (minSpeedPercent, 1, amount);
+		amount = Mathf.Clamp(baseSpeed * (1 - amount), minSpeed, baseSpeed);
+		return amount;
+	}
+
+
 	/* function to flip object */
     void Flip() {
         right = !right;

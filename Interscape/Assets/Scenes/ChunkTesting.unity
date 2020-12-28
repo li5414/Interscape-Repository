@@ -1242,7 +1242,7 @@ GameObject:
   - component: {fileID: 296257494}
   - component: {fileID: 296257493}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: Weight Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10435,6 +10435,7 @@ GameObject:
   - component: {fileID: 1062241008}
   - component: {fileID: 1062241007}
   - component: {fileID: 1062241009}
+  - component: {fileID: 1062241013}
   m_Layer: 8
   m_Name: PLAYER
   m_TagString: Player
@@ -10535,9 +10536,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c460a003d4a774c918151dc1a63462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 0.08
-  runSpeed: 0.2
-  crawlSpeed: 0.05
+  speed: 0
+  isBurdened: 1
+  burdenEffectCutoff: 0.75
   hairFront: {fileID: 530813668033614336, guid: eef26a9520d3946f6a8376ab669f0cfd,
     type: 3}
   hairFrontside: {fileID: 8263934709304328160, guid: eef26a9520d3946f6a8376ab669f0cfd,
@@ -10605,6 +10606,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1062241013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062241005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5f0c8ff42200414288786f4cf71c677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 1224009309}
+  carryCapacity: 40
+  walkSpeed: 0.08
+  runSpeed: 0.2
+  crawlSpeed: 0.04
+  skill: 0
 --- !u!224 &1062611408 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7243719802383562256, guid: bfaddfdebddb04f5ea627c2c36380d26,
@@ -11422,39 +11441,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items:
   - {fileID: 11400000, guid: 42e40a02713aa4433987a0dd2d1fee3d, type: 2}
-  - {fileID: 0}
-  - {fileID: 11400000, guid: 430f9e747aa094fd1ab8b95e9ae67e29, type: 2}
-  - {fileID: 11400000, guid: 2100ddf95738140da8c3948eed2a2501, type: 2}
-  - {fileID: 11400000, guid: 42e40a02713aa4433987a0dd2d1fee3d, type: 2}
+  - {fileID: 11400000, guid: fff17a12571754a148f98d72883c8449, type: 2}
   - {fileID: 11400000, guid: 430f9e747aa094fd1ab8b95e9ae67e29, type: 2}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 11400000, guid: 2100ddf95738140da8c3948eed2a2501, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 11400000, guid: 42e40a02713aa4433987a0dd2d1fee3d, type: 2}
+  - {fileID: 11400000, guid: 430f9e747aa094fd1ab8b95e9ae67e29, type: 2}
   - {fileID: 0}
-  - {fileID: 11400000, guid: 42e40a02713aa4433987a0dd2d1fee3d, type: 2}
-  - {fileID: 11400000, guid: 42e40a02713aa4433987a0dd2d1fee3d, type: 2}
-  - {fileID: 11400000, guid: 42e40a02713aa4433987a0dd2d1fee3d, type: 2}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: fff17a12571754a148f98d72883c8449, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: fff17a12571754a148f98d72883c8449, type: 2}
+  - {fileID: 11400000, guid: fff17a12571754a148f98d72883c8449, type: 2}
+  - {fileID: 11400000, guid: fff17a12571754a148f98d72883c8449, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 11400000, guid: 42e40a02713aa4433987a0dd2d1fee3d, type: 2}
   - {fileID: 0}
   - {fileID: 0}
@@ -11503,6 +11522,8 @@ MonoBehaviour:
   - {fileID: 1180334487}
   - {fileID: 852552813}
   - {fileID: 2032765983}
+  weightText: {fileID: 296257493}
+  weight: 0
   holding: {fileID: 522814696}
 --- !u!222 &1224009310
 CanvasRenderer:
