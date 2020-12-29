@@ -15,7 +15,7 @@ public class Inventory : MonoBehaviour
 
 	public HoldingSlot holding;
 
-	private void Start()
+	private void Start ()
 	{
 		int hotbarLength = 10;
 		int i;
@@ -26,7 +26,7 @@ public class Inventory : MonoBehaviour
 			itemSlots[j] = itemsParent.GetComponentsInChildren<ItemSlot> () [j - i];
 		}
 
-
+		hotbar.Initialise ();
 		RefreshUI();
 		gameObject.SetActive (false);
 		count = refreshCount ();

@@ -128,6 +128,7 @@ MonoBehaviour:
   image: {fileID: 8633018161081063223}
   tooltip: {fileID: 0}
   number: 0
+  isHotbar: 0
 --- !u!222 &6652806874853950212
 CanvasRenderer:
   m_ObjectHideFlags: 0

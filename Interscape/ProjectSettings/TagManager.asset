@@ -9,6 +9,7 @@ TagManager:
   - Inventory
   - Canvas
   - ItemDropParent
+  - PlayerHoldItem
   layers:
   - Default
   - TransparentFX
