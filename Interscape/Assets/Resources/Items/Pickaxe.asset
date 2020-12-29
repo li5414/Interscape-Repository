@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Pickaxe
   m_EditorClassIdentifier: 
   itemName: Pickaxe
-  icon: {fileID: -8836843603882117597, guid: 0a4b852d07b484df68d9f85feed5c02c, type: 3}
+  icon: {fileID: -9165187517254062065, guid: 82ee9fe249a834af6bb52594469d5214, type: 3}
   description: Good for breaking rocks
   weight: 3
   quality: 2
