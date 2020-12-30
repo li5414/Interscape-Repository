@@ -16,5 +16,10 @@ MonoBehaviour:
   icon: {fileID: -8681620529826960352, guid: 82ee9fe249a834af6bb52594469d5214, type: 3}
   description: Good for killing trees (and anything really) \nbut quite heavy
   weight: 5
-  quality: 3
-  durability: 100
+  durability: 91
+  quality: 7
+  damage: 40
+  damageType: 0
+  baseDurability: 10
+  baseDamage: 10
+  coolDown: 0.5

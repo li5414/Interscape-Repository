@@ -5,6 +5,7 @@ using UnityEngine;
 public class Harvestable : MonoBehaviour
 {
 	private Animator anim;
+	public AnimationClip clip;
 	[SerializeField] float health = 100;
 	[SerializeField] DamageType damageType;
 
@@ -23,6 +24,8 @@ public class Harvestable : MonoBehaviour
 	public void harvest(Tool tool)
 	{
 		health -= tool.getDamage ();
+		anim.Play (clip.name);
+		Debug.Log ("Hit");
 		if (health < 0) {
 			Destroy (gameObject);
 		}

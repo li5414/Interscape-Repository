@@ -28,7 +28,7 @@ public class Hotbar : MonoBehaviour
 
 	public int getCurrentSelected()
 	{
-		return getCurrentSelected();
+		return currentSelected;
 	}
 	public Item getSelectedItem ()
 	{
