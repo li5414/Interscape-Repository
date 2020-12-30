@@ -15,6 +15,7 @@ public class Inventory : MonoBehaviour
 
 	public HoldingSlot holding;
 
+
 	private void Start ()
 	{
 		int hotbarLength = 10;
@@ -123,6 +124,23 @@ public class Inventory : MonoBehaviour
 			RefreshUI ();
 			return true;
 		}
+		return false;
+	}
+
+	public Item getSelectedItem()
+	{
+		return hotbar.getSelectedItem ();
+	}
+
+	public bool RemoveSelectedItem ()
+	{
+		if (items [hotbar.getCurrentSelected()]) {
+			items [hotbar.getCurrentSelected ()] = null;
+			RefreshUI ();
+			hotbar.updateSelectedUI();
+			return true;
+		}
+		Debug.Log ("Tried to remove empty selected item");
 		return false;
 	}
 

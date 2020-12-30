@@ -26,6 +26,15 @@ public class Hotbar : MonoBehaviour
 		updateSelectedUI ();
 	}
 
+	public int getCurrentSelected()
+	{
+		return getCurrentSelected();
+	}
+	public Item getSelectedItem ()
+	{
+		return selected.Item;
+	}
+
 	private void Update ()
 	{
 		
@@ -60,7 +69,7 @@ public class Hotbar : MonoBehaviour
 		updateSelectedUI ();
 	}
 
-	private void updateSelectedUI()
+	public void updateSelectedUI()
 	{
 		// update item sprites on player
 		selected = itemSlots [currentSelected];
