@@ -7,6 +7,7 @@ public class Toggle : MonoBehaviour
 	public GameObject inventory;
 	public GameObject itemTooltip;
 	public GameObject hotbar;
+	public GameObject cursor;
 
 	private bool hideHotbar;
 
@@ -26,7 +27,7 @@ public class Toggle : MonoBehaviour
 			if (!hideHotbar) {
 				hotbar.SetActive (state);
 			}
-			
+			cursor.SetActive (state);
 		}
 
 		

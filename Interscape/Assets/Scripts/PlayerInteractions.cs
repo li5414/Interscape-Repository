@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerInteractions : MonoBehaviour
 {
 	private Inventory inventory;
-	private bool isInteractible;
-	public Color defaultColor;
+	private bool isInteractable;
+	private Color defaultColor;
 	public Color interactableColor;
 	private SpriteRenderer image;
 	public float minDistance = 1;
@@ -16,39 +16,55 @@ public class PlayerInteractions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-		inventory = GetComponentInParent<Inventory> ();
+		inventory = GameObject.FindGameObjectWithTag ("Inventory").GetComponent<Inventory>();
 		image = GetComponent<SpriteRenderer> ();
+		defaultColor = image.color;
 		parent = GameObject.FindGameObjectWithTag ("Player").transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-		coolDown -= Time.deltaTime;
+		if (coolDown > 0)
+			coolDown -= Time.deltaTime;
         
     }
 
-	private void OnCollisionStay2D (Collision2D collision)
+	void OnTriggerStay2D (Collider2D other)
 	{
-		if (Mathf.Abs (transform.position.x - parent.position.x) < minDistance &&
-			Mathf.Abs (transform.position.y - parent.position.y) < minDistance && coolDown <= 0) {
-			isInteractible = true;
+		//Debug.Log ("collision");
+		if (//Mathf.Abs (transform.position.x - parent.position.x) < minDistance &&
+			/*Mathf.Abs (transform.position.y - parent.position.y) < minDistance &&*/ coolDown <= 0) {
+			isInteractable = true;
 		} else {
-			isInteractible = false;
+			isInteractable = false;
 			return;
 		}
+		image.color = defaultColor;
 
 		//if (Input.GetMouseButtonDown(0)) {
-		Harvestable obj = collision.gameObject.GetComponent<Harvestable> ();
+		Harvestable obj = other.gameObject.GetComponent<Harvestable> ();
 		Item item = inventory.getSelectedItem ();
 		if (obj && item) {
 			if (item is Tool && ((Tool)item).getDamageType () == obj.getDamageType ()) {
-				obj.harvest ((Tool)item);
-				((Tool)item).decreaseDurability (inventory);
-				Debug.Log ("Decreased durability :)");
+				image.color = interactableColor;
+
+				if (Input.GetMouseButtonDown (0)) {
+					obj.harvest ((Tool)item);
+					((Tool)item).decreaseDurability (inventory);
+					coolDown = ((Tool)item).coolDown;
+					//Debug.Log ("Decreased durability :)");
+				}
+				return;
 			}
 				
 		}
-		
+
+	}
+
+	void OnTriggerExit2D (Collider2D other)
+	{
+		image.color = defaultColor;
+		isInteractable = false;
 	}
 }

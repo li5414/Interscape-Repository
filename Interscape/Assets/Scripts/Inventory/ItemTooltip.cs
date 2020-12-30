@@ -33,6 +33,7 @@ public class ItemTooltip : MonoBehaviour
 				itemQualityText.enabled = true;
 			} else {
 				itemQualityText.enabled = false;
+				itemDamageText.enabled = false;
 			}
 
 			gameObject.SetActive (true);
