@@ -141,9 +141,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b9582900f3a40ad89a7f7651a0c786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clip: {fileID: 7400000, guid: 3ea7daff686994a8fa6a948e976374d4, type: 2}
+  clip: {fileID: 7400000, guid: 6d26372e6ab2c497ab4a49384f17c9e4, type: 2}
   health: 50
   damageType: 0
+  dropItemName: Log
 --- !u!95 &3725529887738145891
 Animator:
   serializedVersion: 3
@@ -154,7 +155,7 @@ Animator:
   m_GameObject: {fileID: 4497950168139410147}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7325d2943ee5b42faa3c7685bfbb9a14, type: 2}
+  m_Controller: {fileID: 9100000, guid: d4fc8edb4624e4dd39ef4991d5ac6d8f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

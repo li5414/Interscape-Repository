@@ -34,7 +34,7 @@ public class Inventory : MonoBehaviour
 
 		AddItem (new Tool ("Axe", 200));
 		AddItem (new Tool ("Pickaxe", 100));
-		AddItem (new Tool ("Sword", 100));
+		AddItem (new Tool ("Sword", 10));
 
 		gameObject.SetActive (false);
 	}

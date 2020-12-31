@@ -25,12 +25,16 @@ public class Harvestable : MonoBehaviour
 	public void harvest(Tool tool)
 	{
 		health -= tool.getDamage ();
-		anim.Play (clip.name);
+		
 		//Debug.Log ("Hit");
 		if (health < 0) {
-			ItemDrop.dropItemAt (new Item (dropItemName), this.transform.position, 1);
+			if (dropItemName != "") {
+				ItemDrop.dropItemAt (new Item (dropItemName), this.transform.position, 1);
+			}
 			Destroy (gameObject);
 		}
+
+		anim.Play (clip.name);
 	}
 
 	public DamageType getDamageType()
