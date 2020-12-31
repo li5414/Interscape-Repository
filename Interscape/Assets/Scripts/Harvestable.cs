@@ -9,6 +9,7 @@ public class Harvestable : MonoBehaviour
 	[SerializeField] float health = 100;
 	[SerializeField] DamageType damageType;
 	public string dropItemName;
+	public AnimationClip deathClip;
 
     // Start is called before the first frame update
     void Start()
@@ -28,10 +29,13 @@ public class Harvestable : MonoBehaviour
 		
 		//Debug.Log ("Hit");
 		if (health < 0) {
-			if (dropItemName != "") {
-				ItemDrop.dropItemAt (new Item (dropItemName), this.transform.position, 1);
+			if (deathClip != null) {
+				StartCoroutine (Die (deathClip.length));
+				anim.Play (deathClip.name);
+			} else {
+				actuallyDie ();
 			}
-			Destroy (gameObject);
+			return;
 		}
 
 		anim.Play (clip.name);
@@ -40,6 +44,24 @@ public class Harvestable : MonoBehaviour
 	public DamageType getDamageType()
 	{
 		return damageType;
+	}
+
+	
+
+
+	IEnumerator Die (float delay)
+	{
+		//play your sound
+		yield return new WaitForSeconds (delay);
+		actuallyDie ();
+	}
+
+	private void actuallyDie()
+	{
+		if (dropItemName != "") {
+			ItemDrop.dropItemAt (new Item (dropItemName), this.transform.position, 1);
+		}
+		Destroy (gameObject);
 	}
 }
 

@@ -129,7 +129,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: shrub_sway
+  m_Name: Shrub
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:
@@ -258,6 +258,9 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: 9116178654199957795}
     m_Position: {x: 567.08105, y: 19.012482, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 6551729757149836230}
+    m_Position: {x: 836.01, y: 15.577118, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -312,6 +315,32 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 81aec07e3b69b4375a4f3b4e756f9e26, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &6551729757149836230
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: shrub_die
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 1329468d175644f3b8d8448942a29f0e, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

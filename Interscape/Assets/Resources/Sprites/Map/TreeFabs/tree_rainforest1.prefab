@@ -145,6 +145,7 @@ MonoBehaviour:
   health: 100
   damageType: 0
   dropItemName: Log
+  deathClip: {fileID: 7400000, guid: ae7e2aef465004c84b04b0e220b02bb8, type: 2}
 --- !u!95 &-6387805211244659171
 Animator:
   serializedVersion: 3
