@@ -7971,6 +7971,7 @@ GameObject:
   - component: {fileID: 580340810}
   - component: {fileID: 580340808}
   - component: {fileID: 580340807}
+  - component: {fileID: 580340811}
   m_Layer: 0
   m_Name: System Placeholder
   m_TagString: Untagged
@@ -8049,6 +8050,18 @@ MonoBehaviour:
   detailGrid: {fileID: 0}
   octaveOffsets: []
   GiantColourMap: {fileID: 2800000, guid: d55edb94c70ce434a881745d7a71e911, type: 3}
+--- !u!114 &580340811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580340806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbd295d502d704a8cbbbe58790207cae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &584226425 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7243719802383562256, guid: bfaddfdebddb04f5ea627c2c36380d26,
@@ -13032,57 +13045,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3c39bf6d8db848e583960da50ae00f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 11400000, guid: fff17a12571754a148f98d72883c8449, type: 2}
-  - {fileID: 11400000, guid: b17d7e0ab37f8412284a963bf25b8c9d, type: 2}
-  - {fileID: 11400000, guid: 1d0a7ba1927f9430ca42d032150a7abf, type: 2}
-  - {fileID: 0}
-  - {fileID: 11400000, guid: 93a937fa574304113b398e11e9f10526, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 11400000, guid: 73945dabdb3264dfc9fdfee3c3db35d3, type: 2}
-  - {fileID: 11400000, guid: 535074ec2aed44a88bbc172466301dcc, type: 2}
-  - {fileID: 11400000, guid: da9935a84eb9f41b8a1f767ad4de563f, type: 2}
-  - {fileID: 11400000, guid: a8e385f8acebb45a99cf512c8f3e236a, type: 2}
-  - {fileID: 11400000, guid: 26793bd2973ae484aa7d94bb34d5d9c7, type: 2}
-  - {fileID: 11400000, guid: 46edf180d567b4224837bcd3f139c738, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 11400000, guid: 26793bd2973ae484aa7d94bb34d5d9c7, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 11400000, guid: 93a937fa574304113b398e11e9f10526, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 11400000, guid: 5d25b8e9b2bde4fe4ab0970a5522c892, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   itemsParent: {fileID: 1788470865}
   hotbarParent: {fileID: 1199206936}
   weightText: {fileID: 296257493}

@@ -20,6 +20,8 @@ public class Item //: ScriptableObject
 			this.icon = item.icon;
 			this.description = item.description;
 			this.weight = item.weight;
+		} else {
+			Debug.Log ("Item was not found");
 		}
 	}
 

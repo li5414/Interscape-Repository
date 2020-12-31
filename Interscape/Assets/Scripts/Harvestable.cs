@@ -8,6 +8,7 @@ public class Harvestable : MonoBehaviour
 	public AnimationClip clip;
 	[SerializeField] float health = 100;
 	[SerializeField] DamageType damageType;
+	public string dropItemName;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,7 @@ public class Harvestable : MonoBehaviour
 		anim.Play (clip.name);
 		//Debug.Log ("Hit");
 		if (health < 0) {
+			ItemDrop.dropItemAt (new Item (dropItemName), this.transform.position, 1);
 			Destroy (gameObject);
 		}
 	}

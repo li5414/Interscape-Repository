@@ -11,6 +11,7 @@ TagManager:
   - ItemDropParent
   - PlayerHoldItem
   - Cursor
+  - SystemPlaceholder
   layers:
   - Default
   - TransparentFX

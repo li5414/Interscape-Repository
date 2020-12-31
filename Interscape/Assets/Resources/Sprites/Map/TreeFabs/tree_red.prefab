@@ -144,6 +144,7 @@ MonoBehaviour:
   clip: {fileID: 7400000, guid: 3ea7daff686994a8fa6a948e976374d4, type: 2}
   health: 100
   damageType: 0
+  dropItemName: Log
 --- !u!95 &-8921683191658396081
 Animator:
   serializedVersion: 3

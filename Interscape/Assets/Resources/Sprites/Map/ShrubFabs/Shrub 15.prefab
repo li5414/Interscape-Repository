@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 537702756618343847}
   - component: {fileID: 537702756618343845}
   - component: {fileID: 5146363880982394220}
+  - component: {fileID: -8476252514557784507}
+  - component: {fileID: 7559031186574072938}
   m_Layer: 0
   m_Name: Shrub 15
   m_TagString: Untagged
@@ -47,6 +49,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -58,6 +61,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -110,3 +114,38 @@ CircleCollider2D:
   m_Offset: {x: -0.056005955, y: 0.39946938}
   serializedVersion: 2
   m_Radius: 0.59873724
+--- !u!114 &-8476252514557784507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537702756618343840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1b9582900f3a40ad89a7f7651a0c786, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 7400000, guid: 3ea7daff686994a8fa6a948e976374d4, type: 2}
+  health: 100
+  damageType: 1
+  dropItemName: Stone
+--- !u!95 &7559031186574072938
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537702756618343840}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7325d2943ee5b42faa3c7685bfbb9a14, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
