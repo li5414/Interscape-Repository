@@ -1,13 +1,36 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-[CreateAssetMenu]
-public class Item : ScriptableObject
+//[CreateAssetMenu]
+public class Item //: ScriptableObject
 {
 	public string itemName;
 	public Sprite icon;
-	public string description;
+	public string description; // could optimise further by making an itemtemplate class
 	public float weight;
-	
+
+
+	public Item(string itemName)
+	{
+		Item item;
+		ItemRes.ItemDict.TryGetValue (itemName, out item);
+
+		if (item != null) {
+			this.itemName = item.itemName;
+			this.icon = item.icon;
+			this.description = item.description;
+			this.weight = item.weight;
+		}
+	}
+
+	public Item (string itemName, Sprite icon, string description, float weight)
+	{
+		this.itemName = itemName;
+		this.icon = icon;
+		this.description = description;
+		this.weight = weight;
+	}
+
 }
 
 

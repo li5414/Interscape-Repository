@@ -1857,7 +1857,7 @@ GameObject:
   - component: {fileID: 326201712}
   - component: {fileID: 326201716}
   m_Layer: 10
-  m_Name: Cursor
+  m_Name: Tool Cursor
   m_TagString: Cursor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8003,7 +8003,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27e58bd85707d49b4bae781734f11911, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderDist: 3
+  renderDist: 2
   playerTrans: {fileID: 1062241006}
   tilemapObj: {fileID: 217185278}
   grassTilemap: {fileID: 1638469965}
@@ -13256,6 +13256,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  toolCursor: {fileID: 326201710}
 --- !u!114 &1271187378
 MonoBehaviour:
   m_ObjectHideFlags: 0

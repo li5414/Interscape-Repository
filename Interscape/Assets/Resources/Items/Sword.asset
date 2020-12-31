@@ -16,5 +16,10 @@ MonoBehaviour:
   icon: {fileID: -8538845865576704470, guid: 82ee9fe249a834af6bb52594469d5214, type: 3}
   description: Useful for murder
   weight: 2
-  quality: 6
   durability: 100
+  quality: 7
+  damage: 40
+  damageType: 2
+  baseDurability: 10
+  baseDamage: 10
+  coolDown: 0.5

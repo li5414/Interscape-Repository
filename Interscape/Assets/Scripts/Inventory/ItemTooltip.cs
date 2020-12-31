@@ -23,7 +23,7 @@ public class ItemTooltip : MonoBehaviour
 
 	public void ShowTooltip(Item item)
 	{
-		if (item) {
+		if (item != null) {
 			itemNameText.text = item.itemName;
 			itemDescriptionText.text = item.description.Replace ("\\n", "\n");
 			itemWeightText.text = "Weight: " + item.weight + "kg";
@@ -31,6 +31,7 @@ public class ItemTooltip : MonoBehaviour
 				itemQualityText.text = "Quality: " + ((Tool)item).getQuality() + " (" + ((Tool)item).getDurability() + " hits)";
 				itemDamageText.text = "Damage: " + ((Tool)item).getDamage ();
 				itemQualityText.enabled = true;
+				itemDamageText.enabled = true;
 			} else {
 				itemQualityText.enabled = false;
 				itemDamageText.enabled = false;

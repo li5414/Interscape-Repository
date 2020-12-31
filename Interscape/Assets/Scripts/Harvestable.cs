@@ -25,7 +25,7 @@ public class Harvestable : MonoBehaviour
 	{
 		health -= tool.getDamage ();
 		anim.Play (clip.name);
-		Debug.Log ("Hit");
+		//Debug.Log ("Hit");
 		if (health < 0) {
 			Destroy (gameObject);
 		}

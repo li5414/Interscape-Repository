@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-	[SerializeField] Item [] items = null;
+	Item [] items = new Item [50];
 	[SerializeField] GameObject itemsParent;
 	[SerializeField] GameObject hotbarParent;
 	ItemSlot [] itemSlots = new ItemSlot [50];
@@ -29,9 +29,14 @@ public class Inventory : MonoBehaviour
 
 		hotbar.Initialise ();
 		RefreshUI();
-		gameObject.SetActive (false);
-		count = refreshCount ();
 		
+		count = refreshCount ();
+
+		AddItem (new Tool ("Axe", 200));
+		AddItem (new Tool ("Pickaxe", 100));
+		AddItem (new Tool ("Sword", 100));
+
+		gameObject.SetActive (false);
 	}
 
 	private int refreshCount()
@@ -69,7 +74,7 @@ public class Inventory : MonoBehaviour
 	{
 		float sum = 0;
 		for (int i = 0; i < items.Length && i < itemSlots.Length; i++) {
-			if (items[i]) {
+			if (items[i] != null) {
 				sum += items [i].weight;
 			}
 		}
@@ -119,7 +124,7 @@ public class Inventory : MonoBehaviour
 
 	public bool RemoveItemAt(int slot)
 	{
-		if (items[slot]) {
+		if (items[slot] != null) {
 			items [slot] = null;
 			RefreshUI ();
 			return true;
@@ -134,7 +139,7 @@ public class Inventory : MonoBehaviour
 
 	public bool RemoveSelectedItem ()
 	{
-		if (items [hotbar.getCurrentSelected()]) {
+		if (items [hotbar.getCurrentSelected()] != null) {
 			items [hotbar.getCurrentSelected ()] = null;
 			RefreshUI ();
 			hotbar.updateSelectedUI();
@@ -156,7 +161,7 @@ public class Inventory : MonoBehaviour
 			return false;
 		}
 
-		if (!items[slot]) {
+		if (items[slot] == null) {
 			Debug.Log ("Tried to hold nothing");
 			return false;
 		}
@@ -224,4 +229,5 @@ public class Inventory : MonoBehaviour
 		//Debug.Log ("Addded " + item.name + " at " + newSlot);
 		//Debug.Log (oldItem.name);
 	}
+
 }

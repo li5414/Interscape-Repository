@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+//[CreateAssetMenu]
 public class Tool : Item
 {
 	[SerializeField] float durability;
@@ -12,6 +12,51 @@ public class Tool : Item
 	[SerializeField] float baseDurability = 10;
 	[SerializeField] float baseDamage = 10;
 	public float coolDown = 0.5f;
+
+
+
+	public Tool (string itemName) : base (itemName)
+	{
+		Item item;
+		ItemRes.ItemDict.TryGetValue (itemName, out item);
+
+		if (item != null && item is Tool) {
+			this.durability = ((Tool)item).durability;
+			this.damageType = ((Tool)item).damageType;
+			this.baseDurability = ((Tool)item).baseDurability;
+			this.baseDamage = ((Tool)item).baseDamage;
+			this.coolDown = ((Tool)item).coolDown;
+			refreshQualities ();
+		}
+	}
+
+	public Tool (string itemName, float durability) : base (itemName)
+	{
+		Item item;
+		ItemRes.ItemDict.TryGetValue (itemName, out item);
+
+		if (item != null &&  item is Tool) {
+			this.durability = durability;
+			this.damageType = ((Tool)item).damageType;
+			this.baseDurability = ((Tool)item).baseDurability;
+			this.baseDamage = ((Tool)item).baseDamage;
+			this.coolDown = ((Tool)item).coolDown;
+			refreshQualities ();
+		}
+	}
+
+	public Tool (string itemName, Sprite icon, string description, float weight,
+		float durability, DamageType damageType, float baseDurability,
+		float baseDamage, float coolDown) : base (itemName, icon, description, weight)
+	{
+		this.durability = durability;
+		this.damageType = damageType;
+		this.baseDurability = baseDurability;
+		this.baseDamage = baseDamage;
+		this.coolDown = coolDown;
+		refreshQualities ();
+	}
+
 
 
 	public float getDamage()

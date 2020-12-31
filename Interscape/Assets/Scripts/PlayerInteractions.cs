@@ -32,30 +32,21 @@ public class PlayerInteractions : MonoBehaviour
 
 	void OnTriggerStay2D (Collider2D other)
 	{
-		//Debug.Log ("collision");
-		if (//Mathf.Abs (transform.position.x - parent.position.x) < minDistance &&
-			/*Mathf.Abs (transform.position.y - parent.position.y) < minDistance &&*/ coolDown <= 0) {
-			isInteractable = true;
-		} else {
-			isInteractable = false;
-			return;
-		}
+		
 		image.color = defaultColor;
 
-		//if (Input.GetMouseButtonDown(0)) {
 		Harvestable obj = other.gameObject.GetComponent<Harvestable> ();
 		Item item = inventory.getSelectedItem ();
-		if (obj && item) {
+		if (obj && item != null) {
 			if (item is Tool && ((Tool)item).getDamageType () == obj.getDamageType ()) {
 				image.color = interactableColor;
 
-				if (Input.GetMouseButtonDown (0)) {
+				if (Input.GetMouseButton (0) && coolDown <= 0) {
 					obj.harvest ((Tool)item);
 					((Tool)item).decreaseDurability (inventory);
 					coolDown = ((Tool)item).coolDown;
 					//Debug.Log ("Decreased durability :)");
 				}
-				return;
 			}
 				
 		}
@@ -64,6 +55,7 @@ public class PlayerInteractions : MonoBehaviour
 
 	void OnTriggerExit2D (Collider2D other)
 	{
+		//Debug.Log ("Exit");
 		image.color = defaultColor;
 		isInteractable = false;
 	}

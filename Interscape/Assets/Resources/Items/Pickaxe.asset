@@ -16,5 +16,10 @@ MonoBehaviour:
   icon: {fileID: -9165187517254062065, guid: 82ee9fe249a834af6bb52594469d5214, type: 3}
   description: Good for breaking rocks
   weight: 3
-  quality: 2
-  durability: 100
+  durability: 90
+  quality: 7
+  damage: 40
+  damageType: 1
+  baseDurability: 10
+  baseDamage: 10
+  coolDown: 0.5

@@ -13,6 +13,7 @@ public class Hotbar : MonoBehaviour
 	private int prevSelected;
 	private int currentSelected;
 	private float minThreshold = 0.1f;
+	public GameObject toolCursor;
 
 	public void Initialise ()
     {
@@ -23,7 +24,8 @@ public class Hotbar : MonoBehaviour
 		prevSelected = 0;
 		currentSelected = 0;
 		playerHoldItem = GameObject.FindGameObjectWithTag ("PlayerHoldItem").GetComponent<SpriteRenderer>();
-		updateSelectedUI ();
+		updateSelected (0, 0);
+		//toolCursor = GameObject.FindGameObjectWithTag ("Cursor");
 	}
 
 	public int getCurrentSelected()
@@ -67,13 +69,14 @@ public class Hotbar : MonoBehaviour
 			currentSelected = 9;
 
 		updateSelectedUI ();
+		toggleCursor ();
 	}
 
 	public void updateSelectedUI()
 	{
 		// update item sprites on player
 		selected = itemSlots [currentSelected];
-		if (selected.Item) {
+		if (selected.Item != null) {
 			playerHoldItem.sprite = selected.Item.icon;
 			playerHoldItem.enabled = true;
 		} else {
@@ -84,6 +87,14 @@ public class Hotbar : MonoBehaviour
 		itemSlots [prevSelected].GetComponent<Image> ().color = new Color (1, 1, 1, 0);
 		selected.GetComponent<Image> ().color = selectedColor;
 		
+	}
+
+	public void toggleCursor() {
+		if (selected.Item is Tool) {
+			toolCursor.SetActive (true);
+		} else {
+			toolCursor.SetActive (false);
+		}
 	}
 
 }
