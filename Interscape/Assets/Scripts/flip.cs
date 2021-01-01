@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class flip : MonoBehaviour {
 
-    bool right = true;
-    Animator a;
+    public bool right = true;
+	private Vector3 prevPos;
 
-    void Start()
-    {
-        a = GetComponent<Animator>();
-    }
+	private void Start ()
+	{
+		prevPos = transform.position;
+	}
 
-    void Flip()
+	void Flip()
     {
         right = !right;
         Vector3 scale = transform.localScale;
@@ -22,7 +22,8 @@ public class flip : MonoBehaviour {
 
     void Update()
     {
-        float move = Input.GetAxis("Horizontal");
+		//float move = Input.GetAxis("Horizontal");
+		float move = transform.position.x - prevPos.x;
 
         if (move > 0 && !right)
             Flip();
@@ -31,5 +32,7 @@ public class flip : MonoBehaviour {
             if (move < 0 && right)
                 Flip();
         }
+
+		prevPos = transform.position;
     } 
 } 
