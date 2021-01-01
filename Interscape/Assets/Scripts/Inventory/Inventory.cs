@@ -32,9 +32,10 @@ public class Inventory : MonoBehaviour
 		
 		count = refreshCount ();
 
-		AddItem (new Tool ("Axe", 100));
-		AddItem (new Tool ("Pickaxe", 100));
+		AddItem (new Tool ("Axe", 300));
+		AddItem (new Tool ("Pickaxe", 500));
 		AddItem (new Tool ("Sword", 50));
+		AddItem (new Tool ("Stone axe", 75));
 
 		gameObject.SetActive (false);
 	}

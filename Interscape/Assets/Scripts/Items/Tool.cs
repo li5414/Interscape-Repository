@@ -84,7 +84,7 @@ public class Tool : Item
 	public void refreshQualities()
 	{
 		
-		if (durability < baseDurability * 0.25) {
+		if (durability < 20) {
 			quality = Quality.BarelyRecognisable;
 			damage = baseDamage * 0.25f;
 		} else if (durability < baseDurability * 0.5) {
