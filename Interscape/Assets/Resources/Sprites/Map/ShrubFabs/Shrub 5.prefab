@@ -73,7 +73,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6457780090063039983}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6338066434033198004}
@@ -193,3 +193,4 @@ MonoBehaviour:
   damageType: 0
   dropItemName: Branch
   deathClip: {fileID: 7400000, guid: 1329468d175644f3b8d8448942a29f0e, type: 2}
+  parentObj: {fileID: 6338066434033197998}

@@ -159,7 +159,7 @@ public class GreeneryGeneration : MonoBehaviour {
 				// generate noise values
 				perlinNoise = Mathf.PerlinNoise ((chunkPos.x + x + offsetX / 3.5f) * 0.1f,
 					(chunkPos.y + y + offsetY / 3.5f) * 0.1f);
-				Vector3Int pos = new Vector3Int (chunkPos.x + x, chunkPos.y + y, 198);
+				Vector3 pos = new Vector3 (chunkPos.x + x + 0.5f, chunkPos.y + y + 0.5f, 198);
 
 				// spawn in trees
 				if (isTreeBiome == true) { // check nearby coordinates for trees ???

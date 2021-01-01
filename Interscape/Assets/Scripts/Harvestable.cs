@@ -10,11 +10,15 @@ public class Harvestable : MonoBehaviour
 	[SerializeField] DamageType damageType;
 	public string dropItemName;
 	public AnimationClip deathClip;
+	public GameObject parentObj;
 
     // Start is called before the first frame update
     void Start()
     {
 		anim = GetComponent<Animator> ();
+		if (parentObj == null) {
+			parentObj = this.gameObject;
+		}
     }
 
     // Update is called once per frame
@@ -61,7 +65,7 @@ public class Harvestable : MonoBehaviour
 		if (dropItemName != "") {
 			ItemDrop.dropItemAt (new Item (dropItemName), this.transform.position, 1);
 		}
-		Destroy (gameObject);
+		Destroy (parentObj);
 	}
 }
 

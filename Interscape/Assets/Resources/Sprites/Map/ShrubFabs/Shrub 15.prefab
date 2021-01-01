@@ -9,10 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 537702756618343846}
-  - component: {fileID: 537702756618343847}
-  - component: {fileID: 5146363880982394220}
-  - component: {fileID: -8476252514557784507}
-  - component: {fileID: 7559031186574072938}
   - component: {fileID: 4888758110099573982}
   m_Layer: 0
   m_Name: Shrub 15
@@ -31,17 +27,64 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 180}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 8546516175767721776}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &537702756618343847
-SpriteRenderer:
+--- !u!114 &4888758110099573982
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 537702756618343840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df6910eea7d0b456b923286ac4113e95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &5166447513907381031
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8546516175767721776}
+  - component: {fileID: 7198139946068653572}
+  - component: {fileID: 7806584329836015611}
+  - component: {fileID: 383083257859486217}
+  - component: {fileID: 6407271120631312818}
+  m_Layer: 0
+  m_Name: Shrub 15
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8546516175767721776
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5166447513907381031}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.34, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 537702756618343846}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &7198139946068653572
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5166447513907381031}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -86,13 +129,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &5146363880982394220
+--- !u!58 &7806584329836015611
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 537702756618343840}
+  m_GameObject: {fileID: 5166447513907381031}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -102,13 +145,13 @@ CircleCollider2D:
   m_Offset: {x: -0.056005955, y: 0.39946938}
   serializedVersion: 2
   m_Radius: 0.59873724
---- !u!114 &-8476252514557784507
+--- !u!114 &383083257859486217
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 537702756618343840}
+  m_GameObject: {fileID: 5166447513907381031}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1b9582900f3a40ad89a7f7651a0c786, type: 3}
@@ -119,14 +162,15 @@ MonoBehaviour:
   damageType: 1
   dropItemName: Stone
   deathClip: {fileID: 0}
---- !u!95 &7559031186574072938
+  parentObj: {fileID: 537702756618343840}
+--- !u!95 &6407271120631312818
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 537702756618343840}
+  m_GameObject: {fileID: 5166447513907381031}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 7325d2943ee5b42faa3c7685bfbb9a14, type: 2}
@@ -138,15 +182,3 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4888758110099573982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 537702756618343840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df6910eea7d0b456b923286ac4113e95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

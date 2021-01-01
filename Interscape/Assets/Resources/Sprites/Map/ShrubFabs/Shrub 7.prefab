@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 111529487414081155}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.133, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 166631730290364895}
@@ -149,6 +149,7 @@ MonoBehaviour:
   damageType: 2
   dropItemName: 
   deathClip: {fileID: 7400000, guid: 1329468d175644f3b8d8448942a29f0e, type: 2}
+  parentObj: {fileID: 2321735949256138525}
 --- !u!1 &2321735949256138525
 GameObject:
   m_ObjectHideFlags: 0
