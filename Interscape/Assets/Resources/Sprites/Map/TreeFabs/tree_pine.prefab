@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 6302385953395032018}
   - component: {fileID: 4426884813413304708}
   - component: {fileID: 4577106650110731343}
-  - component: {fileID: 968644831379961449}
   - component: {fileID: 4061908544259955113}
   - component: {fileID: 2575140699017867378}
   - component: {fileID: 7524131733293891333}
+  - component: {fileID: -9178260474976262345}
   m_Layer: 0
   m_Name: tree_pine
   m_TagString: Untagged
@@ -104,18 +104,6 @@ CircleCollider2D:
   m_Offset: {x: 0.06758529, y: 0.08705723}
   serializedVersion: 2
   m_Radius: 0.32071656
---- !u!114 &968644831379961449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2582044933560987788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 888e90f60b6037443b4d276d3c7502f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4061908544259955113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,7 +111,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2582044933560987788}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cbf0e13748e7140e39c9a235a5694467, type: 3}
   m_Name: 
@@ -165,6 +153,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-9178260474976262345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2582044933560987788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df6910eea7d0b456b923286ac4113e95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8601715744784862256
 GameObject:
   m_ObjectHideFlags: 0

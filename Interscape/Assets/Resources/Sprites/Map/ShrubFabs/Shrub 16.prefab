@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 537702756618343846}
   - component: {fileID: 537702756618343847}
-  - component: {fileID: 537702756618343845}
   - component: {fileID: -7715906743933609624}
   - component: {fileID: 8293352453926280732}
   - component: {fileID: -1843057730625287660}
+  - component: {fileID: 3029605683912823834}
   m_Layer: 0
   m_Name: Shrub 16
   m_TagString: Untagged
@@ -86,18 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &537702756618343845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 537702756618343840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 888e90f60b6037443b4d276d3c7502f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!58 &-7715906743933609624
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -130,6 +118,7 @@ MonoBehaviour:
   health: 30
   damageType: 1
   dropItemName: Stone
+  deathClip: {fileID: 0}
 --- !u!95 &-1843057730625287660
 Animator:
   serializedVersion: 3
@@ -149,3 +138,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3029605683912823834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537702756618343840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df6910eea7d0b456b923286ac4113e95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

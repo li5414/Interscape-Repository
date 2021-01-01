@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour {
 		Vector3 inputDirection = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
 		Vector3 velocity = inputDirection.normalized;
 		a.SetFloat("speed", velocity.magnitude);
-        player.Translate(velocity * speed);
+        player.Translate(velocity * speed * Time.deltaTime);
     }
 
 	private float adjustForBurden(float baseSpeed)
