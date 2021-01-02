@@ -48,13 +48,19 @@ public class PlayerController : MonoBehaviour {
         bool is_shift_key = Input.GetKey(KeyCode.LeftShift);
 		bool is_ctrl_key = Input.GetKey (KeyCode.LeftControl);
 		a.SetBool("is_shift_key", is_shift_key);
+		playerStats.isRunning = false;
 		if (is_shift_key)
 			speed = adjustForBurden(playerStats.crawlSpeed);
 		else if (is_ctrl_key) {
 			speed = adjustForBurden(playerStats.runSpeed);
+			playerStats.isRunning = true;
 		}
 		else {
 			speed = adjustForBurden(playerStats.walkSpeed);
+		}
+
+		if (playerStats.getStamina() == 0) {
+			speed = Mathf.Min (speed, playerStats.crawlSpeed);
 		}
 		
 		bool is_w_key = Input.GetKey(KeyCode.W);	

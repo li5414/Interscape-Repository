@@ -36,7 +36,7 @@ public class SnailAI : MonoBehaviour
 
 
 		if ((new Vector2 (transform.position.x, transform.position.y) -
-					new Vector2 (player.transform.position.x, player.transform.position.y)).magnitude < 3) {
+					new Vector2 (player.transform.position.x, player.transform.position.y)).magnitude < 8) {
 			restingTime = 0;
 			RunAway();
 		}
@@ -85,7 +85,7 @@ public class SnailAI : MonoBehaviour
 		isRunning = true;
 		speed = 4f;
 		Vector2 direction = new Vector2 (transform.position.x - player.transform.position.x, transform.position.y - player.transform.position.y);
-		direction = direction.normalized * 20;
+		direction = direction.normalized * 16;
 		
 		wayPoint = (new Vector2 (transform.position.x + direction.x, transform.position.y + direction.y));
 	}

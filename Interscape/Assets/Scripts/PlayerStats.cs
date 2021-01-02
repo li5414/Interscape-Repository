@@ -11,28 +11,31 @@ public class PlayerStats : MonoBehaviour
 	public float walkSpeed = 0.08f;
 	public float runSpeed = 0.2f;
 	public float crawlSpeed = 0.04f;
+	public bool isRunning;
 
 	public int skill;
+	[Space]
 	public Color dangerColor;
 	public Color normalColor = Color.white;
 
 	[Space]
 	public GameObject cameraShake;
 
-	private float health = 100;
-	private float maxHealth = 100;
-	private float hunger = 100;
-	private float maxHunger = 100;
-	private float stamina = 100;
-	private float maxStamina = 100;
-	private float thirst = 100;
-	private float maxThirst = 100;
-
+	private int health = 100;
+	private int maxHealth = 100;
+	private int hunger = 100;
+	private int maxHunger = 100;
+	private int stamina = 100;
+	private int maxStamina = 100;
+	private int thirst = 100;
+	private int maxThirst = 100;
 
 	private TextMeshProUGUI healthText;
 	private TextMeshProUGUI hungerText;
 	private TextMeshProUGUI staminaText;
 	private TextMeshProUGUI thirstText;
+
+	private bool decreaseStamina;
 
 	// Start is called before the first frame update
 	void Start()
@@ -41,6 +44,9 @@ public class PlayerStats : MonoBehaviour
 		hungerText = statsUI.GetComponentsInChildren<TextMeshProUGUI> () [1];
 		staminaText = statsUI.GetComponentsInChildren<TextMeshProUGUI> () [2];
 		thirstText = statsUI.GetComponentsInChildren<TextMeshProUGUI> () [3];
+
+		StartCoroutine ("passiveEffects");
+		StartCoroutine ("staminaEffects");
 	}
 
     // Update is called once per frame
@@ -49,34 +55,59 @@ public class PlayerStats : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P)) {
 			updateHealth (-10);
 		}
-    }
+		if (Input.GetKeyDown (KeyCode.O)) {
+			updateHunger (-10);
+		}
+		if (Input.GetKeyDown (KeyCode.K)) {
+			updateThirst (-10);
+		}
+		if (Input.GetKeyDown (KeyCode.L)) {
+			updateStamina (-10);
+		}
 
-
-
-
-
+		if (isRunning) {
+			decreaseStamina = true;
+		}
+	}
 
 
 	public void updateHealth(float amount)
 	{
-		health = Mathf.Clamp(health + amount, 0, maxHealth);
+		health = (int)Mathf.Clamp(health + amount, 0, maxHealth);
 		updateText (health, maxHealth, healthText);
-		Instantiate (cameraShake);
+
+		if (amount < 0) {
+			Instantiate (cameraShake);
+		}
 	}
 	public void updateHunger (float amount)
 	{
-		hunger = Mathf.Clamp (hunger + amount, 0, maxHunger);
+		if (hunger > 0 && hunger + amount <= 0) {
+			hunger = (int)Mathf.Clamp (hunger + amount, 0, maxHunger);
+			StartCoroutine ("applyHungerDamage");
+		}
+
+		hunger = (int)Mathf.Clamp (hunger + amount, 0, maxHunger);
 		updateText (hunger, maxHunger, hungerText);
+
 	}
+
 	public void updateStamina (float amount)
 	{
-		stamina = Mathf.Clamp (stamina + amount, 0, maxStamina);
+		stamina = (int)Mathf.Clamp (stamina + amount, 0, maxStamina);
 		updateText (stamina, maxStamina, staminaText);
 	}
+
 	public void updateThirst (float amount)
 	{
-		thirst = Mathf.Clamp (thirst + amount, 0, maxThirst);
+		if (thirst > 0 && thirst + amount  <= 0) {
+			thirst = (int)Mathf.Clamp (thirst + amount, 0, maxThirst);
+			StartCoroutine ("applyThirstDamage");
+		}
+
+		thirst = (int)Mathf.Clamp (thirst + amount, 0, maxThirst);
 		updateText (thirst, maxThirst, thirstText);
+
 	}
 
 	private void updateText (float val, float maxVal, TextMeshProUGUI text)
@@ -92,37 +123,80 @@ public class PlayerStats : MonoBehaviour
 
 
 
+	private IEnumerator applyHungerDamage()
+	{
+		while (health > 0 && hunger <= 0) {
+			updateHealth (-10);
+			yield return new WaitForSeconds (10);
+		}
+	}
+
+	private IEnumerator applyThirstDamage ()
+	{
+		while (health > 0 && thirst <= 0) {
+			updateHealth (-10);
+			yield return new WaitForSeconds (2.5f);
+		}
+	}
+
+	private IEnumerator passiveEffects()
+	{
+		while(true) {
+			yield return new WaitForSeconds (20);
+			if (stamina > 0 && health < maxHealth) {
+				updateHealth (1);
+			}
+			if (hunger > 0) {
+				updateHunger (-1);
+			}
+			if (thirst > 0) {
+				updateThirst (-1);
+			}
+		}
+	}
+
+	private IEnumerator staminaEffects()
+	{
+		while (true) {
+			yield return new WaitForSeconds (2);
+			if (stamina > 0 && decreaseStamina) {
+				updateStamina (-1);
+			}
+			decreaseStamina = false;
+		}
+	}
 
 
-	public float getHealth()
+
+	public int getHealth()
 	{
 		return health;
 	}
-	public float getMaxHealth ()
+	public int getMaxHealth ()
 	{
 		return maxHealth;
 	}
-	public float getHunger ()
+	public int getHunger ()
 	{
 		return hunger;
 	}
-	public float getMaxHunger ()
+	public int getMaxHunger ()
 	{
 		return maxHunger;
 	}
-	public float getStamina ()
+	public int getStamina ()
 	{
 		return stamina;
 	}
-	public float getMaxStamina ()
+	public int getMaxStamina ()
 	{
 		return maxStamina;
 	}
-	public float getThirst ()
+	public int getThirst ()
 	{
 		return thirst;
 	}
-	public float getMaxThirst ()
+	public int getMaxThirst ()
 	{
 		return maxThirst;
 	}
