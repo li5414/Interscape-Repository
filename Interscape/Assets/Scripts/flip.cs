@@ -25,11 +25,11 @@ public class flip : MonoBehaviour {
 		//float move = Input.GetAxis("Horizontal");
 		float move = transform.position.x - prevPos.x;
 
-        if (move > 0 && !right)
+        if (move > 0.001 && !right)
             Flip();
         else
         {
-            if (move < 0 && right)
+            if (move < -0.001 && right)
                 Flip();
         }
 

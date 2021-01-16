@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour {
     Transform player;
 	private PlayerStats playerStats;
 	public float burdenEffectCutoff = 0.75f;
+	SpriteRenderer spriteR;
+	private Facing facing;
+	private bool isIdle;
 
 	// hair objects
 	public Sprite hairFront;
@@ -25,113 +28,46 @@ public class PlayerController : MonoBehaviour {
 	/* assign player position and animator */
 	void Start() {
         a = GetComponent<Animator>();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        player = this.transform;
 		playerStats = GetComponent<PlayerStats> ();
-    }
+		spriteR = hair.GetComponent<SpriteRenderer> ();
+		facing = Facing.BotRight;
+	}
 
     void Update() {
-		SpriteRenderer spriteR = hair.GetComponent<SpriteRenderer>();
 
-		/* test whether to face right or left */
-		float move = Input.GetAxis("Horizontal");
-        if (move > 0 && !right) {
-            Flip();
-        }
-        else {
-            if (move < 0 && right)
-                Flip();
-        }
-
-		
-
-		/* test which keys are being pressed */
-        bool is_shift_key = Input.GetKey(KeyCode.LeftShift);
-		bool is_ctrl_key = Input.GetKey (KeyCode.LeftControl);
-		a.SetBool("is_shift_key", is_shift_key);
+		// get input
 		playerStats.isRunning = false;
-		if (is_shift_key)
-			speed = adjustForBurden(playerStats.crawlSpeed);
-		else if (is_ctrl_key) {
-			speed = adjustForBurden(playerStats.runSpeed);
-			playerStats.isRunning = true;
-		}
-		else {
-			speed = adjustForBurden(playerStats.walkSpeed);
+		string input = getWASD ();
+		setFacing (input);
+
+		// idle
+		if (isIdle) {
+			playIdle ();
 		}
 
+		// crawling
+		else if (Input.GetKey (KeyCode.LeftShift)) {
+			speed = adjustForBurden (playerStats.crawlSpeed);
+			crawlAnimation ();
+
+		}
+		// running
+		else if (Input.GetKey (KeyCode.LeftControl)) {
+			speed = adjustForBurden (playerStats.runSpeed);
+			playerStats.isRunning = true;
+			runAnimation ();
+		}
+
+		// walking
+		else {
+			speed = adjustForBurden (playerStats.walkSpeed);
+			walkAnimation ();
+		}
+
+		// when stamina reaches zero, move slowly
 		if (playerStats.getStamina() == 0) {
 			speed = Mathf.Min (speed, playerStats.crawlSpeed);
-		}
-		
-		bool is_w_key = Input.GetKey(KeyCode.W);	
-		bool is_s_key = Input.GetKey(KeyCode.S);
-		bool is_d_key = Input.GetKey(KeyCode.D);
-		bool is_a_key = Input.GetKey(KeyCode.A);
-		bool is_ad_key = (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A));
-		bool is_awd_key = (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.W)) || (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D));
-		bool is_asd_key = (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.S)) || (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D));
-		
-		/* prioritise diagonal movement */
-		if (is_asd_key) {
-			a.SetBool("is_asd_key", is_asd_key);
-			a.SetBool("is_a_key", false);
-			a.SetBool("is_s_key", false);
-			a.SetBool("is_d_key", false);
-			a.SetBool("is_w_key", false);
-			spriteR.sprite = hairFrontside;
-		}
-        else if (is_awd_key) {
-        	a.SetBool("is_awd_key", is_awd_key);
-        	a.SetBool("is_a_key", false);
-        	a.SetBool("is_w_key", false);
-        	a.SetBool("is_d_key", false);
-        	a.SetBool("is_s_key", false);
-			spriteR.sprite = hairBackside;
-		}
-        else if (is_s_key) {
-        	a.SetBool("is_s_key", is_s_key);
-        	a.SetBool("is_a_key", false);
-        	a.SetBool("is_w_key", false);
-        	a.SetBool("is_d_key", false);
-        	a.SetBool("is_asd_key", false);
-        	a.SetBool("is_awd_key", false);
-			spriteR.sprite = hairFront;
-		}
-        else if (is_d_key) {
-        	a.SetBool("is_d_key", is_d_key);
-        	a.SetBool("is_a_key", false);
-        	a.SetBool("is_s_key", false);
-        	a.SetBool("is_w_key", false);
-        	a.SetBool("is_asd_key", false);
-        	a.SetBool("is_awd_key", false);
-			spriteR.sprite = hairSide;
-		}
-        else if (is_a_key) {
-        	a.SetBool("is_a_key", is_a_key);
-        	a.SetBool("is_w_key", false);
-        	a.SetBool("is_s_key", false);
-        	a.SetBool("is_d_key", false);
-        	a.SetBool("is_asd_key", false);
-        	a.SetBool("is_awd_key", false);
-			spriteR.sprite = hairSide;
-		}
-        else if (is_w_key) {
-        	a.SetBool("is_w_key", is_w_key);
-        	a.SetBool("is_a_key", false);
-        	a.SetBool("is_s_key", false);
-        	a.SetBool("is_d_key", false);
-            a.SetBool("is_asd_key", false);
-            a.SetBool("is_awd_key", false);
-			spriteR.sprite = hairBack;
-		}
-        else {
-        	a.SetBool("is_a_key", false);
-        	a.SetBool("is_w_key", false);
-        	a.SetBool("is_d_key", false);
-        	a.SetBool("is_s_key", false);
-        	a.SetBool("is_awd_key", false);
-        	a.SetBool("is_asd_key", false);
-			spriteR.sprite = hairFrontside;
 		}
         
 		/* apply movement to character */
@@ -140,6 +76,125 @@ public class PlayerController : MonoBehaviour {
 		a.SetFloat("speed", velocity.magnitude);
         player.Translate(velocity * speed * Time.deltaTime);
     }
+
+	private void crawlAnimation()
+	{
+		walkAnimation ();
+	}
+
+	private void walkAnimation ()
+	{
+
+		switch (facing) {
+		case Facing.Up:
+			a.Play ("back_walk");
+			break;
+		case Facing.TopRight:
+		case Facing.TopLeft:
+			a.Play ("backside_walk");
+			break;
+		case Facing.Right:
+		case Facing.Left:
+			a.Play ("side_walk");
+			break;
+		case Facing.BotLeft:
+		case Facing.BotRight:
+			a.Play ("frontside_walk");
+			break;
+		case Facing.Down:
+			a.Play ("front_walk");
+			break;
+		default:
+			Debug.Log ("Walk animation could not be found");
+			break;
+		}
+	}
+
+	private void setFacing(string input)
+	{
+		isIdle = false;
+
+		switch (input) {
+		case "WAD": // up
+		case "W":
+			facing = Facing.Up;
+			break;
+		case "WD": // top-right
+			facing = Facing.TopRight;
+			break;
+		case "D": // right
+			facing = Facing.Right;
+			break;
+		case "SD": // bottom-right
+			facing = Facing.BotRight;
+			break;
+		case "S": // down
+		case "ASD":
+			facing = Facing.Down;
+			break;
+		case "AS": // bottom-left
+			facing = Facing.BotLeft;
+			break;
+		case "A": // left
+			facing = Facing.Left;
+			break;
+		case "WA": // top-left
+			facing = Facing.TopLeft;
+			break;
+		default:
+			isIdle = true;
+			break;
+		}
+	}
+
+	private void runAnimation ()
+	{
+		walkAnimation ();
+	}
+
+
+	private void playIdle()
+	{
+		switch (facing) {
+			case Facing.Up:
+				a.Play ("player_idle_back");
+				break;
+			case Facing.TopRight:
+			case Facing.TopLeft:
+				a.Play ("player_idle_backside");
+				break;
+			case Facing.Right:
+			case Facing.Left:
+				a.Play ("player_idle_side");
+				break;
+			case Facing.BotLeft:
+			case Facing.BotRight:
+				a.Play ("player_idle_frontside");
+				break;
+			case Facing.Down:
+				a.Play ("player_idle_front");
+				break;
+			default:
+				Debug.Log ("Idle animation could not be found");
+				break;
+		}
+	}
+
+	private string getWASD()
+	{
+		string str = "";
+
+		if (Input.GetKey (KeyCode.W))
+			str += "W";
+		if (Input.GetKey (KeyCode.A))
+			str += "A";
+		if (Input.GetKey (KeyCode.S))
+			str += "S";
+		if (Input.GetKey (KeyCode.D))
+			str += "D";
+		return str;
+	}
+
 
 	private float adjustForBurden(float baseSpeed)
 	{
@@ -160,12 +215,15 @@ public class PlayerController : MonoBehaviour {
 		return amount;
 	}
 
+}
 
-	/* function to flip object */
-    void Flip() {
-        right = !right;
-        Vector3 scale = transform.localScale;
-        scale.x *= -1;
-        transform.localScale = scale;
-    }
+public enum Facing {
+	Left,
+	Right,
+	Up,
+	Down,
+	TopRight,
+	BotRight,
+	TopLeft,
+	BotLeft
 }
