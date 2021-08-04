@@ -3,23 +3,23 @@ An open-world topdown 2D game made in Unity! Uses procedural generation to gener
 
 Here are some different biomes so far. Biome blending has been implemented in a shader to enable smooth gradient transitions between biomes. 
 <p align="center">
-  <img src="Interscape/Images/Desert.png" width="250" title="Desert">
-  <img src="Interscape/Images/Savanna.png" width="250" title="Savanna">
-  <img src="Interscape/Images/Grassland.png" width="250" title="Grassland">
-  <img src="Interscape/Images/Rainforest.png" width="250" title="Rainforest">
-  <img src="Interscape/Images/Forest.png" width="250" title="Forest">
-  <img src="Interscape/Images/Taiga.png" width="250" title="Taiga">
+  <img src="Images/Desert.png" width="250" title="Desert">
+  <img src="Images/Savanna.png" width="250" title="Savanna">
+  <img src="Images/Grassland.png" width="250" title="Grassland">
+  <img src="Images/Rainforest.png" width="250" title="Rainforest">
+  <img src="Images/Forest.png" width="250" title="Forest">
+  <img src="Images/Taiga.png" width="250" title="Taiga">
 </p>
 
 Here are some screenshots of the UI so far. The inventory has a weight system that gives the player a speed debuff if they carry too much.
 <p align="center">
-  <img src="Interscape/Images/Inv.png" width="400" >
-  <img src="Interscape/Images/WithUI.png" width="400" >
+  <img src="Images/Inv.png" width="400" >
+  <img src="Images/WithUI.png" width="400" >
 </p>
 
 Here is what the map of a random seed looks like. The warmer biomes generate at the equator and the cooler biomes toward the poles. There are also no large oceans so player travel doesn't get too boring. Layered perlin noise is used for the world generation by creating a heat, moisture and height map.
 <p align="center">
-  <img src="Interscape/Images/Map.png" width="400" >
+  <img src="Images/Map.png" width="400" >
 </p>
 
 So far, this has been an entirely solo project. All animation/art is drawn from scratch by Jess in Procreate for iPad. 
