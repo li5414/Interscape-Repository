@@ -22,6 +22,9 @@ public class BiomeCalculations : MonoBehaviour
 	}
 
 	public Texture2D biomeColourMap;
+	public Material chunkTerrainMaterial;
+	public GameObject chunkTerrainPrefab;
+	public GameObject chunkTerrainParent;
 
 	public static BiomeType[,] BiomeTable = {   
     //                                               <--Colder      Hotter -->            
@@ -360,8 +363,18 @@ public class BiomeCalculations : MonoBehaviour
 
 	public Texture2D GenerateColourMap()
 	{
+		Debug.Log ("Generating colourmap for shader...");
+		
 		Texture2D tex = new Texture2D (5000, 5000);
-		for (int i = 0; i < tex.width; i ++) {
+
+		StartCoroutine (GeneratePartialColourMap (tex));
+		
+		return tex;
+	}
+
+	IEnumerator GeneratePartialColourMap (Texture2D tex)
+	{
+		for (int i = 0; i < tex.width; i++) {
 			for (int j = 0; j < tex.width; j++) {
 				float height = GetHeightValue (i, j);
 
@@ -383,9 +396,14 @@ public class BiomeCalculations : MonoBehaviour
 
 				tex.SetPixel (i, j, color);
 			}
+
+			yield return null;
 		}
+
+		Debug.Log ("Finished generating colourmap. Saving...");
 		SavePNG (tex);
-		return tex;
+		Debug.Log ("Saved!");
+
 	}
 
 	void SavePNG (Texture2D tex)
