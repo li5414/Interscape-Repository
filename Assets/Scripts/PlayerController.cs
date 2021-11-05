@@ -5,7 +5,6 @@ using System;
 public class PlayerController : MonoBehaviour {
 	
 	/* initialise variables */
-    
 	public float speed;
 	public bool isBurdened = true;
 	bool right = true;
@@ -34,7 +33,7 @@ public class PlayerController : MonoBehaviour {
 		facing = Facing.BotRight;
 	}
 
-    void Update() {
+    void FixedUpdate() {
 
 		// get input
 		playerStats.isRunning = false;
