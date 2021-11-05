@@ -1,0 +1,293 @@
+fileFormatVersion: 2
+guid: a280d8587efc04894b7e1d1fc2a5938f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3772370550567617098
+    second: shorts_front_walk_0
+  - first:
+      213: 742997570152801213
+    second: shorts_front_walk_1
+  - first:
+      213: 7055172494058448688
+    second: shorts_front_walk_2
+  - first:
+      213: 6772837640343400871
+    second: shorts_front_walk_3
+  - first:
+      213: 7434882844264982396
+    second: shorts_front_walk_4
+  - first:
+      213: -6939574660290560962
+    second: shorts_front_walk_5
+  - first:
+      213: -4889157257642536789
+    second: shorts_front_walk_6
+  - first:
+      213: -4685450369585951852
+    second: shorts_front_walk_7
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: shorts_front_walk_0
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 9
+        width: 5
+        height: 9
+      alignment: 9
+      pivot: {x: 0.5, y: -1.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65b39d0d2c06f4b3696fee1f9ca98616
+      internalID: -3772370550567617098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shorts_front_walk_1
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 9
+        width: 5
+        height: 9
+      alignment: 9
+      pivot: {x: 0.5, y: -1.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 958e96b8bf3844d8fb9776a9cd900bef
+      internalID: 742997570152801213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shorts_front_walk_2
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 9
+        width: 5
+        height: 9
+      alignment: 9
+      pivot: {x: 0.5, y: -1.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff064af7f60434ad1b1f4f6c26ba0e2b
+      internalID: 7055172494058448688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shorts_front_walk_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 9
+        width: 5
+        height: 9
+      alignment: 9
+      pivot: {x: 0.5, y: -1.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90c9ac9299cba4df2a2fd98c100bd696
+      internalID: 6772837640343400871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shorts_front_walk_4
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 9
+        width: 5
+        height: 9
+      alignment: 9
+      pivot: {x: 0.5, y: -1.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b61e36a1233174a6484566fd8ebd04b4
+      internalID: 7434882844264982396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shorts_front_walk_5
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 9
+        width: 5
+        height: 9
+      alignment: 9
+      pivot: {x: 0.5, y: -1.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d9135b1e7ea74ed183514fecda40976
+      internalID: -6939574660290560962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shorts_front_walk_6
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 9
+        width: 5
+        height: 9
+      alignment: 9
+      pivot: {x: 0.5, y: -1.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16de2571b013c487692ca362560bd7fe
+      internalID: -4889157257642536789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shorts_front_walk_7
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 9
+        width: 5
+        height: 9
+      alignment: 9
+      pivot: {x: 0.5, y: -1.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a63f0d68c194451e88a67cfe6c4f837
+      internalID: -4685450369585951852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 634fbe703ee2440c584855fda3c4b63e
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
