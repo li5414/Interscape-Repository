@@ -8311,6 +8311,7 @@ GameObject:
   - component: {fileID: 580340808}
   - component: {fileID: 580340807}
   - component: {fileID: 580340811}
+  - component: {fileID: 580340812}
   m_Layer: 0
   m_Name: System Placeholder
   m_TagString: Untagged
@@ -8343,7 +8344,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27e58bd85707d49b4bae781734f11911, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderDist: 2
   playerTrans: {fileID: 1062241006}
   tilemapObj: {fileID: 217185278}
   grassTilemap: {fileID: 1638469965}
@@ -8393,7 +8393,6 @@ MonoBehaviour:
   waterGrid: {fileID: 0}
   detailGrid: {fileID: 0}
   octaveOffsets: []
-  GiantColourMap: {fileID: 2800000, guid: d55edb94c70ce434a881745d7a71e911, type: 3}
 --- !u!114 &580340811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8406,6 +8405,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbd295d502d704a8cbbbe58790207cae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &580340812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580340806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3ab8b6b803fa48f48a1e6deef47ae79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SEED: 130
+  RENDER_DIST: 5
 --- !u!224 &584226425 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7243719802383562256, guid: bfaddfdebddb04f5ea627c2c36380d26,

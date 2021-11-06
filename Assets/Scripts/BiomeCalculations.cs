@@ -27,35 +27,16 @@ public class BiomeCalculations : MonoBehaviour
 	public GameObject detailGrid;
 
 	// perlin noise stuff
-	public Vector2[] octaveOffsets = new Vector2[octaves]; // we want each octave to come from different 'location' in the perlin noise
+	public Vector2[] octaveOffsets; // we want each octave to come from different 'location' in the perlin noise
 	static int octaves = 4;               // number of noise layers
 	float scale = 361.4f;                 // the higher the number, the more 'zoomed in'. Needs to be likely to result in non-integer
 	float persistance = 0.5f;             // the higher the octave, the less of an effect
 	float lacunarity = 2.5f;              // value that decreases scale each octave
 
-	// colour dict
-	// public static Dictionary<BiomeType, Color32> BiomeColours = new Dictionary<BiomeType, Color32>();
-
-	// color texture
-	// public Texture2D GiantColourMap;
-
-	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-	private void Awake()
-	{	
+	// this needs to be in awake() or else bad stuff happens
+	private void Awake ()
+	{
 		worldSettings = GameObject.Find ("System Placeholder").GetComponent<WorldSettings> ();
-
-		// initialise biome colours dictionary
-		// BiomeColours.Add(BiomeType.Water, new Color32(116, 144, 183, 255));
-		// BiomeColours.Add(BiomeType.DeepWater, new Color32(88, 115, 159, 255));
-		// BiomeColours.Add(BiomeType.Beach, new Color32(229, 209, 168, 255));
-		// BiomeColours.Add (BiomeType.Desert, new Color32 (229, 204, 159, 255));
-		// BiomeColours.Add(BiomeType.Savanna, new Color32(246, 226, 176, 255));
-		// BiomeColours.Add (BiomeType.Rainforest, new Color32 (69, 163, 117, 255));
-		// BiomeColours.Add(BiomeType.Grassland, new Color32(185, 205, 147, 255));
-		// BiomeColours.Add (BiomeType.SeasonalForest, new Color32 (130, 181, 146, 255));
-		// BiomeColours.Add(BiomeType.Taiga, new Color32(126, 166, 142, 255));
-		// BiomeColours.Add(BiomeType.Tundra, new Color32(144, 179, 164, 255));
-		// BiomeColours.Add (BiomeType.Ice, new Color32 (218, 231, 235, 255));
 
 		//initialise biome table coords
 		int count = 0;
@@ -65,27 +46,12 @@ public class BiomeCalculations : MonoBehaviour
 			}
 			count++;
 		}
-		InitialiseOctavesForHeight();
-	}
-
-	private void Start ()
-	{
-		// GiantColourMap = Resources.Load<Texture2D> ("Sprites/Map/GiantColourMap");
-		// if (GiantColourMap == null) {
-		// 	GenerateColourMap ();
-		// 	GiantColourMap = Resources.Load<Texture2D> ("Sprites/Map/GiantColourMap");
-		// 	if (GiantColourMap == null) {
-		// 		Debug.Log ("error: colours not found??");
-		// 	}
-		// }
-
+		initialiseOctavesForHeight();
 
 		//InvokeRepeating ("PrintAtPos", 2.0f, 2.0f); //do not delete - is for testing!
 	}
 
-	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-
-	public void InitialiseOctavesForHeight()
+	void initialiseOctavesForHeight()
 	{
 		octaveOffsets = new Vector2 [octaves];
 		for (int i = 0; i < octaves; i++)
@@ -120,7 +86,7 @@ public class BiomeCalculations : MonoBehaviour
 	public float[,] GetHeightValues(int chunkX, int chunkY)
 	{
 		float[,] heights = new float[Consts.CHUNK_SIZE, Consts.CHUNK_SIZE];
-
+		
 		// loop through all tiles in chunk
 		for (int x = 0; x < Consts.CHUNK_SIZE; x++) {
 			for (int y = 0; y < Consts.CHUNK_SIZE; y++) {
@@ -147,8 +113,6 @@ public class BiomeCalculations : MonoBehaviour
 		}
 		return heights;
 	}
-
-	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 	public float GetTemperature(int x, int y, float heightVal)
 	{
@@ -203,9 +167,7 @@ public class BiomeCalculations : MonoBehaviour
 		return temps;
 	}
 
-	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-	// IMPLEMENT NOISE LAYERS??
-
+	// note: there is currently no noise layers for humidity
 	public float GetHumidity(int x, int y, float heightVal)
 	{
 		float perlinValue = Mathf.PerlinNoise((x / (scale / 2)) + octaveOffsets[2].x, (y / (scale / 2)) + octaveOffsets[2].y);
@@ -239,7 +201,6 @@ public class BiomeCalculations : MonoBehaviour
 		return moistures;
 	}
 
-	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 	public BiomeType[,] GetBiomes(float[,] heights, float[,] temperatures, float[,] humidities)
 	{
 		BiomeType[,] biomeTypes = new BiomeType[Consts.CHUNK_SIZE, Consts.CHUNK_SIZE];
@@ -272,16 +233,13 @@ public class BiomeCalculations : MonoBehaviour
 					biomeTypes [x, y] = BiomeType.Water;
 				else
 					biomeTypes [x, y] = BiomeType.Beach;
-
 			}
 		}
-
 		return biomeTypes;
 	}
 
 	public BiomeType GetBiome(float height, float temperature, float humidity)
 	{
-
 		float temp;
 		int humid;
 		BiomeType biome;
@@ -292,9 +250,7 @@ public class BiomeCalculations : MonoBehaviour
 		temp *= BIOME_TABLE_SIZE;
 		temp = Mathf.FloorToInt(temp);
 
-		
 		humid = Mathf.FloorToInt (humidity * BIOME_TABLE_SIZE);
-
 		biome = Consts.BIOME_TYPE_TABLE[humid, (int)temp];
 
 		// water and beach biomes
@@ -304,20 +260,14 @@ public class BiomeCalculations : MonoBehaviour
 			biome = BiomeType.Water;
 		else if (height < -0.26 && biome != BiomeType.Ice)
 			biome = BiomeType.Beach;
-
 		return biome;
 	}
 
-	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-
-	public Texture2D GenerateColourMap()
+	/*public Texture2D GenerateColourMap()
 	{
 		Debug.Log ("Generating colourmap for shader...");
-		
 		Texture2D tex = new Texture2D (5000, 5000);
-
 		StartCoroutine (GeneratePartialColourMap (tex));
-		
 		return tex;
 	}
 
@@ -342,17 +292,14 @@ public class BiomeCalculations : MonoBehaviour
 				}
 
 				color.a = Mathf.Clamp01 (Mathf.InverseLerp (-1f, 1f, height)); // lower alpha is deeper
-
 				tex.SetPixel (i, j, color);
 			}
-
 			yield return null;
 		}
 
 		Debug.Log ("Finished generating colourmap. Saving...");
 		SavePNG (tex);
 		Debug.Log ("Saved!");
-
 	}
 
 	void SavePNG (Texture2D tex)
@@ -363,7 +310,7 @@ public class BiomeCalculations : MonoBehaviour
 			Directory.CreateDirectory (dirPath);
 		}
 		File.WriteAllBytes (dirPath + "GiantColourMap.png", bytes);
-	}
+	}*/
 
 	// for testing purposes
 	void PrintAtPos()
