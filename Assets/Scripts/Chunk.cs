@@ -12,30 +12,29 @@ public class Chunk
 	// components
 	public Vector2Int chunkPos;
 	public Vector2Int chunkCoord;
-	public static int sizeFactor = 2; // the cell size is 0.25x the normal cell size
+	
 
 	bool isLoaded;
-	bool dataRecieved;
 	bool isGenerated;
-	GameObject treeParent;       // parent for this particular chunk
+	bool containsWater;
+	bool containsSand;
+	bool containsGrass;
+
+	// parent for this particular chunk
+	GameObject treeParent;       
 	
 	// position arrays
 	Vector3Int [] tilePositionsWorld;
 
 	// tile arrays
-	//public Tile [] tileArray = new Tile [Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
 	public RuleTile [] sandTileArray = new RuleTile [Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
 	public Tile [] waterTileArray = new Tile [Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
+
+	// tile to store the grass blade details (the size of the tile takes up the whole chunk)
 	public Tile deetChunk;
 
-	public Texture2D terrainColours = new Texture2D (Consts.CHUNK_SIZE, Consts.CHUNK_SIZE);
-
-	// bools to supposedly save time
-	bool containsWater;
-	bool containsSand;
-	bool containsGrass;
-
 	// biome information
+	public Texture2D terrainColours = new Texture2D (Consts.CHUNK_SIZE, Consts.CHUNK_SIZE);
 	float [,] heights;
 	float [,] temps;
 	float [,] humidities;
@@ -47,41 +46,21 @@ public class Chunk
 	static ChunkManager chunkManager = GameObject.Find ("System Placeholder").GetComponent<ChunkManager> ();
 	static BiomeCalculations bCalc = GameObject.Find ("System Placeholder").GetComponent<BiomeCalculations> ();
 	static GreeneryGeneration gen = GameObject.Find ("System Placeholder").GetComponent<GreeneryGeneration> ();
+	static WorldSettings worldSettings = GameObject.Find ("System Placeholder").GetComponent<WorldSettings> ();
 
 	static GameObject TreeParent = GameObject.Find ("TreeParent");
-
-	// random number generator
-	System.Random prng;
-
 	
+
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-	public Chunk (System.Random prng, Vector2Int pos)
+	public Chunk (Vector2Int pos)
 	{
 		// get/initialise some important things
 		chunkPos = new Vector2Int (pos.x * Consts.CHUNK_SIZE, pos.y * Consts.CHUNK_SIZE);
 		chunkCoord = new Vector2Int (pos.x, pos.y);
-		this.prng = prng;
 		treeParent = new GameObject();
 		treeParent.transform.SetParent (TreeParent.gameObject.transform);
 
 		GenerateChunkData();
-		// createThread ();
-	}
-
-	public void createThread()
-	{
-		Thread thread = new Thread (() => { this.GenerateChunkData (); });
-		thread.Start ();
-	}
-
-	public void FinishGenerating()
-	{
-		// array of gameobjects (use dict/list instead?)
-		entities = gen.GeneratePlants (chunkPos, biomes, heights, treeParent);
-		
-		// load in the chunk
-		isGenerated = true;
-		chunkManager.chunksToLoad.Enqueue (this);
 	}
 
 	public void GenerateChunkData() 
@@ -97,13 +76,19 @@ public class Chunk
 		
 		// creates and sets tiles in tilearray to positions in position array
 		GenerateTilesChunked ();
-
+		
+		// generate the colour texture for that chunk (determines colour of grass)
 		GenerateColourTexture ();
 
 		// generate grass details
 		GenerateDetailsChunk ();
 
-		dataRecieved = true;
+		// array of gameobjects (use dict/list instead?)
+		entities = gen.GeneratePlants (chunkPos, biomes, heights, treeParent);
+		
+		// load in the chunk
+		isGenerated = true;
+		chunkManager.chunksToLoad.Enqueue (this);
 	}
 
 	public void GenerateColourTexture()
@@ -133,19 +118,6 @@ public class Chunk
 		terrainColours.Apply ();
 	}
 
-	public bool IsReadyToFinishGeneration()
-	{
-		return dataRecieved;
-	}
-
-	public bool IsGenerated ()
-	{
-		return isGenerated;
-	}
-
-
-	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-
 	public void GenerateTilesChunked ()
 	{
 		float heightVal;
@@ -160,7 +132,6 @@ public class Chunk
 
 				// get features for this tile
 				heightVal = heights [i, j];
-
 
 				// sand layer
 				if (heightVal < -0.26) {
@@ -183,7 +154,7 @@ public class Chunk
 
 	public void GenerateDetailsChunk ()
 	{
-		int randNum = prng.Next (0, 7);
+		int randNum = worldSettings.PRNG.Next (0, 7);
 		deetChunk = ChunkManager.tileResources.grassDetailsChunk [randNum];
 	}
 
@@ -194,8 +165,7 @@ public class Chunk
 		// the chunk must be generated in order to load
 		Assert.IsTrue (isGenerated);
 
-		// GenerateColourTexture ();
-
+		// set parent gameobject for the plants
 		treeParent.SetActive (true);
 
 		if (containsSand)
@@ -247,15 +217,12 @@ public class Chunk
 		isLoaded = false;
 	}
 
-	public bool IsLoaded () {
-		return isLoaded;
+	public bool IsGenerated () {
+		return isGenerated;
 	}
 
-	public Tile createNewTile (Sprite sprite, Color color) {
-		Tile newTile = ScriptableObject.CreateInstance<Tile> ();
-		newTile.sprite = sprite;
-		newTile.color = color;
-		return newTile;
+	public bool IsLoaded () {
+		return isLoaded;
 	}
 
 	// lookup index of 16x16 2D array condensed to 1D array

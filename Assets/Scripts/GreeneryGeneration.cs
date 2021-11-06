@@ -5,24 +5,16 @@ using UnityEngine;
 public class GreeneryGeneration : MonoBehaviour {
 
 	int chunkSize = 16;
-	BiomeCalculations bCalc;
-	ChunkManager cMan;
 	float offsetX;
 	float offsetY;
-
 	public GameObject treeParent;
-
-	System.Random prng;
+	static WorldSettings worldSettings;
 
 	private void Start ()
 	{
-		// reference other script
-		bCalc = GameObject.Find ("System Placeholder").GetComponent<BiomeCalculations> ();
-		cMan = GameObject.Find ("System Placeholder").GetComponent<ChunkManager> ();
-
-		prng = cMan.prng;
-		offsetX = prng.Next (-10000, 10000);
-		offsetY = prng.Next (-10000, 10000);
+		worldSettings = GameObject.Find ("System Placeholder").GetComponent<WorldSettings> ();
+		offsetX = worldSettings.PRNG.Next (-10000, 10000);
+		offsetY = worldSettings.PRNG.Next (-10000, 10000);
 
         for (int i = 0; i < NatureResources.objects.Length; i ++)
 		{
@@ -31,7 +23,6 @@ public class GreeneryGeneration : MonoBehaviour {
 				Debug.Log("object " + i + " is null");
 			}
 		}
-
 	}
 	
 	public GameObject [,] GeneratePlants (Vector2Int chunkPos,
@@ -56,7 +47,6 @@ public class GreeneryGeneration : MonoBehaviour {
 		for (int x = 1; x < chunkSize; x++) {
 			for (int y = 1; y < chunkSize - 1; y++) {
 				isTreeBiome = true;
-
 				biome = biomes [x, y];
 
 				//if (heights [x, y] < -0.26)

@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WorldSettings : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+{   
+    // seed to help with world generation
+    public int SEED = 130;
+    
+    // pseudo random number generator will help generate the same random numbers each run
+    public System.Random PRNG; 
 
-    // Update is called once per frame
-    void Update()
+    // render distance in terms of chunks
+    public int RENDER_DIST = 5;
+
+    void Awake()
     {
-        
+        PRNG = new System.Random (SEED);
     }
 }

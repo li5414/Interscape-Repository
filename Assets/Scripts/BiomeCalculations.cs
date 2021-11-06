@@ -47,8 +47,8 @@ public class BiomeCalculations : MonoBehaviour
 	public static int tableSize = 8;
 	public static Vector2Int[] coords = new Vector2Int[tableSize * tableSize];
 
-	// reference other scripts
-	ChunkManager chunkManager;
+	// reference world settings script
+	static WorldSettings worldSettings;
 
 	// references / objects
 	public Transform playerTrans;         // player reference
@@ -58,8 +58,7 @@ public class BiomeCalculations : MonoBehaviour
 	public GameObject waterGrid;
 	public GameObject detailGrid;
 
-	// number generator and perlin noise stuff
-	System.Random prng;
+	// perlin noise stuff
 	public Vector2[] octaveOffsets = new Vector2[octaves]; // we want each octave to come from different 'location' in the perlin noise
 	static int octaves = 4;               // number of noise layers
 	float scale = 361.4f;                 // the higher the number, the more 'zoomed in'. Needs to be likely to result in non-integer
@@ -72,27 +71,20 @@ public class BiomeCalculations : MonoBehaviour
 	// color texture
 	// public Texture2D GiantColourMap;
 
-
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-
 	private void Awake()
-	{
-		chunkManager = GameObject.Find ("System Placeholder").GetComponent<ChunkManager> ();
-		prng = chunkManager.prng;
+	{	
+		worldSettings = GameObject.Find ("System Placeholder").GetComponent<WorldSettings> ();
 
 		// initialise biome colours dictionary
 		BiomeColours.Add(BiomeType.Water, new Color32(116, 144, 183, 255));
 		BiomeColours.Add(BiomeType.DeepWater, new Color32(88, 115, 159, 255));
 		BiomeColours.Add(BiomeType.Beach, new Color32(229, 209, 168, 255));
-
 		BiomeColours.Add (BiomeType.Desert, new Color32 (229, 204, 159, 255));
 		BiomeColours.Add(BiomeType.Savanna, new Color32(246, 226, 176, 255));
-		//BiomeColours.Add(BiomeType.Rainforest, new Color32(90, 181, 137, 255));
 		BiomeColours.Add (BiomeType.Rainforest, new Color32 (69, 163, 117, 255));
 		BiomeColours.Add(BiomeType.Grassland, new Color32(185, 205, 147, 255));
-		//BiomeColours.Add(BiomeType.SeasonalForest, new Color32(117, 173, 141, 255)); //75ad8d
-		BiomeColours.Add (BiomeType.SeasonalForest, new Color32 (130, 181, 146, 255)); //82b592
-		//BiomeColours.Add(BiomeType.Taiga, new Color32(112, 168, 155, 255));
+		BiomeColours.Add (BiomeType.SeasonalForest, new Color32 (130, 181, 146, 255));
 		BiomeColours.Add(BiomeType.Taiga, new Color32(126, 166, 142, 255));
 		BiomeColours.Add(BiomeType.Tundra, new Color32(144, 179, 164, 255));
 		BiomeColours.Add (BiomeType.Ice, new Color32 (218, 231, 235, 255));
@@ -104,9 +96,7 @@ public class BiomeCalculations : MonoBehaviour
 			}
 			count++;
 		}
-
 		InitialiseOctavesForHeight();
-		
 	}
 
 	private void Start ()
@@ -131,8 +121,8 @@ public class BiomeCalculations : MonoBehaviour
 		octaveOffsets = new Vector2 [octaves];
 		for (int i = 0; i < octaves; i++)
 		{
-			float offsetX = prng.Next(-10000, 10000); // too high numbers returns same value
-			float offsetY = prng.Next(-10000, 10000);
+			float offsetX = worldSettings.PRNG.Next(-10000, 10000); // too high numbers returns same value
+			float offsetY = worldSettings.PRNG.Next(-10000, 10000);
 			octaveOffsets[i] = new Vector2(offsetX, offsetY);
 		}
 	}
@@ -284,7 +274,6 @@ public class BiomeCalculations : MonoBehaviour
 	}
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-
 	public BiomeType[,] GetBiomes(float[,] heights, float[,] temperatures, float[,] humidities)
 	{
 		BiomeType[,] biomeTypes = new BiomeType[Consts.CHUNK_SIZE, Consts.CHUNK_SIZE];

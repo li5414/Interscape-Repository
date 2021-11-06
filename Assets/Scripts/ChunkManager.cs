@@ -7,10 +7,6 @@ using System;
 
 public class ChunkManager : MonoBehaviour
 {
-	// important values
-	public static int seed = 130;
-	public int renderDist = 5;                 // no. chunks
-
 	// references / objects
 	public Transform playerTrans;          // player reference
 	public Tilemap tilemapObj;             // used as empty tilemap to instantiate
@@ -26,28 +22,25 @@ public class ChunkManager : MonoBehaviour
 	public Vector2 viewerPosition;
 	Vector2Int currentChunkCoord;
 	Vector2Int lastChunkCoord;
-
-	// number generator
-	public System.Random prng = new System.Random (seed);
 	
-	// chunk dictionary
+	// chunk management dict, list and queues
 	public Dictionary<Vector2, Chunk> chunkDictionary = new Dictionary<Vector2, Chunk> ();
 	List<Chunk> chunksVisible = new List<Chunk> ();
-
-
 	Queue<Chunk> chunksToGenerate = new Queue<Chunk> ();
 	public Queue<Chunk> chunksToLoad = new Queue<Chunk> ();
 	Queue<Chunk> chunksToUnload = new Queue<Chunk> ();
 
-
+	// reference to the tile files
 	public static TileResources tileResources;
-	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+	static WorldSettings worldSettings;
 
 	private void Start ()
 	{
+		worldSettings = GameObject.Find ("System Placeholder").GetComponent<WorldSettings> ();
 		tileResources = new TileResources ();
 
-		// initalise positions to avoid duplicate chunk loading :(
+		// initalise positions
 		viewerPosition = new Vector2 (playerTrans.position.x, playerTrans.position.y);
 		currentChunkCoord = ToChunkCoord (viewerPosition);
 		lastChunkCoord = ToChunkCoord (viewerPosition);
@@ -62,12 +55,12 @@ public class ChunkManager : MonoBehaviour
 		currentChunkCoord = ToChunkCoord (viewerPosition);
 
 		// finishing generating chunks that need to be generated
-		if (chunksToGenerate.Count > 0) {
-			if (chunksToGenerate.Peek().IsReadyToFinishGeneration()) {
-				Chunk chunk = chunksToGenerate.Dequeue ();
-				chunk.FinishGenerating ();
-			}
-		}
+		// if (chunksToGenerate.Count > 0) {
+		// 	if (chunksToGenerate.Peek().IsReadyToFinishGeneration()) {
+		// 		Chunk chunk = chunksToGenerate.Dequeue ();
+		// 		chunk.FinishGenerating ();
+		// 	}
+		// }
 
 		// fininish loading (rendering) chunks that need to be loaded
 		if (chunksToLoad.Count > 0) {
@@ -90,7 +83,6 @@ public class ChunkManager : MonoBehaviour
 			UpdateVisibleChunks ();
 			lastChunkCoord = new Vector2Int (currentChunkCoord.x, currentChunkCoord.y);
 		}
-
 	}
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -106,6 +98,7 @@ public class ChunkManager : MonoBehaviour
 	{
 		//Debug.Log ("chunk coord" + currentChunkCoord.ToString());
 		CalculateChunksToUnload ();
+		int renderDist = worldSettings.RENDER_DIST;
 
 		// go through neighbouring chunks that need to be rendered
 		for (int x = -renderDist; x <= renderDist; x ++) {
@@ -121,7 +114,7 @@ public class ChunkManager : MonoBehaviour
 				}
 				else {
 					// add chunks coordinates to dictionary and generate new chunk
-					chunkDictionary.Add (chunkCoord, new Chunk (prng, chunkCoord));
+					chunkDictionary.Add (chunkCoord, new Chunk (chunkCoord));
 					chunksToGenerate.Enqueue (chunkDictionary [chunkCoord]);
 				}
 				chunksVisible.Add (chunkDictionary [chunkCoord]);
@@ -140,19 +133,17 @@ public class ChunkManager : MonoBehaviour
 	{
 		for (int i = 0; i < chunksVisible.Count; i++) {
 			Chunk chunk = chunksVisible [i];
-
 			if (!isWithinRenderDistance (chunk)) {
 				chunksToUnload.Enqueue (chunk);
 			}
 		}
-
 		chunksVisible.Clear();
 	}
 
 	bool isWithinRenderDistance(Chunk chunk)
 	{
-		if ((Mathf.Abs (currentChunkCoord.x - chunk.chunkCoord.x) > renderDist) ||
-			(Mathf.Abs (currentChunkCoord.y - chunk.chunkCoord.y) > renderDist)) {
+		if ((Mathf.Abs (currentChunkCoord.x - chunk.chunkCoord.x) > worldSettings.RENDER_DIST) ||
+			(Mathf.Abs (currentChunkCoord.y - chunk.chunkCoord.y) > worldSettings.RENDER_DIST)) {
 			return false;
 		}
 		return true;
