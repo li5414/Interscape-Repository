@@ -7,12 +7,9 @@ using System;
 
 public class ChunkManager : MonoBehaviour
 {
-	
 	// important values
 	public static int seed = 130;
 	public int renderDist = 5;                 // no. chunks
-	public static int mapDimension = 5000;     // no. tiles
-	public static int chunkSize = 16;          // no. tiles
 
 	// references / objects
 	public Transform playerTrans;          // player reference
@@ -100,8 +97,8 @@ public class ChunkManager : MonoBehaviour
 	public Vector2Int ToChunkCoord(Vector2 position)
 	{
 		Vector2Int chunkCoord = new Vector2Int ();
-		chunkCoord.x = Mathf.FloorToInt (viewerPosition.x / chunkSize);
-		chunkCoord.y = Mathf.FloorToInt (viewerPosition.y / chunkSize);
+		chunkCoord.x = Mathf.FloorToInt (viewerPosition.x / Consts.CHUNK_SIZE);
+		chunkCoord.y = Mathf.FloorToInt (viewerPosition.y / Consts.CHUNK_SIZE);
 		return chunkCoord;
 	}
 
@@ -159,20 +156,5 @@ public class ChunkManager : MonoBehaviour
 			return false;
 		}
 		return true;
-	}
-
-	public void allocate(Chunk chunk)
-	{
-		StartCoroutine (allocateMemory(chunk));
-	}
-
-	IEnumerator allocateMemory (Chunk chunk)
-	{
-		for (int i = 0; i < chunk.waterTileArray.Length; i++) {
-			chunk.waterTileArray [i] = ScriptableObject.CreateInstance<Tile> ();
-			yield return null;
-		}
-		//chunk.createThread ();
-		chunk.GenerateChunkData ();
 	}
 }

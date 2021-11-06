@@ -10,7 +10,6 @@ using System.IO;
 public class Chunk
 {
 	// components
-	public static int chunkSize = 16;
 	public Vector2Int chunkPos;
 	public Vector2Int chunkCoord;
 	public static int sizeFactor = 2; // the cell size is 0.25x the normal cell size
@@ -24,18 +23,17 @@ public class Chunk
 	Vector3Int [] tilePositionsWorld;
 
 	// tile arrays
-	//public Tile [] tileArray = new Tile [chunkSize * chunkSize];
-	public RuleTile [] sandTileArray = new RuleTile [chunkSize * chunkSize];
-	public Tile [] waterTileArray = new Tile [chunkSize * chunkSize];
+	//public Tile [] tileArray = new Tile [Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
+	public RuleTile [] sandTileArray = new RuleTile [Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
+	public Tile [] waterTileArray = new Tile [Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
 	public Tile deetChunk;
 
-	public Texture2D terrainColours = new Texture2D (chunkSize, chunkSize);
+	public Texture2D terrainColours = new Texture2D (Consts.CHUNK_SIZE, Consts.CHUNK_SIZE);
 
 	// bools to supposedly save time
 	bool containsWater;
 	bool containsSand;
 	bool containsGrass;
-
 
 	// biome information
 	float [,] heights;
@@ -56,25 +54,19 @@ public class Chunk
 	System.Random prng;
 
 	
-
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-
 	public Chunk (System.Random prng, Vector2Int pos)
 	{
-
 		// get/initialise some important things
-		chunkPos = new Vector2Int (pos.x * chunkSize, pos.y * chunkSize);
+		chunkPos = new Vector2Int (pos.x * Consts.CHUNK_SIZE, pos.y * Consts.CHUNK_SIZE);
 		chunkCoord = new Vector2Int (pos.x, pos.y);
 		this.prng = prng;
 		treeParent = new GameObject();
 		treeParent.transform.SetParent (TreeParent.gameObject.transform);
 
-		//GenerateChunkData();
-		createThread ();
-
+		GenerateChunkData();
+		// createThread ();
 	}
-
-	
 
 	public void createThread()
 	{
@@ -87,7 +79,6 @@ public class Chunk
 		// array of gameobjects (use dict/list instead?)
 		entities = gen.GeneratePlants (chunkPos, biomes, heights, treeParent);
 		
-
 		// load in the chunk
 		isGenerated = true;
 		chunkManager.chunksToLoad.Enqueue (this);
@@ -101,27 +92,24 @@ public class Chunk
 		humidities = bCalc.GetHumidityArray (chunkPos.x, chunkPos.y, heights);
 		biomes = bCalc.GetBiomes (heights, temps, humidities);
 		
-
 		// initalise arrays to be be used for settiles()
-		tilePositionsWorld = new Vector3Int [chunkSize * chunkSize];
+		tilePositionsWorld = new Vector3Int [Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
 		
-
 		// creates and sets tiles in tilearray to positions in position array
 		GenerateTilesChunked ();
 
+		GenerateColourTexture ();
+
 		// generate grass details
 		GenerateDetailsChunk ();
-
-		
 
 		dataRecieved = true;
 	}
 
 	public void GenerateColourTexture()
 	{
-		// assumes chunkSize does not exxeed the terrainColours width;
-		for (int i = 0; i < chunkSize; i++) {
-			for (int j = 0; j < chunkSize; j++) {
+		for (int i = 0; i < Consts.CHUNK_SIZE; i++) {
+			for (int j = 0; j < Consts.CHUNK_SIZE; j++) {
 				float height = heights[i, j];
 
 				float temp = temps[i, j];
@@ -145,18 +133,6 @@ public class Chunk
 		terrainColours.Apply ();
 	}
 
-	public Material GenerateMaterial()
-	{
-		Material newMat = new Material (Shader.Find ("Unlit/ChunkTerrainShader"));
-		//Material newMat = new Material (Shader.Find ("Sprites/Default"));
-		newMat.CopyPropertiesFromMaterial (bCalc.chunkTerrainMaterial);
-		//newMat.mainTexture = terrainColours;
-		//newMat.SetTexture ("_TileColors", terrainColours);
-
-		return newMat;
-	}
-
-	
 	public bool IsReadyToFinishGeneration()
 	{
 		return dataRecieved;
@@ -175,8 +151,8 @@ public class Chunk
 		float heightVal;
 
 		// in loop, enter all positions and tiles in arrays
-		for (int i = 0; i < chunkSize; i++) {
-			for (int j = 0; j < chunkSize; j++) {
+		for (int i = 0; i < Consts.CHUNK_SIZE; i++) {
+			for (int j = 0; j < Consts.CHUNK_SIZE; j++) {
 
 				// fill in tile position arrays
 				tilePositionsWorld [at (i, j)] = new Vector3Int (i + chunkPos.x, j + chunkPos.y, 0);
@@ -209,38 +185,16 @@ public class Chunk
 	{
 		int randNum = prng.Next (0, 7);
 		deetChunk = ChunkManager.tileResources.grassDetailsChunk [randNum];
-	
 	}
-
-
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-
-	public byte ReturnColourWithinBound (int val, int min, int max) {
-		// only works if you provide min and max within 0-255
-		if (val < min)
-			return (byte)min;
-		if (val > max)
-			return (byte)max;
-		return (byte)val;
-	}
-
-	public void ColourWithinBounds (Color32 color, int min, int max)
-	{
-		// only works if you provide min and max within 0-255
-
-		color.r = (byte)Mathf.Clamp (color.r, min, max);
-		color.g = (byte)Mathf.Clamp (color.r, min, max);
-		color.b = (byte)Mathf.Clamp (color.r, min, max);
-	}
-
 	public void LoadChunk () {
 		if (isLoaded)
 			return;
-
+		// the chunk must be generated in order to load
 		Assert.IsTrue (isGenerated);
 
-		GenerateColourTexture ();
+		// GenerateColourTexture ();
 
 		treeParent.SetActive (true);
 
@@ -248,10 +202,12 @@ public class Chunk
 			chunkManager.sandTilemap.SetTiles (tilePositionsWorld, sandTileArray);
 
 		if (containsGrass) {
-			terrainChunk = UnityEngine.Object.Instantiate (bCalc.chunkTerrainPrefab, new Vector3Int (chunkPos.x + chunkSize/2, chunkPos.y + chunkSize/2, 199), Quaternion.identity);
+			terrainChunk = UnityEngine.Object.Instantiate (bCalc.chunkTerrainPrefab, new Vector3Int (chunkPos.x + Consts.CHUNK_SIZE/2, chunkPos.y + Consts.CHUNK_SIZE/2, 199), Quaternion.identity);
 			terrainChunk.transform.SetParent (bCalc.chunkTerrainParent.gameObject.transform);
 
-			Material newMat = GenerateMaterial ();
+			// generate a new material and apply it to the chunk
+			Material newMat = new Material (Shader.Find ("Unlit/ChunkTerrainShader"));
+			newMat.CopyPropertiesFromMaterial (bCalc.chunkTerrainMaterial);
 			terrainChunk.GetComponent<SpriteRenderer> ().material = newMat;
 			terrainChunk.GetComponent<SpriteRenderer> ().material.SetTexture ("_TileColours", terrainColours);
 		}
@@ -259,8 +215,6 @@ public class Chunk
 		if (containsWater) {
 			chunkManager.waterTilemapChunked.SetTile (new Vector3Int (chunkCoord.x, chunkCoord.y, 0), ChunkManager.tileResources.plainChunk);
 		}
-
-
 		isLoaded = true;
 	}
 

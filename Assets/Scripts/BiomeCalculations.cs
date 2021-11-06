@@ -26,7 +26,7 @@ public class BiomeCalculations : MonoBehaviour
 	public GameObject chunkTerrainPrefab;
 	public GameObject chunkTerrainParent;
 
-	public static BiomeType[,] BiomeTable = {   
+	public static BiomeType[,] BiomeTypeTable = {   
     //                                               <--Colder      Hotter -->            
     { BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland,      BiomeType.Grassland,          BiomeType.Savanna,    BiomeType.Desert,     BiomeType.Desert},   // Dryest
     { BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland,      BiomeType.Grassland,          BiomeType.Savanna,    BiomeType.Desert,     BiomeType.Desert},
@@ -39,20 +39,16 @@ public class BiomeCalculations : MonoBehaviour
 	};
 
     // currently unused colours
-	public static BiomeType[] BiomeTable2 =  
+	public static BiomeType[] BiomeTypeTable2 =  
     //                 <--Lower                    Higher -->            
     { BiomeType.DeepWater, BiomeType.DeepWater, BiomeType.Water, BiomeType.Water, BiomeType.Water, BiomeType.Beach};
 
-    // values relating to BiomeTable
+    // values relating to BiomeTypeTable
 	public static int tableSize = 8;
 	public static Vector2Int[] coords = new Vector2Int[tableSize * tableSize];
 
 	// reference other scripts
 	ChunkManager chunkManager;
-
-	// important numbers
-	static int mapDimension = ChunkManager.mapDimension;
-	static int chunkSize = ChunkManager.chunkSize;
 
 	// references / objects
 	public Transform playerTrans;         // player reference
@@ -74,7 +70,7 @@ public class BiomeCalculations : MonoBehaviour
 	public static Dictionary<BiomeType, Color32> BiomeColours = new Dictionary<BiomeType, Color32>();
 
 	// color texture
-	public Texture2D GiantColourMap;
+	// public Texture2D GiantColourMap;
 
 
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -115,14 +111,14 @@ public class BiomeCalculations : MonoBehaviour
 
 	private void Start ()
 	{
-		GiantColourMap = Resources.Load<Texture2D> ("Sprites/Map/GiantColourMap");
-		if (GiantColourMap == null) {
-			GenerateColourMap ();
-			GiantColourMap = Resources.Load<Texture2D> ("Sprites/Map/GiantColourMap");
-			if (GiantColourMap == null) {
-				Debug.Log ("error: colours not found??");
-			}
-		}
+		// GiantColourMap = Resources.Load<Texture2D> ("Sprites/Map/GiantColourMap");
+		// if (GiantColourMap == null) {
+		// 	GenerateColourMap ();
+		// 	GiantColourMap = Resources.Load<Texture2D> ("Sprites/Map/GiantColourMap");
+		// 	if (GiantColourMap == null) {
+		// 		Debug.Log ("error: colours not found??");
+		// 	}
+		// }
 
 
 		//InvokeRepeating ("PrintAtPos", 2.0f, 2.0f); //do not delete - is for testing!
@@ -164,13 +160,11 @@ public class BiomeCalculations : MonoBehaviour
 
 	public float[,] GetHeightValues(int chunkX, int chunkY)
 	{
-		float[,] heights = new float[chunkSize, chunkSize];
+		float[,] heights = new float[Consts.CHUNK_SIZE, Consts.CHUNK_SIZE];
 
 		// loop through all tiles in chunk
-		for (int x = 0; x < chunkSize; x++)
-		{
-			for (int y = 0; y < chunkSize; y++)
-			{
+		for (int x = 0; x < Consts.CHUNK_SIZE; x++) {
+			for (int y = 0; y < Consts.CHUNK_SIZE; y++) {
 
 				// reset values each layer
 				float height = 0;
@@ -199,12 +193,12 @@ public class BiomeCalculations : MonoBehaviour
 
 	public float GetTemperature(int x, int y, float heightVal)
 	{
-		int lat = Mathf.Abs(y - (mapDimension / 2)); // positive latitude at position given
+		int lat = Mathf.Abs(y - (Consts.MAP_DIMENSION / 2)); // positive latitude at position given
 		float temp;
 
 		// putting a cap on latitude
-		if (lat > (mapDimension / 2)) {
-			lat = (mapDimension / 2);
+		if (lat > (Consts.MAP_DIMENSION / 2)) {
+			lat = (Consts.MAP_DIMENSION / 2);
 		}
 
 		// get noise based on seed
@@ -221,18 +215,18 @@ public class BiomeCalculations : MonoBehaviour
 
 	public float[,] GetTemperatures(int chunkX, int chunkY, float[,] heights)
 	{
-		float[,] temps = new float[chunkSize, chunkSize];
+		float[,] temps = new float[Consts.CHUNK_SIZE, Consts.CHUNK_SIZE];
 		int lat;
 		float temp;
 
 		// loop through all tiles in chunk
-		for (int x = 0; x < chunkSize; x++) {
-			for (int y = 0; y < chunkSize; y++) {
-				lat = Mathf.Abs((chunkY + y) - (mapDimension / 2)); // positive latitude at tile position
+		for (int x = 0; x < Consts.CHUNK_SIZE; x++) {
+			for (int y = 0; y < Consts.CHUNK_SIZE; y++) {
+				lat = Mathf.Abs((chunkY + y) - (Consts.MAP_DIMENSION / 2)); // positive latitude at tile position
 
 				// putting a cap on latitude
-				if (lat > (mapDimension / 2)) {
-					lat = (mapDimension / 2);
+				if (lat > (Consts.MAP_DIMENSION / 2)) {
+					lat = (Consts.MAP_DIMENSION / 2);
 				}
 
 				// get noise based on seed
@@ -268,13 +262,13 @@ public class BiomeCalculations : MonoBehaviour
 
 	public float[,] GetHumidityArray(int chunkX, int chunkY, float[,] heights)
 	{
-		float[,] moistures = new float[chunkSize, chunkSize];
+		float[,] moistures = new float[Consts.CHUNK_SIZE, Consts.CHUNK_SIZE];
 		float moisture;
 		float perlinValue;
 
 		// loop through all tiles in chunk
-		for (int x = 0; x < chunkSize; x++) {
-			for (int y = 0; y < chunkSize; y++) {
+		for (int x = 0; x < Consts.CHUNK_SIZE; x++) {
+			for (int y = 0; y < Consts.CHUNK_SIZE; y++) {
 				perlinValue = Mathf.PerlinNoise((chunkX + x) / (scale / 2) + octaveOffsets[2].x, (chunkY + y) / (scale / 2) + octaveOffsets[2].y);
 				moisture = perlinValue;
 				//moisture = perlinValue * tableSize; // in range for array lookup
@@ -293,15 +287,15 @@ public class BiomeCalculations : MonoBehaviour
 
 	public BiomeType[,] GetBiomes(float[,] heights, float[,] temperatures, float[,] humidities)
 	{
-		BiomeType[,] biomeTypes = new BiomeType[chunkSize, chunkSize];
+		BiomeType[,] biomeTypes = new BiomeType[Consts.CHUNK_SIZE, Consts.CHUNK_SIZE];
 		float temp;
 		int humidity;
 		float height;
 
 		// loop through all tiles in chunk
-		for (int x = 0; x < chunkSize; x++)
+		for (int x = 0; x < Consts.CHUNK_SIZE; x++)
 		{
-			for (int y = 0; y < chunkSize; y++)
+			for (int y = 0; y < Consts.CHUNK_SIZE; y++)
 			{
 				height = heights[x, y];
 
@@ -316,7 +310,7 @@ public class BiomeCalculations : MonoBehaviour
 					// putting a cap on vales so as not to over-index array
 					humidity = Mathf.FloorToInt (humidities [x, y] * tableSize);
 
-					biomeTypes [x, y] = BiomeTable [humidity, (int)temp];
+					biomeTypes [x, y] = BiomeTypeTable [humidity, (int)temp];
 				}
 				
 				else if (height < -0.3)
@@ -346,7 +340,7 @@ public class BiomeCalculations : MonoBehaviour
 		
 		humid = Mathf.FloorToInt (humidity * tableSize);
 
-		biome = BiomeTable[humid, (int)temp];
+		biome = BiomeTypeTable[humid, (int)temp];
 
 		// water and beach biomes
 		if (height < -0.6 && biome != BiomeType.Ice)
