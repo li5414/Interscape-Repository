@@ -6,46 +6,14 @@ using UnityEngine.Tilemaps;
 
 public class BiomeCalculations : MonoBehaviour
 {
-	public enum BiomeType
-	{
-		Desert,
-		Savanna,
-		Rainforest,
-		Grassland,
-		SeasonalForest,
-		Taiga,
-		Tundra,
-		Ice,
-		Water,
-		DeepWater,
-		Beach
-	}
-
 	public Texture2D biomeColourMap;
 	public Material chunkTerrainMaterial;
 	public GameObject chunkTerrainPrefab;
 	public GameObject chunkTerrainParent;
 
-	public static BiomeType[,] BiomeTypeTable = {   
-    //                                               <--Colder      Hotter -->            
-    { BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland,      BiomeType.Grassland,          BiomeType.Savanna,    BiomeType.Desert,     BiomeType.Desert},   // Dryest
-    { BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland,      BiomeType.Grassland,          BiomeType.Savanna,    BiomeType.Desert,     BiomeType.Desert},
-	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland,      BiomeType.Grassland,          BiomeType.Savanna,    BiomeType.Desert,     BiomeType.Desert },
-	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Tundra, BiomeType.Grassland,      BiomeType.Grassland,          BiomeType.Savanna,    BiomeType.Savanna,    BiomeType.Desert },
-	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,          BiomeType.SeasonalForest,     BiomeType.Grassland,  BiomeType.Savanna,    BiomeType.Desert },
-	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,          BiomeType.SeasonalForest,     BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Desert },  // Wettest
-	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,          BiomeType.SeasonalForest,     BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Desert },
-	{ BiomeType.Ice, BiomeType.Ice, BiomeType.Taiga,  BiomeType.Taiga,          BiomeType.SeasonalForest,     BiomeType.Rainforest, BiomeType.Savanna,    BiomeType.Desert }
-	};
-
-    // currently unused colours
-	public static BiomeType[] BiomeTypeTable2 =  
-    //                 <--Lower                    Higher -->            
-    { BiomeType.DeepWater, BiomeType.DeepWater, BiomeType.Water, BiomeType.Water, BiomeType.Water, BiomeType.Beach};
-
-    // values relating to BiomeTypeTable
-	public static int tableSize = 8;
-	public static Vector2Int[] coords = new Vector2Int[tableSize * tableSize];
+    // values relating to biome type table
+	public static int BIOME_TABLE_SIZE = Consts.BIOME_TYPE_TABLE.GetLength(0);
+	public static Vector2Int[] biomeTableCoords = new Vector2Int[BIOME_TABLE_SIZE * BIOME_TABLE_SIZE];
 
 	// reference world settings script
 	static WorldSettings worldSettings;
@@ -66,7 +34,7 @@ public class BiomeCalculations : MonoBehaviour
 	float lacunarity = 2.5f;              // value that decreases scale each octave
 
 	// colour dict
-	public static Dictionary<BiomeType, Color32> BiomeColours = new Dictionary<BiomeType, Color32>();
+	// public static Dictionary<BiomeType, Color32> BiomeColours = new Dictionary<BiomeType, Color32>();
 
 	// color texture
 	// public Texture2D GiantColourMap;
@@ -77,22 +45,23 @@ public class BiomeCalculations : MonoBehaviour
 		worldSettings = GameObject.Find ("System Placeholder").GetComponent<WorldSettings> ();
 
 		// initialise biome colours dictionary
-		BiomeColours.Add(BiomeType.Water, new Color32(116, 144, 183, 255));
-		BiomeColours.Add(BiomeType.DeepWater, new Color32(88, 115, 159, 255));
-		BiomeColours.Add(BiomeType.Beach, new Color32(229, 209, 168, 255));
-		BiomeColours.Add (BiomeType.Desert, new Color32 (229, 204, 159, 255));
-		BiomeColours.Add(BiomeType.Savanna, new Color32(246, 226, 176, 255));
-		BiomeColours.Add (BiomeType.Rainforest, new Color32 (69, 163, 117, 255));
-		BiomeColours.Add(BiomeType.Grassland, new Color32(185, 205, 147, 255));
-		BiomeColours.Add (BiomeType.SeasonalForest, new Color32 (130, 181, 146, 255));
-		BiomeColours.Add(BiomeType.Taiga, new Color32(126, 166, 142, 255));
-		BiomeColours.Add(BiomeType.Tundra, new Color32(144, 179, 164, 255));
-		BiomeColours.Add (BiomeType.Ice, new Color32 (218, 231, 235, 255));
+		// BiomeColours.Add(BiomeType.Water, new Color32(116, 144, 183, 255));
+		// BiomeColours.Add(BiomeType.DeepWater, new Color32(88, 115, 159, 255));
+		// BiomeColours.Add(BiomeType.Beach, new Color32(229, 209, 168, 255));
+		// BiomeColours.Add (BiomeType.Desert, new Color32 (229, 204, 159, 255));
+		// BiomeColours.Add(BiomeType.Savanna, new Color32(246, 226, 176, 255));
+		// BiomeColours.Add (BiomeType.Rainforest, new Color32 (69, 163, 117, 255));
+		// BiomeColours.Add(BiomeType.Grassland, new Color32(185, 205, 147, 255));
+		// BiomeColours.Add (BiomeType.SeasonalForest, new Color32 (130, 181, 146, 255));
+		// BiomeColours.Add(BiomeType.Taiga, new Color32(126, 166, 142, 255));
+		// BiomeColours.Add(BiomeType.Tundra, new Color32(144, 179, 164, 255));
+		// BiomeColours.Add (BiomeType.Ice, new Color32 (218, 231, 235, 255));
 
+		//initialise biome table coords
 		int count = 0;
-		for (int i = 0; i < tableSize; i++) {
-			for (int j = 0; j < tableSize; j++) {
-				coords[count] = new Vector2Int(i, j);
+		for (int i = 0; i < BIOME_TABLE_SIZE; i++) {
+			for (int j = 0; j < BIOME_TABLE_SIZE; j++) {
+				biomeTableCoords[count] = new Vector2Int(i, j);
 			}
 			count++;
 		}
@@ -241,10 +210,8 @@ public class BiomeCalculations : MonoBehaviour
 	{
 		float perlinValue = Mathf.PerlinNoise((x / (scale / 2)) + octaveOffsets[2].x, (y / (scale / 2)) + octaveOffsets[2].y);
 		float moisture = perlinValue;
-		//float moisture = perlinValue * tableSize; // in range for array lookup
 
 		float height = Mathf.InverseLerp(-1f, 1f, heightVal);
-		//moisture *= (1 - height);
 		moisture -= height / 3;
 		moisture += 0.2f;
 		return Mathf.Clamp01(moisture);
@@ -261,7 +228,6 @@ public class BiomeCalculations : MonoBehaviour
 			for (int y = 0; y < Consts.CHUNK_SIZE; y++) {
 				perlinValue = Mathf.PerlinNoise((chunkX + x) / (scale / 2) + octaveOffsets[2].x, (chunkY + y) / (scale / 2) + octaveOffsets[2].y);
 				moisture = perlinValue;
-				//moisture = perlinValue * tableSize; // in range for array lookup
 
 				float height = Mathf.InverseLerp(-1f, 1f, heights[x, y]); // get height in range 0-1
 																		  //moisture *= (1 - height);
@@ -293,13 +259,13 @@ public class BiomeCalculations : MonoBehaviour
 					// get temperature as an integer for easy lookup in biome array
 					temp = Mathf.InverseLerp (-70f, 70f, temperatures [x, y]);
 					temp = Mathf.Clamp01 (temp);
-					temp *= tableSize;
+					temp *= BIOME_TABLE_SIZE;
 					temp = Mathf.FloorToInt (temp);
 
 					// putting a cap on vales so as not to over-index array
-					humidity = Mathf.FloorToInt (humidities [x, y] * tableSize);
+					humidity = Mathf.FloorToInt (humidities [x, y] * BIOME_TABLE_SIZE);
 
-					biomeTypes [x, y] = BiomeTypeTable [humidity, (int)temp];
+					biomeTypes [x, y] = Consts.BIOME_TYPE_TABLE [humidity, (int)temp];
 				}
 				
 				else if (height < -0.3)
@@ -323,13 +289,13 @@ public class BiomeCalculations : MonoBehaviour
 		// get temperature as an integer for easy lookup in biome array
 		temp = Mathf.InverseLerp(-70f, 70f, temperature);
 		temp = Mathf.Clamp01 (temp);
-		temp *= tableSize;
+		temp *= BIOME_TABLE_SIZE;
 		temp = Mathf.FloorToInt(temp);
 
 		
-		humid = Mathf.FloorToInt (humidity * tableSize);
+		humid = Mathf.FloorToInt (humidity * BIOME_TABLE_SIZE);
 
-		biome = BiomeTypeTable[humid, (int)temp];
+		biome = Consts.BIOME_TYPE_TABLE[humid, (int)temp];
 
 		// water and beach biomes
 		if (height < -0.6 && biome != BiomeType.Ice)
@@ -371,7 +337,7 @@ public class BiomeCalculations : MonoBehaviour
 				Color color = biomeColourMap.GetPixel ((int)temp, (int)humidity);
 
 				if (height < -0.29f) {
-					color = BiomeColours [BiomeType.Beach];
+					color = Consts.BIOME_COLOUR_DICT [BiomeType.Beach];
 					// could add water color here for minimap?
 				}
 

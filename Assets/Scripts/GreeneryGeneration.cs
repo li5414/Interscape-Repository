@@ -26,11 +26,11 @@ public class GreeneryGeneration : MonoBehaviour {
 	}
 	
 	public GameObject [,] GeneratePlants (Vector2Int chunkPos,
-		BiomeCalculations.BiomeType [,] biomes, float [,] heights, GameObject parent)
+		BiomeType [,] biomes, float [,] heights, GameObject parent)
 	{
 		GameObject [,] entities = new GameObject [chunkSize, chunkSize];
 		float perlinNoise;
-		BiomeCalculations.BiomeType biome;
+		BiomeType biome;
 		GameObject tree1;
 		GameObject tree2;
 		GameObject tree3;
@@ -55,7 +55,7 @@ public class GreeneryGeneration : MonoBehaviour {
 				// choose what kind of trees/things to spawn depending on biome-----------------------------------
 				switch (biome)
 				{
-					case BiomeCalculations.BiomeType.Grassland:
+					case BiomeType.Grassland:
 						treeChance = 0.005f;
 						tree1 = NatureResources.tree_red;
 						tree2 = NatureResources.tree_blue;
@@ -66,7 +66,7 @@ public class GreeneryGeneration : MonoBehaviour {
 						shrub3 = NatureResources.dead_bush;
 						shrub4 = NatureResources.rock2;
 						break;
-					case BiomeCalculations.BiomeType.Savanna:
+					case BiomeType.Savanna:
 						treeChance = 0.02f;
 						tree1 = NatureResources.tree_red;
 						tree2 = NatureResources.tree_yellow;
@@ -77,7 +77,7 @@ public class GreeneryGeneration : MonoBehaviour {
 						shrub3 = NatureResources.rock1;
 						shrub4 = NatureResources.wheat;
 						break;
-					case BiomeCalculations.BiomeType.Taiga:
+					case BiomeType.Taiga:
 						treeChance = 0.15f;
 						tree1 = NatureResources.tree_pine;
 						tree2 = NatureResources.tree_birch;
@@ -88,7 +88,7 @@ public class GreeneryGeneration : MonoBehaviour {
 						shrub3 = NatureResources.rock2;
 						shrub4 = null;
 						break;
-					case BiomeCalculations.BiomeType.SeasonalForest:
+					case BiomeType.SeasonalForest:
 						treeChance = 0.15f;
 						tree1 = NatureResources.tree_forest1;
 						tree2 = NatureResources.tree_forest2;
@@ -99,7 +99,7 @@ public class GreeneryGeneration : MonoBehaviour {
 						shrub3 = NatureResources.rock2;
 						shrub4 = null;
 						break;
-					case BiomeCalculations.BiomeType.Rainforest:
+					case BiomeType.Rainforest:
 						treeChance = 0.25f;
 						tree1 = NatureResources.tree_rainforest1;
 						tree2 = NatureResources.tree_palm;
@@ -110,7 +110,7 @@ public class GreeneryGeneration : MonoBehaviour {
 						shrub3 = null;
 						shrub4 = null;
 						break;
-					case BiomeCalculations.BiomeType.Tundra:
+					case BiomeType.Tundra:
 						isTreeBiome = false;
 						tree1 = null;
 						tree2 = null;
@@ -121,7 +121,7 @@ public class GreeneryGeneration : MonoBehaviour {
 						shrub3 = NatureResources.rock2;
 						shrub4 = NatureResources.rock1;
 						break;
-					case BiomeCalculations.BiomeType.Desert:
+					case BiomeType.Desert:
 						isTreeBiome = false;
 						tree1 = null;
 						tree2 = null;

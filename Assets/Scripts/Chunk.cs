@@ -39,7 +39,7 @@ public class Chunk
 	float [,] temps;
 	float [,] humidities;
 	GameObject [,] entities;
-	BiomeCalculations.BiomeType [,] biomes;
+	BiomeType [,] biomes;
 	GameObject terrainChunk;
 	
 	// reference other scripts
@@ -107,7 +107,7 @@ public class Chunk
 				Color color = bCalc.biomeColourMap.GetPixel ((int)temp, (int)humidity);
 
 				if (height < -0.29f) {
-					color = BiomeCalculations.BiomeColours [BiomeCalculations.BiomeType.Beach];
+					color = Consts.BIOME_COLOUR_DICT [BiomeType.Beach];
 				}
 
 				color.a = Mathf.Clamp01 (Mathf.InverseLerp (-1f, 1f, height)); // lower alpha is deeper
