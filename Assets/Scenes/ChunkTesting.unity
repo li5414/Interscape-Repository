@@ -8383,6 +8383,7 @@ MonoBehaviour:
   biomeColourMap: {fileID: 2800000, guid: 95d21e0bdc4ab40f189b786181d5f743, type: 3}
   chunkTerrainMaterial: {fileID: 2100000, guid: 7a7625735c84b40f1865734c4e48ccb3,
     type: 2}
+  chunkGrassMaterial: {fileID: 2100000, guid: dd055e770ebd440ea9cb7a1ef99a2067, type: 2}
   chunkTerrainPrefab: {fileID: 3669637371159069409, guid: 2c48a794866434d869c045d4b7eccb93,
     type: 3}
   chunkTerrainParent: {fileID: 1884358925}

@@ -8,6 +8,7 @@ public class BiomeCalculations : MonoBehaviour
 {
 	public Texture2D biomeColourMap;
 	public Material chunkTerrainMaterial;
+	public Material chunkGrassMaterial;
 	public GameObject chunkTerrainPrefab;
 	public GameObject chunkTerrainParent;
 
@@ -214,8 +215,6 @@ public class BiomeCalculations : MonoBehaviour
 			for (int y = 0; y < Consts.CHUNK_SIZE; y++)
 			{
 				height = heights[x, y];
-
-				
 				if (height >= -0.26) {
 					// get temperature as an integer for easy lookup in biome array
 					temp = Mathf.InverseLerp (-70f, 70f, temperatures [x, y]);
@@ -228,7 +227,6 @@ public class BiomeCalculations : MonoBehaviour
 
 					biomeTypes [x, y] = Consts.BIOME_TYPE_TABLE [humidity, (int)temp];
 				}
-				
 				else if (height < -0.3)
 					biomeTypes [x, y] = BiomeType.Water;
 				else

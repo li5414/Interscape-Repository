@@ -109,9 +109,7 @@ public class Chunk
 				if (height < -0.29f) {
 					color = Consts.BIOME_COLOUR_DICT [BiomeType.Beach];
 				}
-
 				color.a = Mathf.Clamp01 (Mathf.InverseLerp (-1f, 1f, height)); // lower alpha is deeper
-
 				terrainColours.SetPixel (i, j, color);
 			}
 		}
@@ -128,7 +126,6 @@ public class Chunk
 
 				// fill in tile position arrays
 				tilePositionsWorld [at (i, j)] = new Vector3Int (i + chunkPos.x, j + chunkPos.y, 0);
-
 
 				// get features for this tile
 				heightVal = heights [i, j];
@@ -152,8 +149,7 @@ public class Chunk
 		}
 	}
 
-	public void GenerateDetailsChunk ()
-	{
+	public void GenerateDetailsChunk () {
 		int randNum = worldSettings.PRNG.Next (0, 7);
 		deetChunk = ChunkManager.tileResources.grassDetailsChunk [randNum];
 	}
@@ -180,6 +176,12 @@ public class Chunk
 			newMat.CopyPropertiesFromMaterial (bCalc.chunkTerrainMaterial);
 			terrainChunk.GetComponent<SpriteRenderer> ().material = newMat;
 			terrainChunk.GetComponent<SpriteRenderer> ().material.SetTexture ("_TileColours", terrainColours);
+
+			// generate a new material for the grass blades in the chunk
+			newMat = new Material (Shader.Find ("Unlit/ChunkTerrainShader"));
+			newMat.CopyPropertiesFromMaterial (bCalc.chunkGrassMaterial);
+			terrainChunk.GetComponentsInChildren<SpriteRenderer> ()[1].material = newMat;
+			terrainChunk.GetComponentsInChildren<SpriteRenderer> ()[1].material.SetTexture ("_TileColours", terrainColours);
 		}
 
 		if (containsWater) {
@@ -191,7 +193,6 @@ public class Chunk
 	public void UnloadChunk () {
 		if (!isLoaded)
 			return;
-
 		Assert.IsTrue(isGenerated);
 
 		// disable things
@@ -213,7 +214,6 @@ public class Chunk
 		if (containsWater) {
 			chunkManager.waterTilemapChunked.SetTile (new Vector3Int (chunkCoord.x, chunkCoord.y, 0), null);
 		}
-		
 		isLoaded = false;
 	}
 
@@ -226,14 +226,12 @@ public class Chunk
 	}
 
 	// lookup index of 16x16 2D array condensed to 1D array
-	public int at (int x, int y)
-	{
+	public int at (int x, int y) {
 		return (x * 16 + y);
 	}
 
 	// lookup index of 64x64 2D array condensed to 1D array
-	public int at64 (int x, int y)
-	{
+	public int at64 (int x, int y) {
 		return (x * 32 + y);
 	}
 }

@@ -13,9 +13,8 @@ Shader "Unlit/ChunkTerrainShader"
     SubShader
     {
         Tags{"Queue" = "Transparent" "RenderType"="Transparent" }
-
         Blend SrcAlpha OneMinusSrcAlpha
-
+        
         Pass
         {
             CGPROGRAM
@@ -62,7 +61,6 @@ Shader "Unlit/ChunkTerrainShader"
                 return color;
             }
 
-            
             // pixel shader
             fixed4 frag (v2f IN) : SV_Target
             {
@@ -74,21 +72,16 @@ Shader "Unlit/ChunkTerrainShader"
                 //get shape
                 fixed4 c = SampleSpriteTexture (IN.texcoord) * col;
                
-                
-                // get noise
+                // get some noisee
                 pos.x = (((abs (IN.worldPosition.x)) * _NoiseScale) % 256)/256;
                 pos.y = (((abs (IN.worldPosition.y)) * _NoiseScale) % 256)/256;
                 float noise = tex2D (_NoiseTex, pos);
 
-                
-
-                // store new values in ints
+                // use noise to help blend colours a bit more
                 c.b = (c.b + (0.06 * noise));
                 c.r = (c.r + (0.10 * noise));
                 c.g = (c.g + (0.12 * noise));
                 c.rgb -= 0.03;
-
-
                 return c;
             }
             ENDCG
