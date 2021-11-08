@@ -8381,12 +8381,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   biomeColourMap: {fileID: 2800000, guid: 95d21e0bdc4ab40f189b786181d5f743, type: 3}
+  chunkGrassMaterial: {fileID: 2100000, guid: dd055e770ebd440ea9cb7a1ef99a2067, type: 2}
   chunkTerrainMaterial: {fileID: 2100000, guid: 7a7625735c84b40f1865734c4e48ccb3,
     type: 2}
-  chunkGrassMaterial: {fileID: 2100000, guid: dd055e770ebd440ea9cb7a1ef99a2067, type: 2}
   chunkTerrainPrefab: {fileID: 3669637371159069409, guid: 2c48a794866434d869c045d4b7eccb93,
     type: 3}
   chunkTerrainParent: {fileID: 1884358925}
+  chunkWaterMaterial: {fileID: 2100000, guid: 2709a5f4e29fe4c109cedadd7be794eb, type: 2}
+  chunkWaterPrefab: {fileID: 3669637371159069409, guid: e96603af38d394e0cb8ede388eb030fd,
+    type: 3}
+  chunkWaterParent: {fileID: 1244080742}
   playerTrans: {fileID: 1062241006}
   tilemapObj: {fileID: 217185278}
   grid: {fileID: 166071213}
@@ -13822,6 +13826,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1224009307}
   m_CullTransparentMesh: 0
+--- !u!1 &1244080742
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1244080743}
+  m_Layer: 0
+  m_Name: ChunkWaterParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1244080743
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1244080742}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1244213269 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7243719802383562256, guid: bfaddfdebddb04f5ea627c2c36380d26,

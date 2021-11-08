@@ -7,10 +7,13 @@ using UnityEngine.Tilemaps;
 public class BiomeCalculations : MonoBehaviour
 {
 	public Texture2D biomeColourMap;
-	public Material chunkTerrainMaterial;
 	public Material chunkGrassMaterial;
+	public Material chunkTerrainMaterial;
 	public GameObject chunkTerrainPrefab;
 	public GameObject chunkTerrainParent;
+	public Material chunkWaterMaterial;
+	public GameObject chunkWaterPrefab;
+	public GameObject chunkWaterParent;
 
     // values relating to biome type table
 	public static int BIOME_TABLE_SIZE = Consts.BIOME_TYPE_TABLE.GetLength(0);

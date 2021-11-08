@@ -13,7 +13,6 @@ public class Chunk
 	public Vector2Int chunkPos;
 	public Vector2Int chunkCoord;
 	
-
 	bool isLoaded;
 	bool isGenerated;
 	bool containsWater;
@@ -41,6 +40,7 @@ public class Chunk
 	GameObject [,] entities;
 	BiomeType [,] biomes;
 	GameObject terrainChunk;
+	GameObject waterChunk;
 	
 	// reference other scripts
 	static ChunkManager chunkManager = GameObject.Find ("System Placeholder").GetComponent<ChunkManager> ();
@@ -50,7 +50,6 @@ public class Chunk
 
 	static GameObject TreeParent = GameObject.Find ("TreeParent");
 	
-
 	/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 	public Chunk (Vector2Int pos)
 	{
@@ -59,7 +58,6 @@ public class Chunk
 		chunkCoord = new Vector2Int (pos.x, pos.y);
 		treeParent = new GameObject();
 		treeParent.transform.SetParent (TreeParent.gameObject.transform);
-
 		GenerateChunkData();
 	}
 
@@ -109,11 +107,14 @@ public class Chunk
 				if (height < -0.29f) {
 					color = Consts.BIOME_COLOUR_DICT [BiomeType.Beach];
 				}
-				color.a = Mathf.Clamp01 (Mathf.InverseLerp (-1f, 1f, height)); // lower alpha is deeper
+				color.a = Mathf.Clamp01 (Mathf.InverseLerp (0f, 1f, height)); // lower alpha is deeper
 				terrainColours.SetPixel (i, j, color);
 			}
 		}
 		terrainColours.Apply ();
+
+		// get rid of lines between textures :D
+		terrainColours.wrapMode = TextureWrapMode.Clamp;
 	}
 
 	public void GenerateTilesChunked ()
@@ -185,7 +186,15 @@ public class Chunk
 		}
 
 		if (containsWater) {
-			chunkManager.waterTilemapChunked.SetTile (new Vector3Int (chunkCoord.x, chunkCoord.y, 0), ChunkManager.tileResources.plainChunk);
+			// generate a new material for the water in the chunk
+			waterChunk = UnityEngine.Object.Instantiate (bCalc.chunkWaterPrefab, new Vector3Int (chunkPos.x + Consts.CHUNK_SIZE/2, chunkPos.y + Consts.CHUNK_SIZE/2, 198), Quaternion.identity);
+			waterChunk.transform.SetParent (bCalc.chunkWaterParent.gameObject.transform);
+
+			// generate a new material and apply it to the chunk
+			Material newWaterMaterial = new Material (Shader.Find ("Unlit/ChunkWaterShader"));
+			newWaterMaterial.CopyPropertiesFromMaterial (bCalc.chunkWaterMaterial);
+			waterChunk.GetComponent<SpriteRenderer> ().material = newWaterMaterial;
+			waterChunk.GetComponent<SpriteRenderer> ().material.SetTexture ("_TileColours", terrainColours);
 		}
 		isLoaded = true;
 	}
@@ -212,7 +221,8 @@ public class Chunk
 
 		// unload water if there is some
 		if (containsWater) {
-			chunkManager.waterTilemapChunked.SetTile (new Vector3Int (chunkCoord.x, chunkCoord.y, 0), null);
+			// chunkManager.waterTilemapChunked.SetTile (new Vector3Int (chunkCoord.x, chunkCoord.y, 0), null);
+			waterChunk.SetActive(false);
 		}
 		isLoaded = false;
 	}
