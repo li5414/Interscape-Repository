@@ -107,7 +107,7 @@ public class Chunk
 				if (height < -0.29f) {
 					color = Consts.BIOME_COLOUR_DICT [BiomeType.Beach];
 				}
-				color.a = Mathf.Clamp01 (Mathf.InverseLerp (0f, 1f, height)); // lower alpha is deeper
+				color.a = Mathf.Clamp01 (Mathf.InverseLerp (-1f, 1f, height)); // lower alpha is deeper
 				terrainColours.SetPixel (i, j, color);
 			}
 		}
