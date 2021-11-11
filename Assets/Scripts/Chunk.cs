@@ -33,7 +33,7 @@ public class Chunk
 	public Tile deetChunk;
 
 	// biome information
-	public Texture2D terrainColours = new Texture2D (Consts.CHUNK_SIZE, Consts.CHUNK_SIZE);
+	public Texture2D terrainColours;
 	float [,] heights;
 	float [,] temps;
 	float [,] humidities;
@@ -64,10 +64,14 @@ public class Chunk
 	public void GenerateChunkData() 
 	{
 		// initialise arrays
-		heights = bCalc.GetHeightValues (chunkPos.x, chunkPos.y);
-		temps = bCalc.GetTemperatures (chunkPos.x, chunkPos.y, heights);
-		humidities = bCalc.GetHumidityArray (chunkPos.x, chunkPos.y, heights);
-		biomes = bCalc.GetBiomes (heights, temps, humidities);
+		// heights = bCalc.GetHeightValues (chunkPos.x, chunkPos.y);
+		// temps = bCalc.GetTemperatures (chunkPos.x, chunkPos.y, heights);
+		// humidities = bCalc.GetHumidityValues (chunkPos.x, chunkPos.y, heights);
+		// biomes = bCalc.GetBiomes (heights, temps, humidities);
+		heights = bCalc.GetHeightValuesExtended (chunkPos.x, chunkPos.y);
+		temps = bCalc.GetTemperaturesExtended (chunkPos.x, chunkPos.y, heights);
+		humidities = bCalc.GetHumidityValuesExtended (chunkPos.x, chunkPos.y, heights);
+		biomes = bCalc.GetBiomesExtended (heights, temps, humidities);
 		
 		// initalise arrays to be be used for settiles()
 		tilePositionsWorld = new Vector3Int [Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
@@ -76,7 +80,8 @@ public class Chunk
 		GenerateTilesChunked ();
 		
 		// generate the colour texture for that chunk (determines colour of grass)
-		GenerateColourTexture ();
+		// GenerateColourTexture ();
+		GenerateExtendedColourTexture();
 
 		// generate grass details
 		GenerateDetailsChunk ();
@@ -91,6 +96,7 @@ public class Chunk
 
 	public void GenerateColourTexture()
 	{
+		terrainColours = new Texture2D (Consts.CHUNK_SIZE, Consts.CHUNK_SIZE);
 		for (int i = 0; i < Consts.CHUNK_SIZE; i++) {
 			for (int j = 0; j < Consts.CHUNK_SIZE; j++) {
 				float height = heights[i, j];
@@ -115,6 +121,39 @@ public class Chunk
 
 		// get rid of lines between textures :D
 		terrainColours.wrapMode = TextureWrapMode.Clamp;
+	}
+
+	// the extended texture includes overlaps between chunks by 1 tile
+	public void GenerateExtendedColourTexture() {
+		int newWidth = Consts.CHUNK_SIZE + 2;
+		Texture2D extendedTerrainColours = new Texture2D (newWidth, newWidth);
+		int i = 0;
+		int j = 0;
+
+		for (i = 0; i < newWidth; i++) {
+			for (j = 0; j < newWidth; j++) {
+				float height = heights[i, j];
+
+				float temp = temps[i, j];
+				temp = Mathf.InverseLerp (-80f, 80f, temp);
+				temp *= bCalc.biomeColourMap.width;
+
+				float humidity = humidities[i, j];
+				humidity = 1 - humidity;
+				humidity *= bCalc.biomeColourMap.width;
+				Color color = bCalc.biomeColourMap.GetPixel ((int)temp, (int)humidity);
+
+				if (height < -0.29f) {
+					color = Consts.BIOME_COLOUR_DICT [BiomeType.Beach];
+				}
+				color.a = Mathf.Clamp01 (Mathf.InverseLerp (-1f, 1f, height)); // lower alpha is deeper
+				extendedTerrainColours.SetPixel (i, j, color);
+			}
+		}
+
+		extendedTerrainColours.Apply ();
+		extendedTerrainColours.wrapMode = TextureWrapMode.Clamp;
+		terrainColours = extendedTerrainColours;
 	}
 
 	public void GenerateTilesChunked ()

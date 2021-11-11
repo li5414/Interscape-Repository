@@ -87,6 +87,7 @@ public class BiomeCalculations : MonoBehaviour
 		return height;
 	}
 
+	// this function generates an array storing height values in range -1 to 1 for a chunk
 	public float[,] GetHeightValues(int chunkX, int chunkY)
 	{
 		float[,] heights = new float[Consts.CHUNK_SIZE, Consts.CHUNK_SIZE];
@@ -105,6 +106,37 @@ public class BiomeCalculations : MonoBehaviour
 				{
 					float sampleX = (chunkX + x) / (scale / frequency) + octaveOffsets[i].x + 0.1f;
 					float sampleY = (chunkY + y) / (scale / frequency) + octaveOffsets[i].y + 0.1f;
+
+					float perlinValue = Mathf.PerlinNoise(sampleX, sampleY) * 2 - 1; // make in range -1 to 1
+
+					height += perlinValue * amplitude; // increase noise height each time
+					amplitude *= persistance; // decreases each octave as persistance below 1
+					frequency *= lacunarity; // increases each octave
+				}
+				heights[x, y] = height;
+			}
+		}
+		return heights;
+	}
+
+	// this function generates an array storing height values in range -1 to 1 for a chunk plus surrounding tiles
+	public float[,] GetHeightValuesExtended(int chunkX, int chunkY) {
+		float[,] heights = new float[Consts.CHUNK_SIZE + 2, Consts.CHUNK_SIZE + 2];
+		
+		// loop through all tiles in chunk
+		for (int x = 0; x < Consts.CHUNK_SIZE + 2; x++) {
+			for (int y = 0; y < Consts.CHUNK_SIZE + 2; y++) {
+
+				// reset values each layer
+				float height = 0;
+				float amplitude = 1;
+				float frequency = 1;
+
+				// scale results in non-integer value
+				for (int i = 0; i < octaves; i++)
+				{
+					float sampleX = (chunkX + x - 1) / (scale / frequency) + octaveOffsets[i].x + 0.1f;
+					float sampleY = (chunkY + y - 1) / (scale / frequency) + octaveOffsets[i].y + 0.1f;
 
 					float perlinValue = Mathf.PerlinNoise(sampleX, sampleY) * 2 - 1; // make in range -1 to 1
 
@@ -171,6 +203,37 @@ public class BiomeCalculations : MonoBehaviour
 		return temps;
 	}
 
+	public float[,] GetTemperaturesExtended(int chunkX, int chunkY, float[,] heights)
+	{
+		float[,] temps = new float[Consts.CHUNK_SIZE + 2, Consts.CHUNK_SIZE + 2];
+		int lat;
+		float temp;
+
+		// loop through all tiles in chunk
+		for (int x = 0; x < Consts.CHUNK_SIZE + 2; x++) {
+			for (int y = 0; y < Consts.CHUNK_SIZE + 2; y++) {
+				lat = Mathf.Abs((chunkY + y - 1) - (Consts.MAP_DIMENSION / 2)); // positive latitude at tile position
+
+				// putting a cap on latitude
+				if (lat > (Consts.MAP_DIMENSION / 2)) {
+					lat = (Consts.MAP_DIMENSION / 2);
+				}
+
+				// get noise based on seed
+				float perlinValue = Mathf.PerlinNoise((chunkX + x - 1) / scale + octaveOffsets[1].x,
+					(chunkY + y) / scale + octaveOffsets[1].y) * 2 - 1; // make in range -1 to 1;
+				perlinValue = perlinValue * 20; // make value larger so can directly subtract it
+
+				// choose value based on latitude and height
+				temp = 60 - perlinValue - (lat / 20f);
+				temp -= 20 * (1 - heights[x, y]);
+
+				temps[x, y] = temp;
+			}
+		}
+		return temps;
+	}
+
 	// note: there is currently no noise layers for humidity
 	public float GetHumidity(int x, int y, float heightVal)
 	{
@@ -183,7 +246,7 @@ public class BiomeCalculations : MonoBehaviour
 		return Mathf.Clamp01(moisture);
 	}
 
-	public float[,] GetHumidityArray(int chunkX, int chunkY, float[,] heights)
+	public float[,] GetHumidityValues(int chunkX, int chunkY, float[,] heights)
 	{
 		float[,] moistures = new float[Consts.CHUNK_SIZE, Consts.CHUNK_SIZE];
 		float moisture;
@@ -193,6 +256,28 @@ public class BiomeCalculations : MonoBehaviour
 		for (int x = 0; x < Consts.CHUNK_SIZE; x++) {
 			for (int y = 0; y < Consts.CHUNK_SIZE; y++) {
 				perlinValue = Mathf.PerlinNoise((chunkX + x) / (scale / 2) + octaveOffsets[2].x, (chunkY + y) / (scale / 2) + octaveOffsets[2].y);
+				moisture = perlinValue;
+
+				float height = Mathf.InverseLerp(-1f, 1f, heights[x, y]); // get height in range 0-1
+																		  //moisture *= (1 - height);
+				moisture -= height / 3;
+				moisture += 0.2f;
+				moistures [x, y] = Mathf.Clamp01 (moisture);
+			}
+		}
+		return moistures;
+	}
+
+	public float[,] GetHumidityValuesExtended(int chunkX, int chunkY, float[,] heights)
+	{
+		float[,] moistures = new float[Consts.CHUNK_SIZE + 2, Consts.CHUNK_SIZE + 2];
+		float moisture;
+		float perlinValue;
+
+		// loop through all tiles in chunk
+		for (int x = 0; x < Consts.CHUNK_SIZE + 2; x++) {
+			for (int y = 0; y < Consts.CHUNK_SIZE + 2; y++) {
+				perlinValue = Mathf.PerlinNoise((chunkX + x - 1) / (scale / 2) + octaveOffsets[2].x, (chunkY + y - 1) / (scale / 2) + octaveOffsets[2].y);
 				moisture = perlinValue;
 
 				float height = Mathf.InverseLerp(-1f, 1f, heights[x, y]); // get height in range 0-1
@@ -227,6 +312,39 @@ public class BiomeCalculations : MonoBehaviour
 
 					// putting a cap on vales so as not to over-index array
 					humidity = Mathf.FloorToInt (humidities [x, y] * BIOME_TABLE_SIZE);
+
+					biomeTypes [x, y] = Consts.BIOME_TYPE_TABLE [humidity, (int)temp];
+				}
+				else if (height < -0.3)
+					biomeTypes [x, y] = BiomeType.Water;
+				else
+					biomeTypes [x, y] = BiomeType.Beach;
+			}
+		}
+		return biomeTypes;
+	}
+
+	// this one does not return array that overlaps with other chunks
+	public BiomeType[,] GetBiomesExtended(float[,] heights, float[,] temperatures, float[,] humidities)
+	{
+		BiomeType[,] biomeTypes = new BiomeType[Consts.CHUNK_SIZE, Consts.CHUNK_SIZE];
+		float temp;
+		int humidity;
+		float height;
+
+		// loop through all tiles in chunk
+		for (int x = 0; x < Consts.CHUNK_SIZE; x++) {
+			for (int y = 0; y < Consts.CHUNK_SIZE; y++) {
+				height = heights[x + 1, y + 1];
+				if (height >= -0.26) {
+					// get temperature as an integer for easy lookup in biome array
+					temp = Mathf.InverseLerp (-70f, 70f, temperatures [x + 1, y + 1]);
+					temp = Mathf.Clamp01 (temp);
+					temp *= BIOME_TABLE_SIZE;
+					temp = Mathf.FloorToInt (temp);
+
+					// putting a cap on vales so as not to over-index array
+					humidity = Mathf.FloorToInt (humidities [x + 1, y + 1] * BIOME_TABLE_SIZE);
 
 					biomeTypes [x, y] = Consts.BIOME_TYPE_TABLE [humidity, (int)temp];
 				}

@@ -58,18 +58,14 @@ Shader "Unlit/ChunkWaterShader" {
                 return OUT;
             }
 
-            fixed4 SampleSpriteTexture (float2 uv) {
-                fixed4 color = tex2D (_MainTex, uv);
-                return color;
-            }
-
             // pixel shader
             fixed4 frag (v2f IN) : SV_Target
             {
-                //get biome color
-                fixed4 col = tex2D (_TileColours, IN.texcoord);
+                // get biome color from texture
+                float2 uv = (IN.texcoord - 0.5) * 0.8888888 + 0.5; // Note: 0.88888 is 16 (the chunk size) divided by 18 (the size of texture)
+                fixed4 col = tex2D (_TileColours, uv);
 
-                //get shape
+                // use alpha value of texture to determine depth of water
                 fixed4 c = lerp(_Color, _Color2, col.a);
                 float opacity = _Opacity - (_Amplitude * (sin(_Time.y) + 1));
 

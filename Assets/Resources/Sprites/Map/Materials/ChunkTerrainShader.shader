@@ -66,7 +66,14 @@ Shader "Unlit/ChunkTerrainShader"
             {
                 //get biome color
                 float2 pos;
-                fixed4 col = tex2D (_TileColours, IN.texcoord);
+                
+                // scale texture up
+                float2 uv = (IN.texcoord - 0.5) * 0.93 + 0.5; // Note: 0.88888 is 16 (the chunk size) divided by 18 (the size of texture)
+                
+                // get biome color from texture
+                fixed4 col = tex2D (_TileColours, uv);
+                // fixed4 col = tex2D (_TileColours, IN.texcoord);
+
                 col.a = 1;
 
                 //get shape

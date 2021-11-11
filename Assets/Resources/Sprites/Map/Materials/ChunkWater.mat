@@ -77,7 +77,7 @@ Material:
     - _Mode: 3
     - _NoiseScale: 1
     - _OcclusionStrength: 1
-    - _Opacity: 0.67
+    - _Opacity: 0.66
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
