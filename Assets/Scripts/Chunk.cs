@@ -58,7 +58,7 @@ public class Chunk
 		chunkCoord = new Vector2Int (pos.x, pos.y);
 		treeParent = new GameObject();
 		treeParent.transform.SetParent (TreeParent.gameObject.transform);
-		GenerateChunkData();
+		// GenerateChunkData();
 	}
 
 	public void GenerateChunkData() 
@@ -208,32 +208,41 @@ public class Chunk
 			chunkManager.sandTilemap.SetTiles (tilePositionsWorld, sandTileArray);
 
 		if (containsGrass) {
-			terrainChunk = UnityEngine.Object.Instantiate (bCalc.chunkTerrainPrefab, new Vector3Int (chunkPos.x + Consts.CHUNK_SIZE/2, chunkPos.y + Consts.CHUNK_SIZE/2, 199), Quaternion.identity);
-			terrainChunk.transform.SetParent (bCalc.chunkTerrainParent.gameObject.transform);
+			if (!terrainChunk) {
+				terrainChunk = UnityEngine.Object.Instantiate (bCalc.chunkTerrainPrefab, new Vector3Int (chunkPos.x + Consts.CHUNK_SIZE/2, chunkPos.y + Consts.CHUNK_SIZE/2, 199), Quaternion.identity);
+				terrainChunk.transform.SetParent (bCalc.chunkTerrainParent.gameObject.transform);
 
-			// generate a new material and apply it to the chunk
-			Material newMat = new Material (Shader.Find ("Unlit/ChunkTerrainShader"));
-			newMat.CopyPropertiesFromMaterial (bCalc.chunkTerrainMaterial);
-			terrainChunk.GetComponent<SpriteRenderer> ().material = newMat;
-			terrainChunk.GetComponent<SpriteRenderer> ().material.SetTexture ("_TileColours", terrainColours);
+				// generate a new material and apply it to the chunk
+				Material newMat = new Material (Shader.Find ("Unlit/ChunkTerrainShader"));
+				newMat.CopyPropertiesFromMaterial (bCalc.chunkTerrainMaterial);
+				terrainChunk.GetComponent<SpriteRenderer> ().material = newMat;
+				terrainChunk.GetComponent<SpriteRenderer> ().material.SetTexture ("_TileColours", terrainColours);
 
-			// generate a new material for the grass blades in the chunk
-			newMat = new Material (Shader.Find ("Unlit/ChunkTerrainShader"));
-			newMat.CopyPropertiesFromMaterial (bCalc.chunkGrassMaterial);
-			terrainChunk.GetComponentsInChildren<SpriteRenderer> ()[1].material = newMat;
-			terrainChunk.GetComponentsInChildren<SpriteRenderer> ()[1].material.SetTexture ("_TileColours", terrainColours);
+				// generate a new material for the grass blades in the chunk
+				newMat = new Material (Shader.Find ("Unlit/ChunkTerrainShader"));
+				newMat.CopyPropertiesFromMaterial (bCalc.chunkGrassMaterial);
+				terrainChunk.GetComponentsInChildren<SpriteRenderer> ()[1].material = newMat;
+				terrainChunk.GetComponentsInChildren<SpriteRenderer> ()[1].material.SetTexture ("_TileColours", terrainColours);
+			}
+			else {
+				terrainChunk.SetActive(true);
+			}
 		}
 
 		if (containsWater) {
-			// generate a new material for the water in the chunk
-			waterChunk = UnityEngine.Object.Instantiate (bCalc.chunkWaterPrefab, new Vector3Int (chunkPos.x + Consts.CHUNK_SIZE/2, chunkPos.y + Consts.CHUNK_SIZE/2, 198), Quaternion.identity);
-			waterChunk.transform.SetParent (bCalc.chunkWaterParent.gameObject.transform);
+			if (!waterChunk) {
+				// generate a new material for the water in the chunk
+				waterChunk = UnityEngine.Object.Instantiate (bCalc.chunkWaterPrefab, new Vector3Int (chunkPos.x + Consts.CHUNK_SIZE/2, chunkPos.y + Consts.CHUNK_SIZE/2, 198), Quaternion.identity);
+				waterChunk.transform.SetParent (bCalc.chunkWaterParent.gameObject.transform);
 
-			// generate a new material and apply it to the chunk
-			Material newWaterMaterial = new Material (Shader.Find ("Unlit/ChunkWaterShader"));
-			newWaterMaterial.CopyPropertiesFromMaterial (bCalc.chunkWaterMaterial);
-			waterChunk.GetComponent<SpriteRenderer> ().material = newWaterMaterial;
-			waterChunk.GetComponent<SpriteRenderer> ().material.SetTexture ("_TileColours", terrainColours);
+				// generate a new material and apply it to the chunk
+				Material newWaterMaterial = new Material (Shader.Find ("Unlit/ChunkWaterShader"));
+				newWaterMaterial.CopyPropertiesFromMaterial (bCalc.chunkWaterMaterial);
+				waterChunk.GetComponent<SpriteRenderer> ().material = newWaterMaterial;
+				waterChunk.GetComponent<SpriteRenderer> ().material.SetTexture ("_TileColours", terrainColours);
+			} else {
+				waterChunk.SetActive(true);
+			}
 		}
 		isLoaded = true;
 	}

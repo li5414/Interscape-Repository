@@ -55,12 +55,10 @@ public class ChunkManager : MonoBehaviour
 		currentChunkCoord = ToChunkCoord (viewerPosition);
 
 		// finishing generating chunks that need to be generated
-		// if (chunksToGenerate.Count > 0) {
-		// 	if (chunksToGenerate.Peek().IsReadyToFinishGeneration()) {
-		// 		Chunk chunk = chunksToGenerate.Dequeue ();
-		// 		chunk.FinishGenerating ();
-		// 	}
-		// }
+		if (chunksToGenerate.Count > 0) {
+			Chunk chunk = chunksToGenerate.Dequeue ();
+			chunk.GenerateChunkData ();
+		}
 
 		// fininish loading (rendering) chunks that need to be loaded
 		if (chunksToLoad.Count > 0) {

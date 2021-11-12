@@ -59,8 +59,7 @@ Shader "Unlit/ChunkWaterShader" {
             }
 
             // pixel shader
-            fixed4 frag (v2f IN) : SV_Target
-            {
+            fixed4 frag (v2f IN) : SV_Target {
                 // get biome color from texture
                 float2 uv = (IN.texcoord - 0.5) * 0.8888888 + 0.5; // Note: 0.88888 is 16 (the chunk size) divided by 18 (the size of texture)
                 fixed4 col = tex2D (_TileColours, uv);
