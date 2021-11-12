@@ -143,9 +143,9 @@ public class Chunk
 				humidity *= bCalc.biomeColourMap.width;
 				Color color = bCalc.biomeColourMap.GetPixel ((int)temp, (int)humidity);
 
-				if (height < -0.29f) {
-					color = Consts.BIOME_COLOUR_DICT [BiomeType.Beach];
-				}
+				// if (height < -0.29f) {
+				// 	color = Consts.BIOME_COLOUR_DICT [BiomeType.Beach];
+				// }
 				color.a = Mathf.Clamp01 (Mathf.InverseLerp (-1f, 1f, height)); // lower alpha is deeper
 				extendedTerrainColours.SetPixel (i, j, color);
 			}
@@ -269,7 +269,6 @@ public class Chunk
 
 		// unload water if there is some
 		if (containsWater) {
-			// chunkManager.waterTilemapChunked.SetTile (new Vector3Int (chunkCoord.x, chunkCoord.y, 0), null);
 			waterChunk.SetActive(false);
 		}
 		isLoaded = false;
