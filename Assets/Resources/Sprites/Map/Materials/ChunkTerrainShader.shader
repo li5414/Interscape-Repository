@@ -1,27 +1,20 @@
 ﻿
-Shader "Unlit/Water"
+Shader "Unlit/ChunkTerrainShader"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
         _Color ("Main Color", Color) = (1,1,1,1)
-        _Color2 ("Secondary Color", Color) = (1,1,1,1)
-        _FoamColor ("Foam Color", Color) = (1,1,1,1)
         _NoiseTex ("Noise Texture", 2D) = "white" {}
-        _NoiseScale ("Noise Scale", Float) = 1  //2.75 is good
+        _NoiseScale ("Noise Scale", Float) = 1
         _TileColours ("Tile Colors", 2D) = "white" {}
-        _Depth ("Depth", Float) = 1
-        _Cutoff ("Cutoff", Float) = 0
-        _Opacity ("Opacity", Float) = 0
-        _Amplitude ("Amplitude", Float) = 0.1
     }
 
     SubShader
     {
         Tags{"Queue" = "Transparent" "RenderType"="Transparent" }
-
         Blend SrcAlpha OneMinusSrcAlpha
-
+        
         Pass
         {
             CGPROGRAM
@@ -45,12 +38,6 @@ Shader "Unlit/Water"
 
             // color from the material
             fixed4 _Color;
-            fixed4 _Color2;
-            fixed4 _FoamColor;
-            float _Depth;
-            float _Cutoff;
-            float _Opacity;
-            float _Amplitude;
             sampler2D _MainTex;
             sampler2D _NoiseTex;
             float _NoiseScale;
@@ -74,42 +61,34 @@ Shader "Unlit/Water"
                 return color;
             }
 
-            
             // pixel shader
             fixed4 frag (v2f IN) : SV_Target
-            //void surf (v2f IN)
             {
                 //get biome color
                 float2 pos;
-                pos.x = (((abs (IN.worldPosition.x))) % 5000)/5000;
-                pos.y = (((abs (IN.worldPosition.y))) % 5000)/5000;
-                fixed4 col = tex2D (_TileColours, pos);
+                
+                // scale texture up
+                float2 uv = ((IN.texcoord - 0.5) * 0.93) + 0.5; // Note: 0.88888 is 16 (the chunk size) divided by 18 (the size of texture)
+                
+                // get biome color from texture
+                fixed4 col = tex2D (_TileColours, uv);
+                // fixed4 col = tex2D (_TileColours, IN.texcoord);
+
+                col.a = 1;
 
                 //get shape
-                //fixed4 c = _Color;
-                fixed4 c = lerp(_Color, _Color2, col.a);
-                float opacity = _Opacity + (_Amplitude * sin(_Time.y));
+                fixed4 c = SampleSpriteTexture (IN.texcoord) * col;
+               
+                // get some noisee
+                pos.x = (((abs (IN.worldPosition.x)) * _NoiseScale) % 256)/256;
+                pos.y = (((abs (IN.worldPosition.y)) * _NoiseScale) % 256)/256;
+                float noise = tex2D (_NoiseTex, pos);
 
-                c.a = (_Color.a - (_Depth * col.a)) + opacity;
-
-                float rememberOpacity = c.a;
-                //float startDepth = 0.7;
-                //float currentDepth = startDepth + (0.1 * tan(-_Time.y * 0.5));
-                float width = 0.005;
-
-                /*if (c.a > currentDepth - width && c.a < currentDepth + width) {
-                    c = _FoamColor;
-                }*/
-
-                if (c.a < _Cutoff + (width * 2)) {
-                    c = _FoamColor;
-                }
-
-                if (rememberOpacity < _Cutoff) {
-                    c.a = 0;
-                }
-
-                
+                // use noise to help blend colours a bit more
+                c.b = (c.b + (0.06 * noise));
+                c.r = (c.r + (0.10 * noise));
+                c.g = (c.g + (0.12 * noise));
+                c.rgb -= 0.03;
                 return c;
             }
             ENDCG
