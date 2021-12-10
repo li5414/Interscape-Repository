@@ -4,103 +4,103 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: -1956020413288888405
-    second: CobblestoneWall_0
+    second: LightCobblestoneWall_0
   - first:
       213: -763090648926211266
-    second: CobblestoneWall_1
+    second: LightCobblestoneWall_1
   - first:
       213: 4187406019909767115
-    second: CobblestoneWall_2
+    second: LightCobblestoneWall_2
   - first:
       213: -9186116691737994238
-    second: CobblestoneWall_3
+    second: LightCobblestoneWall_4
   - first:
       213: -3577246228225869022
-    second: CobblestoneWall_4
+    second: LightCobblestoneWall_6
   - first:
       213: -3629114651907519523
-    second: CobblestoneWall_5
+    second: MedCobblestoneWall_0
   - first:
       213: -1247347839281878500
-    second: CobblestoneWall_6
+    second: MedCobblestoneWall_1
   - first:
       213: -1773797716576416823
-    second: CobblestoneWall_7
+    second: MedCobblestoneWall_2
   - first:
       213: -3712916724608967166
-    second: CobblestoneWall_8
+    second: MedCobblestoneWall_4
   - first:
       213: 971311745431020380
-    second: CobblestoneWall_9
+    second: MedCobblestoneWall_6
   - first:
       213: -4883174229315772585
-    second: CobblestoneWall_10
+    second: DarkCobblestoneWall_0
   - first:
       213: -4019844725602178558
-    second: CobblestoneWall_11
+    second: DarkCobblestoneWall_1
   - first:
       213: 7310842389954499132
-    second: CobblestoneWall_12
+    second: DarkCobblestoneWall_2
   - first:
       213: 9006666689583490150
-    second: CobblestoneWall_13
+    second: DarkCobblestoneWall_5
   - first:
       213: 5215989508426489565
-    second: CobblestoneWall_14
+    second: DarkCobblestoneWall_6
   - first:
       213: -4064467428533220681
-    second: CobblestoneWall_15
+    second: LightCobblestoneWall_3
   - first:
       213: 2837137943144054676
-    second: CobblestoneWall_16
+    second: LightCobblestoneWall_5
   - first:
       213: 4164087667835114415
-    second: CobblestoneWall_17
+    second: LightCobblestoneWall_7
   - first:
       213: -330019139739861087
-    second: CobblestoneWall_18
+    second: LightCobblestoneWall_8
   - first:
       213: 4163308523473395747
-    second: CobblestoneWall_19
+    second: LightCobblestoneWall_9
   - first:
       213: 4109430112564526877
-    second: CobblestoneWall_20
+    second: LightCobblestoneWall_10
   - first:
       213: 8987036157785179001
-    second: CobblestoneWall_21
+    second: MedCobblestoneWall_3
   - first:
       213: -6346150281362772618
-    second: CobblestoneWall_22
+    second: MedCobblestoneWall_5
   - first:
       213: -3325253709341032100
-    second: CobblestoneWall_23
+    second: MedCobblestoneWall_7
   - first:
       213: 2268860586888611296
-    second: CobblestoneWall_24
+    second: MedCobblestoneWall_8
   - first:
       213: -4063498921482414038
-    second: CobblestoneWall_25
+    second: MedCobblestoneWall_9
   - first:
       213: -99248186596329632
-    second: CobblestoneWall_26
+    second: MedCobblestoneWall_10
   - first:
       213: 1751021074460125341
-    second: CobblestoneWall_27
+    second: DarkCobblestoneWall_7
   - first:
       213: -733045684496912553
-    second: CobblestoneWall_28
+    second: DarkCobblestoneWall_8
   - first:
       213: 715651694461640120
-    second: CobblestoneWall_29
+    second: DarkCobblestoneWall_9
   - first:
       213: 4430431196936077637
-    second: CobblestoneWall_30
+    second: DarkCobblestoneWall_10
   - first:
       213: -8308016381889396270
-    second: CobblestoneWall_31
+    second: DarkCobblestoneWall_4
   - first:
       213: 5650395274547422454
-    second: CobblestoneWall_32
+    second: DarkCobblestoneWall_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -202,7 +202,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CobblestoneWall_0
+      name: LightCobblestoneWall_0
       rect:
         serializedVersion: 2
         x: 16
@@ -223,7 +223,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_1
+      name: LightCobblestoneWall_1
       rect:
         serializedVersion: 2
         x: 48
@@ -244,7 +244,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_2
+      name: LightCobblestoneWall_2
       rect:
         serializedVersion: 2
         x: 64
@@ -265,7 +265,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_3
+      name: LightCobblestoneWall_4
       rect:
         serializedVersion: 2
         x: 96
@@ -286,7 +286,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_4
+      name: LightCobblestoneWall_6
       rect:
         serializedVersion: 2
         x: 128
@@ -307,7 +307,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_5
+      name: MedCobblestoneWall_0
       rect:
         serializedVersion: 2
         x: 16
@@ -328,7 +328,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_6
+      name: MedCobblestoneWall_1
       rect:
         serializedVersion: 2
         x: 48
@@ -349,7 +349,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_7
+      name: MedCobblestoneWall_2
       rect:
         serializedVersion: 2
         x: 64
@@ -370,7 +370,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_8
+      name: MedCobblestoneWall_4
       rect:
         serializedVersion: 2
         x: 96
@@ -391,7 +391,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_9
+      name: MedCobblestoneWall_6
       rect:
         serializedVersion: 2
         x: 128
@@ -412,7 +412,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_10
+      name: DarkCobblestoneWall_0
       rect:
         serializedVersion: 2
         x: 16
@@ -433,7 +433,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_11
+      name: DarkCobblestoneWall_1
       rect:
         serializedVersion: 2
         x: 48
@@ -454,7 +454,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_12
+      name: DarkCobblestoneWall_2
       rect:
         serializedVersion: 2
         x: 64
@@ -475,7 +475,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_13
+      name: DarkCobblestoneWall_5
       rect:
         serializedVersion: 2
         x: 112
@@ -496,7 +496,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_14
+      name: DarkCobblestoneWall_6
       rect:
         serializedVersion: 2
         x: 128
@@ -517,7 +517,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_15
+      name: LightCobblestoneWall_3
       rect:
         serializedVersion: 2
         x: 80
@@ -538,7 +538,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_16
+      name: LightCobblestoneWall_5
       rect:
         serializedVersion: 2
         x: 112
@@ -559,7 +559,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_17
+      name: LightCobblestoneWall_7
       rect:
         serializedVersion: 2
         x: 144
@@ -580,7 +580,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_18
+      name: LightCobblestoneWall_8
       rect:
         serializedVersion: 2
         x: 160
@@ -601,7 +601,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_19
+      name: LightCobblestoneWall_9
       rect:
         serializedVersion: 2
         x: 176
@@ -622,7 +622,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_20
+      name: LightCobblestoneWall_10
       rect:
         serializedVersion: 2
         x: 192
@@ -643,7 +643,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_21
+      name: MedCobblestoneWall_3
       rect:
         serializedVersion: 2
         x: 80
@@ -651,7 +651,7 @@ TextureImporter:
         width: 16
         height: 48
       alignment: 9
-      pivot: {x: 0.53333336, y: 0.16666667}
+      pivot: {x: 0.5, y: 0.16666667}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -664,7 +664,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_22
+      name: MedCobblestoneWall_5
       rect:
         serializedVersion: 2
         x: 112
@@ -685,7 +685,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_23
+      name: MedCobblestoneWall_7
       rect:
         serializedVersion: 2
         x: 144
@@ -706,7 +706,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_24
+      name: MedCobblestoneWall_8
       rect:
         serializedVersion: 2
         x: 160
@@ -727,7 +727,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_25
+      name: MedCobblestoneWall_9
       rect:
         serializedVersion: 2
         x: 176
@@ -748,7 +748,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_26
+      name: MedCobblestoneWall_10
       rect:
         serializedVersion: 2
         x: 192
@@ -769,7 +769,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_27
+      name: DarkCobblestoneWall_7
       rect:
         serializedVersion: 2
         x: 144
@@ -790,7 +790,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_28
+      name: DarkCobblestoneWall_8
       rect:
         serializedVersion: 2
         x: 160
@@ -811,7 +811,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_29
+      name: DarkCobblestoneWall_9
       rect:
         serializedVersion: 2
         x: 176
@@ -832,7 +832,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_30
+      name: DarkCobblestoneWall_10
       rect:
         serializedVersion: 2
         x: 192
@@ -853,7 +853,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_31
+      name: DarkCobblestoneWall_4
       rect:
         serializedVersion: 2
         x: 96
@@ -874,7 +874,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CobblestoneWall_32
+      name: DarkCobblestoneWall_3
       rect:
         serializedVersion: 2
         x: 80
