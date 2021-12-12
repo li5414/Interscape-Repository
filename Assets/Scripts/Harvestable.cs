@@ -56,10 +56,7 @@ public class Harvestable : MonoBehaviour
 	{
 		return damageType;
 	}
-
 	
-
-
 	IEnumerator Die (float delay)
 	{
 		//play your sound
