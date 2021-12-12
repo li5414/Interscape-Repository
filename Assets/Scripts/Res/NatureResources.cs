@@ -27,14 +27,14 @@ public static class NatureResources
   tree_yellow, tree_dead1};
 
 	//"shrubs"
-	public static GameObject wheat = Resources.Load<GameObject> ("Sprites/Map/ShrubFabs/Shrub 7");
-	public static GameObject cane = Resources.Load<GameObject> ("Sprites/Map/ShrubFabs/Shrub 9");
-	public static GameObject stick = Resources.Load<GameObject> ("Sprites/Map/ShrubFabs/Shrub 5");
-	public static GameObject dead_bush = Resources.Load<GameObject> ("Sprites/Map/ShrubFabs/Shrub 3");
-	public static GameObject bush1 = Resources.Load<GameObject> ("Sprites/Map/ShrubFabs/Shrub 11");
-	public static GameObject bush2 = Resources.Load<GameObject> ("Sprites/Map/ShrubFabs/Shrub 12");
-	public static GameObject fern1 = Resources.Load<GameObject> ("Sprites/Map/ShrubFabs/Shrub 13");
-	public static GameObject cactus = Resources.Load<GameObject> ("Sprites/Map/ShrubFabs/Shrub 14");
-	public static GameObject rock1 = Resources.Load<GameObject> ("Sprites/Map/ShrubFabs/Shrub 15");
-	public static GameObject rock2 = Resources.Load<GameObject> ("Sprites/Map/ShrubFabs/Shrub 16");
+	public static GameObject wheat = Resources.Load<GameObject> ("Sprites/Map/ShrubFabs/Shrub7");
+	public static GameObject cane = Resources.Load<GameObject> ("Sprites/Map/ShrubFabs/Shrub9");
+	public static GameObject stick = Resources.Load<GameObject> ("Sprites/Map/ShrubFabs/Shrub5");
+	public static GameObject dead_bush = Resources.Load<GameObject> ("Sprites/Map/ShrubFabs/Shrub3");
+	public static GameObject bush1 = Resources.Load<GameObject> ("Sprites/Map/ShrubFabs/Shrub11");
+	public static GameObject bush2 = Resources.Load<GameObject> ("Sprites/Map/ShrubFabs/Shrub12");
+	public static GameObject fern1 = Resources.Load<GameObject> ("Sprites/Map/ShrubFabs/Shrub13");
+	public static GameObject cactus = Resources.Load<GameObject> ("Sprites/Map/ShrubFabs/Shrub14");
+	public static GameObject rock1 = Resources.Load<GameObject> ("Sprites/Map/ShrubFabs/Shrub15");
+	public static GameObject rock2 = Resources.Load<GameObject> ("Sprites/Map/ShrubFabs/Shrub16");
 }

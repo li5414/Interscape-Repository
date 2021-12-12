@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Harvestable : MonoBehaviour
 {
@@ -12,12 +13,18 @@ public class Harvestable : MonoBehaviour
 	public AnimationClip deathClip;
 	public GameObject parentObj;
 
+	public bool isUsingRuleTiles;
+	private Tilemap tilemap;
+
     // Start is called before the first frame update
     void Start()
     {
 		anim = GetComponent<Animator> ();
 		if (parentObj == null) {
 			parentObj = this.gameObject;
+		}
+		if (isUsingRuleTiles) {
+			tilemap = GameObject.FindWithTag("RuleTilemap").GetComponent<Tilemap>();
 		}
     }
 
@@ -64,6 +71,10 @@ public class Harvestable : MonoBehaviour
 	{
 		if (dropItemName != "") {
 			ItemDrop.dropItemAt (new Item (dropItemName), this.transform.position, 1);
+		}
+		if (tilemap != null) {
+			Vector3Int cellPos = tilemap.WorldToCell(this.transform.position);
+			tilemap.SetTile(cellPos, null);
 		}
 		Destroy (parentObj);
 	}
