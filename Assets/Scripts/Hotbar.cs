@@ -90,7 +90,7 @@ public class Hotbar : MonoBehaviour
 	}
 
 	public void toggleCursor() {
-		if (selected.Item is Tool) {
+		if (selected.Item is Tool || selected.Item is BuildableItem) {
 			toolCursor.SetActive (true);
 		} else {
 			toolCursor.SetActive (false);

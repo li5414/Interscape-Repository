@@ -35,7 +35,7 @@ public class Tool : Item
 		Item item;
 		ItemRes.ItemDict.TryGetValue (itemName, out item);
 
-		if (item != null &&  item is Tool) {
+		if (item != null && item is Tool) {
 			this.durability = durability;
 			this.damageType = ((Tool)item).damageType;
 			this.baseDurability = ((Tool)item).baseDurability;

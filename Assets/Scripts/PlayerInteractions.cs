@@ -27,7 +27,16 @@ public class PlayerInteractions : MonoBehaviour
     {
 		if (coolDown > 0)
 			coolDown -= Time.deltaTime;
-        
+
+		// right click
+        if (Input.GetMouseButton (1) && coolDown <= 0) {
+			coolDown = 0.3f;
+			Item item = inventory.getSelectedItem ();
+			if (item != null && item is BuildableItem) {
+				// TODO green hightlight on cursor
+				((BuildableItem)item).BuildItemAt(transform.position, inventory);
+			}
+		}
     }
 
 	void OnTriggerStay2D (Collider2D other)

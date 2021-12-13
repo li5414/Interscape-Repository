@@ -56,7 +56,7 @@ public class Harvestable : MonoBehaviour
 	{
 		return damageType;
 	}
-	
+
 	IEnumerator Die (float delay)
 	{
 		//play your sound
@@ -67,7 +67,7 @@ public class Harvestable : MonoBehaviour
 	private void actuallyDie()
 	{
 		if (dropItemName != "") {
-			ItemDrop.dropItemAt (new Item (dropItemName), this.transform.position, 1);
+			ItemDrop.dropItemAt (ItemRes.MakeItemCopy(dropItemName), this.transform.position, 1);
 		}
 		if (tilemap != null) {
 			Vector3Int cellPos = tilemap.WorldToCell(this.transform.position);
