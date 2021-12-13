@@ -53,14 +53,6 @@ public class Inventory : MonoBehaviour
 		return c;
 	}
 
-	/*private void OnValidate ()
-	{
-		if (itemsParent != null)
-			itemSlots = itemsParent.GetComponentsInChildren<ItemSlot> ();
-
-		RefreshUI ();
-	}*/
-
 	private void RefreshUI ()
 	{
 		int i;
