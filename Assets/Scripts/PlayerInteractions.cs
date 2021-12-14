@@ -35,8 +35,19 @@ public class PlayerInteractions : MonoBehaviour
 			return;
 		}
 
-		// cast ray to get object
-		RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.zero);
+		// cast ray to get objects
+		RaycastHit2D [] hits = Physics2D.RaycastAll(transform.position, -Vector2.zero);
+
+		// ignore item drop objects
+		RaycastHit2D hit = new RaycastHit2D();
+		for (int i = 0; i < hits.Length; i++) {
+			if (hits[i].transform != null && hits[i].transform.gameObject.tag != "ItemDrop") {
+				hit = hits[i];
+				break;
+			}
+		}
+
+		// convert hit to gameobject
 		GameObject hoveringOver = null;
 		if (hit != null && hit.transform != null)
 			hoveringOver = hit.transform.gameObject;
