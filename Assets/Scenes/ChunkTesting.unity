@@ -1769,6 +1769,7 @@ GameObject:
   - component: {fileID: 326201715}
   - component: {fileID: 326201714}
   - component: {fileID: 326201712}
+  - component: {fileID: 326201713}
   m_Layer: 10
   m_Name: Tool Cursor
   m_TagString: Cursor
@@ -1810,6 +1811,20 @@ MonoBehaviour:
   player: {fileID: 1062241006}
   cam: {fileID: 1504253084}
   snapToTiles: 1
+--- !u!114 &326201713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 326201710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 908dfa0286e2e4345b8937071bfcfe31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  strength: 0.1
+  speed: 7
 --- !u!212 &326201714
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1850,7 +1865,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 765154081351103428, guid: 8bc77552296934bc0aae933304cedd3f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0f8557a362a1f4ff39a1b41ca64ec05b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
@@ -1873,7 +1888,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ff44c6b74cd4f51ae2d72ab88686b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactableColor: {r: 0.6637148, g: 0.8962264, b: 0.67861944, a: 0.7372549}
+  interactableColor: {r: 0.7183036, g: 1, b: 0.6650944, a: 0.42745098}
   minDistance: 1
   coolDown: 0
 --- !u!1001 &333854826
