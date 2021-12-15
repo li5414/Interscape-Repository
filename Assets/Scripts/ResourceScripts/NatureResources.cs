@@ -6,7 +6,7 @@ public static class NatureResources
 {
 	// Trees
 	public static GameObject treeBirch = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/TreeBirch");
-	public static GameObject treeBlue = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/Tree_blue");
+	public static GameObject treeBlue = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/TreeBlue");
 	public static GameObject treeFig = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/TreeFig");
 	public static GameObject treeForest1 = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/TreeForest1");
 	public static GameObject treeForest2 = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/TreeForest2");
