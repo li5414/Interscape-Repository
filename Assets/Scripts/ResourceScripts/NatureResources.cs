@@ -4,27 +4,26 @@ using UnityEngine;
 
 public static class NatureResources
 {
-	// trees
-	public static GameObject tree_birch = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/tree_birch");
-	public static GameObject tree_blue = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/tree_blue");
-	public static GameObject tree_fig = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/tree_fig");
-	public static GameObject tree_forest1 = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/tree_forest1");
-	public static GameObject tree_forest2 = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/tree_forest2");
-	public static GameObject tree_joshua = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/tree_joshua");
-	public static GameObject tree_oak = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/tree_oak");
-	public static GameObject tree_palm = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/tree_palm");
-	public static GameObject tree_pine = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/tree_pine");
-	public static GameObject tree_pine_small = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/tree_pine_small");
-	public static GameObject tree_rainforest1 = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/tree_rainforest1");
-	public static GameObject tree_red = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/tree_red");
-	public static GameObject tree_white = Resources.Load<GameObject>("Sprites/Map/TreeFabs/tree_white");
-	public static GameObject tree_yellow = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/tree_yellow");
-	public static GameObject tree_dead1 = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/tree_dead1");
+	// Trees
+	public static GameObject treeBirch = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/TreeBirch");
+	public static GameObject treeBlue = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/Tree_blue");
+	public static GameObject treeFig = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/TreeFig");
+	public static GameObject treeForest1 = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/TreeForest1");
+	public static GameObject treeForest2 = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/TreeForest2");
+	public static GameObject treeJoshua = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/TreeJoshua");
+	public static GameObject treeOak = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/TreeOak");
+	public static GameObject treePalm = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/TreePalm");
+	public static GameObject treePine = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/TreePine");
+	public static GameObject treePineSmall = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/TreePineSmall");
+	public static GameObject treeRainforest1 = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/TreeRainforest1");
+	public static GameObject treeRed = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/TreeRed");
+	public static GameObject treeWhite = Resources.Load<GameObject>("Sprites/Map/TreeFabs/TreeWhite");
+	public static GameObject treeYellow = Resources.Load<GameObject> ("Sprites/Map/TreeFabs/TreeYellow");
 
 	// used only for null checking - can delete later
-	public static GameObject[] objects = { tree_birch, tree_blue, tree_fig, tree_forest1, tree_forest2,
-  tree_joshua, tree_oak, tree_palm, tree_pine, tree_pine_small, tree_rainforest1, tree_red, tree_white,
-  tree_yellow, tree_dead1};
+	public static GameObject[] objects = { treeBirch, treeBlue, treeFig, treeForest1, treeForest2,
+  treeJoshua, treeOak, treePalm, treePine, treePineSmall, treeRainforest1, treeRed, treeWhite,
+  treeYellow};
 
 	//"shrubs"
 	public static GameObject wheat = Resources.Load<GameObject> ("Sprites/Map/ShrubFabs/Shrub7");

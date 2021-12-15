@@ -4,54 +4,54 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: 7602717747488481139
-    second: Trees 2_0
+    second: Trees1
   - first:
       213: -5462845467326544615
-    second: Trees 2_1
+    second: Trees2
   - first:
       213: -2397554247928331954
-    second: Trees 2_2
+    second: Soil1
   - first:
       213: 2031438057706263098
-    second: Trees 2_3
+    second: Trees3
   - first:
       213: 3789483331192258984
-    second: Trees 2_4
+    second: Trees4
   - first:
       213: 7705995215578723301
-    second: Trees 2_5
+    second: Trees5
   - first:
       213: 771994136352261450
-    second: Trees 2_6
+    second: Trees6
   - first:
       213: -5072791427635167776
-    second: Trees 2_7
+    second: Soil2
   - first:
       213: -1274070116595197336
-    second: Trees 2_8
+    second: Trees7
   - first:
       213: 7483303184018009834
-    second: Trees 2_9
+    second: Trees8
   - first:
       213: 209028519139323809
-    second: Trees 2_10
+    second: Trees9
   - first:
       213: 4443839567042727630
-    second: Trees 2_11
+    second: Trees10
   - first:
       213: -1864451331969976458
-    second: Trees 2_12
+    second: Trees11
   - first:
       213: -3079965140050163646
-    second: Trees 2_13
+    second: Trees12
   - first:
       213: 434848655846427193
-    second: Trees 2_14
+    second: Trees13
   - first:
       213: -850440191698018787
-    second: Trees 2_15
+    second: Trees14
   externalObjects: {}
-  serializedVersion: 10
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -71,6 +71,7 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -80,8 +81,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -102,11 +103,15 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
   platformSettings:
-  - serializedVersion: 2
+  - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 1024
     resizeAlgorithm: 0
@@ -117,7 +122,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 1024
     resizeAlgorithm: 0
@@ -128,11 +134,12 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Trees 2_0
+      name: Trees1
       rect:
         serializedVersion: 2
         x: 7
@@ -140,7 +147,7 @@ TextureImporter:
         width: 188
         height: 153
       alignment: 9
-      pivot: {x: 0.5078421, y: 0.066377126}
+      pivot: {x: 0.5053191, y: 0.045751635}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -153,7 +160,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Trees 2_1
+      name: Trees2
       rect:
         serializedVersion: 2
         x: 205
@@ -161,7 +168,7 @@ TextureImporter:
         width: 88
         height: 130
       alignment: 9
-      pivot: {x: 0.5067052, y: 0.03728638}
+      pivot: {x: 0.5113636, y: 0.023076924}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -174,7 +181,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Trees 2_2
+      name: Soil1
       rect:
         serializedVersion: 2
         x: 309
@@ -195,7 +202,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Trees 2_3
+      name: Trees3
       rect:
         serializedVersion: 2
         x: 375
@@ -203,7 +210,7 @@ TextureImporter:
         width: 84
         height: 173
       alignment: 9
-      pivot: {x: 0.514049, y: 0.029330743}
+      pivot: {x: 0.5119048, y: 0.01734104}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -216,7 +223,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Trees 2_4
+      name: Trees4
       rect:
         serializedVersion: 2
         x: 496
@@ -224,7 +231,7 @@ TextureImporter:
         width: 53
         height: 139
       alignment: 9
-      pivot: {x: 0.5279242, y: 0.034541506}
+      pivot: {x: 0.5283019, y: 0.021582734}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -237,15 +244,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Trees 2_5
+      name: Trees5
       rect:
         serializedVersion: 2
         x: 564
-        y: 500
+        y: 501
         width: 55
         height: 124
       alignment: 9
-      pivot: {x: 0.4883567, y: 0.024884379}
+      pivot: {x: 0.47272727, y: 0.016129032}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -258,7 +265,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Trees 2_6
+      name: Trees6
       rect:
         serializedVersion: 2
         x: 645
@@ -266,7 +273,7 @@ TextureImporter:
         width: 75
         height: 135
       alignment: 9
-      pivot: {x: 0.5132625, y: 0.024760155}
+      pivot: {x: 0.50666666, y: 0.02222222}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -279,7 +286,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Trees 2_7
+      name: Soil2
       rect:
         serializedVersion: 2
         x: 300
@@ -300,7 +307,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Trees 2_8
+      name: Trees7
       rect:
         serializedVersion: 2
         x: 20
@@ -308,7 +315,7 @@ TextureImporter:
         width: 163
         height: 110
       alignment: 9
-      pivot: {x: 0.44827318, y: 0.057134178}
+      pivot: {x: 0.44785276, y: 0.036363635}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -321,7 +328,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Trees 2_9
+      name: Trees8
       rect:
         serializedVersion: 2
         x: 202
@@ -329,7 +336,7 @@ TextureImporter:
         width: 163
         height: 120
       alignment: 9
-      pivot: {x: 0.52488196, y: 0.071890764}
+      pivot: {x: 0.5214724, y: 0.033333335}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -342,7 +349,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Trees 2_10
+      name: Trees9
       rect:
         serializedVersion: 2
         x: 436
@@ -350,7 +357,7 @@ TextureImporter:
         width: 78
         height: 121
       alignment: 9
-      pivot: {x: 0.4854439, y: 0.02613944}
+      pivot: {x: 0.4871795, y: 0.016528925}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -363,7 +370,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Trees 2_11
+      name: Trees10
       rect:
         serializedVersion: 2
         x: 542
@@ -371,7 +378,7 @@ TextureImporter:
         width: 85
         height: 142
       alignment: 9
-      pivot: {x: 0.57346696, y: 0.04424533}
+      pivot: {x: 0.5647059, y: 0.028169014}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -384,7 +391,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Trees 2_12
+      name: Trees11
       rect:
         serializedVersion: 2
         x: 659
@@ -392,7 +399,7 @@ TextureImporter:
         width: 72
         height: 113
       alignment: 9
-      pivot: {x: 0.5236537, y: 0.03289903}
+      pivot: {x: 0.5138889, y: 0.026548672}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -405,7 +412,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Trees 2_13
+      name: Trees12
       rect:
         serializedVersion: 2
         x: 46
@@ -413,7 +420,7 @@ TextureImporter:
         width: 121
         height: 150
       alignment: 9
-      pivot: {x: 0.50764054, y: 0.08705933}
+      pivot: {x: 0.5041322, y: 0.060000002}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -426,7 +433,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Trees 2_14
+      name: Trees13
       rect:
         serializedVersion: 2
         x: 199
@@ -434,7 +441,7 @@ TextureImporter:
         width: 82
         height: 153
       alignment: 9
-      pivot: {x: 0.4661774, y: 0.04681666}
+      pivot: {x: 0.4634146, y: 0.03267974}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -447,7 +454,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Trees 2_15
+      name: Trees14
       rect:
         serializedVersion: 2
         x: 304
@@ -455,7 +462,7 @@ TextureImporter:
         width: 223
         height: 228
       alignment: 9
-      pivot: {x: 0.47436976, y: 0.07885585}
+      pivot: {x: 0.47533634, y: 0.05263158}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
