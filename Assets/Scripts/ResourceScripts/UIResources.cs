@@ -4,7 +4,5 @@ using UnityEngine;
 
 public static class UIResources
 {
-
-	public static Sprite nullItemImage = Resources.Load<Sprite> ("Sprites/UI/NullItemImage");
-	
+	public static Sprite nullItemImage = Resources.Load<Sprite> ("UI/NullItemImage");
 }

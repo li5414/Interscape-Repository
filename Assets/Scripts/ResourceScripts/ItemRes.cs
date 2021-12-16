@@ -7,7 +7,7 @@ public class ItemRes : MonoBehaviour
 {
 	private static Sprite [] sprites = Resources.LoadAll<Sprite> ("Items/ItemsVer1");
 	private static Sprite [] cobbleWallSprites = Resources.LoadAll<Sprite> ("Items/CobblestoneWallIcons");
-	private static RuleTile lightCobbleWall = Resources.Load<RuleTile>("Sprites/Buildings/CobblestoneWallRuleTileWithGameObject");
+	private static RuleTile lightCobbleWall = Resources.Load<RuleTile>("Buildings/CobblestoneWallRuleTileWithGameObject");
 	private static float defDur = 1;
 	public static Dictionary<string, Item> ItemDict = new Dictionary<string, Item> {
 				{ "Axe", new Tool ("Axe", sprites[2], "Good for killing trees (and anything really) \nbut quite heavy", 5, defDur, DamageType.Woodcutting, 300, 10, 0.5f)},

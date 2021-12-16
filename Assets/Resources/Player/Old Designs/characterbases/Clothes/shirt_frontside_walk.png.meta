@@ -1,0 +1,324 @@
+fileFormatVersion: 2
+guid: d8d0e9b0fb90f4ad98dae19e1d0bc7e2
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6319591805848204000
+    second: shirt_frontside_walk_0
+  - first:
+      213: 6412880896156132036
+    second: shirt_frontside_walk_1
+  - first:
+      213: 6291068662058535064
+    second: shirt_frontside_walk_2
+  - first:
+      213: 728023062875715770
+    second: shirt_frontside_walk_3
+  - first:
+      213: -7281060149267498802
+    second: shirt_frontside_walk_4
+  - first:
+      213: 4809691709854931737
+    second: shirt_frontside_walk_5
+  - first:
+      213: 6523714470411332556
+    second: shirt_frontside_walk_6
+  - first:
+      213: 7513828586726586044
+    second: shirt_frontside_walk_7
+  - first:
+      213: -4059418166571061058
+    second: shirt_frontside_walk_8
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: shirt_frontside_walk_0
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 15
+        width: 6
+        height: 12
+      alignment: 9
+      pivot: {x: 0.5, y: -1.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5262d4417fe24cb3afee96420910f11
+      internalID: 6319591805848204000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shirt_frontside_walk_1
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 15
+        width: 6
+        height: 12
+      alignment: 9
+      pivot: {x: 0.5, y: -1.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a87756c7a9284419e82f71677e4f80bc
+      internalID: 6412880896156132036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shirt_frontside_walk_2
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 15
+        width: 6
+        height: 12
+      alignment: 9
+      pivot: {x: 0.5, y: -1.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0382e5f8d1b5f4ad88874aa5b5961f09
+      internalID: 6291068662058535064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shirt_frontside_walk_3
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 15
+        width: 8
+        height: 12
+      alignment: 9
+      pivot: {x: 0.5, y: -1.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a9c69c42bd7c4556ad891b5b95b8232
+      internalID: 728023062875715770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shirt_frontside_walk_4
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 15
+        width: 8
+        height: 12
+      alignment: 9
+      pivot: {x: 0.5, y: -1.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a52da0e1390e48d29544fbb18ce814e
+      internalID: -7281060149267498802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shirt_frontside_walk_5
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 15
+        width: 8
+        height: 12
+      alignment: 9
+      pivot: {x: 0.5, y: -1.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32bcbc12fa2f345b5aea906092d9fc42
+      internalID: 4809691709854931737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shirt_frontside_walk_6
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 15
+        width: 6
+        height: 12
+      alignment: 9
+      pivot: {x: 0.5, y: -1.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c27e6db40f63d49b3b4d1c95fe01f20d
+      internalID: 6523714470411332556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shirt_frontside_walk_7
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 15
+        width: 6
+        height: 12
+      alignment: 9
+      pivot: {x: 0.5, y: -1.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7671bb03de81d4bac82d2fb184a506ca
+      internalID: 7513828586726586044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shirt_frontside_walk_8
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 3
+        width: 6
+        height: 12
+      alignment: 9
+      pivot: {x: 0.5, y: -1.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef91d7315bf2f47808cf797a3550eea5
+      internalID: -4059418166571061058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 7557e0e7a109c477fa615f658ee27edf
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
