@@ -47,5 +47,6 @@ public class DoorSlide : MonoBehaviour
         yield return new WaitForSeconds(doorSlideCloseClip.length);
         isMoving = false;
         isOpen = false;
+        this.transform.position = new Vector3(0, 0, 0); // reset position
     }
 }
