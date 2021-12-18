@@ -35,14 +35,14 @@ public class DoorSlide : MonoBehaviour
     }
 
     private IEnumerator doorSlideOpen() {
-        anim.Play("DoorSlideOpen");
+        anim.Play(doorSlideOpenClip.name);
         isMoving = true;
         yield return new WaitForSeconds(doorSlideOpenClip.length);
         isMoving = false;
         isOpen = true;
     }
     private IEnumerator doorSlideClose() {
-        anim.Play("DoorSlideClose");
+        anim.Play(doorSlideCloseClip.name);
         isMoving = true;
         yield return new WaitForSeconds(doorSlideCloseClip.length);
         isMoving = false;

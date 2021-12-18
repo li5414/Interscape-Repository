@@ -20,6 +20,9 @@ TextureImporter:
   - first:
       213: 6792862227579099011
     second: WoodenDoors_5
+  - first:
+      213: 5641390600356022648
+    second: WoodenDoors_6
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -242,6 +245,27 @@ TextureImporter:
       bones: []
       spriteID: 3875503b438154e50800000000000000
       internalID: 6792862227579099011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WoodenDoors_6
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 134
+        width: 16
+        height: 48
+      alignment: 9
+      pivot: {x: 0.5, y: 0.8333334}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 879c2759cde3a4e40800000000000000
+      internalID: 5641390600356022648
       vertices: []
       indices: 
       edges: []
