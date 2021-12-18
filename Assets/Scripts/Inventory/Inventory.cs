@@ -38,6 +38,8 @@ public class Inventory : MonoBehaviour
 		AddItem (new Tool ("Sword", 50));
 		AddItem (new Tool ("Stone axe", 75));
 		AddItem (new BuildableItem ("Light Cobblestone Wall"));
+		AddItem (new BuildableItem ("Cobblestone Wall"));
+
 
 		gameObject.SetActive (false);
 	}

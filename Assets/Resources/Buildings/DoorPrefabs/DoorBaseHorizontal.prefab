@@ -238,6 +238,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd8a3563ccfa74135a3bb8e728e24b9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceToOpen: 1
+  distanceToOpen: 1.3
   doorSlideOpenClip: {fileID: 7400000, guid: eeea1f8e0a783435f9da3ac8772adc7b, type: 2}
   doorSlideCloseClip: {fileID: 7400000, guid: aea1a07797a9f4cf28ca4d1661c3194f, type: 2}

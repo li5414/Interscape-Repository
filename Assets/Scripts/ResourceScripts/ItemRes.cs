@@ -7,7 +7,10 @@ public class ItemRes : MonoBehaviour
 {
 	private static Sprite [] sprites = Resources.LoadAll<Sprite> ("Items/ItemsVer1");
 	private static Sprite [] cobbleWallSprites = Resources.LoadAll<Sprite> ("Items/CobblestoneWallIcons");
-	private static RuleTile lightCobbleWall = Resources.Load<RuleTile>("Buildings/CobblestoneWallRuleTileWithGameObject");
+	private static RuleTile lightCobbleWall = Resources.Load<RuleTile>("Buildings/LightCobblestoneWall");
+	private static RuleTile medCobbleWall = Resources.Load<RuleTile>("Buildings/CobblestoneWall");
+	private static RuleTile darkCobbleWall = Resources.Load<RuleTile>("Buildings/DarkCobblestoneWall");
+
 	private static float defDur = 1;
 	public static Dictionary<string, Item> ItemDict = new Dictionary<string, Item> {
 				{ "Axe", new Tool ("Axe", sprites[2], "Good for killing trees (and anything really) \nbut quite heavy", 5, defDur, DamageType.Woodcutting, 300, 10, 0.5f)},
@@ -18,8 +21,8 @@ public class ItemRes : MonoBehaviour
 				{ "Stone axe", new Tool ("Stone axe", sprites[5], "A primitive axe", 3, defDur, DamageType.Woodcutting, 100, 5, 0.5f)},
 				{ "Sword", new Tool ("Sword", sprites[0], "Useful for murder", 2, defDur, DamageType.Slicing, 300, 10, 0.5f)},
 				{ "Light Cobblestone Wall", new BuildableItem("Light Cobblestone Wall", cobbleWallSprites[0], "A wall that looks like it's about to fall apart.", 6, lightCobbleWall)},
-				{ "Cobblestone Wall", new BuildableItem("Cobblestone Wall", cobbleWallSprites[1], "A wall that looks like it's about to fall apart.", 6, lightCobbleWall)},
-				{ "Dark Cobblestone Wall", new BuildableItem("Dark Cobblestone Wall", cobbleWallSprites[2], "A wall that looks like it's about to fall apart.", 6, lightCobbleWall)}
+				{ "Cobblestone Wall", new BuildableItem("Cobblestone Wall", cobbleWallSprites[1], "A wall that looks like it's about to fall apart.", 6, medCobbleWall)},
+				{ "Dark Cobblestone Wall", new BuildableItem("Dark Cobblestone Wall", cobbleWallSprites[2], "A wall that looks like it's about to fall apart.", 6, darkCobbleWall)},
 	};
 
 	public static Item MakeItemCopy(string itemName) {
