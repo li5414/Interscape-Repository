@@ -10,7 +10,12 @@ PrefabInstance:
     - target: {fileID: 2650253887740890676, guid: 9d0fc844bd10c43a5a96e989c2a76dfa,
         type: 3}
       propertyPath: m_Name
-      value: CobblestoneWall_7
+      value: DarkCobblestoneWall_7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5963928787278430998, guid: 9d0fc844bd10c43a5a96e989c2a76dfa,
+        type: 3}
+      propertyPath: dropItemName
+      value: Dark Cobblestone Wall
       objectReference: {fileID: 0}
     - target: {fileID: 7031149176213987210, guid: 9d0fc844bd10c43a5a96e989c2a76dfa,
         type: 3}

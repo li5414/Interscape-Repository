@@ -12,8 +12,9 @@ public class RuleTileSibling : RuleTile<RuleTileSibling.Neighbor> {
     public override bool RuleMatch(int neighbor, TileBase tile) {
         RuleTileSibling myTile = tile as RuleTileSibling;
         switch (neighbor) {
-            case Neighbor.Sibling: 
-                Debug.Log("hi");
+            case Neighbor.Sibling:
+                if (myTile && (myTile.siblingGroup == 1 || siblingGroup == 1)) // group 1 is special, do the opposite of the other groups (used for doors)
+                    return myTile && myTile.siblingGroup != siblingGroup;
                 return myTile && myTile.siblingGroup == siblingGroup;
         }
         return base.RuleMatch(neighbor, tile);
