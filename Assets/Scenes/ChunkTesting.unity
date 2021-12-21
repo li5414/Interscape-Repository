@@ -2178,10 +2178,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Snail dude (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1709538462931289883, guid: 927a432bfe99a4a5e9beaa2e0834ab0a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1709538462931289886, guid: 927a432bfe99a4a5e9beaa2e0834ab0a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1709538462931289886, guid: 927a432bfe99a4a5e9beaa2e0834ab0a,
         type: 3}
@@ -15510,7 +15515,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1382416483
 PrefabInstance:
@@ -20082,6 +20087,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Snail dude
+      objectReference: {fileID: 0}
+    - target: {fileID: 1709538462931289883, guid: 927a432bfe99a4a5e9beaa2e0834ab0a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1709538462931289886, guid: 927a432bfe99a4a5e9beaa2e0834ab0a,
         type: 3}

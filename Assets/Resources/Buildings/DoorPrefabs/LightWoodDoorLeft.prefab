@@ -70,7 +70,7 @@ PrefabInstance:
     - target: {fileID: 1287180071786422694, guid: c8c00e809ba65406a960740b7c4f997c,
         type: 3}
       propertyPath: m_Name
-      value: LightWoodenDoorLeft
+      value: LightWoodDoorLeft
       objectReference: {fileID: 0}
     - target: {fileID: 1287180071980952930, guid: c8c00e809ba65406a960740b7c4f997c,
         type: 3}
@@ -91,6 +91,16 @@ PrefabInstance:
     - target: {fileID: 1287180071980952943, guid: c8c00e809ba65406a960740b7c4f997c,
         type: 3}
       propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1983791102107385442, guid: c8c00e809ba65406a960740b7c4f997c,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1983791102107385442, guid: c8c00e809ba65406a960740b7c4f997c,
+        type: 3}
+      propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

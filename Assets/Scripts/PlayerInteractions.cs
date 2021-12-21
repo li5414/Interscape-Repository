@@ -46,6 +46,13 @@ public class PlayerInteractions : MonoBehaviour
 				break;
 			}
 		}
+		// try to get an object that has a harvestable component, if possible
+		for (int i = 0; i < hits.Length; i++) {
+			if (hits[i].transform != null && hits[i].transform.gameObject.GetComponent<Harvestable> () != null) {
+				hit = hits[i];
+				break;
+			}
+		}
 
 		// convert hit to gameobject
 		GameObject hoveringOver = null;
