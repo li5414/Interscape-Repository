@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class Harvestable : MonoBehaviour
+public class DestroyableObj : MonoBehaviour
 {
 	private Animator anim;
 	public AnimationClip clip;
@@ -28,13 +28,7 @@ public class Harvestable : MonoBehaviour
 		}
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-	public void harvest(Tool tool)
+	public void damage(Tool tool)
 	{
 		health -= tool.getDamage ();
 		

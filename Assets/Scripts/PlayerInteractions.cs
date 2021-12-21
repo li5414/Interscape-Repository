@@ -46,9 +46,9 @@ public class PlayerInteractions : MonoBehaviour
 				break;
 			}
 		}
-		// try to get an object that has a harvestable component, if possible
+		// try to get an object that has a Destroyable component, if possible
 		for (int i = 0; i < hits.Length; i++) {
-			if (hits[i].transform != null && hits[i].transform.gameObject.GetComponent<Harvestable> () != null) {
+			if (hits[i].transform != null && hits[i].transform.gameObject.GetComponent<DestroyableObj> () != null) {
 				hit = hits[i];
 				break;
 			}
@@ -65,12 +65,12 @@ public class PlayerInteractions : MonoBehaviour
 		// if left click happens
 		if (Input.GetMouseButton (0)) {
 			if (selectedItem is Tool && hoveringOver != null) {
-				Harvestable hoveringOverComponent = hoveringOver.GetComponent<Harvestable> ();
-				if (hoveringOverComponent != null) {
+				DestroyableObj destroyableObj = hoveringOver.GetComponent<DestroyableObj> ();
+				if (destroyableObj != null) {
 
 					// if damage types match
-					if (hoveringOverComponent.getDamageType() == ((Tool)selectedItem).getDamageType ()) {
-						hoveringOverComponent.harvest ((Tool)selectedItem);
+					if (destroyableObj.getDamageType() == ((Tool)selectedItem).getDamageType ()) {
+						destroyableObj.damage ((Tool)selectedItem);
 						((Tool)selectedItem).decreaseDurability (inventory);
 						coolDown = ((Tool)selectedItem).coolDown;
 					}
@@ -97,36 +97,11 @@ public class PlayerInteractions : MonoBehaviour
 			return;
 		}
 		if (selectedItem is Tool && hoveringOver != null) {
-			Harvestable hoveringOverComponent = hoveringOver.GetComponent<Harvestable> ();
-			if (hoveringOverComponent != null) {
-				if (hoveringOverComponent.getDamageType() == ((Tool)selectedItem).getDamageType ())
+			DestroyableObj destroyableObj = hoveringOver.GetComponent<DestroyableObj> ();
+			if (destroyableObj != null) {
+				if (destroyableObj.getDamageType() == ((Tool)selectedItem).getDamageType ())
 					image.color = interactableColor;
 			}
 		}
 	}
-
-	// void OnTriggerStay2D (Collider2D other)
-	// {
-		
-	// 	image.color = defaultColor;
-
-	// 	Harvestable obj = other.gameObject.GetComponent<Harvestable> ();
-	// 	Item item = inventory.getSelectedItem ();
-	// 	if (obj && item != null) {
-	// 		if (item is Tool && ((Tool)item).getDamageType () == obj.getDamageType ()) {
-	// 			image.color = interactableColor;
-
-	// 			if (Input.GetMouseButton (0) && coolDown <= 0) {
-	// 				obj.harvest ((Tool)item);
-	// 				((Tool)item).decreaseDurability (inventory);
-	// 				coolDown = ((Tool)item).coolDown;
-	// 			}
-	// 		}
-	// 	}
-	// }
-
-	// void OnTriggerExit2D (Collider2D other)
-	// {
-	// 	image.color = defaultColor;
-	// }
 }
