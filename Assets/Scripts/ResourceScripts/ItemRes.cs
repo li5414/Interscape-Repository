@@ -11,6 +11,10 @@ public class ItemRes : MonoBehaviour
 	private static RuleTile medCobbleWall = Resources.Load<RuleTile>("Buildings/CobblestoneWall");
 	private static RuleTile darkCobbleWall = Resources.Load<RuleTile>("Buildings/DarkCobblestoneWall");
 
+	private static Sprite [] woodDoorSprites = Resources.LoadAll<Sprite> ("Items/WoodenDoorIcons");
+	private static RuleTile lightWoodDoor = Resources.Load<RuleTile>("Buildings/DoorPrefabs/LightWoodDoor");
+
+
 	private static float defDur = 1;
 	public static Dictionary<string, Item> ItemDict = new Dictionary<string, Item> {
 				{ "Axe", new Tool ("Axe", sprites[2], "Good for killing trees (and anything really) \nbut quite heavy", 5, defDur, DamageType.Woodcutting, 300, 10, 0.5f)},
@@ -23,6 +27,7 @@ public class ItemRes : MonoBehaviour
 				{ "Light Cobblestone Wall", new BuildableItem("Light Cobblestone Wall", cobbleWallSprites[0], "A wall that looks like it's about to fall apart.", 6, lightCobbleWall)},
 				{ "Cobblestone Wall", new BuildableItem("Cobblestone Wall", cobbleWallSprites[1], "A wall that looks like it's about to fall apart.", 6, medCobbleWall)},
 				{ "Dark Cobblestone Wall", new BuildableItem("Dark Cobblestone Wall", cobbleWallSprites[2], "A wall that looks like it's about to fall apart.", 6, darkCobbleWall)},
+				{ "Light Wood Door", new BuildableItem("Light Wood Door", woodDoorSprites[0], "A fine choice of door.", 3, lightWoodDoor)},
 	};
 
 	public static Item MakeItemCopy(string itemName) {

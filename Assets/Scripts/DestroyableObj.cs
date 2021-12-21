@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 public class DestroyableObj : MonoBehaviour
 {
 	private Animator anim;
-	public AnimationClip clip;
+	public AnimationClip damageClip;
 	[SerializeField] float health = 100;
 	[SerializeField] DamageType damageType;
 	public string dropItemName;
@@ -32,7 +32,7 @@ public class DestroyableObj : MonoBehaviour
 	{
 		health -= tool.getDamage ();
 		
-		//Debug.Log ("Hit");
+		// check health reaches zero
 		if (health < 0) {
 			if (deathClip != null) {
 				StartCoroutine (Die (deathClip.length));
@@ -43,7 +43,9 @@ public class DestroyableObj : MonoBehaviour
 			return;
 		}
 
-		anim.Play (clip.name);
+		// else play damage animation
+		if (damageClip != null)
+			anim.Play (damageClip.name);
 	}
 
 	public DamageType getDamageType()

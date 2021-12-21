@@ -110,10 +110,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b9582900f3a40ad89a7f7651a0c786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clip: {fileID: 0}
+  damageClip: {fileID: 0}
   health: 20
   damageType: 0
-  dropItemName: Branch
+  dropItemName: Light Wood Door
   deathClip: {fileID: 0}
   parentObj: {fileID: 0}
   isUsingRuleTiles: 1
