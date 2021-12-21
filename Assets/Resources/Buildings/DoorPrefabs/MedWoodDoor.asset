@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cf298a958fc949409e52f8129426eaa, type: 3}
-  m_Name: LightWoodDoor
+  m_Name: MedWoodDoor
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: -3639637756968632916, guid: 95baa8d28d44f454c8db157ad9559d61,
+  m_DefaultSprite: {fileID: 457358823187939390, guid: 95baa8d28d44f454c8db157ad9559d61,
     type: 3}
-  m_DefaultGameObject: {fileID: 1574830580593760505, guid: a96edfd0963a84b3a995eec0c319857c,
+  m_DefaultGameObject: {fileID: 919936298342030540, guid: f772cca08757e45e8849044cd15b63a2,
     type: 3}
   m_DefaultColliderType: 0
   m_TilingRules:
   - m_Id: 2
     m_Sprites:
     - {fileID: 0}
-    m_GameObject: {fileID: 1574830580593760505, guid: a96edfd0963a84b3a995eec0c319857c,
+    m_GameObject: {fileID: 919936298342030540, guid: f772cca08757e45e8849044cd15b63a2,
       type: 3}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1
@@ -36,7 +36,7 @@ MonoBehaviour:
   - m_Id: 1
     m_Sprites:
     - {fileID: 0}
-    m_GameObject: {fileID: 6081128288568687123, guid: 326d1100d61b546469723478bb97da78,
+    m_GameObject: {fileID: 1982390191327285295, guid: b5d15329f83c94e9a92fb213ad634cea,
       type: 3}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1
@@ -51,7 +51,7 @@ MonoBehaviour:
   - m_Id: 0
     m_Sprites:
     - {fileID: 0}
-    m_GameObject: {fileID: 3096376621947115327, guid: f91d87dd766d546b6975e50b989fa5ba,
+    m_GameObject: {fileID: 7057029635158915327, guid: 226f97dac2f84434baa89ebfdae70b3d,
       type: 3}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1
@@ -66,7 +66,7 @@ MonoBehaviour:
   - m_Id: 3
     m_Sprites:
     - {fileID: 0}
-    m_GameObject: {fileID: 2368488226553459915, guid: 02088990ea344404dba2be5ac29a8fd0,
+    m_GameObject: {fileID: 7556366437687307010, guid: a98570657636e474885db9896a903872,
       type: 3}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1
@@ -81,7 +81,7 @@ MonoBehaviour:
   - m_Id: 4
     m_Sprites:
     - {fileID: 0}
-    m_GameObject: {fileID: 1574830580593760505, guid: a96edfd0963a84b3a995eec0c319857c,
+    m_GameObject: {fileID: 919936298342030540, guid: f772cca08757e45e8849044cd15b63a2,
       type: 3}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1

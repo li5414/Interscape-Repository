@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b9582900f3a40ad89a7f7651a0c786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clip: {fileID: 7400000, guid: 3ea7daff686994a8fa6a948e976374d4, type: 2}
+  damageClip: {fileID: 7400000, guid: 3ea7daff686994a8fa6a948e976374d4, type: 2}
   health: 20
   damageType: 2
   dropItemName: 
