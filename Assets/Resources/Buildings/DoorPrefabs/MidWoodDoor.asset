@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cf298a958fc949409e52f8129426eaa, type: 3}
-  m_Name: MedWoodDoor
+  m_Name: MidWoodDoor
   m_EditorClassIdentifier: 
   m_DefaultSprite: {fileID: 457358823187939390, guid: 95baa8d28d44f454c8db157ad9559d61,
     type: 3}

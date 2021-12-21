@@ -13,6 +13,10 @@ public class ItemRes : MonoBehaviour
 
 	private static Sprite [] woodDoorSprites = Resources.LoadAll<Sprite> ("Items/WoodenDoorIcons");
 	private static RuleTile lightWoodDoor = Resources.Load<RuleTile>("Buildings/DoorPrefabs/LightWoodDoor");
+	private static RuleTile midWoodDoor = Resources.Load<RuleTile>("Buildings/DoorPrefabs/MidWoodDoor");
+	private static RuleTile darkWoodDoor = Resources.Load<RuleTile>("Buildings/DoorPrefabs/DarkWoodDoor");
+
+
 
 
 	private static float defDur = 1;
@@ -28,6 +32,9 @@ public class ItemRes : MonoBehaviour
 				{ "Cobblestone Wall", new BuildableItem("Cobblestone Wall", cobbleWallSprites[1], "A wall that looks like it's about to fall apart.", 6, medCobbleWall)},
 				{ "Dark Cobblestone Wall", new BuildableItem("Dark Cobblestone Wall", cobbleWallSprites[2], "A wall that looks like it's about to fall apart.", 6, darkCobbleWall)},
 				{ "Light Wood Door", new BuildableItem("Light Wood Door", woodDoorSprites[0], "A fine choice of door.", 3, lightWoodDoor)},
+				{ "Mid Wood Door", new BuildableItem("Mid Wood Door", woodDoorSprites[1], "A fine choice of door.", 3, midWoodDoor)},
+				{ "Dark Wood Door", new BuildableItem("Dark Wood Door", woodDoorSprites[2], "A fine choice of door.", 3, darkWoodDoor)},
+
 	};
 
 	public static Item MakeItemCopy(string itemName) {
