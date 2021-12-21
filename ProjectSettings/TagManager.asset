@@ -12,6 +12,8 @@ TagManager:
   - PlayerHoldItem
   - Cursor
   - SystemPlaceholder
+  - RuleTilemap
+  - ItemDrop
   layers:
   - Default
   - TransparentFX

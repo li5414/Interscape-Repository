@@ -57,10 +57,10 @@ public class GreeneryGeneration : MonoBehaviour {
 				{
 					case BiomeType.Grassland:
 						treeChance = 0.005f;
-						tree1 = NatureResources.tree_red;
-						tree2 = NatureResources.tree_blue;
-						tree3 = NatureResources.tree_yellow;
-						tree4 = NatureResources.tree_oak;
+						tree1 = NatureResources.treeRed;
+						tree2 = NatureResources.treeBlue;
+						tree3 = NatureResources.treeYellow;
+						tree4 = NatureResources.treeOak;
 						shrub1 = NatureResources.cane;
 						shrub2 = NatureResources.wheat;
 						shrub3 = NatureResources.dead_bush;
@@ -68,10 +68,10 @@ public class GreeneryGeneration : MonoBehaviour {
 						break;
 					case BiomeType.Savanna:
 						treeChance = 0.02f;
-						tree1 = NatureResources.tree_red;
-						tree2 = NatureResources.tree_yellow;
-						tree3 = NatureResources.tree_joshua;
-						tree4 = NatureResources.tree_dead1;
+						tree1 = NatureResources.treeRed;
+						tree2 = NatureResources.treeYellow;
+						tree3 = NatureResources.treeJoshua;
+						tree4 = NatureResources.treeYellow;
 						shrub1 = NatureResources.dead_bush;
 						shrub2 = NatureResources.rock2;
 						shrub3 = NatureResources.rock1;
@@ -79,10 +79,10 @@ public class GreeneryGeneration : MonoBehaviour {
 						break;
 					case BiomeType.Taiga:
 						treeChance = 0.15f;
-						tree1 = NatureResources.tree_pine;
-						tree2 = NatureResources.tree_birch;
-						tree3 = NatureResources.tree_pine_small;
-						tree4 = NatureResources.tree_white;
+						tree1 = NatureResources.treePine;
+						tree2 = NatureResources.treeBirch;
+						tree3 = NatureResources.treePineSmall;
+						tree4 = NatureResources.treeWhite;
 						shrub1 = NatureResources.bush2;
 						shrub2 = NatureResources.stick;
 						shrub3 = NatureResources.rock2;
@@ -90,10 +90,10 @@ public class GreeneryGeneration : MonoBehaviour {
 						break;
 					case BiomeType.SeasonalForest:
 						treeChance = 0.15f;
-						tree1 = NatureResources.tree_forest1;
-						tree2 = NatureResources.tree_forest2;
-						tree3 = NatureResources.tree_pine;
-						tree4 = NatureResources.tree_oak;
+						tree1 = NatureResources.treeForest1;
+						tree2 = NatureResources.treeForest2;
+						tree3 = NatureResources.treePine;
+						tree4 = NatureResources.treeOak;
 						shrub1 = NatureResources.bush1;
 						shrub2 = NatureResources.bush2;
 						shrub3 = NatureResources.rock2;
@@ -101,10 +101,10 @@ public class GreeneryGeneration : MonoBehaviour {
 						break;
 					case BiomeType.Rainforest:
 						treeChance = 0.25f;
-						tree1 = NatureResources.tree_rainforest1;
-						tree2 = NatureResources.tree_palm;
-						tree3 = NatureResources.tree_forest1;
-						tree4 = NatureResources.tree_fig;
+						tree1 = NatureResources.treeRainforest1;
+						tree2 = NatureResources.treePalm;
+						tree3 = NatureResources.treeForest1;
+						tree4 = NatureResources.treeFig;
 						shrub1 = NatureResources.cane;
 						shrub2 = NatureResources.fern1;
 						shrub3 = null;

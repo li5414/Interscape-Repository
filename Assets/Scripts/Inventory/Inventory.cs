@@ -32,10 +32,14 @@ public class Inventory : MonoBehaviour
 		
 		count = refreshCount ();
 
+		// add items for debugging and testing
 		AddItem (new Tool ("Axe", 300));
 		AddItem (new Tool ("Pickaxe", 500));
 		AddItem (new Tool ("Sword", 50));
 		AddItem (new Tool ("Stone axe", 75));
+		AddItem (new BuildableItem ("Light Cobblestone Wall"));
+		AddItem (new BuildableItem ("Cobblestone Wall"));
+
 
 		gameObject.SetActive (false);
 	}
@@ -50,14 +54,6 @@ public class Inventory : MonoBehaviour
 		}
 		return c;
 	}
-
-	/*private void OnValidate ()
-	{
-		if (itemsParent != null)
-			itemSlots = itemsParent.GetComponentsInChildren<ItemSlot> ();
-
-		RefreshUI ();
-	}*/
 
 	private void RefreshUI ()
 	{

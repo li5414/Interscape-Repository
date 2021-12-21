@@ -424,7 +424,7 @@ public class BiomeCalculations : MonoBehaviour
 	void SavePNG (Texture2D tex)
 	{
 		byte [] bytes = tex.EncodeToPNG ();
-		var dirPath = Application.dataPath + "/Resources/Sprites/Map/";
+		var dirPath = Application.dataPath + "/Resources/ImageFolder";
 		if (!Directory.Exists (dirPath)) {
 			Directory.CreateDirectory (dirPath);
 		}
