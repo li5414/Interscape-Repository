@@ -7962,15 +7962,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTrans: {fileID: 1062241006}
-  tilemapObj: {fileID: 0}
-  grassTilemap: {fileID: 0}
-  grassTilemapChunked: {fileID: 0}
   sandTilemap: {fileID: 758701853}
-  waterTilemap: {fileID: 0}
-  waterTilemapChunked: {fileID: 0}
-  detailTilemap: {fileID: 0}
-  detailTilemapChunked: {fileID: 0}
-  viewerPosition: {x: 0, y: 0}
 --- !u!4 &580340809
 Transform:
   m_ObjectHideFlags: 0
@@ -8009,11 +8001,7 @@ MonoBehaviour:
     type: 3}
   chunkWaterParent: {fileID: 1244080742}
   playerTrans: {fileID: 1062241006}
-  tilemapObj: {fileID: 0}
-  grid: {fileID: 0}
   sandGrid: {fileID: 1950670177}
-  waterGrid: {fileID: 0}
-  detailGrid: {fileID: 0}
   octaveOffsets: []
 --- !u!114 &580340811
 MonoBehaviour:
