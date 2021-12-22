@@ -40,7 +40,7 @@ public class GreeneryGeneration : MonoBehaviour {
 		GameObject shrub3;
 		GameObject shrub4; // least common
 		bool isTreeBiome;
-		float randNum;
+		double randNum;
 		float treeChance = 0;
 
 		// for each tile choose whether to spawn shrub/tree/nothing
@@ -154,9 +154,9 @@ public class GreeneryGeneration : MonoBehaviour {
 				// spawn in trees
 				if (isTreeBiome == true) { // check nearby coordinates for trees ???
 					treeChance *= perlinNoise; // causes trees to generate in 'clusters'
-					randNum = Random.value;
+					randNum = worldSettings.PRNG.NextDouble();
 
-					if (Random.value < treeChance) {
+					if (worldSettings.PRNG.NextDouble() < treeChance) {
 						if (randNum < 0.01f) {
 							entities [x, y] = Instantiate (tree4, pos, Quaternion.identity); // rarer tree
 						} else if (randNum < 0.34f) {
@@ -171,8 +171,8 @@ public class GreeneryGeneration : MonoBehaviour {
 				}
 
 				// spawn in shrubs
-				randNum = Random.value;
-				if (Random.value < (0.15f * Mathf.InverseLerp (0.5f, 0.9f, perlinNoise)) && entities [x, y] == null) {
+				randNum = worldSettings.PRNG.NextDouble();
+				if (worldSettings.PRNG.NextDouble() < (0.15f * Mathf.InverseLerp (0.5f, 0.9f, perlinNoise)) && entities [x, y] == null) {
 					if (randNum < 0.05f && shrub4 != null) {
 						entities [x, y] = Instantiate (shrub4, pos, Quaternion.identity); // rarer tree
 						entities [x, y].transform.SetParent (parent.transform, true);
