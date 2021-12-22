@@ -9,17 +9,10 @@ public class ChunkManager : MonoBehaviour
 {
 	// references / objects
 	public Transform playerTrans;          // player reference
-	public Tilemap tilemapObj;             // used as empty tilemap to instantiate
-	public Tilemap grassTilemap;
-	public Tilemap grassTilemapChunked;
 	public Tilemap sandTilemap;
-	public Tilemap waterTilemap;
-	public Tilemap waterTilemapChunked;
-	public Tilemap detailTilemap;
-	public Tilemap detailTilemapChunked;
 
 	// coordinate variables
-	public Vector2 viewerPosition;
+	Vector2 viewerPosition;
 	Vector2Int currentChunkCoord;
 	Vector2Int lastChunkCoord;
 	

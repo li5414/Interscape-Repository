@@ -24,11 +24,7 @@ public class BiomeCalculations : MonoBehaviour
 
 	// references / objects
 	public Transform playerTrans;         // player reference
-	public Tilemap tilemapObj;            // used as empty tilemap to instantiate
-	public GameObject grid;
 	public GameObject sandGrid;
-	public GameObject waterGrid;
-	public GameObject detailGrid;
 
 	// perlin noise stuff
 	public Vector2[] octaveOffsets; // we want each octave to come from different 'location' in the perlin noise
