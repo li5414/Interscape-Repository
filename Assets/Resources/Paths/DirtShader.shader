@@ -5,6 +5,7 @@
         _MainTex ("Texture", 2D) = "white" {}
         _Color ("Main Color", Color) = (1,1,1,1)
         _NoiseTex ("Noise Texture", 2D) = "white" {}
+        _SpeckleTex ("Speckle Texture", 2D) = "white" {}
     }
 
     SubShader
@@ -37,6 +38,7 @@
             fixed4 _Color;
             sampler2D _MainTex;
             sampler2D _NoiseTex;
+            sampler2D _SpeckleTex;
 
             v2f vert(appdata_t v)
             {
@@ -68,9 +70,16 @@
                 pos.y = ((abs (IN.worldPosition.y) * 6.25) % 256)/256;
                 float noise = tex2D (_NoiseTex, pos);
 
-                c.g -= (1 - noise) / 2;
-                c.b -= (1 - noise) / 2;
-                c.r -= (1 - noise) / 3;
+                float2 pos2;
+                pos2.x = ((abs (IN.worldPosition.x) * 15) % 256)/256;
+                pos2.y = ((abs (IN.worldPosition.y) * 15) % 256)/256;
+                float speckle = tex2D (_SpeckleTex, pos2).a * 0.1;
+
+                c.g -= (1 - noise) / 2 + speckle;
+                c.b -= (1 - noise) / 2 + speckle;
+                c.r -= (1 - noise) / 3 + speckle;
+
+                 
                 return c;
             }
             ENDCG
