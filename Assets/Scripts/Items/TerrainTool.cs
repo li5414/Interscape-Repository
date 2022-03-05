@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 public class TerrainTool : Tool
 {
 	RuleTile tileReference;
-    Tilemap tilemapReference;
+    public Tilemap tilemapReference;
 
 	public TerrainTool (string itemName) : base (itemName)
 	{
