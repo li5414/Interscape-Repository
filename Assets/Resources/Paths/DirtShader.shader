@@ -77,11 +77,11 @@
                 float2 pos2;
                 pos2.x = ((abs (IN.worldPosition.x) * _SpeckleScale) % 256)/256;
                 pos2.y = ((abs (IN.worldPosition.y) * _SpeckleScale) % 256)/256;
-                float speckle = tex2D (_SpeckleTex, pos2).a * 0.1;
+                float speckle = tex2D (_SpeckleTex, pos2).a * 0.075;
 
-                c.g -= (1 - noise.g) / 2 + speckle;
-                c.b -= (1 - noise.b) / 2 + speckle;
-                c.r -= (1 - noise.r) / 3 + speckle;
+                c.g -= (1 - noise.g) / 2 - speckle;
+                c.b -= (1 - noise.b) / 2.3 - speckle;
+                c.r -= (1 - noise.r) / 2.75 - (speckle / 2); // less red in speckle so it looks grey
 
                  
                 return c;
