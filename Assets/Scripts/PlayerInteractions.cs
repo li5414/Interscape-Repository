@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PlayerInteractions : MonoBehaviour
 {
@@ -75,6 +76,14 @@ public class PlayerInteractions : MonoBehaviour
 						coolDown = ((Tool)selectedItem).coolDown;
 					}
 				}
+			} 
+			if (selectedItem is TerrainTool && hoveringOver == null) {
+				Tilemap tilemap = ((TerrainTool)selectedItem).tilemapReference;
+				if (tilemap.GetTile(tilemap.WorldToCell(transform.position)) != null) {
+					tilemap.SetTile(tilemap.WorldToCell(transform.position), null);
+					((TerrainTool)selectedItem).decreaseDurability (inventory);
+					coolDown = ((Tool)selectedItem).coolDown;
+				}
 			}
 			return;
 		}
@@ -85,6 +94,10 @@ public class PlayerInteractions : MonoBehaviour
 			if (selectedItem is BuildableItem && hoveringOver == null) {
 				((BuildableItem)selectedItem).BuildItemAt(transform.position, inventory);
 			}
+			else if (selectedItem is TerrainTool && hoveringOver == null) {
+				((TerrainTool)selectedItem).BuildItemAt(transform.position);
+				((TerrainTool)selectedItem).decreaseDurability (inventory);
+			}
 		}
     }
 
@@ -93,6 +106,10 @@ public class PlayerInteractions : MonoBehaviour
 		image.color = defaultColor;
 
 		if (selectedItem is BuildableItem && hoveringOver == null) {
+			image.color = interactableColor;
+			return;
+		}
+		if (selectedItem is TerrainTool && hoveringOver == null) {
 			image.color = interactableColor;
 			return;
 		}

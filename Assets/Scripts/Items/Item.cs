@@ -35,9 +35,6 @@ public class Item //: ScriptableObject
 
 }
 
-
-
-
 public enum Quality {
 	BarelyRecognisable,
 	Poor,

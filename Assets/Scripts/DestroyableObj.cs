@@ -5,16 +5,22 @@ using UnityEngine.Tilemaps;
 
 public class DestroyableObj : MonoBehaviour
 {
-	private Animator anim;
-	public AnimationClip damageClip;
 	[SerializeField] float health = 100;
 	[SerializeField] DamageType damageType;
 	public string dropItemName;
-	public AnimationClip deathClip;
 	public GameObject parentObj;
 
+
+	[Space]
+	public AnimationClip damageClip;
+	public ScriptAnimation damageAnimation;
+	public AnimationClip deathClip;
+
+	[Space]
 	public bool isUsingRuleTiles;
 	private Tilemap tilemap;
+	private Animator anim;
+
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +52,8 @@ public class DestroyableObj : MonoBehaviour
 		// else play damage animation
 		if (damageClip != null)
 			anim.Play (damageClip.name);
+		else if (damageAnimation != null)
+			damageAnimation.Animate();
 	}
 
 	public DamageType getDamageType()

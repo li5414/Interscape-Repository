@@ -6,6 +6,8 @@ using UnityEngine.Tilemaps;
 public class ItemRes : MonoBehaviour
 {
 	private static Sprite [] sprites = Resources.LoadAll<Sprite> ("Items/ItemsVer1");
+	private static Sprite [] terrainToolSprites = Resources.LoadAll<Sprite> ("Items/TerrainTools");
+
 	private static Sprite [] cobbleWallSprites = Resources.LoadAll<Sprite> ("Items/CobblestoneWallIcons");
 	private static RuleTile lightCobbleWall = Resources.Load<RuleTile>("Buildings/LightCobblestoneWall");
 	private static RuleTile medCobbleWall = Resources.Load<RuleTile>("Buildings/CobblestoneWall");
@@ -15,8 +17,7 @@ public class ItemRes : MonoBehaviour
 	private static RuleTile lightWoodDoor = Resources.Load<RuleTile>("Buildings/DoorPrefabs/LightWoodDoor");
 	private static RuleTile midWoodDoor = Resources.Load<RuleTile>("Buildings/DoorPrefabs/MidWoodDoor");
 	private static RuleTile darkWoodDoor = Resources.Load<RuleTile>("Buildings/DoorPrefabs/DarkWoodDoor");
-
-
+	private static RuleTile dirt = Resources.Load<RuleTile>("Paths/DirtTile");
 
 
 	private static float defDur = 1;
@@ -27,6 +28,8 @@ public class ItemRes : MonoBehaviour
 				{ "Pickaxe", new Tool ("Pickaxe", sprites[1], "Good for breaking rocks", 3, defDur, DamageType.Rockbreaking, 300, 10, 0.5f)},
 				{ "Stone", new Item ("Stone", sprites[8], "It's a stone.", 3)},
 				{ "Stone axe", new Tool ("Stone axe", sprites[5], "A primitive axe", 3, defDur, DamageType.Woodcutting, 100, 5, 0.5f)},
+				{ "Hoe", new TerrainTool ("Hoe", terrainToolSprites[0], ":o", 5, defDur, DamageType.Digging, 100, 5, 0.5f, dirt, "PathTilemap")},
+				{ "Shovel", new TerrainTool ("Shovel", terrainToolSprites[1], "Let's get diggin'!", 5, defDur, DamageType.Digging, 100, 5, 0.5f, dirt, "PathTilemap")},
 				{ "Sword", new Tool ("Sword", sprites[0], "Useful for murder", 2, defDur, DamageType.Slicing, 300, 10, 0.5f)},
 				{ "Light Cobblestone Wall", new BuildableItem("Light Cobblestone Wall", cobbleWallSprites[0], "A wall that looks like it's about to fall apart.", 6, lightCobbleWall)},
 				{ "Cobblestone Wall", new BuildableItem("Cobblestone Wall", cobbleWallSprites[1], "A wall that looks like it's about to fall apart.", 6, medCobbleWall)},

@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 2134066878329345880, guid: 27b02af69e9b54a67908a616b8b18de4,
         type: 3}
       propertyPath: m_Name
-      value: BoulderBase
+      value: Boulder1
       objectReference: {fileID: 0}
     - target: {fileID: 2134066878329345886, guid: 27b02af69e9b54a67908a616b8b18de4,
         type: 3}
