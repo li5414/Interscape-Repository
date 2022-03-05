@@ -27,7 +27,9 @@ public class Tool : Item
 			this.baseDamage = ((Tool)item).baseDamage;
 			this.coolDown = ((Tool)item).coolDown;
 			refreshQualities ();
-		}
+		} else {
+            Debug.Log("Error finding Tool: " + itemName + " in database");
+        }
 	}
 
 	public Tool (string itemName, float durability) : base (itemName)
@@ -42,7 +44,9 @@ public class Tool : Item
 			this.baseDamage = ((Tool)item).baseDamage;
 			this.coolDown = ((Tool)item).coolDown;
 			refreshQualities ();
-		}
+		} else {
+            Debug.Log("Error finding Tool: " + itemName + " in database");
+        }
 	}
 
 	public Tool (string itemName, Sprite icon, string description, float weight,

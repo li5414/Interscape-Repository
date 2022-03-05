@@ -75,6 +75,10 @@ public class PlayerInteractions : MonoBehaviour
 						coolDown = ((Tool)selectedItem).coolDown;
 					}
 				}
+			} else if (selectedItem is TerrainTool && hoveringOver != null) {
+				((TerrainTool)selectedItem).decreaseDurability (inventory);
+				Debug.Log(hoveringOver);
+				coolDown = ((Tool)selectedItem).coolDown;
 			}
 			return;
 		}
@@ -85,6 +89,10 @@ public class PlayerInteractions : MonoBehaviour
 			if (selectedItem is BuildableItem && hoveringOver == null) {
 				((BuildableItem)selectedItem).BuildItemAt(transform.position, inventory);
 			}
+			else if (selectedItem is TerrainTool && hoveringOver == null) {
+				((TerrainTool)selectedItem).BuildItemAt(transform.position);
+				((TerrainTool)selectedItem).decreaseDurability (inventory);
+			}
 		}
     }
 
@@ -93,6 +101,10 @@ public class PlayerInteractions : MonoBehaviour
 		image.color = defaultColor;
 
 		if (selectedItem is BuildableItem && hoveringOver == null) {
+			image.color = interactableColor;
+			return;
+		}
+		if (selectedItem is TerrainTool && hoveringOver == null) {
 			image.color = interactableColor;
 			return;
 		}

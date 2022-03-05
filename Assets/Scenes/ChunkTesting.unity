@@ -16864,7 +16864,7 @@ GameObject:
   - component: {fileID: 1600993755}
   m_Layer: 0
   m_Name: PathTilemap
-  m_TagString: Untagged
+  m_TagString: PathTilemap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
