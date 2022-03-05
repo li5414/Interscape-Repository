@@ -1,1 +1,0 @@
-Current FPS when running around: 100-110fps

@@ -17,7 +17,12 @@ Here are some screenshots of the UI so far. The inventory has a weight system th
   <img src="Images/WithUI.png" width="400" >
 </p>
 
-Here is what the map of a random seed looks like. The warmer biomes generate at the equator and the cooler biomes toward the poles. There are also no large oceans so player travel doesn't get too boring. Layered perlin noise is used for the world generation by creating a heat, moisture and height map.
+I am also working on adding buildings and paths, as you can see below. The walls are made from individual tiles of which the player has complete freedom over building. The doors currently slide open/close automatically when the player walks near.
+<p align="center">
+  <img src="Images/Buildings.png" width="600" >
+</p>
+
+And just for fun, here is what the map of a random seed looks like. The warmer biomes generate at the equator and the cooler biomes toward the poles. There are also no large oceans so player travel doesn't get too boring. Layered perlin noise is used for the world generation by creating a heat, moisture and height map.
 <p align="center">
   <img src="Images/Map.png" width="400" >
 </p>

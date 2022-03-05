@@ -1,0 +1,2 @@
+05/11/2021: Current FPS when running around is 100-110fps
+05/03/2022: The framerate seems to be capped at 60 in the editor
