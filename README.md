@@ -17,7 +17,7 @@ Here are some screenshots of the UI so far. The inventory has a weight system th
   <img src="Images/WithUI.png" width="400" >
 </p>
 
-I am also working on adding buildings and paths, as you can see below. The walls are made from individual tiles of which the player has complete freedom over building. The doors currently slide open/close automatically when the player walks near.
+I am also working on adding buildings, floors and paths. The walls are made from individual tiles of which the player can place or remove as they please. The doors currently slide open/close automatically when the player walks near.
 <p align="center">
   <img src="Images/Buildings.png" width="600" >
 </p>
