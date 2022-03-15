@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cf298a958fc949409e52f8129426eaa, type: 3}
   m_Name: FloorBase
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 958200744114914457, guid: 7c69b457dc9d446f58767d2d0a505583,
+  m_DefaultSprite: {fileID: 958200744114914457, guid: e77f366418a164210bd97c5d49d6272f,
     type: 3}
   m_DefaultGameObject: {fileID: 0}
   m_DefaultColliderType: 1
