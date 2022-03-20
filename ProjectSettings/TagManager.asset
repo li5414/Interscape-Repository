@@ -15,6 +15,7 @@ TagManager:
   - RuleTilemap
   - ItemDrop
   - PathTilemap
+  - FloorParent
   layers:
   - Default
   - TransparentFX

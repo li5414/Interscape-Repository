@@ -19,6 +19,10 @@ public class ItemRes : MonoBehaviour
 	private static RuleTile darkWoodDoor = Resources.Load<RuleTile>("Buildings/DoorPrefabs/DarkWoodDoor");
 	private static RuleTile dirt = Resources.Load<RuleTile>("Paths/DirtTile");
 
+	private static Sprite [] floorSprites = Resources.LoadAll<Sprite>("Items/FloorIcons");
+	private static RuleTile floorBase = Resources.Load<RuleTile>("Floors/FloorBase");
+	private static Material midWoodFloorMaterial = Resources.Load<Material>("Floors/MidWoodFloorMaterial");
+
 
 	private static float defDur = 1;
 	public static Dictionary<string, Item> ItemDict = new Dictionary<string, Item> {
@@ -31,13 +35,13 @@ public class ItemRes : MonoBehaviour
 				{ "Hoe", new TerrainTool ("Hoe", terrainToolSprites[0], ":o", 5, defDur, DamageType.Digging, 100, 5, 0.5f, dirt, "PathTilemap")},
 				{ "Shovel", new TerrainTool ("Shovel", terrainToolSprites[1], "Let's get diggin'!", 5, defDur, DamageType.Digging, 100, 5, 0.5f, dirt, "PathTilemap")},
 				{ "Sword", new Tool ("Sword", sprites[0], "Useful for murder", 2, defDur, DamageType.Slicing, 300, 10, 0.5f)},
-				{ "Light Cobblestone Wall", new BuildableItem("Light Cobblestone Wall", cobbleWallSprites[0], "A wall that looks like it's about to fall apart.", 6, lightCobbleWall)},
-				{ "Cobblestone Wall", new BuildableItem("Cobblestone Wall", cobbleWallSprites[1], "A wall that looks like it's about to fall apart.", 6, medCobbleWall)},
-				{ "Dark Cobblestone Wall", new BuildableItem("Dark Cobblestone Wall", cobbleWallSprites[2], "A wall that looks like it's about to fall apart.", 6, darkCobbleWall)},
-				{ "Light Wood Door", new BuildableItem("Light Wood Door", woodDoorSprites[0], "A fine choice of door.", 3, lightWoodDoor)},
-				{ "Mid Wood Door", new BuildableItem("Mid Wood Door", woodDoorSprites[1], "A fine choice of door.", 3, midWoodDoor)},
-				{ "Dark Wood Door", new BuildableItem("Dark Wood Door", woodDoorSprites[2], "A fine choice of door.", 3, darkWoodDoor)},
-
+				{ "Light Cobblestone Wall", new BuildableItem("Light Cobblestone Wall", cobbleWallSprites[0], "A wall that looks like it's about to fall apart.", 6, lightCobbleWall, BuildLayer.BUILDING_LAYER)},
+				{ "Cobblestone Wall", new BuildableItem("Cobblestone Wall", cobbleWallSprites[1], "A wall that looks like it's about to fall apart.", 6, medCobbleWall, BuildLayer.BUILDING_LAYER)},
+				{ "Dark Cobblestone Wall", new BuildableItem("Dark Cobblestone Wall", cobbleWallSprites[2], "A wall that looks like it's about to fall apart.", 6, darkCobbleWall, BuildLayer.BUILDING_LAYER)},
+				{ "Light Wood Door", new BuildableItem("Light Wood Door", woodDoorSprites[0], "A fine choice of door.", 3, lightWoodDoor, BuildLayer.BUILDING_LAYER)},
+				{ "Mid Wood Door", new BuildableItem("Mid Wood Door", woodDoorSprites[1], "A fine choice of door.", 3, midWoodDoor, BuildLayer.BUILDING_LAYER)},
+				{ "Dark Wood Door", new BuildableItem("Dark Wood Door", woodDoorSprites[2], "A fine choice of door.", 3, darkWoodDoor, BuildLayer.BUILDING_LAYER)},
+				{ "Mid Wood Floor", new BuildableItem("Mid Wood Floor", floorSprites[0], "A fine choice of floor.", 3, floorBase, BuildLayer.FLOOR_LAYER, midWoodFloorMaterial.GetColor("_Color"), midWoodFloorMaterial)},
 	};
 
 	public static Item MakeItemCopy(string itemName) {

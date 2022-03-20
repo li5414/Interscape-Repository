@@ -54,6 +54,10 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 				image.enabled = false;
 			} else {
 				image.sprite = _item.icon;
+				if (_item.iconColour != null) {
+					image.color = _item.iconColour.Value;
+					Debug.Log(_item.iconColour.Value);
+				}
 				image.enabled = true;
 			}
 		}

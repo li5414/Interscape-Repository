@@ -37,10 +37,8 @@ public class Inventory : MonoBehaviour
 		AddItem (new Tool ("Pickaxe", 500));
 		AddItem (new Tool ("Sword", 50));
 		AddItem (new Tool ("Stone axe", 75));
-		AddItem (new BuildableItem ("Light Cobblestone Wall"));
-		AddItem (new BuildableItem ("Cobblestone Wall"));
 		AddItem (new TerrainTool ("Hoe", 75));
-
+		AddItem (new BuildableItem ("Mid Wood Floor"));
 		gameObject.SetActive (false);
 	}
 

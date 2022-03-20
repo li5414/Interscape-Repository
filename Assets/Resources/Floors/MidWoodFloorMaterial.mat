@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: WoodFloorMaterial
+  m_Name: MidWoodFloorMaterial
   m_Shader: {fileID: 4800000, guid: c5831620080da492eb368f8b18f1f691, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
