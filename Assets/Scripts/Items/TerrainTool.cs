@@ -14,11 +14,6 @@ public class TerrainTool : Tool
 		ItemRes.ItemDict.TryGetValue (itemName, out item);
 
 		if (item != null && item is TerrainTool) {
-			// this.durability = ((TerrainTool)item).durability;
-			// this.damageType = ((TerrainTool)item).damageType;
-			// this.baseDurability = ((TerrainTool)item).baseDurability;
-			// this.baseDamage = ((TerrainTool)item).baseDamage;
-			// this.coolDown = ((TerrainTool)item).coolDown;
             this.tileReference = ((TerrainTool)item).tileReference;
             this.tilemapReference = ((TerrainTool)item).tilemapReference;
 			refreshQualities ();
@@ -33,11 +28,6 @@ public class TerrainTool : Tool
 		ItemRes.ItemDict.TryGetValue (itemName, out item);
 
 		if (item != null && item is TerrainTool) {
-			// this.durability = durability;
-			// this.damageType = ((TerrainTool)item).damageType;
-			// this.baseDurability = ((TerrainTool)item).baseDurability;
-			// this.baseDamage = ((TerrainTool)item).baseDamage;
-			// this.coolDown = ((TerrainTool)item).coolDown;
             this.tileReference = ((TerrainTool)item).tileReference;
             this.tilemapReference = ((TerrainTool)item).tilemapReference;
 			refreshQualities ();

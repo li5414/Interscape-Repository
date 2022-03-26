@@ -39,6 +39,7 @@ public class Inventory : MonoBehaviour
 		AddItem (new Tool ("Stone axe", 75));
 		AddItem (new TerrainTool ("Hoe", 75));
 		AddItem (new BuildableItem ("Mid Wood Floor"));
+		AddItem (new BuildableItem ("Mid Wood Floor"));
 		gameObject.SetActive (false);
 	}
 
@@ -81,13 +82,12 @@ public class Inventory : MonoBehaviour
 	{
 		if (IsFull ())
 			return false;
-
+			
 		// check if empty then insert
 		if (items[slot] == null) 
 			items [slot] = item;
-		 else 
+		else
 			return false;
-		
 
 		RefreshUI ();
 		return true;

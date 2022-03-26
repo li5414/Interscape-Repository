@@ -19,6 +19,7 @@ public class Item
 			this.icon = item.icon;
 			this.description = item.description;
 			this.weight = item.weight;
+			this.iconColour = item.iconColour;
 		} else {
 			Debug.Log ("Item was not found");
 		}
@@ -31,7 +32,6 @@ public class Item
 		this.description = description;
 		this.weight = weight;
 		this.iconColour = iconColour;
-		Debug.Log(this.iconColour);
 	}
 
 }

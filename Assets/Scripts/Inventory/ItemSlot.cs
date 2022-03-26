@@ -49,33 +49,16 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
 			// disable image component if no item in slot
 			if (_item == null) {
-				//image.sprite = UIResources.nullItemImage;
-				//image.sprite = null;
 				image.enabled = false;
 			} else {
 				image.sprite = _item.icon;
 				if (_item.iconColour != null) {
 					image.color = _item.iconColour.Value;
-					Debug.Log(_item.iconColour.Value);
 				}
 				image.enabled = true;
 			}
 		}
 	}
-
-	/*protected virtual void OnValidate()
-	{
-		if (image == null) {
-			image = GetComponent<Image> ();
-			//Debug.Log ("image null");
-		}
-		if (tooltip == null) {
-			tooltip = FindObjectOfType<ItemTooltip> ();
-			//Debug.Log ("tooltip null");
-		}
-			
-
-	}*/
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{
@@ -130,7 +113,6 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 		}
 
 	}
-
 	public void OnDrag (PointerEventData eventData)
 	{
 		//throw new NotImplementedException ();

@@ -18,6 +18,8 @@ public class BuildableItem : Item
         
 		if (item != null && item is BuildableItem) {
 			this.buildingReference = ((BuildableItem)item).buildingReference;
+            this.material = ((BuildableItem)item).material;
+            this.buildLayer = ((BuildableItem)item).buildLayer;
 		}
 	}
     public BuildableItem (string itemName, Sprite icon, string description, float weight, RuleTile buildingReference, 
@@ -47,13 +49,15 @@ public class BuildableItem : Item
         // TODO figure out what is going to happen with the ground layer
         if (buildLayer == BuildLayer.FLOOR_LAYER) {
             GameObject parent = GameObject.FindWithTag("FloorParent");
-            GameObject existingTilemapObject = (parent.transform.Find(itemName + " Tilemap")).gameObject;
+            Transform existingTilemapObject = (parent.transform.Find(itemName + " Tilemap"));
+
             if (existingTilemapObject) {
-                Tilemap potentialTilemap = existingTilemapObject.GetComponent<Tilemap>();
+                Tilemap potentialTilemap = existingTilemapObject.gameObject.GetComponent<Tilemap>();
+
                 if (potentialTilemap) {
                     return potentialTilemap;
                 } else {
-                    Debug.LogError("Found object with correct name but it had no Tilemap component", existingTilemapObject);
+                    Debug.LogError("Found transform with correct name but it had no Tilemap component", existingTilemapObject);
                 }
             }
             return CreateTilemap(itemName + " Tilemap", parent, material);
@@ -76,7 +80,6 @@ public class BuildableItem : Item
         // tm.tileAnchor = new Vector3(AnchorX, AnchorY, 0);
         go.transform.SetParent(parent.transform);
         // tr.sortingLayerName = "Main";
-
         return tm;
     }
 }
