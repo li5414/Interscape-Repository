@@ -30,7 +30,9 @@ public class DestroyableObj : MonoBehaviour
 			parentObj = this.gameObject;
 		}
 		if (isUsingRuleTiles) {
-			tilemap = GameObject.FindWithTag("RuleTilemap").GetComponent<Tilemap>();
+			tilemap = this.gameObject.transform.parent.gameObject.GetComponent<Tilemap>();
+			if (!tilemap)
+				Debug.LogError("Could not find parent tilemap", this);
 		}
     }
 
