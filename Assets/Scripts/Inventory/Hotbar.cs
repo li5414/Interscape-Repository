@@ -74,10 +74,14 @@ public class Hotbar : MonoBehaviour
 
 	public void updateSelectedUI()
 	{
-		// update item sprites on player
+		// update item sprites
 		selected = itemSlots [currentSelected];
 		if (selected.Item != null) {
 			playerHoldItem.sprite = selected.Item.icon;
+			if (selected.Item.iconColour != null)
+				playerHoldItem.color = selected.Item.iconColour.Value;
+			else
+				playerHoldItem.color = Color.white;
 			playerHoldItem.enabled = true;
 		} else {
 			playerHoldItem.enabled = false;

@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-//[CreateAssetMenu]
-public class Item //: ScriptableObject
+public class Item
 {
 	public string itemName;
 	public Sprite icon;
-	public string description; // could optimise further by making an itemtemplate class
+	public string description;
 	public float weight;
-
+	public Color? iconColour;
 
 	public Item(string itemName)
 	{
@@ -20,17 +19,19 @@ public class Item //: ScriptableObject
 			this.icon = item.icon;
 			this.description = item.description;
 			this.weight = item.weight;
+			this.iconColour = item.iconColour;
 		} else {
 			Debug.Log ("Item was not found");
 		}
 	}
 
-	public Item (string itemName, Sprite icon, string description, float weight)
+	public Item (string itemName, Sprite icon, string description, float weight, Color? iconColour = null)
 	{
 		this.itemName = itemName;
 		this.icon = icon;
 		this.description = description;
 		this.weight = weight;
+		this.iconColour = iconColour;
 	}
 
 }

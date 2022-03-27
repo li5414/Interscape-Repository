@@ -9,7 +9,6 @@ public class HoldingSlot : MonoBehaviour
 	private Item item;
 	private int holdingFrom;
 	public Image image;
-	private FollowCursor followCursor;
 
 	public bool holdItem(Item item, int holdingFrom)
 	{
@@ -22,6 +21,11 @@ public class HoldingSlot : MonoBehaviour
 		this.holdingFrom = holdingFrom;
 		image.enabled = true;
 		image.sprite = item.icon;
+		if (item.iconColour != null)
+			image.color = item.iconColour.Value;
+		else {
+			image.color = Color.white;
+		}
 		return true;
 	}
 
@@ -50,7 +54,6 @@ public class HoldingSlot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        followCursor = gameObject.GetComponent<FollowCursor>();
 		item = null;
 		image = gameObject.GetComponent<Image>();
 		image.enabled = false;

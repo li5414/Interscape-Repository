@@ -7,6 +7,9 @@ using UnityEngine.Tilemaps;
 public class BuildableItem : Item
 {
     public RuleTile buildingReference;
+    public BuildLayer buildLayer;
+    public Tilemap tilemap;
+    public Material? material;
 
     public BuildableItem (string itemName) : base (itemName)
 	{
@@ -15,22 +18,82 @@ public class BuildableItem : Item
         
 		if (item != null && item is BuildableItem) {
 			this.buildingReference = ((BuildableItem)item).buildingReference;
+            this.material = ((BuildableItem)item).material;
+            this.buildLayer = ((BuildableItem)item).buildLayer;
 		}
 	}
-    public BuildableItem (string itemName, Sprite icon, string description, float weight, RuleTile buildingReference) 
-    : base (itemName, icon, description, weight)
+    public BuildableItem (string itemName, Sprite icon, string description, float weight, RuleTile buildingReference, 
+    BuildLayer buildLayer, Color? iconColour = null, Material? material = null) 
+    : base (itemName, icon, description, weight, iconColour)
 	{
         this.buildingReference = buildingReference;
+        this.material = material;
+        this.buildLayer = buildLayer;
 	}
 
     public void BuildItemAt(Vector3 worldPos, Inventory inventory) {
-        Tilemap tilemap = GameObject.FindWithTag("RuleTilemap").GetComponent<Tilemap>();
+        // ensure tilemap exists first
+        if (!tilemap)
+            tilemap = getTilemap(this.itemName, this.buildLayer, this.material);
+        
         if (buildingReference != null) {
             tilemap.SetTile(tilemap.WorldToCell(worldPos), buildingReference);
+            
+            if (buildLayer == BuildLayer.FLOOR_LAYER) {
+                // hacky solution to set the drop object of the tile
+                // TODO fix bug where first tile placed has a null gameobject and so the dropItemName can't be set
+                GameObject obj = tilemap.GetInstantiatedObject(tilemap.WorldToCell(worldPos));
+                if (obj) {
+                    obj.GetComponent<DestroyableObj>().dropItemName = this.itemName;
+                }
+            }
             inventory.RemoveSelectedItem();
         }
         else {
-            Debug.Log("The building object is null");
+            Debug.LogError("The building object for this item does not exist", buildingReference);
         }
     }
+
+    public static Tilemap getTilemap(string itemName, BuildLayer buildLayer, Material? material = null) {
+        // TODO figure out what is going to happen with the ground layer
+        if (buildLayer == BuildLayer.FLOOR_LAYER) {
+            GameObject parent = GameObject.FindWithTag("FloorParent");
+            Transform existingTilemapObject = (parent.transform.Find(itemName + " Tilemap"));
+
+            if (existingTilemapObject) {
+                Tilemap potentialTilemap = existingTilemapObject.gameObject.GetComponent<Tilemap>();
+
+                if (potentialTilemap) {
+                    return potentialTilemap;
+                } else {
+                    Debug.LogError("Found transform with correct name but it had no Tilemap component", existingTilemapObject);
+                }
+            }
+            return CreateTilemap(itemName + " Tilemap", parent, material);
+        }
+        // else if (buildLayer == BuildLayer.BUILDING_LAYER) {
+        //     return GameObject.FindWithTag("RuleTilemap").GetComponent<Tilemap>();
+        // }
+        return GameObject.FindWithTag("RuleTilemap").GetComponent<Tilemap>();
+    }
+
+    public static Tilemap CreateTilemap(string tilemapName, GameObject parent, Material? material)
+    {
+        var go = new GameObject(tilemapName);
+        var tm = go.AddComponent<Tilemap>();
+        var tr = go.AddComponent<TilemapRenderer>();
+
+        if (material)
+            tr.material = material;
+
+        go.transform.SetParent(parent.transform);
+        go.transform.position = new Vector3(0, 0, 193);
+        return tm;
+    }
+}
+
+public enum BuildLayer {
+    GROUND_LAYER,
+    FLOOR_LAYER,
+    BUILDING_LAYER
 }
