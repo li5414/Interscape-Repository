@@ -38,6 +38,15 @@ public class BuildableItem : Item
         
         if (buildingReference != null) {
             tilemap.SetTile(tilemap.WorldToCell(worldPos), buildingReference);
+            
+            if (buildLayer == BuildLayer.FLOOR_LAYER) {
+                // hacky solution to set the drop object of the tile
+                // TODO fix bug where first tile placed has a null gameobject and so the dropItemName can't be set
+                GameObject obj = tilemap.GetInstantiatedObject(tilemap.WorldToCell(worldPos));
+                if (obj) {
+                    obj.GetComponent<DestroyableObj>().dropItemName = this.itemName;
+                }
+            }
             inventory.RemoveSelectedItem();
         }
         else {
@@ -77,9 +86,8 @@ public class BuildableItem : Item
         if (material)
             tr.material = material;
 
-        // tm.tileAnchor = new Vector3(AnchorX, AnchorY, 0);
         go.transform.SetParent(parent.transform);
-        // tr.sortingLayerName = "Main";
+        go.transform.position = new Vector3(0, 0, 193);
         return tm;
     }
 }

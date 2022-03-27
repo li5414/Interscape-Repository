@@ -97,13 +97,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b9582900f3a40ad89a7f7651a0c786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
+  health: 10
   damageType: 1
-  dropItemName: Light Cobblestone Wall
+  dropItemName: 
   parentObj: {fileID: 2650253887740890676}
-  damageClip: {fileID: 7400000, guid: 6d26372e6ab2c497ab4a49384f17c9e4, type: 2}
+  damageClip: {fileID: 0}
   damageAnimation: {fileID: 0}
-  deathClip: {fileID: 7400000, guid: ae7e2aef465004c84b04b0e220b02bb8, type: 2}
+  deathClip: {fileID: 0}
   isUsingRuleTiles: 1
 --- !u!61 &2660694250346669553
 BoxCollider2D:
@@ -115,7 +115,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
