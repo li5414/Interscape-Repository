@@ -21,11 +21,11 @@ public class HoldingSlot : MonoBehaviour
 		this.holdingFrom = holdingFrom;
 		image.enabled = true;
 		image.sprite = item.icon;
-		// if (item.iconColour != null)
-		// 	image.color = item.iconColour.Value;
-		// else {
-		// 	image.color = Color.white;
-		// }
+		if (item.iconColour != null)
+			image.color = item.iconColour.Value;
+		else {
+			image.color = Color.white;
+		}
 		return true;
 	}
 
