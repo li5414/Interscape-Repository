@@ -4,41 +4,38 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 
-public class BuildableItem : Item
-{
+public class BuildableItem : Item {
     public RuleTile buildingReference;
     public BuildLayer buildLayer;
     public Tilemap tilemap;
     public Material? material;
 
-    public BuildableItem (string itemName) : base (itemName)
-	{
+    public BuildableItem(string itemName) : base(itemName) {
         Item item;
-		ItemRes.ItemDict.TryGetValue (itemName, out item);
-        
-		if (item != null && item is BuildableItem) {
-			this.buildingReference = ((BuildableItem)item).buildingReference;
+        ItemRes.ItemDict.TryGetValue(itemName, out item);
+
+        if (item != null && item is BuildableItem) {
+            this.buildingReference = ((BuildableItem)item).buildingReference;
             this.material = ((BuildableItem)item).material;
             this.buildLayer = ((BuildableItem)item).buildLayer;
-		}
-	}
-    public BuildableItem (string itemName, Sprite icon, string description, float weight, RuleTile buildingReference, 
-    BuildLayer buildLayer, Color? iconColour = null, Material? material = null) 
-    : base (itemName, icon, description, weight, iconColour)
-	{
+        }
+    }
+    public BuildableItem(string itemName, Sprite icon, string description, float weight, RuleTile buildingReference,
+    BuildLayer buildLayer, Color? iconColour = null, Material? material = null)
+    : base(itemName, icon, description, weight, iconColour) {
         this.buildingReference = buildingReference;
         this.material = material;
         this.buildLayer = buildLayer;
-	}
+    }
 
     public void BuildItemAt(Vector3 worldPos, Inventory inventory) {
         // ensure tilemap exists first
         if (!tilemap)
             tilemap = getTilemap(this.itemName, this.buildLayer, this.material);
-        
+
         if (buildingReference != null) {
             tilemap.SetTile(tilemap.WorldToCell(worldPos), buildingReference);
-            
+
             if (buildLayer == BuildLayer.FLOOR_LAYER) {
                 // hacky solution to set the drop object of the tile
                 // TODO fix bug where first tile placed has a null gameobject and so the dropItemName can't be set
@@ -47,9 +44,8 @@ public class BuildableItem : Item
                     obj.GetComponent<DestroyableObj>().dropItemName = this.itemName;
                 }
             }
-            inventory.RemoveSelectedItem();
-        }
-        else {
+            inventory.RemoveOneSelectedItem();
+        } else {
             Debug.LogError("The building object for this item does not exist", buildingReference);
         }
     }
@@ -77,8 +73,7 @@ public class BuildableItem : Item
         return GameObject.FindWithTag("RuleTilemap").GetComponent<Tilemap>();
     }
 
-    public static Tilemap CreateTilemap(string tilemapName, GameObject parent, Material? material)
-    {
+    public static Tilemap CreateTilemap(string tilemapName, GameObject parent, Material? material) {
         var go = new GameObject(tilemapName);
         var tm = go.AddComponent<Tilemap>();
         var tr = go.AddComponent<TilemapRenderer>();

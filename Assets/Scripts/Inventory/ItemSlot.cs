@@ -4,117 +4,174 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using TMPro;
 
 public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler {
-	
-	[SerializeField] Image image;
-	[SerializeField] ItemTooltip tooltip;
-	[SerializeField] int number;
-	public bool isHotbar;
 
-	private Inventory inventory;
-	private GraphicRaycaster graphicRaycaster;
-	private Canvas canvas;
+    public bool isHotbar;
+    private Image image;
+    private ItemTooltip tooltip;
+    // private int number;
+    private Inventory inventory;
+    private GraphicRaycaster graphicRaycaster;
+    private Canvas canvas;
+    private TextMeshProUGUI quantityText;
 
+    private int quantity;
+    private Item item;
 
-	void Awake()
-	{
-		inventory = GameObject.FindGameObjectWithTag ("Inventory").GetComponent<Inventory>();
-		image = GetComponentsInChildren<Image> ()[1];
+    void Awake() {
+        inventory = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory>();
+        image = GetComponentsInChildren<Image>()[1];
+        image.enabled = false;
+        quantityText = GetComponentInChildren<TextMeshProUGUI>();
+        updateQuantityText();
 
+        if (inventory == null) {
+            Debug.LogError("Inventory is null. Remember to set the 'Inventory' tag");
+        }
 
-		if (inventory == null) {
-			Debug.Log ("inventoyr null");
-		}
+        if (!canvas) {
+            canvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>();
+            graphicRaycaster = canvas.GetComponent<GraphicRaycaster>();
+        }
 
-		if (!canvas) {
-			canvas = GameObject.FindGameObjectWithTag ("Canvas").GetComponent<Canvas> ();
-			graphicRaycaster = canvas.GetComponent<GraphicRaycaster> ();
-		}
+        tooltip = GameObject.FindGameObjectWithTag("ItemTooltip").GetComponent<ItemTooltip>();
+        if (tooltip == null) {
+            Debug.LogError("Tooltip is null. Remember to set the 'ItemTooltop' tag");
+        }
 
-		string numbersOnly = Regex.Replace (gameObject.name, "[^0-9]", "");
-		number = int.Parse (numbersOnly);
+    }
+    public bool HasItem() {
+        return item != null && quantity > 0;
+    }
+    public Item GetItem() {
+        return item;
+    }
+    private void updateItem(Item newItem) {
+        // disable image component if no item in slot
+        item = newItem;
+        if (item == null) {
+            image.enabled = false;
+        } else {
+            image.sprite = item.icon;
+            if (item.iconColour != null) {
+                image.color = item.iconColour.Value;
+            }
+            image.enabled = true;
+        }
+        updateQuantityText();
+    }
 
-		tooltip = GameObject.FindGameObjectWithTag ("ItemTooltip").GetComponent<ItemTooltip> ();
-		if (tooltip == null) {
-			Debug.Log ("Tooltip null????");
-		}
-	}
+    private void updateQuantityText() {
+        quantityText.text = quantity.ToString();
+        if (quantity <= 1) {
+            quantityText.enabled = false;
+        } else
+            quantityText.enabled = true;
+    }
 
-	private Item _item;
-	public Item Item {
-		get { return _item; }
-		set {
-			_item = value;
+    public void OnPointerEnter(PointerEventData eventData) {
+        if (!isHotbar)
+            tooltip.ShowTooltip(item);
+    }
 
-			// disable image component if no item in slot
-			if (_item == null) {
-				image.enabled = false;
-			} else {
-				image.sprite = _item.icon;
-				if (_item.iconColour != null) {
-					image.color = _item.iconColour.Value;
-				}
-				image.enabled = true;
-			}
-		}
-	}
+    public void OnPointerExit(PointerEventData eventData) {
+        if (!isHotbar)
+            tooltip.HideTooltip();
+    }
 
-	public void OnPointerEnter(PointerEventData eventData)
-	{
-		if (!isHotbar)
-			tooltip.ShowTooltip(Item);
-	}
+    public void OnBeginDrag(PointerEventData eventData) {
+        if (!isHotbar)
+            inventory.SwapToHolding(this);
+    }
 
-	public void OnPointerExit (PointerEventData eventData)
-	{
-		if (!isHotbar)
-			tooltip.HideTooltip();
-	}
+    public void OnEndDrag(PointerEventData eventData) {
+        if (!isHotbar) {
+            var results = new List<RaycastResult>();
+            graphicRaycaster.Raycast(eventData, results);
 
-	public void OnBeginDrag (PointerEventData eventData)
-	{
-		if (!isHotbar)
-			inventory.SwapToHolding (number);
-		//Debug.Log ("Pointer down at " + number);
-	}
+            foreach (var hit in results) {
+                // If we found slot.
+                var slot = hit.gameObject.GetComponent<ItemSlot>();
+                if (slot) {
+                    inventory.SwapToInventory(slot);
+                    return;
+                }
+            }
 
-	public void OnEndDrag (PointerEventData eventData)
-	{
-		if (!isHotbar) {
-			var results = new List<RaycastResult> ();
-			graphicRaycaster.Raycast (eventData, results);
-			// Check all hits.
-			//Debug.Log (results.Count);
+            foreach (var hit in results) {
+                // If we found inventory
+                var inv = hit.gameObject.name.Equals("Inv Rect");
+                if (inv) {
+                    inventory.CancelHold();
+                    return;
+                }
+            }
 
-			foreach (var hit in results) {
-				// If we found slot.
-				var slot = hit.gameObject.GetComponent<ItemSlot> ();
-				if (slot) {
-					inventory.SwapToInventory (slot.number);
-					//Debug.Log ("Pointer up at " + slot.number);
+            // else we must have hit nothing
+            inventory.DropHoldItem();
+        }
 
-					return;
-				}
-				//Debug.Log (hit.gameObject.name);
-			}
+    }
+    public void OnDrag(PointerEventData eventData) {
+        //throw new NotImplementedException ();
+    }
 
-			foreach (var hit in results) {
-				// If we found inventory
-				var inv = hit.gameObject.name.Equals ("Inv Rect");
-				if (inv) {
-					inventory.CancelHold ();
-					return;
-				}
-			}
+    public bool CanAddItem(Item newItem) {
+        if (newItem == null) {
+            Debug.Log("Warning: newItem is null");
+            return false;
+        }
+        if (item != null) {
+            if (!item.itemName.Equals(newItem.itemName)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public bool CanAddItems(Item newItem, int quantity) {
+        if (!CanAddItem(newItem) || quantity <= 0)
+            return false;
+        return true;
+    }
 
-			// else we must have hit nothing
-			inventory.DropHoldItem ();
-		}
+    public bool AddItems(Item newItem, int quantity) {
+        if (!CanAddItems(newItem, quantity)) {
+            Debug.LogError("Error adding " + newItem.itemName + " to slot");
+            return false;
+        }
+        this.quantity += quantity;
+        updateItem(newItem);
+        return true;
+    }
 
-	}
-	public void OnDrag (PointerEventData eventData)
-	{
-		//throw new NotImplementedException ();
-	}
+    public void SetItems(Item newItem, int quantity) {
+        this.quantity = quantity;
+        this.updateItem(newItem);
+    }
+
+    public bool RemoveItems(int amount) {
+        if (amount <= 0) {
+            Debug.LogError("Invalid amount value provided");
+            return false;
+        }
+        if (this.item == null) {
+            Debug.Log("Warning: the itemSlot item was already null when trying to remove items");
+            return false;
+        }
+        if (quantity >= amount) {
+            quantity -= amount;
+            updateQuantityText();
+            if (quantity <= 0) {
+                updateItem(null);
+            }
+            return true;
+        }
+        Debug.LogError("Error decreasing " + quantity + " items by " + amount);
+        return false;
+    }
+    public int GetQuantity() {
+        return quantity;
+    }
 }
