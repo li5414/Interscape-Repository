@@ -179,7 +179,8 @@ public class Inventory : MonoBehaviour {
             Debug.LogError("Tried to drop null item");
             return false;
         }
-        ItemDrop.dropItem(holding.RemoveHoldItem());
+        int quantity = holding.GetQuantity();
+        ItemDrop.DropItems(holding.RemoveHoldItem(), quantity);
         return true;
     }
 
