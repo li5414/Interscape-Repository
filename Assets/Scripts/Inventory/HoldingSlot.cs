@@ -3,59 +3,65 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HoldingSlot : MonoBehaviour
-{
+public class HoldingSlot : MonoBehaviour {
 
-	private Item item;
-	private int holdingFrom;
-	public Image image;
+    private Item item;
+    private int quantity;
+    private ItemSlot holdingFrom;
+    private Image image;
 
-	public bool holdItem(Item item, int holdingFrom)
-	{
-		if (this.item != null) {
-			Debug.Log("Refused to hold something because already holding something");
-			return false;
-		}
+    void Start() {
+        image = gameObject.GetComponent<Image>();
+        image.enabled = false;
+    }
 
-		this.item = item;
-		this.holdingFrom = holdingFrom;
-		image.enabled = true;
-		image.sprite = item.icon;
-		if (item.iconColour != null)
-			image.color = item.iconColour.Value;
-		else {
-			image.color = Color.white;
-		}
-		return true;
-	}
+    public bool HoldItem(Item item, ItemSlot holdingFrom, int quantity) {
+        if (this.item != null) {
+            Debug.LogError("Refused to hold something because already holding something");
+            return false;
+        }
+        if (item == null || quantity <= 0) {
+            Debug.LogError("Tried to hold nothing");
+            return false;
+        }
+        if (holdingFrom == null) {
+            Debug.LogError("The itemSlot provided is null");
+            return false;
+        }
 
-	public Item removeHoldItem ()
-	{
-		Item returnItem = item;
-		item = null;
-		image.enabled = false;
-		return returnItem;
-	}
+        this.item = item;
+        this.holdingFrom = holdingFrom;
+        this.quantity = quantity;
+        image.enabled = true;
+        image.sprite = item.icon;
+        if (item.iconColour != null)
+            image.color = item.iconColour.Value;
+        else {
+            image.color = Color.white;
+        }
+        return true;
+    }
 
-	public int getHoldingFrom() {
-		return holdingFrom;
-	}
+    public Item RemoveHoldItem() {
+        Item returnItem = item;
+        item = null;
+        image.enabled = false;
+        quantity = 0;
+        return returnItem;
+    }
 
-	public Item getItem()
-	{
-		return item;
-	}
+    public int GetQuantity() {
+        return quantity;
+    }
+    public Item GetItem() {
+        return item;
+    }
 
-	public bool isHolding()
-	{
-		return item != null;
-	}
+    public ItemSlot GetHoldingFrom() {
+        return holdingFrom;
+    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-		item = null;
-		image = gameObject.GetComponent<Image>();
-		image.enabled = false;
+    public bool IsHolding() {
+        return item != null;
     }
 }
