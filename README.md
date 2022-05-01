@@ -27,5 +27,10 @@ And just for fun, here is what the map of a random seed looks like. The warmer b
   <img src="Images/Map.png" width="400" >
 </p>
 
+Here's some concept art for the player/npc sprites:
+<p align="center">
+  <img src="Images/CharacterConcepts.gif" width="300" >
+</p>
+
 So far, this has been an entirely solo project. All animation/art is drawn from scratch by Jess in Procreate for iPad. 
-Should you have any thoughts or enquires about this project, feel free to send an email to jrhammer50@gmail.com
+Should you have any thoughts or enquires about this project, feel free to send an email to jrhammer50@gmail.com :D
