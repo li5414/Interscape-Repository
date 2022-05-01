@@ -57,6 +57,8 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             image.sprite = item.icon;
             if (item.iconColour != null) {
                 image.color = item.iconColour.Value;
+            } else {
+                image.color = Color.white;
             }
             image.enabled = true;
         }
