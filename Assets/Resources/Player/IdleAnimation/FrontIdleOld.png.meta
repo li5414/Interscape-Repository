@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 363e4c6bdb34a4af6a0ca91b4e816451
+guid: c5570c7c5d8e84a9fb1f75cb19d75db9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6232121235824009222
-    second: Sweater_Idle_0
+      213: -6242300848859761578
+    second: FrontIdle_0
   - first:
-      213: 5054819036350033350
-    second: Sweater_Idle_1
+      213: -475674302275136307
+    second: FrontIdle_1
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -67,7 +67,7 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 1
+  applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -80,7 +80,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 128
@@ -92,48 +92,60 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 128
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Sweater_Idle_0
+      name: FrontIdle_0
       rect:
         serializedVersion: 2
-        x: 6
+        x: 0
         y: 0
-        width: 14
+        width: 26
         height: 50
       alignment: 9
-      pivot: {x: 0.5, y: 0.1}
+      pivot: {x: 0.5, y: 0.15}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fff32c81d9f554454a5761d361a165a7
-      internalID: -6232121235824009222
+      spriteID: 654389a7374ee59a0800000000000000
+      internalID: -6242300848859761578
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sweater_Idle_1
+      name: FrontIdle_1
       rect:
         serializedVersion: 2
-        x: 20
+        x: 26
         y: 0
-        width: 14
+        width: 26
         height: 50
       alignment: 9
-      pivot: {x: 0.5, y: 0.1}
+      pivot: {x: 0.5, y: 0.15}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f78d1748a609743899fabf044f40097d
-      internalID: 5054819036350033350
+      spriteID: dc4db180eb01669f0800000000000000
+      internalID: -475674302275136307
       vertices: []
       indices: 
       edges: []
@@ -141,7 +153,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 2f97e8f12cd844aacb6812a8cfe44c52
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
