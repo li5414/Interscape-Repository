@@ -1,13 +1,7 @@
 fileFormatVersion: 2
-guid: 8c2371ebd1fd74c5f8526ae5732a207c
+guid: ba3bfff054ce149b8880b785387e55a0
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 2269904953512665676
-    second: LongOverallsIdle_0
-  - first:
-      213: 3026741675368561383
-    second: LongOverallsIdle_1
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
