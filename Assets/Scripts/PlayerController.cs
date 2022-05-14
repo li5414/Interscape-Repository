@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour {
     /* initialise variables */
     public float speed;
     public bool isBurdened = true;
-    bool right = true;
     Animator a;
     Transform player;
     private PlayerStats playerStats;
@@ -60,7 +59,8 @@ public class PlayerController : MonoBehaviour {
 
         // walking
         else {
-            speed = adjustForBurden(playerStats.walkSpeed);
+            // speed = adjustForBurden(playerStats.walkSpeed);
+            speed = playerStats.walkSpeed;
             walkAnimation();
         }
 
@@ -72,7 +72,6 @@ public class PlayerController : MonoBehaviour {
         /* apply movement to character */
         Vector3 inputDirection = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
         Vector3 velocity = inputDirection.normalized;
-        a.SetFloat("speed", velocity.magnitude);
         player.Translate(velocity * speed * Time.deltaTime);
     }
 
