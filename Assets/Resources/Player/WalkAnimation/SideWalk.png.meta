@@ -1,43 +1,7 @@
 fileFormatVersion: 2
-guid: 435f77e2203c142e68941c0af91b6c45
+guid: a757a7ddf9e8640108297a2d299c524c
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 303760289955835785
-    second: SideWalk_0
-  - first:
-      213: -50831990842653013
-    second: SideWalk_1
-  - first:
-      213: 4722342868404122772
-    second: SideWalk_2
-  - first:
-      213: 7559109807738168274
-    second: SideWalk_3
-  - first:
-      213: 180689553011105446
-    second: SideWalk_4
-  - first:
-      213: -2675045237860809270
-    second: SideWalk_5
-  - first:
-      213: -4682654675204866562
-    second: SideWalk_6
-  - first:
-      213: 5573059380224866896
-    second: SideWalk_7
-  - first:
-      213: 5984491155574760793
-    second: SideWalk_8
-  - first:
-      213: 727240022342142590
-    second: SideWalk_9
-  - first:
-      213: -4647332701788399419
-    second: SideWalk_10
-  - first:
-      213: -9061887011952123977
-    second: SideWalk_11
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
