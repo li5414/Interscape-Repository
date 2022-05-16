@@ -1,7 +1,22 @@
 fileFormatVersion: 2
-guid: 16805e8e8702046a7bf4e53eb1ad9ebd
+guid: 394bbaf3aa8c24c8fb583d44104c904d
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 2182475879417876413
+    second: LongStraightHair_5
+  - first:
+      213: 9177813704780411547
+    second: LongStraightHair_6
+  - first:
+      213: -1583065295159518448
+    second: LongStraightHair_7
+  - first:
+      213: 3461355452843189847
+    second: LongStraightHair_8
+  - first:
+      213: -6684862945637254895
+    second: LongStraightHair_9
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -103,133 +118,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BackWalk_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 50
-        width: 26
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: dfb12a6d4b8b504e0800000000000000
-      internalID: -2016002171343856643
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BackWalk_1
-      rect:
-        serializedVersion: 2
-        x: 26
-        y: 50
-        width: 26
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 547e9dbf9cee7d1f0800000000000000
-      internalID: -1020084239294929083
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BackWalk_2
-      rect:
-        serializedVersion: 2
-        x: 52
-        y: 50
-        width: 26
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0121ef90b0a332960800000000000000
-      internalID: 7575962817254003216
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BackWalk_3
-      rect:
-        serializedVersion: 2
-        x: 78
-        y: 50
-        width: 26
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a6dc919a52bec00d0800000000000000
-      internalID: -3455128267116655254
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BackWalk_4
-      rect:
-        serializedVersion: 2
-        x: 104
-        y: 50
-        width: 26
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 28268ec93b2fdd940800000000000000
-      internalID: 5322677187867337346
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BackWalk_5
-      rect:
-        serializedVersion: 2
-        x: 130
-        y: 50
-        width: 26
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6e1d0554024d3ae90800000000000000
-      internalID: -7015530559446134298
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BackWalk_6
+      name: LongStraightHair_0
       rect:
         serializedVersion: 2
         x: 0
@@ -243,14 +132,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 362c43978313fd750800000000000000
-      internalID: 6331833719727637091
+      spriteID: f9243c0c26f1294e0800000000000000
+      internalID: -1976482777460948321
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackWalk_7
+      name: LongStraightHair_1
       rect:
         serializedVersion: 2
         x: 26
@@ -264,14 +153,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1b9319c9195df8900800000000000000
-      internalID: 689004089384712625
+      spriteID: 92a9f2ffcd3c6c3f0800000000000000
+      internalID: -880801323162822103
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackWalk_8
+      name: LongStraightHair_2
       rect:
         serializedVersion: 2
         x: 52
@@ -285,14 +174,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 245ba590bf85b4910800000000000000
-      internalID: 1822648309418472770
+      spriteID: d089b139230074bd0800000000000000
+      internalID: -2646146038840453107
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackWalk_9
+      name: LongStraightHair_3
       rect:
         serializedVersion: 2
         x: 78
@@ -306,14 +195,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab39072b5317b9790800000000000000
-      internalID: -7522294277151353926
+      spriteID: 849ddfe89e8dda530800000000000000
+      internalID: 3867986152619104584
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackWalk_10
+      name: LongStraightHair_4
       rect:
         serializedVersion: 2
         x: 104
@@ -327,18 +216,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 76663f7cb57077e60800000000000000
-      internalID: 7959838957178676839
+      spriteID: f807441b4761bc2b0800000000000000
+      internalID: -5563328224240045937
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackWalk_11
+      name: LongStraightHair_5
       rect:
         serializedVersion: 2
-        x: 130
-        y: 0
+        x: 0
+        y: 1
         width: 26
         height: 50
       alignment: 9
@@ -348,8 +237,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1dfa07ad9e1a97c50800000000000000
-      internalID: 6663535149435629521
+      spriteID: dbf8f83cf36b94e10800000000000000
+      internalID: 2182475879417876413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LongStraightHair_6
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 1
+        width: 26
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b92f52830f42e5f70800000000000000
+      internalID: 9177813704780411547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LongStraightHair_7
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 1
+        width: 26
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01b94c16082d70ae0800000000000000
+      internalID: -1583065295159518448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LongStraightHair_8
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 1
+        width: 26
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75664100274390030800000000000000
+      internalID: 3461355452843189847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LongStraightHair_9
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 1
+        width: 26
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 119be11a1989a33a0800000000000000
+      internalID: -6684862945637254895
       vertices: []
       indices: 
       edges: []
