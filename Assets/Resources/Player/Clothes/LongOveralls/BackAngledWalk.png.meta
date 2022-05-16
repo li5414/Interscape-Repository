@@ -1,7 +1,43 @@
 fileFormatVersion: 2
-guid: 520c20940c3b34c128f435388d7f59d4
+guid: 397d4e2b79b8448dda8edf032443eb01
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -945863625860527610
+    second: BackAngledWalk_0
+  - first:
+      213: 7591022251466236561
+    second: BackAngledWalk_1
+  - first:
+      213: 8751896797637207432
+    second: BackAngledWalk_2
+  - first:
+      213: 6156270402958618516
+    second: BackAngledWalk_3
+  - first:
+      213: 6555707807462945193
+    second: BackAngledWalk_4
+  - first:
+      213: 391772751919917040
+    second: BackAngledWalk_5
+  - first:
+      213: 4243073957325071657
+    second: BackAngledWalk_6
+  - first:
+      213: 2769757913653822934
+    second: BackAngledWalk_7
+  - first:
+      213: -379735033355600159
+    second: BackAngledWalk_8
+  - first:
+      213: 4584356416360575693
+    second: BackAngledWalk_9
+  - first:
+      213: -612580646180582636
+    second: BackAngledWalk_10
+  - first:
+      213: -1344578472178756843
+    second: BackAngledWalk_11
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -68,7 +104,7 @@ TextureImporter:
     maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -80,7 +116,7 @@ TextureImporter:
     maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -92,7 +128,7 @@ TextureImporter:
     maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -103,7 +139,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FrontAngledWalk_0
+      name: BackAngledWalk_0
       rect:
         serializedVersion: 2
         x: 0
@@ -117,14 +153,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d8b9df1a839de5e30800000000000000
-      internalID: 4494268315421481869
+      spriteID: 60ace9e2b0e9fd2f0800000000000000
+      internalID: -945863625860527610
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FrontAngledWalk_1
+      name: BackAngledWalk_1
       rect:
         serializedVersion: 2
         x: 26
@@ -138,14 +174,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 54859a70eedce1890800000000000000
-      internalID: -7485319108428736443
+      spriteID: 1922bbcc48ab85960800000000000000
+      internalID: 7591022251466236561
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FrontAngledWalk_2
+      name: BackAngledWalk_2
       rect:
         serializedVersion: 2
         x: 52
@@ -159,14 +195,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: af1e4745410b1bdf0800000000000000
-      internalID: -166158109873217030
+      spriteID: 8856b0694cbf47970800000000000000
+      internalID: 8751896797637207432
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FrontAngledWalk_3
+      name: BackAngledWalk_3
       rect:
         serializedVersion: 2
         x: 78
@@ -180,14 +216,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d8cf653c0c7eed180800000000000000
-      internalID: -9088572182890087283
+      spriteID: 49f699d60577f6550800000000000000
+      internalID: 6156270402958618516
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FrontAngledWalk_4
+      name: BackAngledWalk_4
       rect:
         serializedVersion: 2
         x: 104
@@ -201,14 +237,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5ae2f0b284a5c8400800000000000000
-      internalID: 327736138897764005
+      spriteID: 9a1751b648d8afa50800000000000000
+      internalID: 6555707807462945193
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FrontAngledWalk_5
+      name: BackAngledWalk_5
       rect:
         serializedVersion: 2
         x: 130
@@ -222,14 +258,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8f20239add5021bf0800000000000000
-      internalID: -355214971024309512
+      spriteID: 0f72ddefd3bdf6500800000000000000
+      internalID: 391772751919917040
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FrontAngledWalk_6
+      name: BackAngledWalk_6
       rect:
         serializedVersion: 2
         x: 0
@@ -243,14 +279,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 39499c3d6b93f78d0800000000000000
-      internalID: -2846492982074829677
+      spriteID: 925621e884d62ea30800000000000000
+      internalID: 4243073957325071657
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FrontAngledWalk_7
+      name: BackAngledWalk_7
       rect:
         serializedVersion: 2
         x: 26
@@ -264,14 +300,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be3852ced3b0e04f0800000000000000
-      internalID: -860738118198393877
+      spriteID: 6d5c92dc528207620800000000000000
+      internalID: 2769757913653822934
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FrontAngledWalk_8
+      name: BackAngledWalk_8
       rect:
         serializedVersion: 2
         x: 52
@@ -285,14 +321,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 202bc1995dc60f580800000000000000
-      internalID: -8795410407601950206
+      spriteID: 1ee7114cff8eabaf0800000000000000
+      internalID: -379735033355600159
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FrontAngledWalk_9
+      name: BackAngledWalk_9
       rect:
         serializedVersion: 2
         x: 78
@@ -306,14 +342,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 12ebec268cf0d2d00800000000000000
-      internalID: 949432449770634785
+      spriteID: dc274f82fd7ee9f30800000000000000
+      internalID: 4584356416360575693
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FrontAngledWalk_10
+      name: BackAngledWalk_10
       rect:
         serializedVersion: 2
         x: 104
@@ -327,14 +363,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0cb4effc9995a2920800000000000000
-      internalID: 2966281821731310528
+      spriteID: 41b802cd52daf77f0800000000000000
+      internalID: -612580646180582636
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FrontAngledWalk_11
+      name: BackAngledWalk_11
       rect:
         serializedVersion: 2
         x: 130
@@ -348,8 +384,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8b804e8ef54b58560800000000000000
-      internalID: 7315451493755390136
+      spriteID: 513d521e009175de0800000000000000
+      internalID: -1344578472178756843
       vertices: []
       indices: 
       edges: []
