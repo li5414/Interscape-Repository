@@ -11835,17 +11835,6 @@ MonoBehaviour:
   speed: 0
   isBurdened: 1
   burdenEffectCutoff: 0.75
-  hairFront: {fileID: 530813668033614336, guid: eef26a9520d3946f6a8376ab669f0cfd,
-    type: 3}
-  hairFrontside: {fileID: 8263934709304328160, guid: eef26a9520d3946f6a8376ab669f0cfd,
-    type: 3}
-  hairSide: {fileID: -5292557885657503976, guid: eef26a9520d3946f6a8376ab669f0cfd,
-    type: 3}
-  hairBackside: {fileID: 7104926194056806658, guid: eef26a9520d3946f6a8376ab669f0cfd,
-    type: 3}
-  hairBack: {fileID: -6263768136989998565, guid: eef26a9520d3946f6a8376ab669f0cfd,
-    type: 3}
-  hair: {fileID: 0}
 --- !u!95 &1062241010
 Animator:
   serializedVersion: 3
@@ -75135,7 +75124,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1853741544}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1062241006}
@@ -75182,7 +75171,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8862745, g: 0.7882353, b: 0.7058824, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

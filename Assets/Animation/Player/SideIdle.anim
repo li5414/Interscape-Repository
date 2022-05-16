@@ -127,6 +127,14 @@ AnimationClip:
     path: Clothes
     classID: 212
     script: {fileID: 0}
+  - curve:
+    - time: 0
+      value: {fileID: -2646146038840453107, guid: 394bbaf3aa8c24c8fb583d44104c904d,
+        type: 3}
+    attribute: m_Sprite
+    path: LongStraightHair
+    classID: 212
+    script: {fileID: 0}
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
@@ -162,6 +170,13 @@ AnimationClip:
       typeID: 212
       customType: 23
       isPPtrCurve: 1
+    - serializedVersion: 2
+      path: 2414646401
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
     pptrCurveMapping:
     - {fileID: -8468868244433841365, guid: d171a7d83cefb45f1bc474f7d724beb0, type: 3}
     - {fileID: 1013020370472766558, guid: d171a7d83cefb45f1bc474f7d724beb0, type: 3}
@@ -174,6 +189,7 @@ AnimationClip:
     - {fileID: -8468868244433841365, guid: f609ef10ff48d44f1abf1d365f2943aa, type: 3}
     - {fileID: 1013020370472766558, guid: f609ef10ff48d44f1abf1d365f2943aa, type: 3}
     - {fileID: -8468868244433841365, guid: f609ef10ff48d44f1abf1d365f2943aa, type: 3}
+    - {fileID: -2646146038840453107, guid: 394bbaf3aa8c24c8fb583d44104c904d, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

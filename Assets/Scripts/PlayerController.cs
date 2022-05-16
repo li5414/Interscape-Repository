@@ -15,20 +15,11 @@ public class PlayerController : MonoBehaviour {
     private Facing facing;
     private bool isIdle;
 
-    // hair objects
-    public Sprite hairFront;
-    public Sprite hairFrontside;
-    public Sprite hairSide;
-    public Sprite hairBackside;
-    public Sprite hairBack;
-    public GameObject hair;
-
     /* assign player position and animator */
     void Start() {
         a = GetComponent<Animator>();
         player = this.transform;
         playerStats = GetComponent<PlayerStats>();
-        spriteR = hair.GetComponent<SpriteRenderer>();
         facing = Facing.BotRight;
     }
 
