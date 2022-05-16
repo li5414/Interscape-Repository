@@ -1,43 +1,7 @@
 fileFormatVersion: 2
-guid: bc100b06bcbcf4630a3ce4a0ae46858f
+guid: 52005ac900ca04ff9b5c42e164f1b6b5
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 4494268315421481869
-    second: FrontAngledWalk_0
-  - first:
-      213: -7485319108428736443
-    second: FrontAngledWalk_1
-  - first:
-      213: -166158109873217030
-    second: FrontAngledWalk_2
-  - first:
-      213: -9088572182890087283
-    second: FrontAngledWalk_3
-  - first:
-      213: 327736138897764005
-    second: FrontAngledWalk_4
-  - first:
-      213: -355214971024309512
-    second: FrontAngledWalk_5
-  - first:
-      213: -2846492982074829677
-    second: FrontAngledWalk_6
-  - first:
-      213: -860738118198393877
-    second: FrontAngledWalk_7
-  - first:
-      213: -8795410407601950206
-    second: FrontAngledWalk_8
-  - first:
-      213: 949432449770634785
-    second: FrontAngledWalk_9
-  - first:
-      213: 2966281821731310528
-    second: FrontAngledWalk_10
-  - first:
-      213: 7315451493755390136
-    second: FrontAngledWalk_11
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
