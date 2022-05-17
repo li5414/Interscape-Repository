@@ -11833,8 +11833,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  isBurdened: 1
-  burdenEffectCutoff: 0.75
 --- !u!95 &1062241010
 Animator:
   serializedVersion: 3
@@ -11907,7 +11905,7 @@ MonoBehaviour:
   statsUI: {fileID: 397163722}
   carryCapacity: 40
   walkSpeed: 3
-  runSpeed: 8
+  runSpeed: 6
   crawlSpeed: 2
   isRunning: 0
   skill: 0
@@ -36776,7 +36774,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7.4675694
+  orthographic size: 12.76
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
