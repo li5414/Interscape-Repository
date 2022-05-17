@@ -1,7 +1,22 @@
 fileFormatVersion: 2
-guid: 394bbaf3aa8c24c8fb583d44104c904d
+guid: a70be780d71bd4771b11caddbfe97435
 TextureImporter:
   internalIDToNameTable:
+  - first:
+      213: -1976482777460948321
+    second: LongStraightHair_0
+  - first:
+      213: -880801323162822103
+    second: LongStraightHair_1
+  - first:
+      213: -2646146038840453107
+    second: LongStraightHair_2
+  - first:
+      213: 3867986152619104584
+    second: LongStraightHair_3
+  - first:
+      213: -5563328224240045937
+    second: LongStraightHair_4
   - first:
       213: 2182475879417876413
     second: LongStraightHair_5
@@ -17,6 +32,21 @@ TextureImporter:
   - first:
       213: -6684862945637254895
     second: LongStraightHair_9
+  - first:
+      213: 2863444219185849478
+    second: LongStraightHair_10
+  - first:
+      213: 7727080986195859495
+    second: LongStraightHair_11
+  - first:
+      213: 5027752086736161266
+    second: LongStraightHair_12
+  - first:
+      213: -2605126742835977365
+    second: LongStraightHair_13
+  - first:
+      213: -9016025752526749539
+    second: LongStraightHair_14
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -83,7 +113,7 @@ TextureImporter:
     maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -95,7 +125,7 @@ TextureImporter:
     maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -107,7 +137,7 @@ TextureImporter:
     maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -122,7 +152,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 1
         width: 26
         height: 50
       alignment: 9
@@ -143,7 +173,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 26
-        y: 0
+        y: 1
         width: 26
         height: 50
       alignment: 9
@@ -164,7 +194,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 52
-        y: 0
+        y: 1
         width: 26
         height: 50
       alignment: 9
@@ -185,7 +215,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 78
-        y: 0
+        y: 1
         width: 26
         height: 50
       alignment: 9
@@ -206,7 +236,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 104
-        y: 0
+        y: 1
         width: 26
         height: 50
       alignment: 9
@@ -227,7 +257,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 1
+        y: 2
         width: 26
         height: 50
       alignment: 9
@@ -248,7 +278,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 26
-        y: 1
+        y: 2
         width: 26
         height: 50
       alignment: 9
@@ -269,7 +299,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 52
-        y: 1
+        y: 2
         width: 26
         height: 50
       alignment: 9
@@ -290,7 +320,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 78
-        y: 1
+        y: 2
         width: 26
         height: 50
       alignment: 9
@@ -311,7 +341,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 104
-        y: 1
+        y: 2
         width: 26
         height: 50
       alignment: 9
@@ -323,6 +353,111 @@ TextureImporter:
       bones: []
       spriteID: 119be11a1989a33a0800000000000000
       internalID: -6684862945637254895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LongStraightHair_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3
+        width: 26
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 684e7be985ffcb720800000000000000
+      internalID: 2863444219185849478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LongStraightHair_11
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 3
+        width: 26
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72811e4973b1c3b60800000000000000
+      internalID: 7727080986195859495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LongStraightHair_12
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 3
+        width: 26
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f943ac72e926c540800000000000000
+      internalID: 5027752086736161266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LongStraightHair_13
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 3
+        width: 26
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b63246aa70bb8dbd0800000000000000
+      internalID: -2605126742835977365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LongStraightHair_14
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 3
+        width: 26
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d908ed6d854a0e280800000000000000
+      internalID: -9016025752526749539
       vertices: []
       indices: 
       edges: []

@@ -129,7 +129,7 @@ AnimationClip:
     script: {fileID: 0}
   - curve:
     - time: 0
-      value: {fileID: -1976482777460948321, guid: 394bbaf3aa8c24c8fb583d44104c904d,
+      value: {fileID: -1976482777460948321, guid: a70be780d71bd4771b11caddbfe97435,
         type: 3}
     attribute: m_Sprite
     path: LongStraightHair
@@ -189,7 +189,7 @@ AnimationClip:
     - {fileID: 2269904953512665676, guid: ba3bfff054ce149b8880b785387e55a0, type: 3}
     - {fileID: 3026741675368561383, guid: ba3bfff054ce149b8880b785387e55a0, type: 3}
     - {fileID: 2269904953512665676, guid: ba3bfff054ce149b8880b785387e55a0, type: 3}
-    - {fileID: -1976482777460948321, guid: 394bbaf3aa8c24c8fb583d44104c904d, type: 3}
+    - {fileID: -1976482777460948321, guid: a70be780d71bd4771b11caddbfe97435, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
