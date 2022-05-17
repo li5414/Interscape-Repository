@@ -117,7 +117,7 @@ AnimationClip:
     script: {fileID: 0}
   - curve:
     - time: 0
-      value: {fileID: -4687381738910597580, guid: 392d5f626a66f418490d324bd4bed336,
+      value: {fileID: 5522836140717646860, guid: 2d190b52b0ad04a0abe59e1eb3e9e8d9,
         type: 3}
     attribute: m_Sprite
     path: Eyes
@@ -203,7 +203,7 @@ AnimationClip:
     - {fileID: 5155348801927339423, guid: 6acc5c54241b84772b7d95a633493f7d, type: 3}
     - {fileID: -3125385904658426138, guid: 6acc5c54241b84772b7d95a633493f7d, type: 3}
     - {fileID: 5155348801927339423, guid: 6acc5c54241b84772b7d95a633493f7d, type: 3}
-    - {fileID: -4687381738910597580, guid: 392d5f626a66f418490d324bd4bed336, type: 3}
+    - {fileID: 5522836140717646860, guid: 2d190b52b0ad04a0abe59e1eb3e9e8d9, type: 3}
     - {fileID: 5155348801927339423, guid: a963871c12d304c11b6d81952c85fc8c, type: 3}
     - {fileID: -3125385904658426138, guid: a963871c12d304c11b6d81952c85fc8c, type: 3}
     - {fileID: 5155348801927339423, guid: a963871c12d304c11b6d81952c85fc8c, type: 3}
