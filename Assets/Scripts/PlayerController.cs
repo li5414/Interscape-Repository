@@ -3,22 +3,17 @@ using System.Collections;
 using System;
 
 public class PlayerController : MonoBehaviour {
-
-    /* initialise variables */
+    private float BURDEN_EFFECT_CUTOFF = 0.75f;
     public float speed;
-    public bool isBurdened = true;
+    private bool isBurdened = true;
     Animator a;
-    Transform player;
     private PlayerStats playerStats;
-    public float burdenEffectCutoff = 0.75f;
-    SpriteRenderer spriteR;
     private Facing facing;
     private bool isIdle;
 
     /* assign player position and animator */
     void Start() {
         a = GetComponent<Animator>();
-        player = this.transform;
         playerStats = GetComponent<PlayerStats>();
         facing = Facing.BotRight;
     }
@@ -63,7 +58,7 @@ public class PlayerController : MonoBehaviour {
         /* apply movement to character */
         Vector3 inputDirection = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
         Vector3 velocity = inputDirection.normalized;
-        player.Translate(velocity * speed * Time.deltaTime);
+        this.transform.Translate(velocity * speed * Time.deltaTime);
     }
 
     private void crawlAnimation() {
@@ -71,7 +66,6 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void walkAnimation() {
-
         switch (facing) {
             case Facing.Up:
                 a.Play("BackWalk");
@@ -134,7 +128,29 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void runAnimation() {
-        walkAnimation();
+        switch (facing) {
+            case Facing.Up:
+                a.Play("BackRun");
+                break;
+            case Facing.TopRight:
+            case Facing.TopLeft:
+                a.Play("BackAngledRun");
+                break;
+            case Facing.Right:
+            case Facing.Left:
+                a.Play("SideRun");
+                break;
+            case Facing.BotLeft:
+            case Facing.BotRight:
+                a.Play("FrontAngledRun");
+                break;
+            case Facing.Down:
+                a.Play("FrontRun");
+                break;
+            default:
+                Debug.LogError("Run animation could not be found");
+                break;
+        }
     }
 
 
@@ -180,7 +196,7 @@ public class PlayerController : MonoBehaviour {
 
 
     private float adjustForBurden(float baseSpeed) {
-        float lowerBound = playerStats.carryCapacity * burdenEffectCutoff;
+        float lowerBound = playerStats.carryCapacity * BURDEN_EFFECT_CUTOFF;
         if (!isBurdened || (playerStats.inventory.weight <= lowerBound)) {
             return baseSpeed;
         }
