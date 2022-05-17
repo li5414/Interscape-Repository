@@ -1,7 +1,43 @@
 fileFormatVersion: 2
-guid: 74d9efa49495e4202b4fa88f408183b7
+guid: 53351421466e241f889877883844e604
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -8371298194881927472
+    second: FrontRun_0
+  - first:
+      213: 883048717580815997
+    second: FrontRun_1
+  - first:
+      213: 4647654386621230028
+    second: FrontRun_2
+  - first:
+      213: -5364926648127628495
+    second: FrontRun_3
+  - first:
+      213: -2044030775424614521
+    second: FrontRun_4
+  - first:
+      213: 5142268472019192446
+    second: FrontRun_5
+  - first:
+      213: -3359714438566920890
+    second: FrontRun_6
+  - first:
+      213: -6968546856508976013
+    second: FrontRun_7
+  - first:
+      213: -514944660797601720
+    second: FrontRun_8
+  - first:
+      213: 967793698615028773
+    second: FrontRun_9
+  - first:
+      213: -2736625800705848882
+    second: FrontRun_10
+  - first:
+      213: -1982857073274441960
+    second: FrontRun_11
   externalObjects: {}
   serializedVersion: 11
   mipmaps:

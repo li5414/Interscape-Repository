@@ -8,6 +8,9 @@ TextureImporter:
   - first:
       213: -2594718533744417666
     second: FrontEyes_1
+  - first:
+      213: 1422531256575696651
+    second: FrontEyes_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -112,7 +115,7 @@ TextureImporter:
       name: FrontEyes_0
       rect:
         serializedVersion: 2
-        x: 9
+        x: 10
         y: 32
         width: 6
         height: 4
@@ -133,12 +136,12 @@ TextureImporter:
       name: FrontEyes_1
       rect:
         serializedVersion: 2
-        x: 9
+        x: 10
         y: 33
         width: 6
         height: 4
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -146,6 +149,27 @@ TextureImporter:
       bones: []
       spriteID: e74aa00bd35bdfbd0800000000000000
       internalID: -2594718533744417666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrontEyes_2
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 34
+        width: 6
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0f951614a8ddb310800000000000000
+      internalID: 1422531256575696651
       vertices: []
       indices: 
       edges: []
