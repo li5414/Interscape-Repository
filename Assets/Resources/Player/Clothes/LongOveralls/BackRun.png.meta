@@ -1,7 +1,43 @@
 fileFormatVersion: 2
-guid: f25e1fed8df654730a3e208d03cb3b85
+guid: fdd3224be4e114393950ac52b2b70846
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -2690867116089732435
+    second: BackRun_0
+  - first:
+      213: -7005943002770971614
+    second: BackRun_1
+  - first:
+      213: 7253618531488122268
+    second: BackRun_2
+  - first:
+      213: 4281507923901775134
+    second: BackRun_3
+  - first:
+      213: 7714352336903470052
+    second: BackRun_4
+  - first:
+      213: -1170808135172812337
+    second: BackRun_5
+  - first:
+      213: -5221300398440491279
+    second: BackRun_6
+  - first:
+      213: -3817032188875344927
+    second: BackRun_7
+  - first:
+      213: -1190148740219128013
+    second: BackRun_8
+  - first:
+      213: 318698658634552389
+    second: BackRun_9
+  - first:
+      213: 4263910324470189661
+    second: BackRun_10
+  - first:
+      213: -8066915065037583731
+    second: BackRun_11
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -68,7 +104,7 @@ TextureImporter:
     maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -80,7 +116,7 @@ TextureImporter:
     maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -92,7 +128,7 @@ TextureImporter:
     maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
