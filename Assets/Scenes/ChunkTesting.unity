@@ -7843,7 +7843,7 @@ GameObject:
   - component: {fileID: 559602598}
   - component: {fileID: 559602599}
   m_Layer: 8
-  m_Name: Clothes
+  m_Name: LongOveralls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

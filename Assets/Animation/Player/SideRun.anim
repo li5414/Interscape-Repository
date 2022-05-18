@@ -167,7 +167,7 @@ AnimationClip:
       value: {fileID: -1006699900554492076, guid: dba2cdae69b2441488f897dae9122c54,
         type: 3}
     attribute: m_Sprite
-    path: Clothes
+    path: LongOveralls
     classID: 212
     script: {fileID: 0}
   m_SampleRate: 60
@@ -199,7 +199,7 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     - serializedVersion: 2
-      path: 4291071248
+      path: 478230615
       attribute: 0
       script: {fileID: 0}
       typeID: 212
