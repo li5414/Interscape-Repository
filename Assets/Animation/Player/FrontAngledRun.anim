@@ -126,6 +126,15 @@ AnimationClip:
     path: Eyes
     classID: 212
     script: {fileID: 0}
+  - curve:
+    - time: 0
+      value: {fileID: 0}
+    - time: 0.21666667
+      value: {fileID: 0}
+    attribute: m_Sprite
+    path: Clothes
+    classID: 212
+    script: {fileID: 0}
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
@@ -149,6 +158,13 @@ AnimationClip:
       isPPtrCurve: 1
     - serializedVersion: 2
       path: 120101800
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+    - serializedVersion: 2
+      path: 4291071248
       attribute: 0
       script: {fileID: 0}
       typeID: 212
@@ -186,12 +202,14 @@ AnimationClip:
     - {fileID: 5522836140717646860, guid: 2d190b52b0ad04a0abe59e1eb3e9e8d9, type: 3}
     - {fileID: -977986632634048535, guid: 2d190b52b0ad04a0abe59e1eb3e9e8d9, type: 3}
     - {fileID: 4422744122725722095, guid: 2d190b52b0ad04a0abe59e1eb3e9e8d9, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.21666667
+    m_StopTime: 0.23333333
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
