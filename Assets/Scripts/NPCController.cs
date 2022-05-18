@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class NPCController : MonoBehaviour {
     static float WALK_SPEED = 2f;
-    static int WANDER_RANGE = 16;
-    static int WANDER_BOUNDARY_RANGE = 40;
+    static int WANDER_RANGE = 10;
+    static int WANDER_BOUNDARY_RANGE = 20;
     Animator a;
     NPCState state = NPCState.STANDING;
     Facing facing = Facing.BotRight;

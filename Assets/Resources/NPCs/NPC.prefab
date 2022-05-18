@@ -259,8 +259,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f17763a280cb4e688b6b639eb29a17b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: ebfcf23d3b753472986894cd647051d7, type: 3}
-  material: {fileID: 2100000, guid: a5eeedc953a8547c2b77590a81495c19, type: 2}
   originalColours:
   - serializedVersion: 2
     rgba: 4281742910
@@ -295,6 +293,7 @@ GameObject:
   - component: {fileID: 2277900494601155560}
   - component: {fileID: 2277900494601155573}
   - component: {fileID: 2169458504421040616}
+  - component: {fileID: 2350122369058452258}
   m_Layer: 8
   m_Name: NPC
   m_TagString: Untagged
@@ -462,5 +461,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b98fa22c8d294816834818451e344da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2350122369058452258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2277900494601155575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4018ba1f09d0f40cdad1c6e058eb5a88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

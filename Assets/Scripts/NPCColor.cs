@@ -35,8 +35,7 @@ public class NPCColor : MonoBehaviour {
         new Color32(108, 112, 128, 255),
         new Color32(69, 64, 62, 255),
         new Color32(68, 63, 58, 255),
-        new Color32(122, 79, 61, 255),
-        new Color32(112, 73, 56, 255)
+        new Color32(122, 79, 61, 255)
     };
     static Color32[] CLOTHES_COLOURS_2 = {
         new Color32(208, 200, 196, 255),
@@ -59,6 +58,13 @@ public class NPCColor : MonoBehaviour {
         skinColour = SKIN_COLOURS[Random.Range(0, SKIN_COLOURS.Length)];
         clothesColour1 = CLOTHES_COLOURS_1[Random.Range(0, CLOTHES_COLOURS_1.Length)];
         clothesColour2 = CLOTHES_COLOURS_2[Random.Range(0, CLOTHES_COLOURS_2.Length)];
+
+        // small chance to swap clothes colors around
+        if (Random.value < 0.25) {
+            Color32 temp = clothesColour1;
+            clothesColour1 = clothesColour2;
+            clothesColour2 = temp;
+        }
         applyColours();
     }
 
@@ -69,6 +75,18 @@ public class NPCColor : MonoBehaviour {
 
         gameObject.transform.Find("Eyes").GetComponent<SpriteRenderer>().color = eyeColour;
 
-        // gameObject.transform.Find("LongOveralls");
+        Color32[] clothesColors = gameObject.transform.Find("LongOveralls").GetComponent<RecolourPixels>().newColours;
+        clothesColors[1] = clothesColour1;
+        clothesColors[0] = new Color32(
+            (byte)(clothesColors[1].r - 8),
+            (byte)(clothesColors[1].g - 12),
+            (byte)(clothesColors[1].b - 10),
+            255);
+        clothesColors[3] = clothesColour2;
+        clothesColors[2] = new Color32(
+            (byte)(clothesColors[3].r - 8),
+            (byte)(clothesColors[3].g - 12),
+            (byte)(clothesColors[3].b - 10),
+            255);
     }
 }
