@@ -69,6 +69,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -472,6 +473,22 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Hair_6: 1171487852317640272
+      Hair_13: -4303153600434331546
+      Hair_3: -1547799261709329833
+      Hair_11: 129193698593349238
+      Hair_9: 4389914260608052925
+      Hair_1: -6366872494776655248
+      Hair_12: 1828158459636435276
+      Hair_7: 1301079032854989188
+      Hair_10: -7502709967974047029
+      Hair_5: 7540039388938732655
+      Hair_2: 2305779917541862524
+      Hair_8: -2096320051892401822
+      Hair_14: 947099083283842736
+      Hair_0: -7221386846523871952
+      Hair_4: -4883130944607243500
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

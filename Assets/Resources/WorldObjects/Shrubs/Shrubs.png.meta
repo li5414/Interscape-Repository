@@ -42,6 +42,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -244,6 +245,13 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Shrubs_4: -1102250951937246134
+      Shrubs_0: -3488455731063289523
+      Shrubs_2: 2370597422280357711
+      Shrubs_3: -5840714400045530550
+      Shrubs_5: -5963589293143958511
+      Shrubs_1: -7784557362517632299
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

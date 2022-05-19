@@ -60,6 +60,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -1261,6 +1262,60 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      DirtTiles_24: -8022124745786496275
+      DirtTiles_42: 5096471026131541662
+      DirtTiles_17: 2530832368668026754
+      DirtTiles_39: 7326317180955512386
+      DirtTiles_16: -363981355574240044
+      DirtTiles_13: -8784942632082378787
+      DirtTiles_32: 3106470677001122897
+      DirtTiles_14: 8573578606068105151
+      DirtTiles_50: -4891269179987823807
+      DirtTiles_0: -3049630353786785849
+      DirtTiles_31: 7555578179620950400
+      DirtTiles_33: -679017770765198653
+      DirtTiles_12: -6536475633307553873
+      DirtTiles_23: -6838982628412638668
+      DirtTiles_27: -8717150728027422535
+      DirtTiles_28: 6718735005666445128
+      DirtTiles_45: 5085174941401671696
+      DirtTiles_46: -3870753375125731279
+      DirtTiles_7: -676165628585776795
+      DirtTiles_29: 6990105066997724884
+      DirtTiles_3: 7910808362646633891
+      DirtTiles_26: 8626809035302736576
+      DirtTiles_37: -671384473352094968
+      DirtTiles_1: -5856970931966116627
+      DirtTiles_4: 7255126837190009495
+      DirtTiles_20: 6258066550000125098
+      DirtTiles_44: -230394108951145256
+      DirtTiles_8: -4736997259760077381
+      DirtTiles_21: 7352428557436842409
+      DirtTiles_2: -3821624720197457920
+      DirtTiles_30: 2332238432968210310
+      DirtTiles_6: -1287359217567520875
+      DirtTiles_43: 2653081831740307157
+      DirtTiles_41: 3589119836769210694
+      DirtTiles_34: 9059005047175263546
+      DirtTiles_5: -9046873170354391938
+      DirtTiles_25: 6503954077186974284
+      DirtTiles_18: -7877739694077190975
+      DirtTiles_36: -2312343526671333694
+      DirtTiles_48: -3049727481282470082
+      DirtTiles_10: 1801508169391956272
+      DirtTiles_47: -8881802715333009367
+      DirtTiles_52: -5854996413700326277
+      DirtTiles_19: 8285221219677715394
+      DirtTiles_9: -7847902961056982144
+      DirtTiles_49: 2023368157978064980
+      DirtTiles_38: 4449312394799271962
+      DirtTiles_51: 7813423135560409606
+      DirtTiles_11: 4417842103981365104
+      DirtTiles_22: -4107223424941114867
+      DirtTiles_40: 6773586413100121713
+      DirtTiles_15: -314502821791230087
+      DirtTiles_35: 1593569925192248140
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

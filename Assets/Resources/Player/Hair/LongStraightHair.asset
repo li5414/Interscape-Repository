@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf7c34a0dc4e6348bea04faa70406ee, type: 3}
+  m_Name: LongStraightHair
+  m_EditorClassIdentifier: 
+  m_Labels:
+  - m_Name: Front
+    m_Hash: 1060785650
+    m_CategoryList:
+    - m_Name: High
+      m_Hash: 1362578283
+      m_Sprite: {fileID: 6291076074326483787, guid: c97399c78950b4be3b9b4bd333793889,
+        type: 3}
+    - m_Name: Med
+      m_Hash: -715719390
+      m_Sprite: {fileID: -2140422863264635068, guid: c97399c78950b4be3b9b4bd333793889,
+        type: 3}
+    - m_Name: Low
+      m_Hash: -1429914047
+      m_Sprite: {fileID: 2204669579196900006, guid: c97399c78950b4be3b9b4bd333793889,
+        type: 3}
+  - m_Name: FrontAngled
+    m_Hash: -1372198759
+    m_CategoryList:
+    - m_Name: High
+      m_Hash: 1362578283
+      m_Sprite: {fileID: 2198116130945775363, guid: c97399c78950b4be3b9b4bd333793889,
+        type: 3}
+    - m_Name: Med
+      m_Hash: -715719390
+      m_Sprite: {fileID: 2544040675260565084, guid: c97399c78950b4be3b9b4bd333793889,
+        type: 3}
+    - m_Name: Low
+      m_Hash: -1429914047
+      m_Sprite: {fileID: 9030113176026869921, guid: c97399c78950b4be3b9b4bd333793889,
+        type: 3}
+  - m_Name: Side
+    m_Hash: -2085374837
+    m_CategoryList:
+    - m_Name: High
+      m_Hash: 1362578283
+      m_Sprite: {fileID: 1473380705548973982, guid: c97399c78950b4be3b9b4bd333793889,
+        type: 3}
+    - m_Name: Med
+      m_Hash: -715719390
+      m_Sprite: {fileID: -529949329545849477, guid: c97399c78950b4be3b9b4bd333793889,
+        type: 3}
+    - m_Name: Low
+      m_Hash: -1429914047
+      m_Sprite: {fileID: 8876366078900944568, guid: c97399c78950b4be3b9b4bd333793889,
+        type: 3}
+  - m_Name: BackAngled
+    m_Hash: -1301855501
+    m_CategoryList:
+    - m_Name: High
+      m_Hash: 1362578283
+      m_Sprite: {fileID: 3407883830393546571, guid: c97399c78950b4be3b9b4bd333793889,
+        type: 3}
+    - m_Name: Med
+      m_Hash: -715719390
+      m_Sprite: {fileID: 350500025444152031, guid: c97399c78950b4be3b9b4bd333793889,
+        type: 3}
+    - m_Name: Low
+      m_Hash: -1429914047
+      m_Sprite: {fileID: -4413519257054220907, guid: c97399c78950b4be3b9b4bd333793889,
+        type: 3}
+  - m_Name: Back
+    m_Hash: -839094775
+    m_CategoryList:
+    - m_Name: High
+      m_Hash: 1362578283
+      m_Sprite: {fileID: 5624744384390442808, guid: c97399c78950b4be3b9b4bd333793889,
+        type: 3}
+    - m_Name: Med
+      m_Hash: -715719390
+      m_Sprite: {fileID: 1877143824050305365, guid: c97399c78950b4be3b9b4bd333793889,
+        type: 3}
+    - m_Name: Low
+      m_Hash: -1429914047
+      m_Sprite: {fileID: -7315613059449551407, guid: c97399c78950b4be3b9b4bd333793889,
+        type: 3}
