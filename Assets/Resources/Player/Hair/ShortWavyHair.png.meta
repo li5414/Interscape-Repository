@@ -1,7 +1,52 @@
 fileFormatVersion: 2
-guid: c97399c78950b4be3b9b4bd333793889
+guid: 42223aaefd05341d1b94f1f676539af0
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -7221386846523871952
+    second: Hair_0
+  - first:
+      213: -6366872494776655248
+    second: Hair_1
+  - first:
+      213: 2305779917541862524
+    second: Hair_2
+  - first:
+      213: -1547799261709329833
+    second: Hair_3
+  - first:
+      213: -4883130944607243500
+    second: Hair_4
+  - first:
+      213: 7540039388938732655
+    second: Hair_5
+  - first:
+      213: 1171487852317640272
+    second: Hair_6
+  - first:
+      213: 1301079032854989188
+    second: Hair_7
+  - first:
+      213: -2096320051892401822
+    second: Hair_8
+  - first:
+      213: 4389914260608052925
+    second: Hair_9
+  - first:
+      213: -7502709967974047029
+    second: Hair_10
+  - first:
+      213: 129193698593349238
+    second: Hair_11
+  - first:
+      213: 1828158459636435276
+    second: Hair_12
+  - first:
+      213: -4303153600434331546
+    second: Hair_13
+  - first:
+      213: 947099083283842736
+    second: Hair_14
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
