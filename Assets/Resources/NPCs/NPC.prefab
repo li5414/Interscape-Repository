@@ -517,3 +517,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4018ba1f09d0f40cdad1c6e058eb5a88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HAIR_OPTIONS:
+  - {fileID: 7108339969198208228, guid: d6f8857f87b1943209b8fd4285a7aae8, type: 3}
+  - {fileID: 7108339969198208228, guid: e850bedf0d6364240b1edde33090e113, type: 3}
+  - {fileID: 7108339969198208228, guid: 553c7c112415c45d289afbca8d02ffc8, type: 3}
+  - {fileID: 7108339969198208228, guid: d10bca0b1c56b40c59af9e552d287f02, type: 3}
+  - {fileID: 7108339969198208228, guid: b22a6bfa20b924144958ee946768ed64, type: 3}

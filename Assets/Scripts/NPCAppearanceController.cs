@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCColor : MonoBehaviour {
+public class NPCAppearanceController : MonoBehaviour {
     static Color32[] HAIR_COLOURS = {
         new Color32(112, 73, 56, 255),
         new Color32(195, 163, 117, 255),
@@ -46,6 +46,8 @@ public class NPCColor : MonoBehaviour {
         new Color32(202, 192, 189, 255)
     };
 
+    public UnityEngine.U2D.Animation.SpriteLibraryAsset[] HAIR_OPTIONS;
+
     Color32 hairColour;
     Color32 eyeColour;
     Color32 skinColour;
@@ -66,6 +68,11 @@ public class NPCColor : MonoBehaviour {
             clothesColour2 = temp;
         }
         applyColours();
+        randomiseHairShape();
+    }
+
+    public void randomiseHairShape() {
+        gameObject.transform.Find("Hair").GetComponent<UnityEngine.U2D.Animation.SpriteLibrary>().spriteLibraryAsset = HAIR_OPTIONS[Random.Range(0, HAIR_OPTIONS.Length)];
     }
 
     public void applyColours() {
