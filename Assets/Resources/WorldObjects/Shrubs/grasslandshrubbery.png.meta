@@ -57,6 +57,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -376,6 +377,18 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      grasslandshrubbery_2: 21300004
+      grasslandshrubbery_9: 21300018
+      grasslandshrubbery_7: 21300014
+      grasslandshrubbery_4: 21300008
+      grasslandshrubbery_6: 21300012
+      grasslandshrubbery_1: 21300002
+      grasslandshrubbery_5: 21300010
+      grasslandshrubbery_10: 21300020
+      grasslandshrubbery_3: 21300006
+      grasslandshrubbery_0: 21300000
+      grasslandshrubbery_8: 21300016
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

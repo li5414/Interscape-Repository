@@ -390,6 +390,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -1759,6 +1760,68 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      DirtTileVariations_39: 4939174626363720626
+      DirtTileVariations_49: 1443943150822138917
+      DirtTileVariations_18: -5913354736204588215
+      DirtTileVariations_20: -4141085455470804426
+      DirtTileVariations_29: 2354545447166112104
+      DirtTileVariations_23: -2932902785084849527
+      DirtTileVariations_54: 8855376979991117637
+      DirtTileVariations_57: -3537570179181065544
+      DirtTileVariations_56: 742955395601052391
+      DirtTileVariations_59: -748004270362205898
+      DirtTileVariations_2: 4807628504160130834
+      DirtTileVariations_0: -7060185188725925391
+      DirtTileVariations_33: -7533685665899807805
+      DirtTileVariations_58: 4381873216350492180
+      DirtTileVariations_15: 6913449473304215761
+      DirtTileVariations_30: -7988792160177560133
+      DirtTileVariations_42: -224518942972249350
+      DirtTileVariations_27: -7538453427185549041
+      DirtTileVariations_43: 234785887212263734
+      DirtTileVariations_22: -8048057825719130141
+      DirtTileVariations_32: 5068053582829573301
+      DirtTileVariations_8: 6417723563310137249
+      DirtTileVariations_55: 7994952910957877114
+      DirtTileVariations_31: -4661550952818437751
+      DirtTileVariations_14: 1489514538333471754
+      DirtTileVariations_19: -7269864638274721537
+      DirtTileVariations_26: -5988882476759736252
+      DirtTileVariations_60: -4293496880550567474
+      DirtTileVariations_12: 6761084298188374793
+      DirtTileVariations_11: 7463995966756512282
+      DirtTileVariations_1: -892741108464957303
+      DirtTileVariations_24: -5745387538141199094
+      DirtTileVariations_21: 8242650210403698219
+      DirtTileVariations_17: -5867525394761642409
+      DirtTileVariations_34: 5556944816429043140
+      DirtTileVariations_6: 1190849460490712064
+      DirtTileVariations_10: -6948589741410814409
+      DirtTileVariations_36: 8936129296330892889
+      DirtTileVariations_4: 8257173793332782033
+      DirtTileVariations_28: -5436070928509690275
+      DirtTileVariations_9: -7965815236873896565
+      DirtTileVariations_13: 9216254610400068943
+      DirtTileVariations_40: 111853052488402163
+      DirtTileVariations_38: -86957803629629121
+      DirtTileVariations_45: -6515952979283219938
+      DirtTileVariations_52: 4219523332303375915
+      DirtTileVariations_3: -4562160074697209141
+      DirtTileVariations_46: 7909837813292769013
+      DirtTileVariations_37: 6114971700420421252
+      DirtTileVariations_16: -5021363558308832341
+      DirtTileVariations_5: 1753921407732746262
+      DirtTileVariations_25: -4406813088883106513
+      DirtTileVariations_51: -2102833044518002752
+      DirtTileVariations_53: 8478764524700670615
+      DirtTileVariations_41: -6103573930949512889
+      DirtTileVariations_48: 3209598798899352859
+      DirtTileVariations_35: 4629315493015675358
+      DirtTileVariations_44: -1696651502678525189
+      DirtTileVariations_47: -3736309138984627300
+      DirtTileVariations_7: 1137573017472006718
+      DirtTileVariations_50: 4637665269064509723
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

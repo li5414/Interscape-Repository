@@ -51,6 +51,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -316,6 +317,16 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      shirt_frontside_walk_6: 6523714470411332556
+      shirt_frontside_walk_1: 6412880896156132036
+      shirt_frontside_walk_4: -7281060149267498802
+      shirt_frontside_walk_8: -4059418166571061058
+      shirt_frontside_walk_2: 6291068662058535064
+      shirt_frontside_walk_3: 728023062875715770
+      shirt_frontside_walk_0: 6319591805848204000
+      shirt_frontside_walk_5: 4809691709854931737
+      shirt_frontside_walk_7: 7513828586726586044
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

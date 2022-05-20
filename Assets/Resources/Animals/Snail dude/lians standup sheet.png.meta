@@ -45,6 +45,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -268,6 +269,14 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      lians standup sheet_5: 4278778456830027711
+      lians standup sheet_0: -3434885480934708828
+      lians standup sheet_2: 6441388127216660925
+      lians standup sheet_3: 2224138010764423686
+      lians standup sheet_1: -5396712597415846630
+      lians standup sheet_4: -5517718580710049974
+      lians standup sheet_6: -3735576963656667865
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

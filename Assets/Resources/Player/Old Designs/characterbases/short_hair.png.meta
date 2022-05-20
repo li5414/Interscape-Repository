@@ -54,6 +54,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -340,6 +341,17 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      short_hair_9: -7499727320846787840
+      short_hair_7: -3319645866252305340
+      short_hair_4: -4214862102660500679
+      short_hair_0: -4000885516321944699
+      short_hair_6: 1157295560983925424
+      short_hair_2: 6323596014965919808
+      short_hair_1: -2334426008545339268
+      short_hair_8: 5137258158799985016
+      short_hair_3: 7093782395940258543
+      short_hair_5: -8408365650017578473
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

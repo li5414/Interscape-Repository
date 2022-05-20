@@ -7,9 +7,9 @@ public class PlayerStats : MonoBehaviour {
     public Inventory inventory;
     public GameObject statsUI;
     public float carryCapacity = 40; // 40 kg start
-    public float walkSpeed = 0.08f;
-    public float runSpeed = 0.2f;
-    public float crawlSpeed = 0.04f;
+    public float walkSpeed = 3f;
+    public float runSpeed = 8f;
+    public float crawlSpeed = 2f;
     public bool isRunning;
 
     public int skill;

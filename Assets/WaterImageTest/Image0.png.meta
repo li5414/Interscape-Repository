@@ -195,7 +195,7 @@ TextureImporter:
       213: 2450652428607381636
     second: Image0_63
   externalObjects: {}
-  serializedVersion: 10
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -215,6 +215,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -224,8 +226,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -246,11 +248,15 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
   platformSettings:
-  - serializedVersion: 2
+  - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 256
     resizeAlgorithm: 0
@@ -261,7 +267,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 256
     resizeAlgorithm: 0
@@ -272,6 +279,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -1629,6 +1637,71 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Image0_40: 1787774471192954367
+      Image0_25: -5464007704459116080
+      Image0_8: -4274256362987228130
+      Image0_21: 1827564607958885435
+      Image0_31: 398973384514172900
+      Image0_53: 8646096779813329808
+      Image0_41: -3808397464901745178
+      Image0_42: 4514563555085065263
+      Image0_19: 1234132407463315254
+      Image0_50: -7254275812920189180
+      Image0_59: 5720476392724083393
+      Image0_37: 2921808660315945882
+      Image0_14: 24512749085163953
+      Image0_18: 3038195648894663501
+      Image0_34: 8978603913513933492
+      Image0_24: -2829387847651493147
+      Image0_36: 8156413525039355675
+      Image0_3: 7033756608682280263
+      Image0_35: -5366233647262642488
+      Image0_45: -9108953478152672818
+      Image0_0: -3421420216268061155
+      Image0_60: -2778609454494292150
+      Image0_4: -3790026108669844989
+      Image0_6: -5177469656685189010
+      Image0_9: -5913702044189015091
+      Image0_17: 7860620727471309172
+      Image0_2: 5906010402225887748
+      Image0_39: 7019614778496082900
+      Image0_16: -5217763719669906851
+      Image0_32: -1643335800588079414
+      Image0_30: 5275973131109172390
+      Image0_11: 1460240977751651238
+      Image0_33: -179806814857878706
+      Image0_27: 5313573676323073154
+      Image0_56: -7343518583096244410
+      Image0_49: 6896002607088526189
+      Image0_20: 8464500921573067100
+      Image0_58: -1899207121625946123
+      Image0_13: 7619553030344492020
+      Image0_46: -6298847655497057843
+      Image0_10: -9042935822566761243
+      Image0_22: -6064279780494806257
+      Image0_26: 6834793921963597047
+      Image0_55: -3577439153784290977
+      Image0_61: -1984458444948220295
+      Image0_63: 2450652428607381636
+      Image0_54: 2896915950571952933
+      Image0_28: 3763747857552535418
+      Image0_38: -4747504494079626482
+      Image0_12: 8441798888764155303
+      Image0_7: 7137104188818015051
+      Image0_52: -6040564305502416184
+      Image0_44: -8993034022016398728
+      Image0_43: 8643165712494182184
+      Image0_5: 863105439715094243
+      Image0_23: 6957347337601780659
+      Image0_29: 6915363177782287620
+      Image0_15: -7786848388781673738
+      Image0_1: -3536942063220201627
+      Image0_47: 2790451064968072730
+      Image0_48: 6201285737143010446
+      Image0_62: 5814356150884165552
+      Image0_51: -2049233999783204944
+      Image0_57: 3321317314256993835
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

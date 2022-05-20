@@ -51,6 +51,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -265,6 +266,13 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      WoodenDoors_1: 9203166800618712022
+      WoodenDoors_0: -3639637756968632916
+      WoodenDoors_4: -8977204361150580202
+      WoodenDoors_3: -2966014731682864082
+      WoodenDoors_2: 457358823187939390
+      WoodenDoors_5: 6792862227579099011
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

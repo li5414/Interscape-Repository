@@ -123,6 +123,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -904,6 +905,40 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      DarkCobblestoneWall_6: 5215989508426489565
+      DarkCobblestoneWall_5: 9006666689583490150
+      MedCobblestoneWall_8: 2268860586888611296
+      LightCobblestoneWall_6: -3577246228225869022
+      LightCobblestoneWall_9: 4163308523473395747
+      DarkCobblestoneWall_3: 5650395274547422454
+      LightCobblestoneWall_4: -9186116691737994238
+      MedCobblestoneWall_2: -1773797716576416823
+      DarkCobblestoneWall_10: 4430431196936077637
+      LightCobblestoneWall_3: -4064467428533220681
+      MedCobblestoneWall_0: -3629114651907519523
+      MedCobblestoneWall_7: -3325253709341032100
+      MedCobblestoneWall_3: 8987036157785179001
+      MedCobblestoneWall_1: -1247347839281878500
+      LightCobblestoneWall_1: -763090648926211266
+      LightCobblestoneWall_2: 4187406019909767115
+      DarkCobblestoneWall_0: -4883174229315772585
+      MedCobblestoneWall_5: -6346150281362772618
+      LightCobblestoneWall_0: -1956020413288888405
+      LightCobblestoneWall_7: 4164087667835114415
+      DarkCobblestoneWall_7: 1751021074460125341
+      MedCobblestoneWall_4: -3712916724608967166
+      DarkCobblestoneWall_1: -4019844725602178558
+      LightCobblestoneWall_5: 2837137943144054676
+      MedCobblestoneWall_10: -99248186596329632
+      LightCobblestoneWall_10: 4109430112564526877
+      DarkCobblestoneWall_8: -733045684496912553
+      LightCobblestoneWall_8: -330019139739861087
+      MedCobblestoneWall_9: -4063498921482414038
+      MedCobblestoneWall_6: 971311745431020380
+      DarkCobblestoneWall_2: 7310842389954499132
+      DarkCobblestoneWall_9: 715651694461640120
+      DarkCobblestoneWall_4: -8308016381889396270
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
