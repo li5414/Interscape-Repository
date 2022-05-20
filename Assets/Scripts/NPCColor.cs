@@ -71,7 +71,7 @@ public class NPCColor : MonoBehaviour {
     public void applyColours() {
         gameObject.GetComponent<SpriteRenderer>().color = skinColour;
 
-        gameObject.transform.Find("LongStraightHair").GetComponent<SpriteRenderer>().color = hairColour;
+        gameObject.transform.Find("Hair").GetComponent<SpriteRenderer>().color = hairColour;
 
         gameObject.transform.Find("Eyes").GetComponent<SpriteRenderer>().color = eyeColour;
 
