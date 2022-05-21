@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class NPCController : MonoBehaviour {
@@ -33,14 +34,40 @@ public class NPCController : MonoBehaviour {
     }
 
     IEnumerator Walk() {
-        Vector2 target = pickRandomWanderTarget();
+        Vector2Int? nullableTarget = pickRandomWanderTarget();
+        if (!nullableTarget.HasValue) {
+            StartCoroutine(Stand());
+            yield break;
+        }
+
+        Vector2Int target = nullableTarget.Value;
         state = NPCState.WALKING;
         walkAnimation();
 
-        while (Vector2.Distance(transform.position, target) > 0.1) {
-            Vector2 currentPos = new Vector2(transform.position.x, transform.position.y);
-            Vector2 direction = (target - currentPos).normalized;
+        List<PathFinderTile> path = PathFinder.FindPath(new Vector2Int((int)transform.position.x, (int)transform.position.y), target);
+        // Debug.Log("Count:" + path.Count);
+        // Debug.Log(path.First().X + ", " + path.First().Y);
 
+        while (path != null && path.Count != 0 && !isOnTileCenter(target)) {
+            // update the path
+            if (isOnTileCenter(new Vector2Int(path.First().X, path.First().Y))) {
+                path.RemoveAt(0);
+                // Debug.Log("updated the path");
+                // Debug.Log(path.First().X + ", " + path.First().Y);
+            }
+
+            // get current position and intermediate target
+            Vector2 currentPos = new Vector2(
+                transform.position.x,
+                transform.position.y);
+            Vector2 intermediateTarget = new Vector2(
+                path.First().X + 0.5f,
+                path.First().Y + 0.5f);
+
+            // get direction it needs to travel
+            Vector2 direction = (intermediateTarget - currentPos).normalized;
+
+            // face the correct direction
             Facing newFacing = facingFromVector(direction);
             if (newFacing != facing) {
                 facing = newFacing;
@@ -53,14 +80,23 @@ public class NPCController : MonoBehaviour {
         yield break;
     }
 
-    Vector2 pickRandomWanderTarget() {
+    private bool isOnTileCenter(Vector2Int tile) {
+        bool isOnTileCenter = Vector2.Distance(transform.position, new Vector2(tile.x + 0.5f, tile.y + 0.5f)) < 0.1;
+        // if (isOnTileCenter)
+        //     Debug.Log("I'm on the tile center");
+        return isOnTileCenter;
+    }
+
+    Vector2Int? pickRandomWanderTarget() {
         int x = Random.Range((int)transform.position.x - WANDER_RANGE, (int)transform.position.x + WANDER_RANGE);
         x = Mathf.Clamp(x, (int)wanderAnchorPoint.x - WANDER_BOUNDARY_RANGE, (int)wanderAnchorPoint.x + WANDER_BOUNDARY_RANGE);
 
         int y = Random.Range((int)transform.position.y - WANDER_RANGE, (int)transform.position.y + WANDER_RANGE);
         y = Mathf.Clamp(y, (int)wanderAnchorPoint.y - WANDER_BOUNDARY_RANGE, (int)wanderAnchorPoint.y + WANDER_BOUNDARY_RANGE);
 
-        return new Vector2(x, y);
+        if (PathFinder.IsWalkable(x, y))
+            return new Vector2Int(x, y);
+        return null;
     }
 
     private void idleAnimation() {
