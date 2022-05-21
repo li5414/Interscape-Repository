@@ -507,7 +507,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showPathObject: {fileID: 5532887379782127510, guid: 726aa6f3ac11a439baff7b69f6b83451,
     type: 3}
-  displayPath: 1
+  displayPath: 0
 --- !u!114 &2350122369058452258
 MonoBehaviour:
   m_ObjectHideFlags: 0

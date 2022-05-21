@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+// https://dotnetcoretutorials.com/2020/07/25/a-search-pathfinding-algorithm-in-c/
 public class PathFinder : MonoBehaviour {
     private static int MAX_LOOK_X = 30;
     private static int MAX_LOOK_Y = 30;
