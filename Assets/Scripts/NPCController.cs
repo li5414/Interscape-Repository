@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class NPCController : MonoBehaviour {
+
     static float WALK_SPEED = 2f;
     static int WANDER_RANGE = 10;
     static int WANDER_BOUNDARY_RANGE = 20;
+    public GameObject showPathObject;
+    public bool displayPath = false;
     Animator a;
     NPCState state = NPCState.STANDING;
     Facing facing = Facing.BotRight;
@@ -33,14 +37,43 @@ public class NPCController : MonoBehaviour {
     }
 
     IEnumerator Walk() {
-        Vector2 target = pickRandomWanderTarget();
+        Vector2Int? nullableTarget = pickRandomWanderTarget();
+        if (!nullableTarget.HasValue) {
+            StartCoroutine(Stand());
+            yield break;
+        }
+
+        Vector2Int target = nullableTarget.Value;
         state = NPCState.WALKING;
         walkAnimation();
 
-        while (Vector2.Distance(transform.position, target) > 0.1) {
-            Vector2 currentPos = new Vector2(transform.position.x, transform.position.y);
-            Vector2 direction = (target - currentPos).normalized;
+        List<PathFinderTile> path = PathFinder.FindPath(new Vector2Int((int)transform.position.x, (int)transform.position.y), target);
+        // Debug.Log("Count:" + path.Count);
+        // Debug.Log(path.First().X + ", " + path.First().Y);
+        GameObject pathParent = null;
+        if (displayPath)
+            pathParent = showPath(path);
 
+        while (path != null && path.Count != 0 && !isOnTileCenter(target)) {
+            // update the path
+            if (isOnTileCenter(new Vector2Int(path.First().X, path.First().Y))) {
+                path.RemoveAt(0);
+                if (displayPath)
+                    Destroy(pathParent.transform.GetChild(0).gameObject);
+            }
+
+            // get current position and intermediate target
+            Vector2 currentPos = new Vector2(
+                transform.position.x,
+                transform.position.y);
+            Vector2 intermediateTarget = new Vector2(
+                path.First().X + 0.5f,
+                path.First().Y + 0.5f);
+
+            // get direction it needs to travel
+            Vector2 direction = (intermediateTarget - currentPos).normalized;
+
+            // face the correct direction
             Facing newFacing = facingFromVector(direction);
             if (newFacing != facing) {
                 facing = newFacing;
@@ -49,18 +82,41 @@ public class NPCController : MonoBehaviour {
             this.transform.Translate(direction * WALK_SPEED * Time.deltaTime);
             yield return null;
         }
+        if (displayPath)
+            Destroy(pathParent);
         StartCoroutine(Stand());
         yield break;
     }
 
-    Vector2 pickRandomWanderTarget() {
+    private GameObject showPath(List<PathFinderTile> path) {
+        GameObject parent = new GameObject("Path");
+
+        if (path != null) {
+            foreach (PathFinderTile tile in path) {
+                GameObject obj = Instantiate(showPathObject, new Vector3(tile.X + 0.5f, tile.Y + 0.5f, 150), Quaternion.identity);
+                obj.transform.SetParent(parent.transform, true);
+            }
+        }
+        return parent;
+    }
+
+    private bool isOnTileCenter(Vector2Int tile) {
+        bool isOnTileCenter = Vector2.Distance(transform.position, new Vector2(tile.x + 0.5f, tile.y + 0.5f)) < 0.1;
+        // if (isOnTileCenter)
+        //     Debug.Log("I'm on the tile center");
+        return isOnTileCenter;
+    }
+
+    Vector2Int? pickRandomWanderTarget() {
         int x = Random.Range((int)transform.position.x - WANDER_RANGE, (int)transform.position.x + WANDER_RANGE);
         x = Mathf.Clamp(x, (int)wanderAnchorPoint.x - WANDER_BOUNDARY_RANGE, (int)wanderAnchorPoint.x + WANDER_BOUNDARY_RANGE);
 
         int y = Random.Range((int)transform.position.y - WANDER_RANGE, (int)transform.position.y + WANDER_RANGE);
         y = Mathf.Clamp(y, (int)wanderAnchorPoint.y - WANDER_BOUNDARY_RANGE, (int)wanderAnchorPoint.y + WANDER_BOUNDARY_RANGE);
 
-        return new Vector2(x, y);
+        if (PathFinder.IsWalkable(x, y))
+            return new Vector2Int(x, y);
+        return null;
     }
 
     private void idleAnimation() {
