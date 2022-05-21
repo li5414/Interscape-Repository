@@ -108,10 +108,12 @@ public class PathFinder : MonoBehaviour {
 
         for (int i = 0; i < hits.Length; i++) {
             Debug.Log(hits[i].transform.gameObject.name);
-            if (hits[i].transform != null &&
-            hits[i].transform.gameObject.tag != "ItemDrop") {
-                Debug.Log("Not walkable");
-                return false;
+            if (hits[i].transform != null) {
+                Collider2D collider = hits[i].transform.gameObject.GetComponent<Collider2D>();
+                if (collider != null && !collider.isTrigger) {
+                    Debug.Log("Not walkable");
+                    return false;
+                }
             }
         }
         return true;

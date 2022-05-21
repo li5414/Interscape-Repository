@@ -4,9 +4,11 @@ using System.Linq;
 using UnityEngine;
 
 public class NPCController : MonoBehaviour {
+
     static float WALK_SPEED = 2f;
     static int WANDER_RANGE = 10;
     static int WANDER_BOUNDARY_RANGE = 20;
+    public GameObject showPathObject;
     Animator a;
     NPCState state = NPCState.STANDING;
     Facing facing = Facing.BotRight;
@@ -47,11 +49,13 @@ public class NPCController : MonoBehaviour {
         List<PathFinderTile> path = PathFinder.FindPath(new Vector2Int((int)transform.position.x, (int)transform.position.y), target);
         // Debug.Log("Count:" + path.Count);
         // Debug.Log(path.First().X + ", " + path.First().Y);
+        GameObject pathParent = showPath(path);
 
         while (path != null && path.Count != 0 && !isOnTileCenter(target)) {
             // update the path
             if (isOnTileCenter(new Vector2Int(path.First().X, path.First().Y))) {
                 path.RemoveAt(0);
+                Destroy(pathParent.transform.GetChild(0).gameObject);
                 // Debug.Log("updated the path");
                 // Debug.Log(path.First().X + ", " + path.First().Y);
             }
@@ -76,8 +80,21 @@ public class NPCController : MonoBehaviour {
             this.transform.Translate(direction * WALK_SPEED * Time.deltaTime);
             yield return null;
         }
+        Destroy(pathParent);
         StartCoroutine(Stand());
         yield break;
+    }
+
+    private GameObject showPath(List<PathFinderTile> path) {
+        GameObject parent = Instantiate(new GameObject("Path"));
+
+        if (path != null) {
+            foreach (PathFinderTile tile in path) {
+                GameObject obj = Instantiate(showPathObject, new Vector3(tile.X + 0.5f, tile.Y + 0.5f, 150), Quaternion.identity);
+                obj.transform.SetParent(parent.transform, true);
+            }
+        }
+        return parent;
     }
 
     private bool isOnTileCenter(Vector2Int tile) {

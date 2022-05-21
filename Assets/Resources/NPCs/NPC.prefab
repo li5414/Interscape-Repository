@@ -417,9 +417,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.01184082, y: 0.2230835}
+  m_Offset: {x: -0.011814117, y: 0.11791992}
   serializedVersion: 2
-  m_Radius: 0.40753174
+  m_Radius: 0.22814941
 --- !u!95 &2277900494601155560
 Animator:
   serializedVersion: 4
@@ -505,6 +505,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b98fa22c8d294816834818451e344da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  showPathObject: {fileID: 5532887379782127510, guid: 726aa6f3ac11a439baff7b69f6b83451,
+    type: 3}
 --- !u!114 &2350122369058452258
 MonoBehaviour:
   m_ObjectHideFlags: 0
