@@ -47,7 +47,7 @@ public class PathFinder : MonoBehaviour {
                 }
             }
         }
-        Debug.Log("No Path Found! :(");
+        // Debug.Log("No Path Found! :(");
         return null;
     }
 
@@ -92,6 +92,41 @@ public class PathFinder : MonoBehaviour {
                 Cost = currentTile.Cost + 1
             },
         };
+
+        // add corner tiles
+        if (CanCutCorner(currentTile.X - 1, currentTile.Y - 1, currentTile)) {
+            possibleTiles.Add(new PathFinderTile {
+                X = currentTile.X - 1,
+                Y = currentTile.Y - 1,
+                Parent = currentTile,
+                Cost = currentTile.Cost + 1.41f
+            });
+        }
+        if (CanCutCorner(currentTile.X + 1, currentTile.Y + 1, currentTile)) {
+            possibleTiles.Add(new PathFinderTile {
+                X = currentTile.X + 1,
+                Y = currentTile.Y + 1,
+                Parent = currentTile,
+                Cost = currentTile.Cost + 1.41f
+            });
+        }
+        if (CanCutCorner(currentTile.X - 1, currentTile.Y + 1, currentTile)) {
+            possibleTiles.Add(new PathFinderTile {
+                X = currentTile.X - 1,
+                Y = currentTile.Y + 1,
+                Parent = currentTile,
+                Cost = currentTile.Cost + 1.41f
+            });
+        }
+        if (CanCutCorner(currentTile.X + 1, currentTile.Y - 1, currentTile)) {
+            possibleTiles.Add(new PathFinderTile {
+                X = currentTile.X + 1,
+                Y = currentTile.Y - 1,
+                Parent = currentTile,
+                Cost = currentTile.Cost + 1.41f
+            });
+        }
+
         possibleTiles.ForEach(tile => tile.SetDistance(targetTile.X, targetTile.Y));
         return possibleTiles
                 .Where(tile => tile.X >= startTile.X - MAX_LOOK_X &&
@@ -101,17 +136,40 @@ public class PathFinder : MonoBehaviour {
                 .Where(tile => IsWalkable(tile.X, tile.Y))
                 .ToList();
     }
+    private static bool CanCutCorner(int x, int y, PathFinderTile currentTile) {
+        Vector2Int[] cornerTileNeighbours = getNeighbouringCoords(new Vector2Int(x, y));
+        Vector2Int[] currentTileNeighbours = getNeighbouringCoords(new Vector2Int(currentTile.X, currentTile.Y));
+
+        foreach (Vector2Int vector1 in cornerTileNeighbours) {
+            foreach (Vector2Int vector2 in currentTileNeighbours) {
+                if (vector1.Equals(vector2)) {
+                    if (!IsWalkable(vector1.x, vector1.y)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+    private static Vector2Int[] getNeighbouringCoords(Vector2Int pos) {
+        Vector2Int[] result = new Vector2Int[4];
+        result[0] = new Vector2Int(pos.x + 1, pos.y);
+        result[1] = new Vector2Int(pos.x, pos.y + 1);
+        result[2] = new Vector2Int(pos.x - 1, pos.y);
+        result[3] = new Vector2Int(pos.x, pos.y - 1);
+        return result;
+    }
     public static bool IsWalkable(int x, int y) {
         // TODO figure out if z is important here
         Vector3 pos = new Vector3(x + 0.5f, y + 0.5f, 200);
         RaycastHit2D[] hits = Physics2D.RaycastAll(pos, -Vector2.zero);
 
         for (int i = 0; i < hits.Length; i++) {
-            Debug.Log(hits[i].transform.gameObject.name);
+            // Debug.Log(hits[i].transform.gameObject.name);
             if (hits[i].transform != null) {
                 Collider2D collider = hits[i].transform.gameObject.GetComponent<Collider2D>();
                 if (collider != null && !collider.isTrigger) {
-                    Debug.Log("Not walkable");
+                    // Debug.Log("Not walkable");
                     return false;
                 }
             }
@@ -123,9 +181,9 @@ public class PathFinder : MonoBehaviour {
 public class PathFinderTile {
     public int X { get; set; }
     public int Y { get; set; }
-    public int Cost { get; set; }
+    public float Cost { get; set; }
     public int Distance { get; set; }
-    public int CostDistance => Cost + Distance;
+    public float CostDistance => Cost + Distance;
 
     // the tile we came from to get here
     public PathFinderTile Parent { get; set; }
