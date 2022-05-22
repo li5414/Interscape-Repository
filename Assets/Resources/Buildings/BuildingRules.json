@@ -2,234 +2,197 @@
     "buildingRulesArray": [
         {
             "topConnectionPoint": {
-                "x": 1,
+                "x": 4,
+                "y": 8
+            },
+            "bottomConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "leftConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "rightConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "layout": [
+                " WWWDWWW ",
+                " W     W ",
+                " W     W ",
+                " W     W ",
+                " W     W ",
+                " W     W ",
+                " W     W ",
+                " WWWWWWW ",
+                "         "
+            ]
+        },
+        {
+            "topConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "bottomConnectionPoint": {
+                "x": 4,
+                "y": 0
+            },
+            "leftConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "rightConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "layout": [
+                "         ",
+                " WWWWWWW ",
+                " W     W ",
+                " W     W ",
+                " W     W ",
+                " W     W ",
+                " W     W ",
+                " W     W ",
+                " WWWDWWW "
+            ]
+        },
+        {
+            "topConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "bottomConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "leftConnectionPoint": {
+                "x": 0,
+                "y": 4
+            },
+            "rightConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "layout": [
+                "         ",
+                "WWWWWWWW ",
+                "W      W ",
+                "W      W ",
+                "D      W ",
+                "W      W ",
+                "W      W ",
+                "WWWWWWWW ",
+                "         "
+            ]
+        },
+        {
+            "topConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "bottomConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "leftConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "rightConnectionPoint": {
+                "x": 8,
+                "y": 4
+            },
+            "layout": [
+                "         ",
+                " WWWWWWWW",
+                " W      W",
+                " W      W",
+                " W      D",
+                " W      W",
+                " W      W",
+                " WWWWWWWW",
+                "         "
+            ]
+        },
+        {
+            "topConnectionPoint": {
+                "x": 3,
+                "y": 5
+            },
+            "bottomConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "leftConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "rightConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "layout": [
+                " WWDWW ",
+                " W   W ",
+                " W   W ",
+                " W   W ",
+                " WWWWW ",
+                "       "
+            ]
+        },
+        {
+            "topConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "bottomConnectionPoint": {
+                "x": 3,
+                "y": 0
+            },
+            "leftConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "rightConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "layout": [
+                "       ",
+                " WWWWW ",
+                " W   W ",
+                " W   W ",
+                " W   W ",
+                " WWDWW "
+            ]
+        },
+        {
+            "topConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "bottomConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "leftConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "rightConnectionPoint": {
+                "x": 5,
                 "y": 3
             },
-            "bottomConnectionPoint": {
-                "x": 1,
-                "y": 0
-            },
-            "leftConnectionPoint": {
-                "x": 0,
-                "y": 1
-            },
-            "rightConnectionPoint": {
-                "x": 3,
-                "y": 1
-            },
             "layout": [
-                "____",
-                "____",
-                "____",
-                "____"
-            ]
-        },
-        {
-            "topConnectionPoint": {
-                "x": -1,
-                "y": -1
-            },
-            "bottomConnectionPoint": {
-                "x": -1,
-                "y": -1
-            },
-            "leftConnectionPoint": {
-                "x": 0,
-                "y": 0
-            },
-            "rightConnectionPoint": {
-                "x": 7,
-                "y": 0
-            },
-            "layout": [
-                "________",
-                "________"
-            ]
-        },
-        {
-            "topConnectionPoint": {
-                "x": 3,
-                "y": 2
-            },
-            "bottomConnectionPoint": {
-                "x": -1,
-                "y": -1
-            },
-            "leftConnectionPoint": {
-                "x": 0,
-                "y": 0
-            },
-            "rightConnectionPoint": {
-                "x": 7,
-                "y": 0
-            },
-            "layout": [
-                "   __   ",
-                "________",
-                "________"
-            ]
-        },
-        {
-            "topConnectionPoint": {
-                "x": -1,
-                "y": -1
-            },
-            "bottomConnectionPoint": {
-                "x": 3,
-                "y": 0
-            },
-            "leftConnectionPoint": {
-                "x": 0,
-                "y": 1
-            },
-            "rightConnectionPoint": {
-                "x": 7,
-                "y": 1
-            },
-            "layout": [
-                "________",
-                "________",
-                "   __   "
-            ]
-        },
-        {
-            "topConnectionPoint": {
-                "x": 0,
-                "y": 7
-            },
-            "bottomConnectionPoint": {
-                "x": 0,
-                "y": 0
-            },
-            "leftConnectionPoint": {
-                "x": -1,
-                "y": -1
-            },
-            "rightConnectionPoint": {
-                "x": -1,
-                "y": -1
-            },
-            "layout": [
-                "__",
-                "__",
-                "__",
-                "__",
-                "__",
-                "__",
-                "__",
-                "__"
-            ]
-        },
-        {
-            "topConnectionPoint": {
-                "x": 0,
-                "y": 7
-            },
-            "bottomConnectionPoint": {
-                "x": 0,
-                "y": 0
-            },
-            "leftConnectionPoint": {
-                "x": -1,
-                "y": -1
-            },
-            "rightConnectionPoint": {
-                "x": 2,
-                "y": 3
-            },
-            "layout": [
-                "__ ",
-                "__ ",
-                "__ ",
-                "___",
-                "___",
-                "__ ",
-                "__ ",
-                "__ "
-            ]
-        },
-        {
-            "topConnectionPoint": {
-                "x": 1,
-                "y": 7
-            },
-            "bottomConnectionPoint": {
-                "x": 1,
-                "y": 0
-            },
-            "leftConnectionPoint": {
-                "x": 0,
-                "y": 3
-            },
-            "rightConnectionPoint": {
-                "x": -1,
-                "y": -1
-            },
-            "layout": [
-                " __",
-                " __",
-                " __",
-                "___",
-                "___",
-                " __",
-                " __",
-                " __"
-            ]
-        },
-        {
-            "topConnectionPoint": {
-                "x": 3,
-                "y": 7
-            },
-            "bottomConnectionPoint": {
-                "x": -1,
-                "y": -1
-            },
-            "leftConnectionPoint": {
-                "x": -1,
-                "y": -1
-            },
-            "rightConnectionPoint": {
-                "x": -1,
-                "y": -1
-            },
-            "layout": [
-                "WWWDWWW",
-                "W     W",
-                "W     W",
-                "W     W",
-                "W     W",
-                "W     W",
-                "W     W",
-                "WWWWWWW"
-            ]
-        },
-        {
-            "topConnectionPoint": {
-                "x": -1,
-                "y": -1
-            },
-            "bottomConnectionPoint": {
-                "x": 3,
-                "y": 0
-            },
-            "leftConnectionPoint": {
-                "x": -1,
-                "y": -1
-            },
-            "rightConnectionPoint": {
-                "x": -1,
-                "y": -1
-            },
-            "layout": [
-                "WWWWWWW",
-                "W     W",
-                "W     W",
-                "W     W",
-                "W     W",
-                "W     W",
-                "W     W",
-                "WWWDWWW"
+                "      ",
+                " WWWWW",
+                " W   W",
+                " W   D",
+                " W   W",
+                " WWWWW",
+                "      "
             ]
         },
         {
@@ -250,13 +213,13 @@
                 "y": -1
             },
             "layout": [
-                "WWWWWWWW",
-                "W      W",
-                "W      W",
-                "D      W",
-                "W      W",
-                "W      W",
-                "WWWWWWWW"
+                "      ",
+                "WWWWW ",
+                "W   W ",
+                "D   W ",
+                "W   W ",
+                "WWWWW ",
+                "      "
             ]
         },
         {
@@ -274,16 +237,103 @@
             },
             "rightConnectionPoint": {
                 "x": 7,
-                "y": 3
+                "y": 5
             },
             "layout": [
-                "WWWWWWWW",
-                "W      W",
-                "W      W",
-                "W      D",
-                "W      W",
-                "W      W",
-                "WWWWWWWW"
+                "        ",
+                " WWWWWWW",
+                " W     W",
+                " W     D",
+                " W   WWW",
+                " W   W  ",
+                " W   W  ",
+                " WWWWW  ",
+                "        "
+            ]
+        },
+        {
+            "topConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "bottomConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "leftConnectionPoint": {
+                "x": 0,
+                "y": 5
+            },
+            "rightConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "layout": [
+                "        ",
+                "WWWWWWW ",
+                "W     W ",
+                "D     W ",
+                "WWW   W ",
+                "  W   W ",
+                "  W   W ",
+                "  WWWWW ",
+                "        "
+            ]
+        },
+        {
+            "topConnectionPoint": {
+                "x": 3,
+                "y": 7
+            },
+            "bottomConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "leftConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "rightConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "layout": [
+                " WWDW    ",
+                " W  W    ",
+                " W  WWWW ",
+                " W     W ",
+                " W     W ",
+                " W     W ",
+                " WWWWWWW ",
+                "         "
+            ]
+        },
+        {
+            "topConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "bottomConnectionPoint": {
+                "x": 3,
+                "y": 0
+            },
+            "leftConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "rightConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "layout": [
+                "         ",
+                " WWWWWWW ",
+                " W     W ",
+                " W     W ",
+                " W     W ",
+                " W  WWWW ",
+                " W  W    ",
+                " WWDW    "
             ]
         }
     ]

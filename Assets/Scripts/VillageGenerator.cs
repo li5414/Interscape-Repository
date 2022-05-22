@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Linq;
 
 
 public class VillageGenerator : MonoBehaviour {
     BuildingRule[] BUILDING_RULES;
+    BuildingRule[] PATH_RULES;
     public RuleTile pathTileReference;
     public RuleTile wallTileReference;
     public RuleTile doorTileReference;
@@ -20,18 +22,22 @@ public class VillageGenerator : MonoBehaviour {
     void Start() {
         string jsonPath = "Assets/Resources/Buildings/BuildingRules.json";
         string jsonStr = File.ReadAllText(jsonPath);
-
         BuildingRulesRoot root = JsonUtility.FromJson<BuildingRulesRoot>(jsonStr);
         BUILDING_RULES = root.buildingRulesArray;
-        Debug.Log(BUILDING_RULES[0].layout);
-        GenerateVillage(new Vector2Int(0, 0));
+
+        string jsonPath2 = "Assets/Resources/Buildings/PathRules.json";
+        string jsonStr2 = File.ReadAllText(jsonPath2);
+        BuildingRulesRoot root2 = JsonUtility.FromJson<BuildingRulesRoot>(jsonStr2);
+        PATH_RULES = root2.buildingRulesArray;
+
+        GenerateVillage(new Vector2Int((int)transform.position.x, (int)transform.position.y));
     }
 
     public void GenerateVillage(Vector2Int centerPoint) {
-        buildingRuleQueue.Add(BUILDING_RULES[0]);
+        buildingRuleQueue.Add(PATH_RULES[0]);
         currentBuildings.Add(new BuildingLayout {
             worldCoordinates = centerPoint,
-            layout = BUILDING_RULES[0].layout
+            layout = PATH_RULES[0].layout
         });
         int currentBuildingIndex = 0;
         int safeguard = 100;
@@ -155,8 +161,11 @@ public class VillageGenerator : MonoBehaviour {
 
     private BuildingRule pickNextBuilding(Vector2Int direction) {
         List<BuildingRule> possibilities = new List<BuildingRule>();
+        BuildingRule[] RULES = BUILDING_RULES;
+        if (Random.value < 0.5)
+            RULES = PATH_RULES.Skip(1).ToArray();
 
-        foreach (BuildingRule building in BUILDING_RULES) {
+        foreach (BuildingRule building in RULES) {
             if (direction == Vector2Int.up &&
                 building.bottomConnectionPoint.x != -1) {
                 possibilities.Add(building);
@@ -188,10 +197,10 @@ public class VillageGenerator : MonoBehaviour {
                         pathTilemapReference.SetTile(pathTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y)), pathTileReference);
                     } else if (c == 'W') {
                         wallTilemapReference.SetTile(pathTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y)), wallTileReference);
+
+                    } else if (c == 'D') {
+                        wallTilemapReference.SetTile(pathTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y)), doorTileReference);
                     }
-                    // } else if (c == 'D') {
-                    //     wallTilemapReference.SetTile(pathTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y)), doorTileReference);
-                    // }
                 }
             }
         }
