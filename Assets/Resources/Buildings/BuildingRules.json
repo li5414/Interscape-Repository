@@ -19,12 +19,12 @@
             },
             "layout": [
                 " WWWDWWW ",
-                " W     W ",
-                " W     W ",
-                " W     W ",
-                " W     W ",
-                " W     W ",
-                " W     W ",
+                " W-----W ",
+                " W-----W ",
+                " W-----W ",
+                " W-----W ",
+                " W-----W ",
+                " W-----W ",
                 " WWWWWWW ",
                 "         "
             ]
@@ -49,12 +49,12 @@
             "layout": [
                 "         ",
                 " WWWWWWW ",
-                " W     W ",
-                " W     W ",
-                " W     W ",
-                " W     W ",
-                " W     W ",
-                " W     W ",
+                " W-----W ",
+                " W-----W ",
+                " W-----W ",
+                " W-----W ",
+                " W-----W ",
+                " W-----W ",
                 " WWWDWWW "
             ]
         },
@@ -78,11 +78,11 @@
             "layout": [
                 "         ",
                 "WWWWWWWW ",
-                "W      W ",
-                "W      W ",
-                "D      W ",
-                "W      W ",
-                "W      W ",
+                "W------W ",
+                "W------W ",
+                "D------W ",
+                "W------W ",
+                "W------W ",
                 "WWWWWWWW ",
                 "         "
             ]
@@ -107,11 +107,11 @@
             "layout": [
                 "         ",
                 " WWWWWWWW",
-                " W      W",
-                " W      W",
-                " W      D",
-                " W      W",
-                " W      W",
+                " W------W",
+                " W------W",
+                " W------D",
+                " W------W",
+                " W------W",
                 " WWWWWWWW",
                 "         "
             ]
@@ -135,9 +135,9 @@
             },
             "layout": [
                 " WWDWW ",
-                " W   W ",
-                " W   W ",
-                " W   W ",
+                " W---W ",
+                " W---W ",
+                " W---W ",
                 " WWWWW ",
                 "       "
             ]
@@ -162,9 +162,9 @@
             "layout": [
                 "       ",
                 " WWWWW ",
-                " W   W ",
-                " W   W ",
-                " W   W ",
+                " W---W ",
+                " W---W ",
+                " W---W ",
                 " WWDWW "
             ]
         },
@@ -188,9 +188,9 @@
             "layout": [
                 "      ",
                 " WWWWW",
-                " W   W",
-                " W   D",
-                " W   W",
+                " W---W",
+                " W---D",
+                " W---W",
                 " WWWWW",
                 "      "
             ]
@@ -215,9 +215,9 @@
             "layout": [
                 "      ",
                 "WWWWW ",
-                "W   W ",
-                "D   W ",
-                "W   W ",
+                "W---W ",
+                "D---W ",
+                "W---W ",
                 "WWWWW ",
                 "      "
             ]
@@ -242,11 +242,11 @@
             "layout": [
                 "        ",
                 " WWWWWWW",
-                " W     W",
-                " W     D",
-                " W   WWW",
-                " W   W  ",
-                " W   W  ",
+                " W-----W",
+                " W-----D",
+                " W---WWW",
+                " W---W  ",
+                " W---W  ",
                 " WWWWW  ",
                 "        "
             ]
@@ -271,11 +271,11 @@
             "layout": [
                 "        ",
                 "WWWWWWW ",
-                "W     W ",
-                "D     W ",
-                "WWW   W ",
-                "  W   W ",
-                "  W   W ",
+                "W-----W ",
+                "D-----W ",
+                "WWW---W ",
+                "  W---W ",
+                "  W---W ",
                 "  WWWWW ",
                 "        "
             ]
@@ -299,11 +299,11 @@
             },
             "layout": [
                 " WWDW    ",
-                " W  W    ",
-                " W  WWWW ",
-                " W     W ",
-                " W     W ",
-                " W     W ",
+                " W--W    ",
+                " W--WWWW ",
+                " W-----W ",
+                " W-----W ",
+                " W-----W ",
                 " WWWWWWW ",
                 "         "
             ]
@@ -328,11 +328,11 @@
             "layout": [
                 "         ",
                 " WWWWWWW ",
-                " W     W ",
-                " W     W ",
-                " W     W ",
-                " W  WWWW ",
-                " W  W    ",
+                " W-----W ",
+                " W-----W ",
+                " W-----W ",
+                " W--WWWW ",
+                " W--W    ",
                 " WWDW    "
             ]
         }

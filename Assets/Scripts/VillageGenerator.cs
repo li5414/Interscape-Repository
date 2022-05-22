@@ -12,10 +12,11 @@ public class VillageGenerator : MonoBehaviour {
     public RuleTile pathTileReference;
     public RuleTile wallTileReference;
     public RuleTile doorTileReference;
-
+    public RuleTile floorTileReference;
 
     public Tilemap pathTilemapReference;
     public Tilemap wallTilemapReference;
+    public Tilemap floorTilemapReference;
 
     List<BuildingLayout> currentBuildings = new List<BuildingLayout>();
     List<BuildingRule> buildingRuleQueue = new List<BuildingRule>();
@@ -198,8 +199,21 @@ public class VillageGenerator : MonoBehaviour {
                     } else if (c == 'W') {
                         wallTilemapReference.SetTile(pathTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y)), wallTileReference);
 
+                        pathTilemapReference.SetTile(pathTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y)), pathTileReference);
+
+                        floorTilemapReference.SetTile(floorTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y)), floorTileReference);
+
                     } else if (c == 'D') {
                         wallTilemapReference.SetTile(pathTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y)), doorTileReference);
+
+                        pathTilemapReference.SetTile(pathTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y)), pathTileReference);
+
+                        floorTilemapReference.SetTile(floorTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y)), floorTileReference);
+
+                    } else if (c == '-') {
+                        pathTilemapReference.SetTile(pathTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y)), pathTileReference);
+
+                        floorTilemapReference.SetTile(floorTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y)), floorTileReference);
                     }
                 }
             }
