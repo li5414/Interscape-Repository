@@ -25,8 +25,14 @@
             ]
         },
         {
-            "topConnectionPoint": {},
-            "bottomConnectionPoint": {},
+            "topConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "bottomConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
             "leftConnectionPoint": {
                 "x": 0,
                 "y": 0
@@ -45,7 +51,10 @@
                 "x": 3,
                 "y": 2
             },
-            "bottomConnectionPoint": {},
+            "bottomConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
             "leftConnectionPoint": {
                 "x": 0,
                 "y": 0
@@ -61,7 +70,10 @@
             ]
         },
         {
-            "topConnectionPoint": {},
+            "topConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
             "bottomConnectionPoint": {
                 "x": 3,
                 "y": 0
@@ -89,8 +101,14 @@
                 "x": 0,
                 "y": 0
             },
-            "leftConnectionPoint": {},
-            "rightConnectionPoint": {},
+            "leftConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "rightConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
             "layout": [
                 "__",
                 "__",
@@ -111,7 +129,10 @@
                 "x": 0,
                 "y": 0
             },
-            "leftConnectionPoint": {},
+            "leftConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
             "rightConnectionPoint": {
                 "x": 2,
                 "y": 3
@@ -140,7 +161,10 @@
                 "x": 0,
                 "y": 3
             },
-            "rightConnectionPoint": {},
+            "rightConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
             "layout": [
                 " __",
                 " __",
@@ -150,6 +174,116 @@
                 " __",
                 " __",
                 " __"
+            ]
+        },
+        {
+            "topConnectionPoint": {
+                "x": 3,
+                "y": 7
+            },
+            "bottomConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "leftConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "rightConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "layout": [
+                "WWWDWWW",
+                "W     W",
+                "W     W",
+                "W     W",
+                "W     W",
+                "W     W",
+                "W     W",
+                "WWWWWWW"
+            ]
+        },
+        {
+            "topConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "bottomConnectionPoint": {
+                "x": 3,
+                "y": 0
+            },
+            "leftConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "rightConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "layout": [
+                "WWWWWWW",
+                "W     W",
+                "W     W",
+                "W     W",
+                "W     W",
+                "W     W",
+                "W     W",
+                "WWWDWWW"
+            ]
+        },
+        {
+            "topConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "bottomConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "leftConnectionPoint": {
+                "x": 0,
+                "y": 3
+            },
+            "rightConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "layout": [
+                "WWWWWWWW",
+                "W      W",
+                "W      W",
+                "D      W",
+                "W      W",
+                "W      W",
+                "WWWWWWWW"
+            ]
+        },
+        {
+            "topConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "bottomConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "leftConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "rightConnectionPoint": {
+                "x": 7,
+                "y": 3
+            },
+            "layout": [
+                "WWWWWWWW",
+                "W      W",
+                "W      W",
+                "W      D",
+                "W      W",
+                "W      W",
+                "WWWWWWWW"
             ]
         }
     ]

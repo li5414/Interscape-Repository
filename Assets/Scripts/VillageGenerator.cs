@@ -8,7 +8,13 @@ using UnityEngine.Tilemaps;
 public class VillageGenerator : MonoBehaviour {
     BuildingRule[] BUILDING_RULES;
     public RuleTile pathTileReference;
+    public RuleTile wallTileReference;
+    public RuleTile doorTileReference;
+
+
     public Tilemap pathTilemapReference;
+    public Tilemap wallTilemapReference;
+
     List<BuildingLayout> currentBuildings = new List<BuildingLayout>();
     List<BuildingRule> buildingRuleQueue = new List<BuildingRule>();
     void Start() {
@@ -32,19 +38,17 @@ public class VillageGenerator : MonoBehaviour {
         while (buildingRuleQueue.Count > 0 && safeguard > 0) {
             BuildingRule currentBuilding = buildingRuleQueue[0];
 
-            if (currentBuilding.topConnectionPoint != null &&
+            if (currentBuilding.topConnectionPoint.x != -1 &&
             !currentBuildings[currentBuildingIndex].isConnectedUp) {
                 addNewBuilding(Vector2Int.up, currentBuildingIndex, currentBuilding);
             }
-            if (currentBuilding.bottomConnectionPoint != null &&
-            !currentBuildings[currentBuildingIndex].isConnectedDown) {
+            if (currentBuilding.bottomConnectionPoint.x != -1 && !currentBuildings[currentBuildingIndex].isConnectedDown) {
                 addNewBuilding(Vector2Int.down, currentBuildingIndex, currentBuilding);
             }
-            if (currentBuilding.rightConnectionPoint != null &&
-            !currentBuildings[currentBuildingIndex].isConnectedRight) {
+            if (currentBuilding.rightConnectionPoint.x != -1 && !currentBuildings[currentBuildingIndex].isConnectedRight) {
                 addNewBuilding(Vector2Int.right, currentBuildingIndex, currentBuilding);
             }
-            if (currentBuilding.leftConnectionPoint != null &&
+            if (currentBuilding.leftConnectionPoint.x != -1 &&
             !currentBuildings[currentBuildingIndex].isConnectedLeft) {
                 addNewBuilding(Vector2Int.left, currentBuildingIndex, currentBuilding);
             }
@@ -67,15 +71,15 @@ public class VillageGenerator : MonoBehaviour {
         Vector2Int currentConnectionPoint;
         Vector2Int nextConnectionPoint;
 
-        if (direction == Vector2Int.up) {
+        if (direction.Equals(Vector2Int.up)) {
             currentConnectionPoint = currentBuilding.topConnectionPoint;
             nextConnectionPoint = nextBuilding.bottomConnectionPoint;
 
-        } else if (direction == Vector2Int.down) {
+        } else if (direction.Equals(Vector2Int.down)) {
             currentConnectionPoint = currentBuilding.bottomConnectionPoint;
             nextConnectionPoint = nextBuilding.topConnectionPoint;
 
-        } else if (direction == Vector2Int.left) {
+        } else if (direction.Equals(Vector2Int.left)) {
             currentConnectionPoint = currentBuilding.leftConnectionPoint;
             nextConnectionPoint = nextBuilding.rightConnectionPoint;
 
@@ -85,7 +89,7 @@ public class VillageGenerator : MonoBehaviour {
         }
 
         // get world coordinates of the appropriate connection point of the existing building we want to connect to
-        Vector2Int worldConnectionPos = (Vector2Int)currentBuildings[currentBuildingIndex].GetWorldPos(currentConnectionPoint.x, currentConnectionPoint.y);
+        Vector2Int worldConnectionPos = (Vector2Int)(currentBuildings[currentBuildingIndex].GetWorldPos(currentConnectionPoint.x, currentConnectionPoint.y));
 
         // add the new bulding to list of current buildings
         BuildingLayout newBuildingLayout = new BuildingLayout {
@@ -100,11 +104,12 @@ public class VillageGenerator : MonoBehaviour {
             return;
         }
 
-        if (direction == Vector2Int.up)
+        // Debug.Log(worldConnectionPos + " " + nextConnectionPoint);
+        if (direction.Equals(Vector2Int.up))
             newBuildingLayout.isConnectedDown = true;
-        else if (direction == Vector2Int.down)
+        else if (direction.Equals(Vector2Int.down))
             newBuildingLayout.isConnectedUp = true;
-        else if (direction == Vector2Int.left)
+        else if (direction.Equals(Vector2Int.left))
             newBuildingLayout.isConnectedRight = true;
         else
             newBuildingLayout.isConnectedLeft = true;
@@ -153,16 +158,16 @@ public class VillageGenerator : MonoBehaviour {
 
         foreach (BuildingRule building in BUILDING_RULES) {
             if (direction == Vector2Int.up &&
-                building.bottomConnectionPoint != null) {
+                building.bottomConnectionPoint.x != -1) {
                 possibilities.Add(building);
             } else if (direction == Vector2Int.down &&
-                  building.topConnectionPoint != null) {
+                  building.topConnectionPoint.x != -1) {
                 possibilities.Add(building);
             } else if (direction == Vector2Int.left &&
-                  building.rightConnectionPoint != null) {
+                  building.rightConnectionPoint.x != -1) {
                 possibilities.Add(building);
             } else if (direction == Vector2Int.right &&
-                  building.leftConnectionPoint != null) {
+                  building.leftConnectionPoint.x != -1) {
                 possibilities.Add(building);
             }
         }
@@ -170,7 +175,7 @@ public class VillageGenerator : MonoBehaviour {
         if (possibilities.Count <= 0) {
             return null;
         }
-        return possibilities[Random.Range(0, possibilities.Count - 1)];
+        return possibilities[Random.Range(0, possibilities.Count)];
     }
 
     private void drawToWorld() {
@@ -181,7 +186,12 @@ public class VillageGenerator : MonoBehaviour {
 
                     if (c == '_') {
                         pathTilemapReference.SetTile(pathTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y)), pathTileReference);
+                    } else if (c == 'W') {
+                        wallTilemapReference.SetTile(pathTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y)), wallTileReference);
                     }
+                    // } else if (c == 'D') {
+                    //     wallTilemapReference.SetTile(pathTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y)), doorTileReference);
+                    // }
                 }
             }
         }
