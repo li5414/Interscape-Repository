@@ -9,6 +9,7 @@ using System.Linq;
 public class VillageGenerator : MonoBehaviour {
     BuildingRule[] BUILDING_RULES;
     BuildingRule[] PATH_RULES;
+    public GameObject NPC;
     public RuleTile pathTileReference;
     public RuleTile wallTileReference;
     public RuleTile doorTileReference;
@@ -163,7 +164,7 @@ public class VillageGenerator : MonoBehaviour {
     private BuildingRule pickNextBuilding(Vector2Int direction) {
         List<BuildingRule> possibilities = new List<BuildingRule>();
         BuildingRule[] RULES = BUILDING_RULES;
-        if (Random.value < 0.5)
+        if (Random.value < 0.6)
             RULES = PATH_RULES.Skip(1).ToArray();
 
         foreach (BuildingRule building in RULES) {
@@ -214,6 +215,11 @@ public class VillageGenerator : MonoBehaviour {
                         pathTilemapReference.SetTile(pathTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y)), pathTileReference);
 
                         floorTilemapReference.SetTile(floorTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y)), floorTileReference);
+
+                        // spawn NPC
+                        if (Random.value < 0.05) {
+                            Instantiate(NPC, buildingLayout.GetWorldPos(x, y), Quaternion.identity);
+                        }
                     }
                 }
             }

@@ -58,8 +58,9 @@ public class NPCAppearanceController : MonoBehaviour {
         hairColour = HAIR_COLOURS[Random.Range(0, HAIR_COLOURS.Length)];
         eyeColour = EYE_COLOURS[Random.Range(0, EYE_COLOURS.Length)];
         skinColour = SKIN_COLOURS[Random.Range(0, SKIN_COLOURS.Length)];
-        clothesColour1 = CLOTHES_COLOURS_1[Random.Range(0, CLOTHES_COLOURS_1.Length)];
-        clothesColour2 = CLOTHES_COLOURS_2[Random.Range(0, CLOTHES_COLOURS_2.Length)];
+        int clothesColorIndex = Random.Range(0, CLOTHES_COLOURS_1.Length);
+        clothesColour1 = CLOTHES_COLOURS_1[clothesColorIndex];
+        clothesColour2 = CLOTHES_COLOURS_2[clothesColorIndex];
 
         // small chance to swap clothes colors around
         if (Random.value < 0.25) {
