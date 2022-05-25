@@ -60,11 +60,6 @@ public class Chunk {
     }
 
     public void GenerateChunkData() {
-        // initialise arrays
-        // heights = bCalc.GetHeightValues (chunkPos.x, chunkPos.y);
-        // temps = bCalc.GetTemperatures (chunkPos.x, chunkPos.y, heights);
-        // humidities = bCalc.GetHumidityValues (chunkPos.x, chunkPos.y, heights);
-        // biomes = bCalc.GetBiomes (heights, temps, humidities);
         heights = bCalc.GetHeightValuesExtended(chunkPos.x, chunkPos.y);
         temps = bCalc.GetTemperaturesExtended(chunkPos.x, chunkPos.y, heights);
         humidities = bCalc.GetHumidityValuesExtended(chunkPos.x, chunkPos.y, heights);
@@ -76,12 +71,14 @@ public class Chunk {
         // creates and sets tiles in tilearray to positions in position array
         GenerateTilesChunked();
 
-        // generate the colour texture for that chunk (determines colour of grass)
-        // GenerateColourTexture ();
+        // generate the grass colour texture for that chunk
         GenerateExtendedColourTexture();
 
         // generate grass details
         GenerateDetailsChunk();
+
+        // potentially generate a village on this chunk
+        VillageGenerator.MaybeSpawnVillage(chunkCoord, chunkPos, worldSettings.SEED);
 
         // array of gameobjects (use dict/list instead?)
         entities = gen.GeneratePlants(chunkPos, biomes, heights, treeParent);

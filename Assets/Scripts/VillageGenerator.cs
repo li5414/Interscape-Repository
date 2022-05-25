@@ -15,15 +15,17 @@ public class VillageGenerator : MonoBehaviour {
     public RuleTile doorTileReference;
     public RuleTile floorTileReference;
 
-    public Tilemap pathTilemapReference;
-    public Tilemap wallTilemapReference;
-    public Tilemap floorTilemapReference;
-
     List<BuildingLayout> currentBuildings = new List<BuildingLayout>();
     List<BuildingRule> buildingRuleQueue = new List<BuildingRule>();
 
     private System.Random prng;
+
+    static VillageResources villageResources;
     void Start() {
+        if (villageResources == null) {
+            villageResources = GameObject.FindWithTag("SystemPlaceholder").GetComponent<VillageResources>();
+        }
+
         int seed = GameObject.FindWithTag("SystemPlaceholder").GetComponent<WorldSettings>().SEED;
         prng = new System.Random((int)transform.position.x + (int)transform.position.y + seed);
 
@@ -38,6 +40,20 @@ public class VillageGenerator : MonoBehaviour {
         PATH_RULES = root2.buildingRulesArray;
 
         GenerateVillage(new Vector2Int((int)transform.position.x, (int)transform.position.y));
+    }
+
+    public static void MaybeSpawnVillage(Vector2Int chunkCoord, Vector2Int chunkPos, int worldSeed) {
+        if (villageResources == null) {
+            villageResources = GameObject.FindWithTag("SystemPlaceholder").GetComponent<VillageResources>();
+        }
+
+        if (chunkCoord.x % 4 == 0 && chunkCoord.y % 4 == 0) {
+            System.Random tempPrng = new System.Random(chunkPos.x + worldSeed + chunkPos.y);
+
+            if (tempPrng.NextDouble() < 0.2) {
+                Instantiate(villageResources.villageObject, new Vector3(chunkPos.x, chunkPos.y, 0), Quaternion.identity);
+            }
+        }
     }
 
     public void GenerateVillage(Vector2Int centerPoint) {
@@ -194,6 +210,10 @@ public class VillageGenerator : MonoBehaviour {
         return possibilities[prng.Next(0, possibilities.Count)];
     }
 
+    private Vector3Int tilePos(int x, int y, BuildingLayout buildingLayout) {
+        return villageResources.pathTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y));
+    }
+
     private void drawToWorld() {
         foreach (BuildingLayout buildingLayout in currentBuildings) {
             for (int y = 0; y < buildingLayout.layout.Length; y++) {
@@ -201,25 +221,25 @@ public class VillageGenerator : MonoBehaviour {
                     char c = getChar(buildingLayout.layout, x, y);
 
                     if (c == '_') {
-                        pathTilemapReference.SetTile(pathTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y)), pathTileReference);
+                        villageResources.pathTilemapReference.SetTile(tilePos(x, y, buildingLayout), pathTileReference);
                     } else if (c == 'W') {
-                        wallTilemapReference.SetTile(pathTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y)), wallTileReference);
+                        villageResources.wallTilemapReference.SetTile(tilePos(x, y, buildingLayout), wallTileReference);
 
-                        pathTilemapReference.SetTile(pathTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y)), pathTileReference);
+                        villageResources.pathTilemapReference.SetTile(tilePos(x, y, buildingLayout), pathTileReference);
 
-                        floorTilemapReference.SetTile(floorTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y)), floorTileReference);
+                        villageResources.floorTilemapReference.SetTile(tilePos(x, y, buildingLayout), floorTileReference);
 
                     } else if (c == 'D') {
-                        wallTilemapReference.SetTile(pathTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y)), doorTileReference);
+                        villageResources.wallTilemapReference.SetTile(tilePos(x, y, buildingLayout), doorTileReference);
 
-                        pathTilemapReference.SetTile(pathTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y)), pathTileReference);
+                        villageResources.pathTilemapReference.SetTile(tilePos(x, y, buildingLayout), pathTileReference);
 
-                        floorTilemapReference.SetTile(floorTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y)), floorTileReference);
+                        villageResources.floorTilemapReference.SetTile(tilePos(x, y, buildingLayout), floorTileReference);
 
                     } else if (c == '-') {
-                        pathTilemapReference.SetTile(pathTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y)), pathTileReference);
+                        villageResources.pathTilemapReference.SetTile(tilePos(x, y, buildingLayout), pathTileReference);
 
-                        floorTilemapReference.SetTile(floorTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y)), floorTileReference);
+                        villageResources.floorTilemapReference.SetTile(tilePos(x, y, buildingLayout), floorTileReference);
 
                         // spawn NPC
                         if (prng.NextDouble() < 0.05) {

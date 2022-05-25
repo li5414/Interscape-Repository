@@ -571,7 +571,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &54094313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -589,9 +589,6 @@ MonoBehaviour:
   wallTileReference: {fileID: 11400000, guid: 2edbed94bafd3441cb7262d6c7bfc7c2, type: 2}
   doorTileReference: {fileID: 11400000, guid: a5f8c52e6daa24145982cb4047f42f70, type: 2}
   floorTileReference: {fileID: 11400000, guid: f67cfaa5adcb446378e4d473a87d0bcc, type: 2}
-  pathTilemapReference: {fileID: 1600993756}
-  wallTilemapReference: {fileID: 1221760877}
-  floorTilemapReference: {fileID: 1263429064}
 --- !u!4 &54094314
 Transform:
   m_ObjectHideFlags: 0
@@ -8031,6 +8028,7 @@ GameObject:
   - component: {fileID: 580340807}
   - component: {fileID: 580340811}
   - component: {fileID: 580340812}
+  - component: {fileID: 580340813}
   m_Layer: 0
   m_Name: System Placeholder
   m_TagString: SystemPlaceholder
@@ -8133,6 +8131,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SEED: 130
   RENDER_DIST: 5
+--- !u!114 &580340813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580340806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f011b8c8f186b420a9185be5caadd433, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  villageObject: {fileID: 9126971543037881189, guid: a7b0543cb9c7d48ce8efdff3c9eaf186,
+    type: 3}
+  pathTilemapReference: {fileID: 1600993756}
+  wallTilemapReference: {fileID: 1221760877}
+  floorTilemapReference: {fileID: 1208136216}
 --- !u!224 &584226425 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7243719802383562256, guid: bfaddfdebddb04f5ea627c2c36380d26,
@@ -30236,7 +30251,7 @@ PrefabInstance:
     - target: {fileID: 2277900494601155575, guid: 7cef1ef0b67844377bb12b0d8aa858ba,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7cef1ef0b67844377bb12b0d8aa858ba, type: 3}
@@ -45476,7 +45491,7 @@ PrefabInstance:
     - target: {fileID: 9126971543037881189, guid: a7b0543cb9c7d48ce8efdff3c9eaf186,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9126971543037881191, guid: a7b0543cb9c7d48ce8efdff3c9eaf186,
         type: 3}
