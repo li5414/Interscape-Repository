@@ -4,381 +4,359 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class BiomeCalculations : MonoBehaviour
-{
-	public Texture2D biomeColourMap;
-	public Material chunkGrassMaterial;
-	public Material chunkTerrainMaterial;
-	public GameObject chunkTerrainPrefab;
-	public GameObject chunkTerrainParent;
-	public Material chunkWaterMaterial;
-	public GameObject chunkWaterPrefab;
-	public GameObject chunkWaterParent;
+public class BiomeCalculations : MonoBehaviour {
+    public Texture2D biomeColourMap;
+    public Material chunkGrassMaterial;
+    public Material chunkTerrainMaterial;
+    public GameObject chunkTerrainPrefab;
+    public GameObject chunkTerrainParent;
+    public Material chunkWaterMaterial;
+    public GameObject chunkWaterPrefab;
+    public GameObject chunkWaterParent;
 
     // values relating to biome type table
-	public static int BIOME_TABLE_SIZE = Consts.BIOME_TYPE_TABLE.GetLength(0);
-	public static Vector2Int[] biomeTableCoords = new Vector2Int[BIOME_TABLE_SIZE * BIOME_TABLE_SIZE];
+    public static int BIOME_TABLE_SIZE = Consts.BIOME_TYPE_TABLE.GetLength(0);
+    public static Vector2Int[] biomeTableCoords = new Vector2Int[BIOME_TABLE_SIZE * BIOME_TABLE_SIZE];
 
-	// reference world settings script
-	static WorldSettings worldSettings;
+    // reference world settings script
+    private WorldSettings worldSettings;
 
-	// references / objects
-	public Transform playerTrans;         // player reference
-	public GameObject sandGrid;
+    // references / objects
+    public Transform playerTrans;         // player reference
+    public GameObject sandGrid;
 
-	// perlin noise stuff
-	public Vector2[] octaveOffsets; // we want each octave to come from different 'location' in the perlin noise
-	static int octaves = 4;               // number of noise layers
-	float scale = 361.4f;                 // the higher the number, the more 'zoomed in'. Needs to be likely to result in non-integer
-	float persistance = 0.5f;             // the higher the octave, the less of an effect
-	float lacunarity = 2.5f;              // value that decreases scale each octave
+    // perlin noise stuff
+    public Vector2[] octaveOffsets; // we want each octave to come from different 'location' in the perlin noise
+    static int octaves = 4;               // number of noise layers
+    float scale = 361.4f;                 // the higher the number, the more 'zoomed in'. Needs to be likely to result in non-integer
+    float persistance = 0.5f;             // the higher the octave, the less of an effect
+    float lacunarity = 2.5f;              // value that decreases scale each octave
 
-	// this needs to be in awake() or else bad stuff happens
-	private void Awake ()
-	{
-		worldSettings = GameObject.Find ("System Placeholder").GetComponent<WorldSettings> ();
+    // this needs to be in awake() or else bad stuff happens
+    private void Awake() {
+        worldSettings = GameObject.FindWithTag("SystemPlaceholder").GetComponent<WorldSettings>();
 
-		//initialise biome table coords
-		int count = 0;
-		for (int i = 0; i < BIOME_TABLE_SIZE; i++) {
-			for (int j = 0; j < BIOME_TABLE_SIZE; j++) {
-				biomeTableCoords[count] = new Vector2Int(i, j);
-			}
-			count++;
-		}
-		initialiseOctavesForHeight();
+        //initialise biome table coords
+        int count = 0;
+        for (int i = 0; i < BIOME_TABLE_SIZE; i++) {
+            for (int j = 0; j < BIOME_TABLE_SIZE; j++) {
+                biomeTableCoords[count] = new Vector2Int(i, j);
+            }
+            count++;
+        }
+        initialiseOctavesForHeight();
 
-		//InvokeRepeating ("PrintAtPos", 2.0f, 2.0f); //do not delete - is for testing!
-	}
+        //InvokeRepeating ("PrintAtPos", 2.0f, 2.0f); //do not delete - is for testing!
+    }
 
-	void initialiseOctavesForHeight()
-	{
-		octaveOffsets = new Vector2 [octaves];
-		for (int i = 0; i < octaves; i++)
-		{
-			float offsetX = worldSettings.PRNG.Next(-10000, 10000); // too high numbers returns same value
-			float offsetY = worldSettings.PRNG.Next(-10000, 10000);
-			octaveOffsets[i] = new Vector2(offsetX, offsetY);
-		}
-	}
+    void initialiseOctavesForHeight() {
+        octaveOffsets = new Vector2[octaves];
+        for (int i = 0; i < octaves; i++) {
+            float offsetX = worldSettings.PRNG.Next(-10000, 10000); // too high numbers returns same value
+            float offsetY = worldSettings.PRNG.Next(-10000, 10000);
+            octaveOffsets[i] = new Vector2(offsetX, offsetY);
+        }
+    }
 
-	public float GetHeightValue(int x, int y)
-	{
-		float height = 0;
-		float amplitude = 1;
-		float frequency = 1;
+    public float GetHeightValue(int x, int y) {
+        float height = 0;
+        float amplitude = 1;
+        float frequency = 1;
 
-		// scale results in non-integer value
-		for (int i = 0; i < octaves; i++)
-		{
-			float sampleX = x / (scale / frequency) + octaveOffsets[i].x + 0.1f;
-			float sampleY = y / (scale / frequency) + octaveOffsets[i].y + 0.1f;
+        // scale results in non-integer value
+        for (int i = 0; i < octaves; i++) {
+            float sampleX = x / (scale / frequency) + octaveOffsets[i].x + 0.1f;
+            float sampleY = y / (scale / frequency) + octaveOffsets[i].y + 0.1f;
 
-			float perlinValue = Mathf.PerlinNoise(sampleX, sampleY) * 2 - 1; // make in range -1 to 1
+            float perlinValue = Mathf.PerlinNoise(sampleX, sampleY) * 2 - 1; // make in range -1 to 1
 
-			height += perlinValue * amplitude; // increase noise height each time
-			amplitude *= persistance; // decreases each octave as persistance below 1
-			frequency *= lacunarity; // increases each octave
-		}
-		return height;
-	}
+            height += perlinValue * amplitude; // increase noise height each time
+            amplitude *= persistance; // decreases each octave as persistance below 1
+            frequency *= lacunarity; // increases each octave
+        }
+        return height;
+    }
 
-	// this function generates an array storing height values in range -1 to 1 for a chunk
-	public float[,] GetHeightValues(int chunkX, int chunkY)
-	{
-		float[,] heights = new float[Consts.CHUNK_SIZE, Consts.CHUNK_SIZE];
-		
-		// loop through all tiles in chunk
-		for (int x = 0; x < Consts.CHUNK_SIZE; x++) {
-			for (int y = 0; y < Consts.CHUNK_SIZE; y++) {
+    // this function generates an array storing height values in range -1 to 1 for a chunk
+    public float[,] GetHeightValues(int chunkX, int chunkY) {
+        float[,] heights = new float[Consts.CHUNK_SIZE, Consts.CHUNK_SIZE];
 
-				// reset values each layer
-				float height = 0;
-				float amplitude = 1;
-				float frequency = 1;
+        // loop through all tiles in chunk
+        for (int x = 0; x < Consts.CHUNK_SIZE; x++) {
+            for (int y = 0; y < Consts.CHUNK_SIZE; y++) {
 
-				// scale results in non-integer value
-				for (int i = 0; i < octaves; i++)
-				{
-					float sampleX = (chunkX + x) / (scale / frequency) + octaveOffsets[i].x + 0.1f;
-					float sampleY = (chunkY + y) / (scale / frequency) + octaveOffsets[i].y + 0.1f;
+                // reset values each layer
+                float height = 0;
+                float amplitude = 1;
+                float frequency = 1;
 
-					float perlinValue = Mathf.PerlinNoise(sampleX, sampleY) * 2 - 1; // make in range -1 to 1
+                // scale results in non-integer value
+                for (int i = 0; i < octaves; i++) {
+                    float sampleX = (chunkX + x) / (scale / frequency) + octaveOffsets[i].x + 0.1f;
+                    float sampleY = (chunkY + y) / (scale / frequency) + octaveOffsets[i].y + 0.1f;
 
-					height += perlinValue * amplitude; // increase noise height each time
-					amplitude *= persistance; // decreases each octave as persistance below 1
-					frequency *= lacunarity; // increases each octave
-				}
-				heights[x, y] = height;
-			}
-		}
-		return heights;
-	}
+                    float perlinValue = Mathf.PerlinNoise(sampleX, sampleY) * 2 - 1; // make in range -1 to 1
 
-	// this function generates an array storing height values in range -1 to 1 for a chunk plus surrounding tiles
-	public float[,] GetHeightValuesExtended(int chunkX, int chunkY) {
-		float[,] heights = new float[Consts.CHUNK_SIZE + 2, Consts.CHUNK_SIZE + 2];
-		
-		// loop through all tiles in chunk
-		for (int x = 0; x < Consts.CHUNK_SIZE + 2; x++) {
-			for (int y = 0; y < Consts.CHUNK_SIZE + 2; y++) {
+                    height += perlinValue * amplitude; // increase noise height each time
+                    amplitude *= persistance; // decreases each octave as persistance below 1
+                    frequency *= lacunarity; // increases each octave
+                }
+                heights[x, y] = height;
+            }
+        }
+        return heights;
+    }
 
-				// reset values each layer
-				float height = 0;
-				float amplitude = 1;
-				float frequency = 1;
+    // this function generates an array storing height values in range -1 to 1 for a chunk plus surrounding tiles
+    public float[,] GetHeightValuesExtended(int chunkX, int chunkY) {
+        float[,] heights = new float[Consts.CHUNK_SIZE + 2, Consts.CHUNK_SIZE + 2];
 
-				// scale results in non-integer value
-				for (int i = 0; i < octaves; i++)
-				{
-					float sampleX = (chunkX + x - 1) / (scale / frequency) + octaveOffsets[i].x + 0.1f;
-					float sampleY = (chunkY + y - 1) / (scale / frequency) + octaveOffsets[i].y + 0.1f;
+        // loop through all tiles in chunk
+        for (int x = 0; x < Consts.CHUNK_SIZE + 2; x++) {
+            for (int y = 0; y < Consts.CHUNK_SIZE + 2; y++) {
 
-					float perlinValue = Mathf.PerlinNoise(sampleX, sampleY) * 2 - 1; // make in range -1 to 1
+                // reset values each layer
+                float height = 0;
+                float amplitude = 1;
+                float frequency = 1;
 
-					height += perlinValue * amplitude; // increase noise height each time
-					amplitude *= persistance; // decreases each octave as persistance below 1
-					frequency *= lacunarity; // increases each octave
-				}
-				heights[x, y] = height;
-			}
-		}
-		return heights;
-	}
+                // scale results in non-integer value
+                for (int i = 0; i < octaves; i++) {
+                    float sampleX = (chunkX + x - 1) / (scale / frequency) + octaveOffsets[i].x + 0.1f;
+                    float sampleY = (chunkY + y - 1) / (scale / frequency) + octaveOffsets[i].y + 0.1f;
 
-	public float GetTemperature(int x, int y, float heightVal)
-	{
-		int lat = Mathf.Abs(y - (Consts.MAP_DIMENSION / 2)); // positive latitude at position given
-		float temp;
+                    float perlinValue = Mathf.PerlinNoise(sampleX, sampleY) * 2 - 1; // make in range -1 to 1
 
-		// putting a cap on latitude
-		if (lat > (Consts.MAP_DIMENSION / 2)) {
-			lat = (Consts.MAP_DIMENSION / 2);
-		}
+                    height += perlinValue * amplitude; // increase noise height each time
+                    amplitude *= persistance; // decreases each octave as persistance below 1
+                    frequency *= lacunarity; // increases each octave
+                }
+                heights[x, y] = height;
+            }
+        }
+        return heights;
+    }
 
-		// get noise based on seed
-		float perlinValue = Mathf.PerlinNoise((x / scale) + octaveOffsets[1].x,
-			(y / scale) + octaveOffsets[1].y) * 2 - 1; // make in range -1 to 1;
-		perlinValue = perlinValue * 20; // make value larger so can directly subtract it
+    public float GetTemperature(int x, int y, float heightVal) {
+        int lat = Mathf.Abs(y - (Consts.MAP_DIMENSION / 2)); // positive latitude at position given
+        float temp;
 
-		// choose value based on latitude and height
-		temp = 60 - perlinValue - (lat / 20f);
-		temp -= 20 * (1 - heightVal);
+        // putting a cap on latitude
+        if (lat > (Consts.MAP_DIMENSION / 2)) {
+            lat = (Consts.MAP_DIMENSION / 2);
+        }
 
-		return temp;
-	}
+        // get noise based on seed
+        float perlinValue = Mathf.PerlinNoise((x / scale) + octaveOffsets[1].x,
+            (y / scale) + octaveOffsets[1].y) * 2 - 1; // make in range -1 to 1;
+        perlinValue = perlinValue * 20; // make value larger so can directly subtract it
 
-	public float[,] GetTemperatures(int chunkX, int chunkY, float[,] heights)
-	{
-		float[,] temps = new float[Consts.CHUNK_SIZE, Consts.CHUNK_SIZE];
-		int lat;
-		float temp;
+        // choose value based on latitude and height
+        temp = 60 - perlinValue - (lat / 20f);
+        temp -= 20 * (1 - heightVal);
 
-		// loop through all tiles in chunk
-		for (int x = 0; x < Consts.CHUNK_SIZE; x++) {
-			for (int y = 0; y < Consts.CHUNK_SIZE; y++) {
-				lat = Mathf.Abs((chunkY + y) - (Consts.MAP_DIMENSION / 2)); // positive latitude at tile position
+        return temp;
+    }
 
-				// putting a cap on latitude
-				if (lat > (Consts.MAP_DIMENSION / 2)) {
-					lat = (Consts.MAP_DIMENSION / 2);
-				}
+    public float[,] GetTemperatures(int chunkX, int chunkY, float[,] heights) {
+        float[,] temps = new float[Consts.CHUNK_SIZE, Consts.CHUNK_SIZE];
+        int lat;
+        float temp;
 
-				// get noise based on seed
-				float perlinValue = Mathf.PerlinNoise((chunkX + x) / scale + octaveOffsets[1].x,
-					(chunkY + y) / scale + octaveOffsets[1].y) * 2 - 1; // make in range -1 to 1;
-				perlinValue = perlinValue * 20; // make value larger so can directly subtract it
+        // loop through all tiles in chunk
+        for (int x = 0; x < Consts.CHUNK_SIZE; x++) {
+            for (int y = 0; y < Consts.CHUNK_SIZE; y++) {
+                lat = Mathf.Abs((chunkY + y) - (Consts.MAP_DIMENSION / 2)); // positive latitude at tile position
 
-				// choose value based on latitude and height
-				temp = 60 - perlinValue - (lat / 20f);
-				temp -= 20 * (1 - heights[x, y]);
+                // putting a cap on latitude
+                if (lat > (Consts.MAP_DIMENSION / 2)) {
+                    lat = (Consts.MAP_DIMENSION / 2);
+                }
 
-				temps[x, y] = temp;
-			}
-		}
-		return temps;
-	}
+                // get noise based on seed
+                float perlinValue = Mathf.PerlinNoise((chunkX + x) / scale + octaveOffsets[1].x,
+                    (chunkY + y) / scale + octaveOffsets[1].y) * 2 - 1; // make in range -1 to 1;
+                perlinValue = perlinValue * 20; // make value larger so can directly subtract it
 
-	public float[,] GetTemperaturesExtended(int chunkX, int chunkY, float[,] heights)
-	{
-		float[,] temps = new float[Consts.CHUNK_SIZE + 2, Consts.CHUNK_SIZE + 2];
-		int lat;
-		float temp;
+                // choose value based on latitude and height
+                temp = 60 - perlinValue - (lat / 20f);
+                temp -= 20 * (1 - heights[x, y]);
 
-		// loop through all tiles in chunk
-		for (int x = 0; x < Consts.CHUNK_SIZE + 2; x++) {
-			for (int y = 0; y < Consts.CHUNK_SIZE + 2; y++) {
-				lat = Mathf.Abs((chunkY + y - 1) - (Consts.MAP_DIMENSION / 2)); // positive latitude at tile position
+                temps[x, y] = temp;
+            }
+        }
+        return temps;
+    }
 
-				// putting a cap on latitude
-				if (lat > (Consts.MAP_DIMENSION / 2)) {
-					lat = (Consts.MAP_DIMENSION / 2);
-				}
+    public float[,] GetTemperaturesExtended(int chunkX, int chunkY, float[,] heights) {
+        float[,] temps = new float[Consts.CHUNK_SIZE + 2, Consts.CHUNK_SIZE + 2];
+        int lat;
+        float temp;
 
-				// get noise based on seed
-				float perlinValue = Mathf.PerlinNoise((chunkX + x - 1) / scale + octaveOffsets[1].x,
-					(chunkY + y) / scale + octaveOffsets[1].y) * 2 - 1; // make in range -1 to 1;
-				perlinValue = perlinValue * 20; // make value larger so can directly subtract it
+        // loop through all tiles in chunk
+        for (int x = 0; x < Consts.CHUNK_SIZE + 2; x++) {
+            for (int y = 0; y < Consts.CHUNK_SIZE + 2; y++) {
+                lat = Mathf.Abs((chunkY + y - 1) - (Consts.MAP_DIMENSION / 2)); // positive latitude at tile position
 
-				// choose value based on latitude and height
-				temp = 60 - perlinValue - (lat / 20f);
-				temp -= 20 * (1 - heights[x, y]);
+                // putting a cap on latitude
+                if (lat > (Consts.MAP_DIMENSION / 2)) {
+                    lat = (Consts.MAP_DIMENSION / 2);
+                }
 
-				temps[x, y] = temp;
-			}
-		}
-		return temps;
-	}
+                // get noise based on seed
+                float perlinValue = Mathf.PerlinNoise((chunkX + x - 1) / scale + octaveOffsets[1].x,
+                    (chunkY + y) / scale + octaveOffsets[1].y) * 2 - 1; // make in range -1 to 1;
+                perlinValue = perlinValue * 20; // make value larger so can directly subtract it
 
-	// note: there is currently no noise layers for humidity
-	public float GetHumidity(int x, int y, float heightVal)
-	{
-		float perlinValue = Mathf.PerlinNoise((x / (scale / 2)) + octaveOffsets[2].x, (y / (scale / 2)) + octaveOffsets[2].y);
-		float moisture = perlinValue;
+                // choose value based on latitude and height
+                temp = 60 - perlinValue - (lat / 20f);
+                temp -= 20 * (1 - heights[x, y]);
 
-		float height = Mathf.InverseLerp(-1f, 1f, heightVal);
-		moisture -= height / 3;
-		moisture += 0.2f;
-		return Mathf.Clamp01(moisture);
-	}
+                temps[x, y] = temp;
+            }
+        }
+        return temps;
+    }
 
-	public float[,] GetHumidityValues(int chunkX, int chunkY, float[,] heights)
-	{
-		float[,] moistures = new float[Consts.CHUNK_SIZE, Consts.CHUNK_SIZE];
-		float moisture;
-		float perlinValue;
+    // note: there is currently no noise layers for humidity
+    public float GetHumidity(int x, int y, float heightVal) {
+        float perlinValue = Mathf.PerlinNoise((x / (scale / 2)) + octaveOffsets[2].x, (y / (scale / 2)) + octaveOffsets[2].y);
+        float moisture = perlinValue;
 
-		// loop through all tiles in chunk
-		for (int x = 0; x < Consts.CHUNK_SIZE; x++) {
-			for (int y = 0; y < Consts.CHUNK_SIZE; y++) {
-				perlinValue = Mathf.PerlinNoise((chunkX + x) / (scale / 2) + octaveOffsets[2].x, (chunkY + y) / (scale / 2) + octaveOffsets[2].y);
-				moisture = perlinValue;
+        float height = Mathf.InverseLerp(-1f, 1f, heightVal);
+        moisture -= height / 3;
+        moisture += 0.2f;
+        return Mathf.Clamp01(moisture);
+    }
 
-				float height = Mathf.InverseLerp(-1f, 1f, heights[x, y]); // get height in range 0-1
-																		  //moisture *= (1 - height);
-				moisture -= height / 3;
-				moisture += 0.2f;
-				moistures [x, y] = Mathf.Clamp01 (moisture);
-			}
-		}
-		return moistures;
-	}
+    public float[,] GetHumidityValues(int chunkX, int chunkY, float[,] heights) {
+        float[,] moistures = new float[Consts.CHUNK_SIZE, Consts.CHUNK_SIZE];
+        float moisture;
+        float perlinValue;
 
-	public float[,] GetHumidityValuesExtended(int chunkX, int chunkY, float[,] heights)
-	{
-		float[,] moistures = new float[Consts.CHUNK_SIZE + 2, Consts.CHUNK_SIZE + 2];
-		float moisture;
-		float perlinValue;
+        // loop through all tiles in chunk
+        for (int x = 0; x < Consts.CHUNK_SIZE; x++) {
+            for (int y = 0; y < Consts.CHUNK_SIZE; y++) {
+                perlinValue = Mathf.PerlinNoise((chunkX + x) / (scale / 2) + octaveOffsets[2].x, (chunkY + y) / (scale / 2) + octaveOffsets[2].y);
+                moisture = perlinValue;
 
-		// loop through all tiles in chunk
-		for (int x = 0; x < Consts.CHUNK_SIZE + 2; x++) {
-			for (int y = 0; y < Consts.CHUNK_SIZE + 2; y++) {
-				perlinValue = Mathf.PerlinNoise((chunkX + x - 1) / (scale / 2) + octaveOffsets[2].x, (chunkY + y - 1) / (scale / 2) + octaveOffsets[2].y);
-				moisture = perlinValue;
+                float height = Mathf.InverseLerp(-1f, 1f, heights[x, y]); // get height in range 0-1
+                                                                          //moisture *= (1 - height);
+                moisture -= height / 3;
+                moisture += 0.2f;
+                moistures[x, y] = Mathf.Clamp01(moisture);
+            }
+        }
+        return moistures;
+    }
 
-				float height = Mathf.InverseLerp(-1f, 1f, heights[x, y]); // get height in range 0-1
-																		  //moisture *= (1 - height);
-				moisture -= height / 3;
-				moisture += 0.2f;
-				moistures [x, y] = Mathf.Clamp01 (moisture);
-			}
-		}
-		return moistures;
-	}
+    public float[,] GetHumidityValuesExtended(int chunkX, int chunkY, float[,] heights) {
+        float[,] moistures = new float[Consts.CHUNK_SIZE + 2, Consts.CHUNK_SIZE + 2];
+        float moisture;
+        float perlinValue;
 
-	public BiomeType[,] GetBiomes(float[,] heights, float[,] temperatures, float[,] humidities)
-	{
-		BiomeType[,] biomeTypes = new BiomeType[Consts.CHUNK_SIZE, Consts.CHUNK_SIZE];
-		float temp;
-		int humidity;
-		float height;
+        // loop through all tiles in chunk
+        for (int x = 0; x < Consts.CHUNK_SIZE + 2; x++) {
+            for (int y = 0; y < Consts.CHUNK_SIZE + 2; y++) {
+                perlinValue = Mathf.PerlinNoise((chunkX + x - 1) / (scale / 2) + octaveOffsets[2].x, (chunkY + y - 1) / (scale / 2) + octaveOffsets[2].y);
+                moisture = perlinValue;
 
-		// loop through all tiles in chunk
-		for (int x = 0; x < Consts.CHUNK_SIZE; x++)
-		{
-			for (int y = 0; y < Consts.CHUNK_SIZE; y++)
-			{
-				height = heights[x, y];
-				if (height >= -0.26) {
-					// get temperature as an integer for easy lookup in biome array
-					temp = Mathf.InverseLerp (-70f, 70f, temperatures [x, y]);
-					temp = Mathf.Clamp01 (temp);
-					temp *= BIOME_TABLE_SIZE;
-					temp = Mathf.FloorToInt (temp);
+                float height = Mathf.InverseLerp(-1f, 1f, heights[x, y]); // get height in range 0-1
+                                                                          //moisture *= (1 - height);
+                moisture -= height / 3;
+                moisture += 0.2f;
+                moistures[x, y] = Mathf.Clamp01(moisture);
+            }
+        }
+        return moistures;
+    }
 
-					// putting a cap on vales so as not to over-index array
-					humidity = Mathf.FloorToInt (humidities [x, y] * BIOME_TABLE_SIZE);
+    public BiomeType[,] GetBiomes(float[,] heights, float[,] temperatures, float[,] humidities) {
+        BiomeType[,] biomeTypes = new BiomeType[Consts.CHUNK_SIZE, Consts.CHUNK_SIZE];
+        float temp;
+        int humidity;
+        float height;
 
-					biomeTypes [x, y] = Consts.BIOME_TYPE_TABLE [humidity, (int)temp];
-				}
-				else if (height < -0.3)
-					biomeTypes [x, y] = BiomeType.Water;
-				else
-					biomeTypes [x, y] = BiomeType.Beach;
-			}
-		}
-		return biomeTypes;
-	}
+        // loop through all tiles in chunk
+        for (int x = 0; x < Consts.CHUNK_SIZE; x++) {
+            for (int y = 0; y < Consts.CHUNK_SIZE; y++) {
+                height = heights[x, y];
+                if (height >= -0.26) {
+                    // get temperature as an integer for easy lookup in biome array
+                    temp = Mathf.InverseLerp(-70f, 70f, temperatures[x, y]);
+                    temp = Mathf.Clamp01(temp);
+                    temp *= BIOME_TABLE_SIZE;
+                    temp = Mathf.FloorToInt(temp);
 
-	// this one does not return array that overlaps with other chunks
-	public BiomeType[,] GetBiomesExtended(float[,] heights, float[,] temperatures, float[,] humidities)
-	{
-		BiomeType[,] biomeTypes = new BiomeType[Consts.CHUNK_SIZE, Consts.CHUNK_SIZE];
-		float temp;
-		int humidity;
-		float height;
+                    // putting a cap on vales so as not to over-index array
+                    humidity = Mathf.FloorToInt(humidities[x, y] * BIOME_TABLE_SIZE);
 
-		// loop through all tiles in chunk
-		for (int x = 0; x < Consts.CHUNK_SIZE; x++) {
-			for (int y = 0; y < Consts.CHUNK_SIZE; y++) {
-				height = heights[x + 1, y + 1];
-				if (height >= -0.26) {
-					// get temperature as an integer for easy lookup in biome array
-					temp = Mathf.InverseLerp (-70f, 70f, temperatures [x + 1, y + 1]);
-					temp = Mathf.Clamp01 (temp);
-					temp *= BIOME_TABLE_SIZE;
-					temp = Mathf.FloorToInt (temp);
+                    biomeTypes[x, y] = Consts.BIOME_TYPE_TABLE[humidity, (int)temp];
+                } else if (height < -0.3)
+                    biomeTypes[x, y] = BiomeType.Water;
+                else
+                    biomeTypes[x, y] = BiomeType.Beach;
+            }
+        }
+        return biomeTypes;
+    }
 
-					// putting a cap on vales so as not to over-index array
-					humidity = Mathf.FloorToInt (humidities [x + 1, y + 1] * BIOME_TABLE_SIZE);
+    // this one does not return array that overlaps with other chunks
+    public BiomeType[,] GetBiomesExtended(float[,] heights, float[,] temperatures, float[,] humidities) {
+        BiomeType[,] biomeTypes = new BiomeType[Consts.CHUNK_SIZE, Consts.CHUNK_SIZE];
+        float temp;
+        int humidity;
+        float height;
 
-					biomeTypes [x, y] = Consts.BIOME_TYPE_TABLE [humidity, (int)temp];
-				}
-				else if (height < -0.3)
-					biomeTypes [x, y] = BiomeType.Water;
-				else
-					biomeTypes [x, y] = BiomeType.Beach;
-			}
-		}
-		return biomeTypes;
-	}
+        // loop through all tiles in chunk
+        for (int x = 0; x < Consts.CHUNK_SIZE; x++) {
+            for (int y = 0; y < Consts.CHUNK_SIZE; y++) {
+                height = heights[x + 1, y + 1];
+                if (height >= -0.26) {
+                    // get temperature as an integer for easy lookup in biome array
+                    temp = Mathf.InverseLerp(-70f, 70f, temperatures[x + 1, y + 1]);
+                    temp = Mathf.Clamp01(temp);
+                    temp *= BIOME_TABLE_SIZE;
+                    temp = Mathf.FloorToInt(temp);
 
-	public BiomeType GetBiome(float height, float temperature, float humidity)
-	{
-		float temp;
-		int humid;
-		BiomeType biome;
+                    // putting a cap on vales so as not to over-index array
+                    humidity = Mathf.FloorToInt(humidities[x + 1, y + 1] * BIOME_TABLE_SIZE);
 
-		// get temperature as an integer for easy lookup in biome array
-		temp = Mathf.InverseLerp(-70f, 70f, temperature);
-		temp = Mathf.Clamp01 (temp);
-		temp *= BIOME_TABLE_SIZE;
-		temp = Mathf.FloorToInt(temp);
+                    biomeTypes[x, y] = Consts.BIOME_TYPE_TABLE[humidity, (int)temp];
+                } else if (height < -0.3)
+                    biomeTypes[x, y] = BiomeType.Water;
+                else
+                    biomeTypes[x, y] = BiomeType.Beach;
+            }
+        }
+        return biomeTypes;
+    }
 
-		humid = Mathf.FloorToInt (humidity * BIOME_TABLE_SIZE);
-		biome = Consts.BIOME_TYPE_TABLE[humid, (int)temp];
+    public BiomeType GetBiome(float height, float temperature, float humidity) {
+        float temp;
+        int humid;
+        BiomeType biome;
 
-		// water and beach biomes
-		if (height < -0.6 && biome != BiomeType.Ice)
-			biome = BiomeType.DeepWater;
-		else if (height < -0.3 && biome != BiomeType.Ice)
-			biome = BiomeType.Water;
-		else if (height < -0.26 && biome != BiomeType.Ice)
-			biome = BiomeType.Beach;
-		return biome;
-	}
+        // get temperature as an integer for easy lookup in biome array
+        temp = Mathf.InverseLerp(-70f, 70f, temperature);
+        temp = Mathf.Clamp01(temp);
+        temp *= BIOME_TABLE_SIZE;
+        temp = Mathf.FloorToInt(temp);
 
-	/*public Texture2D GenerateColourMap()
+        humid = Mathf.FloorToInt(humidity * BIOME_TABLE_SIZE);
+        biome = Consts.BIOME_TYPE_TABLE[humid, (int)temp];
+
+        // water and beach biomes
+        if (height < -0.6 && biome != BiomeType.Ice)
+            biome = BiomeType.DeepWater;
+        else if (height < -0.3 && biome != BiomeType.Ice)
+            biome = BiomeType.Water;
+        else if (height < -0.26 && biome != BiomeType.Ice)
+            biome = BiomeType.Beach;
+        return biome;
+    }
+
+    /*public Texture2D GenerateColourMap()
 	{
 		Debug.Log ("Generating colourmap for shader...");
 		Texture2D tex = new Texture2D (5000, 5000);
@@ -427,17 +405,16 @@ public class BiomeCalculations : MonoBehaviour
 		File.WriteAllBytes (dirPath + "GiantColourMap.png", bytes);
 	}*/
 
-	// for testing purposes
-	void PrintAtPos()
-	{
-		Vector2 pos = new Vector2(playerTrans.position.x, playerTrans.position.y);
-		float heightVal = GetHeightValue((int)pos.x, (int)pos.y);
-		Debug.Log ("Height is " + heightVal);
-		float temp = GetTemperature((int)pos.x, (int)pos.y, heightVal);
-		Debug.Log ("Temp is " + temp);
-		float humidity = GetHumidity((int)pos.x, (int)pos.y, heightVal);
-		Debug.Log ("Humidity is " + humidity + "%");
-		BiomeType biome = GetBiome(heightVal, temp, humidity);
-		Debug.Log("You are in a " + biome + "biome");
-	}
+    // for testing purposes
+    void PrintAtPos() {
+        Vector2 pos = new Vector2(playerTrans.position.x, playerTrans.position.y);
+        float heightVal = GetHeightValue((int)pos.x, (int)pos.y);
+        Debug.Log("Height is " + heightVal);
+        float temp = GetTemperature((int)pos.x, (int)pos.y, heightVal);
+        Debug.Log("Temp is " + temp);
+        float humidity = GetHumidity((int)pos.x, (int)pos.y, heightVal);
+        Debug.Log("Humidity is " + humidity + "%");
+        BiomeType biome = GetBiome(heightVal, temp, humidity);
+        Debug.Log("You are in a " + biome + "biome");
+    }
 }

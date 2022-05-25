@@ -21,7 +21,12 @@ public class VillageGenerator : MonoBehaviour {
 
     List<BuildingLayout> currentBuildings = new List<BuildingLayout>();
     List<BuildingRule> buildingRuleQueue = new List<BuildingRule>();
+
+    private System.Random prng;
     void Start() {
+        int seed = GameObject.FindWithTag("SystemPlaceholder").GetComponent<WorldSettings>().SEED;
+        prng = new System.Random((int)transform.position.x + (int)transform.position.y + seed);
+
         string jsonPath = "Assets/Resources/Buildings/BuildingRules.json";
         string jsonStr = File.ReadAllText(jsonPath);
         BuildingRulesRoot root = JsonUtility.FromJson<BuildingRulesRoot>(jsonStr);
@@ -164,7 +169,7 @@ public class VillageGenerator : MonoBehaviour {
     private BuildingRule pickNextBuilding(Vector2Int direction) {
         List<BuildingRule> possibilities = new List<BuildingRule>();
         BuildingRule[] RULES = BUILDING_RULES;
-        if (Random.value < 0.6)
+        if (prng.NextDouble() < 0.6)
             RULES = PATH_RULES.Skip(1).ToArray();
 
         foreach (BuildingRule building in RULES) {
@@ -186,7 +191,7 @@ public class VillageGenerator : MonoBehaviour {
         if (possibilities.Count <= 0) {
             return null;
         }
-        return possibilities[Random.Range(0, possibilities.Count)];
+        return possibilities[prng.Next(0, possibilities.Count)];
     }
 
     private void drawToWorld() {
@@ -217,7 +222,7 @@ public class VillageGenerator : MonoBehaviour {
                         floorTilemapReference.SetTile(floorTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y)), floorTileReference);
 
                         // spawn NPC
-                        if (Random.value < 0.05) {
+                        if (prng.NextDouble() < 0.05) {
                             Instantiate(NPC, buildingLayout.GetWorldPos(x, y), Quaternion.identity);
                         }
                     }
