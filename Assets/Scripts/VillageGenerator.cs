@@ -47,7 +47,7 @@ public class VillageGenerator : MonoBehaviour {
             villageResources = GameObject.FindWithTag("SystemPlaceholder").GetComponent<VillageResources>();
         }
 
-        if (chunkCoord.x % 4 == 0 && chunkCoord.y % 4 == 0) {
+        if (chunkCoord.x % 8 == 0 && chunkCoord.y % 8 == 0) {
             System.Random tempPrng = new System.Random(chunkPos.x + worldSeed + chunkPos.y);
 
             if (tempPrng.NextDouble() < 0.2) {
