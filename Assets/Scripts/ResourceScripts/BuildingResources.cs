@@ -15,4 +15,20 @@ public class BuildingResources : MonoBehaviour {
     public Tilemap midWoodFloorTilemap;
     public Tilemap darkWoodFloorTilemap;
     public Tilemap stoneTileFloorTilemap;
+
+    void Awake() {
+        TilemapDict = new Dictionary<string, Tilemap>{
+        {"PathTilemap", pathTilemap},
+        {"WallTilemap", wallTilemap},
+        {"ConcreteFloorTilemap", concreteFloorTilemap},
+        {"DarkBrickFloorTilemap", darkBrickFloorTilemap},
+        {"LightBrickFloorTilemap", lightBrickFloorTilemap},
+        {"LightWoodFloorTilemap", lightWoodFloorTilemap},
+        {"MidWoodFloorTilemap", midWoodFloorTilemap},
+        {"DarkWoodFloorTilemap", darkWoodFloorTilemap},
+        {"StoneTileFloorTilemap", stoneTileFloorTilemap}
+        };
+    }
+
+    public Dictionary<string, Tilemap> TilemapDict;
 }

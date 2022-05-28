@@ -54,7 +54,7 @@ public class PlayerInteractions : MonoBehaviour {
 
         // convert hit to gameobject
         GameObject hoveringOver = null;
-        if (hit != null && hit.transform != null)
+        if (hit.transform != null)
             hoveringOver = hit.transform.gameObject;
 
         // update color of cursor
