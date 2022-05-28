@@ -209,35 +209,36 @@ public class VillageGenerator : MonoBehaviour {
     }
 
     private Vector3Int tilePos(int x, int y, BuildingLayout buildingLayout) {
-        return res.pathTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y));
+        return res.pathTilemap.WorldToCell(buildingLayout.GetWorldPos(x, y));
     }
 
     private void drawToWorld() {
+        Tilemap floorTilemap = res.lightBrickFloorTilemap;
         foreach (BuildingLayout buildingLayout in currentBuildings) {
             for (int y = 0; y < buildingLayout.layout.Length; y++) {
                 for (int x = 0; x < buildingLayout.layout[y].Length; x++) {
                     char c = getChar(buildingLayout.layout, x, y);
 
                     if (c == '_') {
-                        res.pathTilemapReference.SetTile(tilePos(x, y, buildingLayout), pathTileReference);
+                        res.pathTilemap.SetTile(tilePos(x, y, buildingLayout), pathTileReference);
                     } else if (c == 'W') {
-                        res.wallTilemapReference.SetTile(tilePos(x, y, buildingLayout), wallTileReference);
+                        res.wallTilemap.SetTile(tilePos(x, y, buildingLayout), wallTileReference);
 
-                        res.pathTilemapReference.SetTile(tilePos(x, y, buildingLayout), pathTileReference);
+                        res.pathTilemap.SetTile(tilePos(x, y, buildingLayout), pathTileReference);
 
-                        res.floorTilemapReference.SetTile(tilePos(x, y, buildingLayout), floorTileReference);
+                        floorTilemap.SetTile(tilePos(x, y, buildingLayout), floorTileReference);
 
                     } else if (c == 'D') {
-                        res.wallTilemapReference.SetTile(tilePos(x, y, buildingLayout), doorTileReference);
+                        res.wallTilemap.SetTile(tilePos(x, y, buildingLayout), doorTileReference);
 
-                        res.pathTilemapReference.SetTile(tilePos(x, y, buildingLayout), pathTileReference);
+                        res.pathTilemap.SetTile(tilePos(x, y, buildingLayout), pathTileReference);
 
-                        res.floorTilemapReference.SetTile(tilePos(x, y, buildingLayout), floorTileReference);
+                        floorTilemap.SetTile(tilePos(x, y, buildingLayout), floorTileReference);
 
                     } else if (c == '-') {
-                        res.pathTilemapReference.SetTile(tilePos(x, y, buildingLayout), pathTileReference);
+                        res.pathTilemap.SetTile(tilePos(x, y, buildingLayout), pathTileReference);
 
-                        res.floorTilemapReference.SetTile(tilePos(x, y, buildingLayout), floorTileReference);
+                        floorTilemap.SetTile(tilePos(x, y, buildingLayout), floorTileReference);
 
                         // spawn NPC
                         if (prng.NextDouble() < 0.05) {
