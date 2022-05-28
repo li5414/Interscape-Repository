@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class GreeneryGeneration : MonoBehaviour {
 
-    int chunkSize = 16;
+    int chunkSize = Consts.CHUNK_SIZE;
     float offsetX;
     float offsetY;
     public GameObject treeParent;

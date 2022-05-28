@@ -20,38 +20,37 @@ public class VillageGenerator : MonoBehaviour {
 
     private System.Random prng;
 
-    static VillageResources villageResources;
+    static BuildingResources res;
     void Start() {
-        if (villageResources == null) {
-            villageResources = GameObject.FindWithTag("SystemPlaceholder").GetComponent<VillageResources>();
+        if (res == null) {
+            res = GameObject.FindWithTag("SystemPlaceholder").GetComponent<BuildingResources>();
         }
 
         int seed = GameObject.FindWithTag("SystemPlaceholder").GetComponent<WorldSettings>().SEED;
         prng = new System.Random((int)transform.position.x + (int)transform.position.y + seed);
 
-        string jsonPath = "Assets/Resources/Buildings/BuildingRules.json";
-        string jsonStr = File.ReadAllText(jsonPath);
-        BuildingRulesRoot root = JsonUtility.FromJson<BuildingRulesRoot>(jsonStr);
-        BUILDING_RULES = root.buildingRulesArray;
-
-        string jsonPath2 = "Assets/Resources/Buildings/PathRules.json";
-        string jsonStr2 = File.ReadAllText(jsonPath2);
-        BuildingRulesRoot root2 = JsonUtility.FromJson<BuildingRulesRoot>(jsonStr2);
-        PATH_RULES = root2.buildingRulesArray;
+        BUILDING_RULES = loadJSON("Assets/Resources/Buildings/BuildingRules.json");
+        PATH_RULES = loadJSON("Assets/Resources/Buildings/PathRules.json");
 
         GenerateVillage(new Vector2Int((int)transform.position.x, (int)transform.position.y));
     }
 
+    private BuildingRule[] loadJSON(string filePath) {
+        string jsonStr = File.ReadAllText(filePath);
+        BuildingRulesRoot root = JsonUtility.FromJson<BuildingRulesRoot>(jsonStr);
+        return root.buildingRulesArray;
+    }
+
     public static void MaybeSpawnVillage(Vector2Int chunkCoord, Vector2Int chunkPos, int worldSeed) {
-        if (villageResources == null) {
-            villageResources = GameObject.FindWithTag("SystemPlaceholder").GetComponent<VillageResources>();
+        if (res == null) {
+            res = GameObject.FindWithTag("SystemPlaceholder").GetComponent<BuildingResources>();
         }
 
         if (chunkCoord.x % 8 == 0 && chunkCoord.y % 8 == 0) {
             System.Random tempPrng = new System.Random(chunkPos.x + worldSeed + chunkPos.y);
 
             if (tempPrng.NextDouble() < 0.2) {
-                Instantiate(villageResources.villageObject, new Vector3(chunkPos.x, chunkPos.y, 0), Quaternion.identity);
+                Instantiate(res.villageObject, new Vector3(chunkPos.x, chunkPos.y, 0), Quaternion.identity);
             }
         }
     }
@@ -133,7 +132,6 @@ public class VillageGenerator : MonoBehaviour {
             return;
         }
 
-        // Debug.Log(worldConnectionPos + " " + nextConnectionPoint);
         if (direction.Equals(Vector2Int.up))
             newBuildingLayout.isConnectedDown = true;
         else if (direction.Equals(Vector2Int.down))
@@ -211,7 +209,7 @@ public class VillageGenerator : MonoBehaviour {
     }
 
     private Vector3Int tilePos(int x, int y, BuildingLayout buildingLayout) {
-        return villageResources.pathTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y));
+        return res.pathTilemapReference.WorldToCell(buildingLayout.GetWorldPos(x, y));
     }
 
     private void drawToWorld() {
@@ -221,25 +219,25 @@ public class VillageGenerator : MonoBehaviour {
                     char c = getChar(buildingLayout.layout, x, y);
 
                     if (c == '_') {
-                        villageResources.pathTilemapReference.SetTile(tilePos(x, y, buildingLayout), pathTileReference);
+                        res.pathTilemapReference.SetTile(tilePos(x, y, buildingLayout), pathTileReference);
                     } else if (c == 'W') {
-                        villageResources.wallTilemapReference.SetTile(tilePos(x, y, buildingLayout), wallTileReference);
+                        res.wallTilemapReference.SetTile(tilePos(x, y, buildingLayout), wallTileReference);
 
-                        villageResources.pathTilemapReference.SetTile(tilePos(x, y, buildingLayout), pathTileReference);
+                        res.pathTilemapReference.SetTile(tilePos(x, y, buildingLayout), pathTileReference);
 
-                        villageResources.floorTilemapReference.SetTile(tilePos(x, y, buildingLayout), floorTileReference);
+                        res.floorTilemapReference.SetTile(tilePos(x, y, buildingLayout), floorTileReference);
 
                     } else if (c == 'D') {
-                        villageResources.wallTilemapReference.SetTile(tilePos(x, y, buildingLayout), doorTileReference);
+                        res.wallTilemapReference.SetTile(tilePos(x, y, buildingLayout), doorTileReference);
 
-                        villageResources.pathTilemapReference.SetTile(tilePos(x, y, buildingLayout), pathTileReference);
+                        res.pathTilemapReference.SetTile(tilePos(x, y, buildingLayout), pathTileReference);
 
-                        villageResources.floorTilemapReference.SetTile(tilePos(x, y, buildingLayout), floorTileReference);
+                        res.floorTilemapReference.SetTile(tilePos(x, y, buildingLayout), floorTileReference);
 
                     } else if (c == '-') {
-                        villageResources.pathTilemapReference.SetTile(tilePos(x, y, buildingLayout), pathTileReference);
+                        res.pathTilemapReference.SetTile(tilePos(x, y, buildingLayout), pathTileReference);
 
-                        villageResources.floorTilemapReference.SetTile(tilePos(x, y, buildingLayout), floorTileReference);
+                        res.floorTilemapReference.SetTile(tilePos(x, y, buildingLayout), floorTileReference);
 
                         // spawn NPC
                         if (prng.NextDouble() < 0.05) {

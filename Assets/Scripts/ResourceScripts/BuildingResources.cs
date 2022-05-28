@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 
-public class VillageResources : MonoBehaviour {
+public class BuildingResources : MonoBehaviour {
     public GameObject villageObject;
     public Tilemap pathTilemapReference;
     public Tilemap wallTilemapReference;
