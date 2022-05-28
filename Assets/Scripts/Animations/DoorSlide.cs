@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorSlide : MonoBehaviour
-{
-    Animator anim;
-    Transform player;
-    public float distanceToOpen;
+public class DoorSlide : MonoBehaviour {
+    public Animator anim;
 
     private bool isMoving;
     private bool isOpen = false;
@@ -14,18 +11,11 @@ public class DoorSlide : MonoBehaviour
     public AnimationClip doorSlideOpenClip;
     public AnimationClip doorSlideCloseClip;
 
+    private bool isSomeoneClose = false;
+    private int count = 0;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        anim = GetComponent<Animator>();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Vector3.Distance(player.position, transform.parent.transform.position) < distanceToOpen) {
+    void FixedUpdate() {
+        if (isSomeoneClose) {
             if (!isMoving && !isOpen)
                 StartCoroutine("doorSlideOpen");
         } else {
@@ -47,6 +37,22 @@ public class DoorSlide : MonoBehaviour
         yield return new WaitForSeconds(doorSlideCloseClip.length);
         isMoving = false;
         isOpen = false;
-        this.transform.position = new Vector3(0, 0, 0); // reset position
+        // this.transform.position = new Vector3(0, 0, 0); // reset position
+    }
+
+    void OnTriggerEnter2D(Collider2D col) {
+        if (col.gameObject.tag == "Player" || col.gameObject.tag == "NPC") {
+            isSomeoneClose = true;
+            count++;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D col) {
+        if (col.gameObject.tag == "Player" || col.gameObject.tag == "NPC") {
+            count--;
+            if (count <= 0) {
+                isSomeoneClose = false;
+            }
+        }
     }
 }

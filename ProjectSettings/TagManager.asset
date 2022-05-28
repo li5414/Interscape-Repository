@@ -16,6 +16,7 @@ TagManager:
   - ItemDrop
   - PathTilemap
   - FloorParent
+  - NPC
   layers:
   - Default
   - TransparentFX

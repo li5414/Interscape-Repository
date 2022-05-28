@@ -36,17 +36,18 @@ public class PlayerInteractions : MonoBehaviour {
         // cast ray to get objects
         RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, -Vector2.zero);
 
-        // ignore item drop objects
+        // get first appropriate object
         RaycastHit2D hit = new RaycastHit2D();
         for (int i = 0; i < hits.Length; i++) {
-            if (hits[i].transform != null && hits[i].transform.gameObject.tag != "ItemDrop") {
+            Collider2D collider = hits[i].transform.gameObject.GetComponent<Collider2D>();
+            if (collider != null && !collider.isTrigger) {
                 hit = hits[i];
                 break;
             }
         }
         // try to get an object that has a Destroyable component, if possible
         for (int i = 0; i < hits.Length; i++) {
-            if (hits[i].transform != null && hits[i].transform.gameObject.GetComponent<DestroyableObj>() != null) {
+            if (hits[i].transform.gameObject.GetComponent<DestroyableObj>() != null) {
                 hit = hits[i];
                 break;
             }
