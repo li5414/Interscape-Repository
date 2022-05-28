@@ -25,6 +25,10 @@ public class BuildableItem : Item {
     }
 
     private Tilemap getTilemap(string tilemap) {
+        if (tilemap == "WallTilemap")
+            return GameObject.FindWithTag("SystemPlaceholder").GetComponent<BuildingResources>().wallTilemap;
+        if (tilemap == "PathTilemap")
+            return GameObject.FindWithTag("SystemPlaceholder").GetComponent<BuildingResources>().pathTilemap;
         return GameObject.FindWithTag("SystemPlaceholder").GetComponent<BuildingResources>().TilemapDict[tilemap];
     }
 

@@ -28,6 +28,9 @@ public class DestroyableObj : MonoBehaviour {
             tilemap = this.gameObject.transform.parent.gameObject.GetComponent<Tilemap>();
             if (!tilemap)
                 Debug.LogError("Could not find parent tilemap", this);
+            if (tilemap.gameObject.GetComponent<DestroyableTilemap>() != null) {
+                dropItemName = tilemap.gameObject.GetComponent<DestroyableTilemap>().itemDropName;
+            }
         }
     }
 

@@ -213,8 +213,9 @@ public class VillageGenerator : MonoBehaviour {
     }
 
     private void drawToWorld() {
-        Tilemap floorTilemap = res.lightBrickFloorTilemap;
+        Tilemap floorTilemap;
         foreach (BuildingLayout buildingLayout in currentBuildings) {
+            floorTilemap = res.TilemapDict.ElementAt(prng.Next(0, res.TilemapDict.Count)).Value;
             for (int y = 0; y < buildingLayout.layout.Length; y++) {
                 for (int x = 0; x < buildingLayout.layout[y].Length; x++) {
                     char c = getChar(buildingLayout.layout, x, y);
