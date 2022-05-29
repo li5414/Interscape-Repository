@@ -27,7 +27,7 @@ public class VillageGenerator : MonoBehaviour {
         }
 
         int seed = GameObject.FindWithTag("SystemPlaceholder").GetComponent<WorldSettings>().SEED;
-        prng = new System.Random((int)transform.position.x + (int)transform.position.y + seed);
+        prng = new System.Random((int)transform.position.x + (int)transform.position.y * seed);
 
         BUILDING_RULES = loadJSON("Assets/Resources/Buildings/BuildingRules.json");
         PATH_RULES = loadJSON("Assets/Resources/Buildings/PathRules.json");
@@ -39,20 +39,6 @@ public class VillageGenerator : MonoBehaviour {
         string jsonStr = File.ReadAllText(filePath);
         BuildingRulesRoot root = JsonUtility.FromJson<BuildingRulesRoot>(jsonStr);
         return root.buildingRulesArray;
-    }
-
-    public static void MaybeSpawnVillage(Vector2Int chunkCoord, Vector2Int chunkPos, int worldSeed) {
-        if (res == null) {
-            res = GameObject.FindWithTag("SystemPlaceholder").GetComponent<BuildingResources>();
-        }
-
-        if (chunkCoord.x % 8 == 0 && chunkCoord.y % 8 == 0) {
-            System.Random tempPrng = new System.Random(chunkPos.x + worldSeed + chunkPos.y);
-
-            if (tempPrng.NextDouble() < 0.1) {
-                Instantiate(res.villageObject, new Vector3(chunkPos.x, chunkPos.y, 0), Quaternion.identity);
-            }
-        }
     }
 
     public static VillageGenerator SpawnVillage(Vector2Int chunkPos) {

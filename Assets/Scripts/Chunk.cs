@@ -106,19 +106,19 @@ public class Chunk {
     private bool isCloseToVillage() {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                if ((chunkCoord.x + i) % 6 == 0 || (chunkCoord.y + j) % 6 == 0) {
-                    // // TODO fix villages generating on water
-                    // if (heights[0, 0] < Consts.BEACH_HEIGHT + offset)
-                    //     return false;
-                    // if (heights[Consts.CHUNK_SIZE - 1, Consts.CHUNK_SIZE - 1] < Consts.BEACH_HEIGHT + offset)
-                    //     return false;
-                    // if (heights[Consts.CHUNK_SIZE - 1, 0] < Consts.BEACH_HEIGHT + offset)
-                    //     return false;
-                    // if (heights[0, Consts.CHUNK_SIZE - 1] < Consts.BEACH_HEIGHT + offset)
-                    //     return false;
+                if ((chunkCoord.x + i) % 8 == 0 && (chunkCoord.y + j) % 8 == 0) {
+                    int chunkPosX = (chunkCoord.x + i) * Consts.CHUNK_SIZE;
+                    int chunkPosY = (chunkCoord.y + j) * Consts.CHUNK_SIZE;
+
+                    // stop villages generating on water
+                    if (bCalc.GetHeightValue(
+                        chunkPosX + (int)(Consts.CHUNK_SIZE / 2),
+                        chunkPosY + (int)(Consts.CHUNK_SIZE / 2))
+                        < Consts.BEACH_HEIGHT + 0.15)
+                        return false;
 
                     // TODO optimise using hash function instead of prng
-                    System.Random tempPrng = new System.Random((chunkCoord.x + i) * Consts.CHUNK_SIZE + (chunkCoord.y + j) * Consts.CHUNK_SIZE + worldSettings.SEED);
+                    System.Random tempPrng = new System.Random(chunkPosX + chunkPosY + worldSettings.SEED);
 
                     if (tempPrng.NextDouble() < 0.2) {
                         closestVillage = new Vector2Int(chunkCoord.x + i, chunkCoord.y + j);

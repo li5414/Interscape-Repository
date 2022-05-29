@@ -12004,7 +12004,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1062241005}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1729.3, y: 1456, z: 14.56}
+  m_LocalPosition: {x: 1674.8, y: 1912, z: 19.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12166,7 +12166,7 @@ MonoBehaviour:
   statsUI: {fileID: 397163722}
   carryCapacity: 40
   walkSpeed: 3
-  runSpeed: 6
+  runSpeed: 10
   crawlSpeed: 2
   isRunning: 0
   skill: 0
