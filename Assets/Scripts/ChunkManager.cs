@@ -27,6 +27,8 @@ public class ChunkManager : MonoBehaviour {
 
     static WorldSettings worldSettings;
 
+    public Dictionary<Vector2Int, VillageGenerator> newlyGeneratedVillages = new Dictionary<Vector2Int, VillageGenerator>();
+
     private void Start() {
         worldSettings = GameObject.FindWithTag("SystemPlaceholder").GetComponent<WorldSettings>();
         tileResources = new TileResources();

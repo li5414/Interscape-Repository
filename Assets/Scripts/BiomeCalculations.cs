@@ -281,7 +281,7 @@ public class BiomeCalculations : MonoBehaviour {
         for (int x = 0; x < Consts.CHUNK_SIZE; x++) {
             for (int y = 0; y < Consts.CHUNK_SIZE; y++) {
                 height = heights[x, y];
-                if (height >= -0.26) {
+                if (height >= Consts.BEACH_HEIGHT) {
                     // get temperature as an integer for easy lookup in biome array
                     temp = Mathf.InverseLerp(-70f, 70f, temperatures[x, y]);
                     temp = Mathf.Clamp01(temp);
@@ -292,7 +292,7 @@ public class BiomeCalculations : MonoBehaviour {
                     humidity = Mathf.FloorToInt(humidities[x, y] * BIOME_TABLE_SIZE);
 
                     biomeTypes[x, y] = Consts.BIOME_TYPE_TABLE[humidity, (int)temp];
-                } else if (height < -0.3)
+                } else if (height < Consts.WATER_HEIGHT)
                     biomeTypes[x, y] = BiomeType.Water;
                 else
                     biomeTypes[x, y] = BiomeType.Beach;
@@ -312,7 +312,7 @@ public class BiomeCalculations : MonoBehaviour {
         for (int x = 0; x < Consts.CHUNK_SIZE; x++) {
             for (int y = 0; y < Consts.CHUNK_SIZE; y++) {
                 height = heights[x + 1, y + 1];
-                if (height >= -0.26) {
+                if (height >= Consts.BEACH_HEIGHT) {
                     // get temperature as an integer for easy lookup in biome array
                     temp = Mathf.InverseLerp(-70f, 70f, temperatures[x + 1, y + 1]);
                     temp = Mathf.Clamp01(temp);
@@ -323,7 +323,7 @@ public class BiomeCalculations : MonoBehaviour {
                     humidity = Mathf.FloorToInt(humidities[x + 1, y + 1] * BIOME_TABLE_SIZE);
 
                     biomeTypes[x, y] = Consts.BIOME_TYPE_TABLE[humidity, (int)temp];
-                } else if (height < -0.3)
+                } else if (height < Consts.WATER_HEIGHT)
                     biomeTypes[x, y] = BiomeType.Water;
                 else
                     biomeTypes[x, y] = BiomeType.Beach;
@@ -349,9 +349,9 @@ public class BiomeCalculations : MonoBehaviour {
         // water and beach biomes
         if (height < -0.6 && biome != BiomeType.Ice)
             biome = BiomeType.DeepWater;
-        else if (height < -0.3 && biome != BiomeType.Ice)
+        else if (height < Consts.WATER_HEIGHT && biome != BiomeType.Ice)
             biome = BiomeType.Water;
-        else if (height < -0.26 && biome != BiomeType.Ice)
+        else if (height < Consts.BEACH_HEIGHT && biome != BiomeType.Ice)
             biome = BiomeType.Beach;
         return biome;
     }

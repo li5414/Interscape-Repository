@@ -67,10 +67,7 @@ public class GreeneryGeneration : MonoBehaviour {
                 isTreeBiome = true;
                 biome = biomes[x, y];
 
-                //if (heights [x, y] < -0.26)
-                //	biome = BiomeCalculations.BiomeType.Water;
-
-                // choose what kind of trees/things to spawn depending on biome-----------------------------------
+                // choose what kind of trees/things to spawn depending on biome
                 switch (biome) {
                     case BiomeType.Grassland:
                         treeChance = 0.005f;
@@ -161,7 +158,6 @@ public class GreeneryGeneration : MonoBehaviour {
                         shrub4 = null;
                         break;
                 }
-                // end of choice depending on biome--------------------------------------------------
 
                 // generate noise values
                 perlinNoise = Mathf.PerlinNoise((chunkPos.x + x + offsetX / 3.5f) * 0.1f,
@@ -169,8 +165,10 @@ public class GreeneryGeneration : MonoBehaviour {
 
 
                 // spawn in trees
-                if (isTreeBiome == true) { // check nearby coordinates for trees ???
-                    treeChance *= perlinNoise; // causes trees to generate in 'clusters'
+                // TODO check nearby coordinates for trees ???
+                if (isTreeBiome == true) {
+                    // causes trees to generate in 'clusters'
+                    treeChance *= perlinNoise;
                     randNum = worldSettings.PRNG.NextDouble();
 
                     if (worldSettings.PRNG.NextDouble() < treeChance) {

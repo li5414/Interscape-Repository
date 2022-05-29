@@ -49,10 +49,17 @@ public class VillageGenerator : MonoBehaviour {
         if (chunkCoord.x % 8 == 0 && chunkCoord.y % 8 == 0) {
             System.Random tempPrng = new System.Random(chunkPos.x + worldSeed + chunkPos.y);
 
-            if (tempPrng.NextDouble() < 0.2) {
+            if (tempPrng.NextDouble() < 0.1) {
                 Instantiate(res.villageObject, new Vector3(chunkPos.x, chunkPos.y, 0), Quaternion.identity);
             }
         }
+    }
+
+    public static VillageGenerator SpawnVillage(Vector2Int chunkPos) {
+        if (res == null) {
+            res = GameObject.FindWithTag("SystemPlaceholder").GetComponent<BuildingResources>();
+        }
+        return Instantiate(res.villageObject, new Vector3(chunkPos.x, chunkPos.y, 0), Quaternion.identity).GetComponent<VillageGenerator>();
     }
 
     public void GenerateVillage(Vector2Int centerPoint) {
@@ -87,7 +94,7 @@ public class VillageGenerator : MonoBehaviour {
             safeguard--;
         }
 
-        drawToWorld();
+        // placeVillageInWorld();
     }
 
     private void addNewBuilding(Vector2Int direction, int currentBuildingIndex, BuildingRule currentBuilding) {
@@ -102,15 +109,12 @@ public class VillageGenerator : MonoBehaviour {
         if (direction.Equals(Vector2Int.up)) {
             currentConnectionPoint = currentBuilding.topConnectionPoint;
             nextConnectionPoint = nextBuilding.bottomConnectionPoint;
-
         } else if (direction.Equals(Vector2Int.down)) {
             currentConnectionPoint = currentBuilding.bottomConnectionPoint;
             nextConnectionPoint = nextBuilding.topConnectionPoint;
-
         } else if (direction.Equals(Vector2Int.left)) {
             currentConnectionPoint = currentBuilding.leftConnectionPoint;
             nextConnectionPoint = nextBuilding.rightConnectionPoint;
-
         } else {
             currentConnectionPoint = currentBuilding.rightConnectionPoint;
             nextConnectionPoint = nextBuilding.leftConnectionPoint;
@@ -140,6 +144,7 @@ public class VillageGenerator : MonoBehaviour {
             newBuildingLayout.isConnectedRight = true;
         else
             newBuildingLayout.isConnectedLeft = true;
+        newBuildingLayout.floorTilemap = res.TilemapDict.ElementAt(prng.Next(0, res.TilemapDict.Count)).Value;
         currentBuildings.Add(newBuildingLayout);
         buildingRuleQueue.Add(nextBuilding);
     }
@@ -212,43 +217,72 @@ public class VillageGenerator : MonoBehaviour {
         return res.pathTilemap.WorldToCell(buildingLayout.GetWorldPos(x, y));
     }
 
-    private void drawToWorld() {
-        Tilemap floorTilemap;
+    private void placeTileInWorld(char c, Tilemap floorTilemap, BuildingLayout buildingLayout, Vector3Int pos) {
+
+        switch (c) {
+            case '_':
+                res.pathTilemap.SetTile(pos, pathTileReference);
+                break;
+            case 'W':
+                res.wallTilemap.SetTile(pos, wallTileReference);
+                res.pathTilemap.SetTile(pos, pathTileReference);
+                floorTilemap.SetTile(pos, floorTileReference);
+                break;
+            case 'D':
+                res.wallTilemap.SetTile(pos, doorTileReference);
+                res.pathTilemap.SetTile(pos, pathTileReference);
+                floorTilemap.SetTile(pos, floorTileReference);
+                break;
+            case '-':
+                res.pathTilemap.SetTile(pos, pathTileReference);
+                floorTilemap.SetTile(pos, floorTileReference);
+                // spawn NPC
+                if (prng.NextDouble() < 0.05) {
+                    Instantiate(NPC, pos, Quaternion.identity);
+                }
+                break;
+        }
+    }
+
+    private void placeVillageInWorld() {
         foreach (BuildingLayout buildingLayout in currentBuildings) {
-            floorTilemap = res.TilemapDict.ElementAt(prng.Next(0, res.TilemapDict.Count)).Value;
             for (int y = 0; y < buildingLayout.layout.Length; y++) {
                 for (int x = 0; x < buildingLayout.layout[y].Length; x++) {
                     char c = getChar(buildingLayout.layout, x, y);
-
-                    if (c == '_') {
-                        res.pathTilemap.SetTile(tilePos(x, y, buildingLayout), pathTileReference);
-                    } else if (c == 'W') {
-                        res.wallTilemap.SetTile(tilePos(x, y, buildingLayout), wallTileReference);
-
-                        res.pathTilemap.SetTile(tilePos(x, y, buildingLayout), pathTileReference);
-
-                        floorTilemap.SetTile(tilePos(x, y, buildingLayout), floorTileReference);
-
-                    } else if (c == 'D') {
-                        res.wallTilemap.SetTile(tilePos(x, y, buildingLayout), doorTileReference);
-
-                        res.pathTilemap.SetTile(tilePos(x, y, buildingLayout), pathTileReference);
-
-                        floorTilemap.SetTile(tilePos(x, y, buildingLayout), floorTileReference);
-
-                    } else if (c == '-') {
-                        res.pathTilemap.SetTile(tilePos(x, y, buildingLayout), pathTileReference);
-
-                        floorTilemap.SetTile(tilePos(x, y, buildingLayout), floorTileReference);
-
-                        // spawn NPC
-                        if (prng.NextDouble() < 0.05) {
-                            Instantiate(NPC, buildingLayout.GetWorldPos(x, y), Quaternion.identity);
-                        }
+                    Vector3Int pos = tilePos(x, y, buildingLayout);
+                    RemoveObstacle(pos.x, pos.y);
+                    placeTileInWorld(c, buildingLayout.floorTilemap, buildingLayout, pos);
+                }
+            }
+        }
+    }
+    public void PlaceVillageChunkInWorld(Vector2Int chunkPos) {
+        foreach (BuildingLayout buildingLayout in currentBuildings) {
+            for (int y = 0; y < buildingLayout.layout.Length; y++) {
+                for (int x = 0; x < buildingLayout.layout[y].Length; x++) {
+                    char c = getChar(buildingLayout.layout, x, y);
+                    Vector3Int pos = tilePos(x, y, buildingLayout);
+                    if (pos.x >= chunkPos.x && pos.x < chunkPos.x + Consts.CHUNK_SIZE && pos.y >= chunkPos.y && pos.y < chunkPos.y + Consts.CHUNK_SIZE) {
+                        RemoveObstacle(pos.x, pos.y);
+                        placeTileInWorld(c, buildingLayout.floorTilemap, buildingLayout, pos);
                     }
                 }
             }
         }
+    }
+    public bool RemoveObstacle(int x, int y) {
+        // TODO figure out if z is important here
+        Vector3 pos = new Vector3(x + 0.5f, y + 0.5f, 20);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(pos, -Vector2.zero);
+
+        for (int i = 0; i < hits.Length; i++) {
+            Collider2D collider = hits[i].transform.gameObject.GetComponent<Collider2D>();
+            if (collider != null && collider.gameObject.tag != "ItemDrop" && collider.gameObject.tag != "Player" && collider.gameObject.tag != "NPC") {
+                Destroy(collider.gameObject);
+            }
+        }
+
+        return true;
     }
 
     private char getChar(string[] layout, int x, int y) {
@@ -258,7 +292,7 @@ public class VillageGenerator : MonoBehaviour {
 
 public class BuildingLayout {
     public Vector2Int worldCoordinates { get; set; }
-
+    public Tilemap floorTilemap;
     public bool isConnectedUp = false;
     public bool isConnectedDown = false;
     public bool isConnectedLeft = false;

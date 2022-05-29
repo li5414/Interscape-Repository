@@ -49,7 +49,8 @@ public class Chunk {
 
     static GameObject TreeParent = GameObject.Find("TreeParent");
 
-    /*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+    private Vector2Int closestVillage;
+
     public Chunk(Vector2Int pos) {
         // get/initialise some important things
         chunkPos = new Vector2Int(pos.x * Consts.CHUNK_SIZE, pos.y * Consts.CHUNK_SIZE);
@@ -78,7 +79,7 @@ public class Chunk {
         GenerateDetailsChunk();
 
         // potentially generate a village on this chunk
-        VillageGenerator.MaybeSpawnVillage(chunkCoord, chunkPos, worldSettings.SEED);
+        handleVillageGeneration();
 
         // array of gameobjects (use dict/list instead?)
         entities = gen.GeneratePlants(chunkPos, biomes, heights, treeParent);
@@ -86,6 +87,47 @@ public class Chunk {
         // load in the chunk
         isGenerated = true;
         chunkManager.chunksToLoad.Enqueue(this);
+    }
+
+    private void handleVillageGeneration() {
+        if (isCloseToVillage()) {
+            VillageGenerator village;
+            if (chunkManager.newlyGeneratedVillages.TryGetValue(closestVillage, out village)) {
+                village.PlaceVillageChunkInWorld(chunkPos);
+            } else {
+                Vector2Int villagePos = new Vector2Int(closestVillage.x * Consts.CHUNK_SIZE, closestVillage.y * Consts.CHUNK_SIZE);
+                village = VillageGenerator.SpawnVillage(villagePos);
+                chunkManager.newlyGeneratedVillages.Add(closestVillage, village);
+                village.PlaceVillageChunkInWorld(chunkPos);
+            }
+        }
+    }
+
+    private bool isCloseToVillage() {
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if ((chunkCoord.x + i) % 6 == 0 || (chunkCoord.y + j) % 6 == 0) {
+                    // // TODO fix villages generating on water
+                    // if (heights[0, 0] < Consts.BEACH_HEIGHT + offset)
+                    //     return false;
+                    // if (heights[Consts.CHUNK_SIZE - 1, Consts.CHUNK_SIZE - 1] < Consts.BEACH_HEIGHT + offset)
+                    //     return false;
+                    // if (heights[Consts.CHUNK_SIZE - 1, 0] < Consts.BEACH_HEIGHT + offset)
+                    //     return false;
+                    // if (heights[0, Consts.CHUNK_SIZE - 1] < Consts.BEACH_HEIGHT + offset)
+                    //     return false;
+
+                    // TODO optimise using hash function instead of prng
+                    System.Random tempPrng = new System.Random((chunkCoord.x + i) * Consts.CHUNK_SIZE + (chunkCoord.y + j) * Consts.CHUNK_SIZE + worldSettings.SEED);
+
+                    if (tempPrng.NextDouble() < 0.2) {
+                        closestVillage = new Vector2Int(chunkCoord.x + i, chunkCoord.y + j);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     public void GenerateColourTexture() {
@@ -139,7 +181,8 @@ public class Chunk {
                 // if (height < -0.29f) {
                 // 	color = Consts.BIOME_COLOUR_DICT [BiomeType.Beach];
                 // }
-                color.a = Mathf.Clamp01(Mathf.InverseLerp(-1f, 1f, height)); // lower alpha is deeper
+                // set alpha - lower alpha is deeper
+                color.a = Mathf.Clamp01(Mathf.InverseLerp(-1f, 1f, height));
                 extendedTerrainColours.SetPixel(i, j, color);
             }
         }
@@ -163,18 +206,19 @@ public class Chunk {
                 heightVal = heights[i, j];
 
                 // sand layer
-                if (heightVal < -0.26) {
+                if (heightVal < Consts.BEACH_HEIGHT) {
                     sandTileArray[at(i, j)] = ChunkManager.tileResources.tileSandRule;
                     containsSand = true;
                 }
 
                 // grass layer
-                if (heightVal >= -0.4) {
+                if (heightVal >= Consts.WATER_HEIGHT - 0.1f) {
                     containsGrass = true;
                 }
 
                 // water layer
-                if (heightVal < -0.26f) { // used to be -0.3, but im doing some overlapping
+                // we want some overlapping
+                if (heightVal < Consts.WATER_HEIGHT - 0.04f) {
                     containsWater = true;
                 }
             }
