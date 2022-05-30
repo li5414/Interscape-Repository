@@ -74,7 +74,6 @@ public class VillageGenerator : MonoBehaviour {
                 addNewBuilding(Vector2Int.left, currentBuildingIndex, currentBuilding);
             }
 
-
             buildingRuleQueue.RemoveAt(0);
             currentBuildingIndex++;
             safeguard--;
@@ -120,10 +119,8 @@ public class VillageGenerator : MonoBehaviour {
 
         if (overlapsAny(newBuildingLayout))
             return;
-        if (!isWithinBounds(newBuildingLayout)) {
-            Debug.Log("prevented out of bounds");
+        if (isOutOfBounds(newBuildingLayout))
             return;
-        }
 
         if (direction.Equals(Vector2Int.up))
             newBuildingLayout.isConnectedDown = true;
@@ -146,7 +143,7 @@ public class VillageGenerator : MonoBehaviour {
         return false;
     }
 
-    private bool isWithinBounds(BuildingLayout newBuilding) {
+    private bool isOutOfBounds(BuildingLayout newBuilding) {
         // make sure village's width and height is less than 5 chunks
         // village center is at bottom left corner of it's chunk
         Vector2Int bottomLeft = new Vector2Int(
@@ -161,15 +158,15 @@ public class VillageGenerator : MonoBehaviour {
             newBottomLeft.x + newBuilding.layout[0].Length - 1,
             newBottomLeft.y + newBuilding.layout.Length - 1);
 
-        if (newTopRight.y < bottomLeft.y
-        || newBottomLeft.y > topRight.y) {
-            return false;
+        if (newTopRight.y > topRight.y
+        || newBottomLeft.y < bottomLeft.y) {
+            return true;
         }
-        if (newTopRight.x < bottomLeft.x
-        || newBottomLeft.x > topRight.x) {
-            return false;
+        if (newTopRight.x > topRight.x
+        || newBottomLeft.x < bottomLeft.x) {
+            return true;
         }
-        return true;
+        return false;
     }
 
     private bool overlaps(BuildingLayout newBuilding,
