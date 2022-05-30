@@ -118,7 +118,10 @@ public class VillageGenerator : MonoBehaviour {
             layout = nextBuilding.layout
         };
 
-        if (overlapsAny(newBuildingLayout)) {
+        if (overlapsAny(newBuildingLayout))
+            return;
+        if (!isWithinBounds(newBuildingLayout)) {
+            Debug.Log("prevented out of bounds");
             return;
         }
 
@@ -141,6 +144,32 @@ public class VillageGenerator : MonoBehaviour {
                 return true;
         }
         return false;
+    }
+
+    private bool isWithinBounds(BuildingLayout newBuilding) {
+        // make sure village's width and height is less than 5 chunks
+        // village center is at bottom left corner of it's chunk
+        Vector2Int bottomLeft = new Vector2Int(
+            (int)gameObject.transform.position.x - Consts.CHUNK_SIZE * 2,
+            (int)gameObject.transform.position.y - Consts.CHUNK_SIZE * 2);
+        Vector2Int topRight = new Vector2Int(
+            (int)gameObject.transform.position.x + Consts.CHUNK_SIZE * 3 - 1,
+            (int)gameObject.transform.position.y + Consts.CHUNK_SIZE * 3 - 1);
+
+        Vector2Int newBottomLeft = newBuilding.worldCoordinates;
+        Vector2Int newTopRight = new Vector2Int(
+            newBottomLeft.x + newBuilding.layout[0].Length - 1,
+            newBottomLeft.y + newBuilding.layout.Length - 1);
+
+        if (newTopRight.y < bottomLeft.y
+        || newBottomLeft.y > topRight.y) {
+            return false;
+        }
+        if (newTopRight.x < bottomLeft.x
+        || newBottomLeft.x > topRight.x) {
+            return false;
+        }
+        return true;
     }
 
     private bool overlaps(BuildingLayout newBuilding,

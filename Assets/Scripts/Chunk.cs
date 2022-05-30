@@ -104,8 +104,9 @@ public class Chunk {
     }
 
     private bool isCloseToVillage() {
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
+        // TODO figure out a way to check if village lands on a chunk that is not so inefficient lol
+        for (int i = -2; i <= 2; i++) {
+            for (int j = -2; j <= 2; j++) {
                 if ((chunkCoord.x + i) % 8 == 0 && (chunkCoord.y + j) % 8 == 0) {
                     int chunkPosX = (chunkCoord.x + i) * Consts.CHUNK_SIZE;
                     int chunkPosY = (chunkCoord.y + j) * Consts.CHUNK_SIZE;
@@ -114,7 +115,7 @@ public class Chunk {
                     if (bCalc.GetHeightValue(
                         chunkPosX + (int)(Consts.CHUNK_SIZE / 2),
                         chunkPosY + (int)(Consts.CHUNK_SIZE / 2))
-                        < Consts.BEACH_HEIGHT + 0.15)
+                        < Consts.BEACH_HEIGHT + 0.2)
                         return false;
 
                     // TODO optimise using hash function instead of prng
