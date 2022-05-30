@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using System.Threading;
 using System;
-
 public class ChunkManager : MonoBehaviour {
     // references / objects
-    public Transform playerTrans;          // player reference
+    public Transform observer;
     public Tilemap sandTilemap;
 
     // coordinate variables
@@ -17,7 +15,7 @@ public class ChunkManager : MonoBehaviour {
 
     // chunk management dict, list and queues
     public Dictionary<Vector2, Chunk> chunkDictionary = new Dictionary<Vector2, Chunk>();
-    List<Chunk> chunksVisible = new List<Chunk>();
+    List<Chunk> loadedChunks = new List<Chunk>();
     Queue<Chunk> chunksToGenerate = new Queue<Chunk>();
     public Queue<Chunk> chunksToLoad = new Queue<Chunk>();
     Queue<Chunk> chunksToUnload = new Queue<Chunk>();
@@ -29,101 +27,117 @@ public class ChunkManager : MonoBehaviour {
 
     public Dictionary<Vector2Int, VillageGenerator> newlyGeneratedVillages = new Dictionary<Vector2Int, VillageGenerator>();
 
-    private void Start() {
+    void Start() {
         worldSettings = GameObject.FindWithTag("SystemPlaceholder").GetComponent<WorldSettings>();
         tileResources = new TileResources();
 
         // initalise positions
-        viewerPosition = new Vector2(playerTrans.position.x, playerTrans.position.y);
-        currentChunkCoord = ToChunkCoord(viewerPosition);
-        lastChunkCoord = ToChunkCoord(viewerPosition);
+        viewerPosition = new Vector2(observer.position.x, observer.position.y);
+        currentChunkCoord = GetChunkCoord(viewerPosition);
+        lastChunkCoord = GetChunkCoord(viewerPosition);
 
-        UpdateVisibleChunks();
+        updateChunks();
     }
+
+
 
     void Update() {
         // get viewer and chunk position
-        viewerPosition = new Vector2(playerTrans.position.x, playerTrans.position.y);
-        currentChunkCoord = ToChunkCoord(viewerPosition);
+        viewerPosition = new Vector2(observer.position.x, observer.position.y);
+        currentChunkCoord = GetChunkCoord(viewerPosition);
 
         // finishing generating chunks that need to be generated
         if (chunksToGenerate.Count > 0) {
             Chunk chunk = chunksToGenerate.Dequeue();
             chunk.GenerateChunkData();
+            chunk.status = ChunkStatus.UNLOADED;
         }
 
-        // fininish loading (rendering) chunks that need to be loaded
+        // fininish loading chunks that need to be loaded
+        // do not enqueue already loaded chunks!
         if (chunksToLoad.Count > 0) {
-            if (chunksToLoad.Peek().IsGenerated()) {
-                Chunk chunk = chunksToLoad.Dequeue();
-                chunk.LoadChunk();
+            Chunk chunk = chunksToLoad.Peek();
+            if (isWithinRenderDistance(chunk)) {
+                // should only load chunk if it is unloaded
+                if (chunk.status == ChunkStatus.UNLOADED) {
+                    chunksToLoad.Dequeue();
+                    chunk.LoadChunk();
+                    loadedChunks.Add(chunk);
+                    chunk.status = ChunkStatus.LOADED;
+                }
+                // sometimes the same chunk is in the queue twice
+                else if (chunk.status == ChunkStatus.LOADED) {
+                    chunksToLoad.Dequeue();
+                }
+            }
+            // don't bother loading if it is outside render distance
+            else {
+                chunksToLoad.Dequeue();
             }
         }
 
         // fininish unloading chunks
         if (chunksToUnload.Count > 0) {
-            if (chunksToUnload.Peek().IsGenerated()) {
-                Chunk chunk = chunksToUnload.Dequeue();
-                chunk.UnloadChunk();
+            Chunk chunk = chunksToUnload.Peek();
+            if (!isWithinRenderDistance(chunk)) {
+                // should only unload chunk if it is already loaded
+                if (chunk.status == ChunkStatus.LOADED) {
+                    chunk.UnloadChunk();
+                    loadedChunks.Remove(chunk);
+                    chunk.status = ChunkStatus.UNLOADED;
+                }
+                chunksToUnload.Dequeue();
             }
         }
 
-        // if player moved a chunks, update chunks
-        if (currentChunkCoord.x != lastChunkCoord.x || currentChunkCoord.y != lastChunkCoord.y) {
-            UpdateVisibleChunks();
-            lastChunkCoord = new Vector2Int(currentChunkCoord.x, currentChunkCoord.y);
+        // if player moved a chunk, update chunks
+        if (currentChunkCoord.x != lastChunkCoord.x
+        || currentChunkCoord.y != lastChunkCoord.y) {
+            updateChunks();
+            lastChunkCoord = currentChunkCoord;
         }
     }
 
-    /*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-    public Vector2Int ToChunkCoord(Vector2 position) {
+    public Vector2Int GetChunkCoord(Vector2 pos) {
         Vector2Int chunkCoord = new Vector2Int();
-        chunkCoord.x = Mathf.FloorToInt(viewerPosition.x / Consts.CHUNK_SIZE);
-        chunkCoord.y = Mathf.FloorToInt(viewerPosition.y / Consts.CHUNK_SIZE);
+        chunkCoord.x = Mathf.FloorToInt(pos.x / Consts.CHUNK_SIZE);
+        chunkCoord.y = Mathf.FloorToInt(pos.y / Consts.CHUNK_SIZE);
         return chunkCoord;
     }
 
-    void UpdateVisibleChunks() {
-        //Debug.Log ("chunk coord" + currentChunkCoord.ToString());
-        CalculateChunksToUnload();
+    void updateChunks() {
+        enqueueChunksToUnload();
         int renderDist = worldSettings.RENDER_DIST;
 
         // go through neighbouring chunks that need to be rendered
         for (int x = -renderDist; x <= renderDist; x++) {
             for (int y = -renderDist; y <= renderDist; y++) {
-                Vector2Int chunkCoord = new Vector2Int(currentChunkCoord.x + x, currentChunkCoord.y + y);
+                Vector2Int chunkCoord = new Vector2Int(
+                    currentChunkCoord.x + x, currentChunkCoord.y + y);
 
-                // if chunk has been encountered before, just switch it to visible
+                // if chunk has been encountered before, load it
                 if (chunkDictionary.ContainsKey(chunkCoord)) {
-                    if (!chunkDictionary[chunkCoord].IsLoaded() &&
-                        chunkDictionary[chunkCoord].IsGenerated()) {
-                        chunksToLoad.Enqueue(chunkDictionary[chunkCoord]);
+                    Chunk chunk = chunkDictionary[chunkCoord];
+                    if (chunk.status != ChunkStatus.LOADED) {
+                        chunksToLoad.Enqueue(chunk);
                     }
                 } else {
-                    // add chunks coordinates to dictionary and generate new chunk
-                    chunkDictionary.Add(chunkCoord, new Chunk(chunkCoord));
-                    chunksToGenerate.Enqueue(chunkDictionary[chunkCoord]);
+                    // else, generate new chunk
+                    Chunk chunk = new Chunk(chunkCoord);
+                    chunkDictionary.Add(chunkCoord, chunk);
+                    chunksToGenerate.Enqueue(chunk);
                 }
-                chunksVisible.Add(chunkDictionary[chunkCoord]);
             }
         }
-
-        /*Debug.Log (chunksVisible.Count + " chunks visible");
-		Debug.Log ("Generating " + chunksToGenerate.Count + " chunks...");
-		Debug.Log ("Loading " + chunksToLoad.Count + " chunks...");
-		Debug.Log ("Unloading " + chunksToUnload.Count + " chunks...");
-		Debug.Log ("--------------");*/
     }
 
-    // enqueues chunks to be unloaded
-    void CalculateChunksToUnload() {
-        for (int i = 0; i < chunksVisible.Count; i++) {
-            Chunk chunk = chunksVisible[i];
+    void enqueueChunksToUnload() {
+        for (int i = 0; i < loadedChunks.Count; i++) {
+            Chunk chunk = loadedChunks[i];
             if (!isWithinRenderDistance(chunk)) {
                 chunksToUnload.Enqueue(chunk);
             }
         }
-        chunksVisible.Clear();
     }
 
     bool isWithinRenderDistance(Chunk chunk) {

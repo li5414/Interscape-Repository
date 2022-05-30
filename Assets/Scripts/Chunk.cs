@@ -11,14 +11,11 @@ public class Chunk {
     // components
     public Vector2Int chunkPos;
     public Vector2Int chunkCoord;
-
-    bool isLoaded;
-    bool isGenerated;
+    public ChunkStatus status;
     bool containsWater;
     bool containsSand;
     bool containsGrass;
 
-    // parent for this particular chunk
     GameObject treeParent;
 
     // position arrays
@@ -52,12 +49,15 @@ public class Chunk {
     private Vector2Int closestVillage;
 
     public Chunk(Vector2Int pos) {
-        // get/initialise some important things
+        // world position of bottom-left tile in chunk
         chunkPos = new Vector2Int(pos.x * Consts.CHUNK_SIZE, pos.y * Consts.CHUNK_SIZE);
+
+        // chunk position is number of chunks away from 0,0
         chunkCoord = new Vector2Int(pos.x, pos.y);
+
         treeParent = new GameObject();
         treeParent.transform.SetParent(TreeParent.gameObject.transform);
-        // GenerateChunkData();
+        status = ChunkStatus.NOT_GENERATED;
     }
 
     public void GenerateChunkData() {
@@ -83,9 +83,8 @@ public class Chunk {
 
         // array of gameobjects (use dict/list instead?)
         entities = gen.GeneratePlants(chunkPos, biomes, heights, treeParent);
+        treeParent.SetActive(false);
 
-        // load in the chunk
-        isGenerated = true;
         chunkManager.chunksToLoad.Enqueue(this);
     }
 
@@ -231,13 +230,7 @@ public class Chunk {
         deetChunk = ChunkManager.tileResources.grassDetailsChunk[randNum];
     }
 
-    /*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
     public void LoadChunk() {
-        if (isLoaded)
-            return;
-        // the chunk must be generated in order to load
-        Assert.IsTrue(isGenerated);
-
         // set parent gameobject for the plants
         treeParent.SetActive(true);
 
@@ -280,14 +273,9 @@ public class Chunk {
                 waterChunk.SetActive(true);
             }
         }
-        isLoaded = true;
     }
 
     public void UnloadChunk() {
-        if (!isLoaded)
-            return;
-        Assert.IsTrue(isGenerated);
-
         // disable things
         treeParent.SetActive(false);
 
@@ -307,15 +295,6 @@ public class Chunk {
         if (containsWater) {
             waterChunk.SetActive(false);
         }
-        isLoaded = false;
-    }
-
-    public bool IsGenerated() {
-        return isGenerated;
-    }
-
-    public bool IsLoaded() {
-        return isLoaded;
     }
 
     // lookup index of 16x16 2D array condensed to 1D array
@@ -328,4 +307,11 @@ public class Chunk {
         return (x * 32 + y);
     }
 }
+
+public enum ChunkStatus {
+    NOT_GENERATED,
+    LOADED,
+    UNLOADED,
+}
+
 
