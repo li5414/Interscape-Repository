@@ -45,10 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NPC: {fileID: 2277900494601155575, guid: 7cef1ef0b67844377bb12b0d8aa858ba, type: 3}
-  pathTileReference: {fileID: 11400000, guid: 62533751d84f84d5a8c3fa28c0edccf2, type: 2}
-  wallTileReference: {fileID: 11400000, guid: 2edbed94bafd3441cb7262d6c7bfc7c2, type: 2}
-  doorTileReference: {fileID: 11400000, guid: a5f8c52e6daa24145982cb4047f42f70, type: 2}
-  floorTileReference: {fileID: 11400000, guid: f67cfaa5adcb446378e4d473a87d0bcc, type: 2}
-  pathTilemapReference: {fileID: 0}
-  wallTilemapReference: {fileID: 0}
-  floorTilemapReference: {fileID: 0}
+  pathTile: {fileID: 11400000, guid: 62533751d84f84d5a8c3fa28c0edccf2, type: 2}
+  floorTile: {fileID: 11400000, guid: f67cfaa5adcb446378e4d473a87d0bcc, type: 2}

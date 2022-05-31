@@ -16,6 +16,9 @@ public class BuildingResources : MonoBehaviour {
     public Tilemap darkWoodFloorTilemap;
     public Tilemap stoneTileFloorTilemap;
 
+    public RuleTile[] wallTiles;
+    public RuleTile[] doorTiles;
+
     void Awake() {
         TilemapDict = new Dictionary<string, Tilemap>{
         {"ConcreteFloorTilemap", concreteFloorTilemap},

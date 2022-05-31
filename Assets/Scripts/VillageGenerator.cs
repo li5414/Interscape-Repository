@@ -10,10 +10,11 @@ public class VillageGenerator : MonoBehaviour {
     BuildingRule[] BUILDING_RULES;
     BuildingRule[] PATH_RULES;
     public GameObject NPC;
-    public RuleTile pathTileReference;
-    public RuleTile wallTileReference;
-    public RuleTile doorTileReference;
-    public RuleTile floorTileReference;
+    public RuleTile pathTile;
+    public RuleTile floorTile;
+
+    private RuleTile wallTile;
+    private RuleTile doorTile;
 
     List<BuildingLayout> currentBuildings = new List<BuildingLayout>();
     List<BuildingRule> buildingRuleQueue = new List<BuildingRule>();
@@ -31,6 +32,9 @@ public class VillageGenerator : MonoBehaviour {
 
         BUILDING_RULES = loadJSON("Assets/Resources/Buildings/BuildingRules.json");
         PATH_RULES = loadJSON("Assets/Resources/Buildings/PathRules.json");
+
+        wallTile = res.wallTiles[prng.Next(res.wallTiles.Length)];
+        doorTile = res.doorTiles[prng.Next(res.wallTiles.Length)];
 
         GenerateVillage(new Vector2Int((int)transform.position.x, (int)transform.position.y));
     }
@@ -233,21 +237,21 @@ public class VillageGenerator : MonoBehaviour {
 
         switch (c) {
             case '_':
-                res.pathTilemap.SetTile(pos, pathTileReference);
+                res.pathTilemap.SetTile(pos, pathTile);
                 break;
             case 'W':
-                res.wallTilemap.SetTile(pos, wallTileReference);
-                res.pathTilemap.SetTile(pos, pathTileReference);
-                floorTilemap.SetTile(pos, floorTileReference);
+                res.wallTilemap.SetTile(pos, wallTile);
+                res.pathTilemap.SetTile(pos, pathTile);
+                floorTilemap.SetTile(pos, floorTile);
                 break;
             case 'D':
-                res.wallTilemap.SetTile(pos, doorTileReference);
-                res.pathTilemap.SetTile(pos, pathTileReference);
-                floorTilemap.SetTile(pos, floorTileReference);
+                res.wallTilemap.SetTile(pos, doorTile);
+                res.pathTilemap.SetTile(pos, pathTile);
+                floorTilemap.SetTile(pos, floorTile);
                 break;
             case '-':
-                res.pathTilemap.SetTile(pos, pathTileReference);
-                floorTilemap.SetTile(pos, floorTileReference);
+                res.pathTilemap.SetTile(pos, pathTile);
+                floorTilemap.SetTile(pos, floorTile);
                 // spawn NPC
                 if (prng.NextDouble() < 0.05) {
                     Instantiate(NPC, pos, Quaternion.identity);

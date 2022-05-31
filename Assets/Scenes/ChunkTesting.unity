@@ -587,9 +587,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NPC: {fileID: 2277900494601155575, guid: 7cef1ef0b67844377bb12b0d8aa858ba, type: 3}
   pathTileReference: {fileID: 11400000, guid: 62533751d84f84d5a8c3fa28c0edccf2, type: 2}
-  wallTileReference: {fileID: 11400000, guid: 2edbed94bafd3441cb7262d6c7bfc7c2, type: 2}
-  doorTileReference: {fileID: 11400000, guid: a5f8c52e6daa24145982cb4047f42f70, type: 2}
-  floorTileReference: {fileID: 11400000, guid: f67cfaa5adcb446378e4d473a87d0bcc, type: 2}
 --- !u!4 &54094314
 Transform:
   m_ObjectHideFlags: 0
@@ -8063,7 +8060,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27e58bd85707d49b4bae781734f11911, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTrans: {fileID: 1062241006}
+  observer: {fileID: 1062241006}
   sandTilemap: {fileID: 758701853}
 --- !u!4 &580340809
 Transform:
@@ -8155,6 +8152,14 @@ MonoBehaviour:
   midWoodFloorTilemap: {fileID: 1379883927}
   darkWoodFloorTilemap: {fileID: 1645407304}
   stoneTileFloorTilemap: {fileID: 1841595269}
+  wallTiles:
+  - {fileID: 11400000, guid: 2edbed94bafd3441cb7262d6c7bfc7c2, type: 2}
+  - {fileID: 11400000, guid: f9a93bb2b53f3494bb8f0c06a57d1f38, type: 2}
+  - {fileID: 11400000, guid: 5917ad768f850405daef658110110fcb, type: 2}
+  doorTiles:
+  - {fileID: 11400000, guid: a5f8c52e6daa24145982cb4047f42f70, type: 2}
+  - {fileID: 11400000, guid: 2ec73399625e04c94aa28d9d6980ce7d, type: 2}
+  - {fileID: 11400000, guid: daeee0eab6b51444fa673b3cb968b80c, type: 2}
 --- !u!224 &584226425 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7243719802383562256, guid: bfaddfdebddb04f5ea627c2c36380d26,
@@ -12004,7 +12009,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1062241005}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2043.2, y: 1803.3, z: 18.033}
+  m_LocalPosition: {x: 2173.0532, y: 1950.6511, z: 19.506512}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
