@@ -7918,7 +7918,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 580340806}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24163d3d590644638822e677bca97aae, type: 3}
+  m_Script: {fileID: 11500000, guid: 81aedabc1ba1544379c9e690f595e79e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   treeParent: {fileID: 1371011628}
@@ -7959,7 +7959,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 580340806}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb521a57e5d343228f7d21f9e7863d1, type: 3}
+  m_Script: {fileID: 11500000, guid: dfe4122e3faee4a3f96d751d9a7fcd30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   biomeColourMap: {fileID: 2800000, guid: 95d21e0bdc4ab40f189b786181d5f743, type: 3}
@@ -7973,9 +7973,7 @@ MonoBehaviour:
   chunkWaterPrefab: {fileID: 3669637371159069409, guid: e96603af38d394e0cb8ede388eb030fd,
     type: 3}
   chunkWaterParent: {fileID: 1244080742}
-  playerTrans: {fileID: 1062241006}
-  sandGrid: {fileID: 1950670177}
-  octaveOffsets: []
+  player: {fileID: 1062241006}
 --- !u!114 &580340811
 MonoBehaviour:
   m_ObjectHideFlags: 0

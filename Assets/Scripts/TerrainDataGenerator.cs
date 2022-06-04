@@ -4,7 +4,15 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class BiomeCalculations : MonoBehaviour {
+public class TerrainDataGenerator : MonoBehaviour {
+    public static int BIOME_TABLE_SIZE = Consts.BIOME_TYPE_TABLE.GetLength(0);
+    public static Vector2Int[] biomeTableCoords = new Vector2Int[BIOME_TABLE_SIZE * BIOME_TABLE_SIZE];
+
+    static int OCTAVES = 4; // number of noise layers
+    static float SCALE = 361.4f; // the higher the number, the more 'zoomed in'. Needs to be likely to result in non-integer
+    static float PERSISTANCE = 0.5f; // the higher the octave, the less effect
+    static float LACUNARITY = 2.5f; // value that decreases scale each octave
+
     public Texture2D biomeColourMap;
     public Material chunkGrassMaterial;
     public Material chunkTerrainMaterial;
@@ -14,23 +22,11 @@ public class BiomeCalculations : MonoBehaviour {
     public GameObject chunkWaterPrefab;
     public GameObject chunkWaterParent;
 
-    // values relating to biome type table
-    public static int BIOME_TABLE_SIZE = Consts.BIOME_TYPE_TABLE.GetLength(0);
-    public static Vector2Int[] biomeTableCoords = new Vector2Int[BIOME_TABLE_SIZE * BIOME_TABLE_SIZE];
-
-    // reference world settings script
     private WorldSettings worldSettings;
 
-    // references / objects
-    public Transform playerTrans;         // player reference
-    public GameObject sandGrid;
+    public Transform player;
 
-    // perlin noise stuff
-    public Vector2[] octaveOffsets; // we want each octave to come from different 'location' in the perlin noise
-    static int octaves = 4;               // number of noise layers
-    float scale = 361.4f;                 // the higher the number, the more 'zoomed in'. Needs to be likely to result in non-integer
-    float persistance = 0.5f;             // the higher the octave, the less of an effect
-    float lacunarity = 2.5f;              // value that decreases scale each octave
+    Vector2[] octaveOffsets; // each octave should come from different 'location' in the perlin noise
 
     // this needs to be in awake() or else bad stuff happens
     private void Awake() {
@@ -50,8 +46,8 @@ public class BiomeCalculations : MonoBehaviour {
     }
 
     void initialiseOctavesForHeight() {
-        octaveOffsets = new Vector2[octaves];
-        for (int i = 0; i < octaves; i++) {
+        octaveOffsets = new Vector2[OCTAVES];
+        for (int i = 0; i < OCTAVES; i++) {
             // too high numbers returns same value
             float offsetX = worldSettings.PRNG.Next(-10000, 10000);
             float offsetY = worldSettings.PRNG.Next(-10000, 10000);
@@ -65,15 +61,15 @@ public class BiomeCalculations : MonoBehaviour {
         float frequency = 1;
 
         // scale results in non-integer value
-        for (int i = 0; i < octaves; i++) {
-            float sampleX = x / (scale / frequency) + octaveOffsets[i].x + 0.1f;
-            float sampleY = y / (scale / frequency) + octaveOffsets[i].y + 0.1f;
+        for (int i = 0; i < OCTAVES; i++) {
+            float sampleX = x / (SCALE / frequency) + octaveOffsets[i].x + 0.1f;
+            float sampleY = y / (SCALE / frequency) + octaveOffsets[i].y + 0.1f;
 
             float perlinValue = Mathf.PerlinNoise(sampleX, sampleY) * 2 - 1; // make in range -1 to 1
 
             height += perlinValue * amplitude; // increase noise height each time
-            amplitude *= persistance; // decreases each octave as persistance below 1
-            frequency *= lacunarity; // increases each octave
+            amplitude *= PERSISTANCE; // decreases each octave as persistance below 1
+            frequency *= LACUNARITY; // increases each octave
         }
         return height;
     }
@@ -92,15 +88,15 @@ public class BiomeCalculations : MonoBehaviour {
                 float frequency = 1;
 
                 // scale results in non-integer value
-                for (int i = 0; i < octaves; i++) {
-                    float sampleX = (chunkX + x) / (scale / frequency) + octaveOffsets[i].x + 0.1f;
-                    float sampleY = (chunkY + y) / (scale / frequency) + octaveOffsets[i].y + 0.1f;
+                for (int i = 0; i < OCTAVES; i++) {
+                    float sampleX = (chunkX + x) / (SCALE / frequency) + octaveOffsets[i].x + 0.1f;
+                    float sampleY = (chunkY + y) / (SCALE / frequency) + octaveOffsets[i].y + 0.1f;
 
                     float perlinValue = Mathf.PerlinNoise(sampleX, sampleY) * 2 - 1; // make in range -1 to 1
 
                     height += perlinValue * amplitude; // increase noise height each time
-                    amplitude *= persistance; // decreases each octave as persistance below 1
-                    frequency *= lacunarity; // increases each octave
+                    amplitude *= PERSISTANCE; // decreases each octave as persistance below 1
+                    frequency *= LACUNARITY; // increases each octave
                 }
                 heights[x, y] = height;
             }
@@ -122,15 +118,15 @@ public class BiomeCalculations : MonoBehaviour {
                 float frequency = 1;
 
                 // scale results in non-integer value
-                for (int i = 0; i < octaves; i++) {
-                    float sampleX = (chunkX + x - 1) / (scale / frequency) + octaveOffsets[i].x + 0.1f;
-                    float sampleY = (chunkY + y - 1) / (scale / frequency) + octaveOffsets[i].y + 0.1f;
+                for (int i = 0; i < OCTAVES; i++) {
+                    float sampleX = (chunkX + x - 1) / (SCALE / frequency) + octaveOffsets[i].x + 0.1f;
+                    float sampleY = (chunkY + y - 1) / (SCALE / frequency) + octaveOffsets[i].y + 0.1f;
 
                     float perlinValue = Mathf.PerlinNoise(sampleX, sampleY) * 2 - 1; // make in range -1 to 1
 
                     height += perlinValue * amplitude; // increase noise height each time
-                    amplitude *= persistance; // decreases each octave as persistance below 1
-                    frequency *= lacunarity; // increases each octave
+                    amplitude *= PERSISTANCE; // decreases each octave as persistance below 1
+                    frequency *= LACUNARITY; // increases each octave
                 }
                 heights[x, y] = height;
             }
@@ -148,8 +144,8 @@ public class BiomeCalculations : MonoBehaviour {
         }
 
         // get noise based on seed
-        float perlinValue = Mathf.PerlinNoise((x / scale) + octaveOffsets[1].x,
-            (y / scale) + octaveOffsets[1].y) * 2 - 1; // make in range -1 to 1;
+        float perlinValue = Mathf.PerlinNoise((x / SCALE) + octaveOffsets[1].x,
+            (y / SCALE) + octaveOffsets[1].y) * 2 - 1; // make in range -1 to 1;
         perlinValue = perlinValue * 20; // make value larger so can directly subtract it
 
         // choose value based on latitude and height
@@ -175,8 +171,8 @@ public class BiomeCalculations : MonoBehaviour {
                 }
 
                 // get noise based on seed
-                float perlinValue = Mathf.PerlinNoise((chunkX + x) / scale + octaveOffsets[1].x,
-                    (chunkY + y) / scale + octaveOffsets[1].y) * 2 - 1; // make in range -1 to 1;
+                float perlinValue = Mathf.PerlinNoise((chunkX + x) / SCALE + octaveOffsets[1].x,
+                    (chunkY + y) / SCALE + octaveOffsets[1].y) * 2 - 1; // make in range -1 to 1;
                 perlinValue = perlinValue * 20; // make value larger so can directly subtract it
 
                 // choose value based on latitude and height
@@ -205,8 +201,8 @@ public class BiomeCalculations : MonoBehaviour {
                 }
 
                 // get noise based on seed
-                float perlinValue = Mathf.PerlinNoise((chunkX + x - 1) / scale + octaveOffsets[1].x,
-                    (chunkY + y) / scale + octaveOffsets[1].y) * 2 - 1; // make in range -1 to 1;
+                float perlinValue = Mathf.PerlinNoise((chunkX + x - 1) / SCALE + octaveOffsets[1].x,
+                    (chunkY + y) / SCALE + octaveOffsets[1].y) * 2 - 1; // make in range -1 to 1;
                 perlinValue = perlinValue * 20; // make value larger so can directly subtract it
 
                 // choose value based on latitude and height
@@ -221,7 +217,7 @@ public class BiomeCalculations : MonoBehaviour {
 
     // note: there is currently no noise layers for humidity
     public float GetHumidity(int x, int y, float heightVal) {
-        float perlinValue = Mathf.PerlinNoise((x / (scale / 2)) + octaveOffsets[2].x, (y / (scale / 2)) + octaveOffsets[2].y);
+        float perlinValue = Mathf.PerlinNoise((x / (SCALE / 2)) + octaveOffsets[2].x, (y / (SCALE / 2)) + octaveOffsets[2].y);
         float moisture = perlinValue;
 
         float height = Mathf.InverseLerp(-1f, 1f, heightVal);
@@ -238,7 +234,7 @@ public class BiomeCalculations : MonoBehaviour {
         // loop through all tiles in chunk
         for (int x = 0; x < Consts.CHUNK_SIZE; x++) {
             for (int y = 0; y < Consts.CHUNK_SIZE; y++) {
-                perlinValue = Mathf.PerlinNoise((chunkX + x) / (scale / 2) + octaveOffsets[2].x, (chunkY + y) / (scale / 2) + octaveOffsets[2].y);
+                perlinValue = Mathf.PerlinNoise((chunkX + x) / (SCALE / 2) + octaveOffsets[2].x, (chunkY + y) / (SCALE / 2) + octaveOffsets[2].y);
                 moisture = perlinValue;
 
                 float height = Mathf.InverseLerp(-1f, 1f, heights[x, y]); // get height in range 0-1
@@ -259,7 +255,7 @@ public class BiomeCalculations : MonoBehaviour {
         // loop through all tiles in chunk
         for (int x = 0; x < Consts.CHUNK_SIZE + 2; x++) {
             for (int y = 0; y < Consts.CHUNK_SIZE + 2; y++) {
-                perlinValue = Mathf.PerlinNoise((chunkX + x - 1) / (scale / 2) + octaveOffsets[2].x, (chunkY + y - 1) / (scale / 2) + octaveOffsets[2].y);
+                perlinValue = Mathf.PerlinNoise((chunkX + x - 1) / (SCALE / 2) + octaveOffsets[2].x, (chunkY + y - 1) / (SCALE / 2) + octaveOffsets[2].y);
                 moisture = perlinValue;
 
                 float height = Mathf.InverseLerp(-1f, 1f, heights[x, y]); // get height in range 0-1
@@ -408,7 +404,7 @@ public class BiomeCalculations : MonoBehaviour {
 
     // for testing purposes
     void PrintAtPos() {
-        Vector2 pos = new Vector2(playerTrans.position.x, playerTrans.position.y);
+        Vector2 pos = new Vector2(player.position.x, player.position.y);
         float heightVal = GetHeightValue((int)pos.x, (int)pos.y);
         Debug.Log("Height is " + heightVal);
         float temp = GetTemperature((int)pos.x, (int)pos.y, heightVal);

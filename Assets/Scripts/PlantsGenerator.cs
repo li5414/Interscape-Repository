@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class GreeneryGeneration : MonoBehaviour {
+public class PlantsGenerator : MonoBehaviour {
 
     int chunkSize = Consts.CHUNK_SIZE;
     float offsetX;

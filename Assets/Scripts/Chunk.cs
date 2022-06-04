@@ -44,8 +44,8 @@ public class Chunk {
 
     // reference other scripts
     static ChunkManager chunkManager = GameObject.FindWithTag("GameManager").GetComponent<ChunkManager>();
-    static BiomeCalculations bCalc = GameObject.FindWithTag("GameManager").GetComponent<BiomeCalculations>();
-    static GreeneryGeneration gen = GameObject.FindWithTag("GameManager").GetComponent<GreeneryGeneration>();
+    static TerrainDataGenerator terrainData = GameObject.FindWithTag("GameManager").GetComponent<TerrainDataGenerator>();
+    static PlantsGenerator plantsGenerator = GameObject.FindWithTag("GameManager").GetComponent<PlantsGenerator>();
     static WorldSettings worldSettings = GameObject.FindWithTag("GameManager").GetComponent<WorldSettings>();
 
     static BuildingResources buildingResources = GameObject.FindWithTag("GameManager").GetComponent<BuildingResources>();
@@ -67,10 +67,10 @@ public class Chunk {
     }
 
     public void GenerateChunkData() {
-        heights = bCalc.GetHeightValuesExtended(chunkPos.x, chunkPos.y);
-        temps = bCalc.GetTemperaturesExtended(chunkPos.x, chunkPos.y, heights);
-        humidities = bCalc.GetHumidityValuesExtended(chunkPos.x, chunkPos.y, heights);
-        biomes = bCalc.GetBiomesExtended(heights, temps, humidities);
+        heights = terrainData.GetHeightValuesExtended(chunkPos.x, chunkPos.y);
+        temps = terrainData.GetTemperaturesExtended(chunkPos.x, chunkPos.y, heights);
+        humidities = terrainData.GetHumidityValuesExtended(chunkPos.x, chunkPos.y, heights);
+        biomes = terrainData.GetBiomesExtended(heights, temps, humidities);
 
         // initalise arrays to be be used for settiles()
         tilePositionsWorld = new Vector3Int[Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
@@ -85,7 +85,7 @@ public class Chunk {
         GenerateDetailsChunk();
 
         // array of gameobjects (use dict/list instead?)
-        entities = gen.GeneratePlants(chunkPos, biomes, heights, treeParent);
+        entities = plantsGenerator.GeneratePlants(chunkPos, biomes, heights, treeParent);
 
         // potentially generate a village on this chunk
         handleVillageGeneration();
@@ -117,7 +117,7 @@ public class Chunk {
                     int chunkPosY = (chunkCoord.y + j) * Consts.CHUNK_SIZE;
 
                     // stop villages generating on water
-                    if (bCalc.GetHeightValue(
+                    if (terrainData.GetHeightValue(
                         chunkPosX + (int)(Consts.CHUNK_SIZE / 2),
                         chunkPosY + (int)(Consts.CHUNK_SIZE / 2))
                         < Consts.BEACH_HEIGHT + 0.2)
@@ -144,12 +144,12 @@ public class Chunk {
 
                 float temp = temps[i, j];
                 temp = Mathf.InverseLerp(-80f, 80f, temp);
-                temp *= bCalc.biomeColourMap.width;
+                temp *= terrainData.biomeColourMap.width;
 
                 float humidity = humidities[i, j];
                 humidity = 1 - humidity;
-                humidity *= bCalc.biomeColourMap.width;
-                Color color = bCalc.biomeColourMap.GetPixel((int)temp, (int)humidity);
+                humidity *= terrainData.biomeColourMap.width;
+                Color color = terrainData.biomeColourMap.GetPixel((int)temp, (int)humidity);
 
                 if (height < -0.29f) {
                     color = Consts.BIOME_COLOUR_DICT[BiomeType.Beach];
@@ -177,12 +177,12 @@ public class Chunk {
 
                 float temp = temps[i, j];
                 temp = Mathf.InverseLerp(-80f, 80f, temp);
-                temp *= bCalc.biomeColourMap.width;
+                temp *= terrainData.biomeColourMap.width;
 
                 float humidity = humidities[i, j];
                 humidity = 1 - humidity;
-                humidity *= bCalc.biomeColourMap.width;
-                Color color = bCalc.biomeColourMap.GetPixel((int)temp, (int)humidity);
+                humidity *= terrainData.biomeColourMap.width;
+                Color color = terrainData.biomeColourMap.GetPixel((int)temp, (int)humidity);
 
                 // if (height < -0.29f) {
                 // 	color = Consts.BIOME_COLOUR_DICT [BiomeType.Beach];
@@ -245,18 +245,18 @@ public class Chunk {
 
         if (containsGrass) {
             if (!terrainChunk) {
-                terrainChunk = UnityEngine.Object.Instantiate(bCalc.chunkTerrainPrefab, new Vector3Int(chunkPos.x + Consts.CHUNK_SIZE / 2, chunkPos.y + Consts.CHUNK_SIZE / 2, 199), Quaternion.identity);
-                terrainChunk.transform.SetParent(bCalc.chunkTerrainParent.gameObject.transform);
+                terrainChunk = UnityEngine.Object.Instantiate(terrainData.chunkTerrainPrefab, new Vector3Int(chunkPos.x + Consts.CHUNK_SIZE / 2, chunkPos.y + Consts.CHUNK_SIZE / 2, 199), Quaternion.identity);
+                terrainChunk.transform.SetParent(terrainData.chunkTerrainParent.gameObject.transform);
 
                 // generate a new material and apply it to the chunk
                 Material newMat = new Material(Shader.Find("Unlit/ChunkTerrainShader"));
-                newMat.CopyPropertiesFromMaterial(bCalc.chunkTerrainMaterial);
+                newMat.CopyPropertiesFromMaterial(terrainData.chunkTerrainMaterial);
                 terrainChunk.GetComponent<SpriteRenderer>().material = newMat;
                 terrainChunk.GetComponent<SpriteRenderer>().material.SetTexture("_TileColours", terrainColours);
 
                 // generate a new material for the grass blades in the chunk
                 newMat = new Material(Shader.Find("Unlit/ChunkTerrainShader"));
-                newMat.CopyPropertiesFromMaterial(bCalc.chunkGrassMaterial);
+                newMat.CopyPropertiesFromMaterial(terrainData.chunkGrassMaterial);
                 terrainChunk.GetComponentsInChildren<SpriteRenderer>()[1].material = newMat;
                 terrainChunk.GetComponentsInChildren<SpriteRenderer>()[1].material.SetTexture("_TileColours", terrainColours);
             } else {
@@ -267,12 +267,12 @@ public class Chunk {
         if (containsWater) {
             if (!waterChunk) {
                 // generate a new material for the water in the chunk
-                waterChunk = UnityEngine.Object.Instantiate(bCalc.chunkWaterPrefab, new Vector3Int(chunkPos.x + Consts.CHUNK_SIZE / 2, chunkPos.y + Consts.CHUNK_SIZE / 2, 198), Quaternion.identity);
-                waterChunk.transform.SetParent(bCalc.chunkWaterParent.gameObject.transform);
+                waterChunk = UnityEngine.Object.Instantiate(terrainData.chunkWaterPrefab, new Vector3Int(chunkPos.x + Consts.CHUNK_SIZE / 2, chunkPos.y + Consts.CHUNK_SIZE / 2, 198), Quaternion.identity);
+                waterChunk.transform.SetParent(terrainData.chunkWaterParent.gameObject.transform);
 
                 // generate a new material and apply it to the chunk
                 Material newWaterMaterial = new Material(Shader.Find("Unlit/ChunkWaterShader"));
-                newWaterMaterial.CopyPropertiesFromMaterial(bCalc.chunkWaterMaterial);
+                newWaterMaterial.CopyPropertiesFromMaterial(terrainData.chunkWaterMaterial);
                 waterChunk.GetComponent<SpriteRenderer>().material = newWaterMaterial;
                 waterChunk.GetComponent<SpriteRenderer>().material.SetTexture("_TileColours", terrainColours);
             } else {
