@@ -11,8 +11,6 @@ public class GreeneryGeneration : MonoBehaviour {
     public GameObject treeParent;
     WorldSettings worldSettings;
 
-    public Tilemap pathTilemap;
-
     private void Start() {
         worldSettings = gameObject.GetComponent<WorldSettings>();
         offsetX = worldSettings.PRNG.Next(-10000, 10000);
@@ -23,20 +21,6 @@ public class GreeneryGeneration : MonoBehaviour {
                 Debug.Log("object " + i + " is null");
             }
         }
-    }
-
-    public bool IsEmpty(int x, int y) {
-        // TODO figure out if z is important here
-        Vector3 pos = new Vector3(x + 0.5f, y + 0.5f, 20);
-        RaycastHit2D[] hits = Physics2D.RaycastAll(pos, -Vector2.zero);
-
-        if (hits.Length > 0)
-            return false;
-
-        if (pathTilemap.GetTile(pathTilemap.WorldToCell(pos)) != null) {
-            return false;
-        }
-        return true;
     }
 
     public GameObject[,] GeneratePlants(Vector2Int chunkPos,
@@ -60,9 +44,6 @@ public class GreeneryGeneration : MonoBehaviour {
         for (int x = 1; x < chunkSize; x++) {
             for (int y = 1; y < chunkSize - 1; y++) {
                 Vector3 pos = new Vector3(chunkPos.x + x + 0.5f, chunkPos.y + y + 0.5f, 198);
-
-                if (!IsEmpty((int)pos.x, (int)pos.y))
-                    continue;
 
                 isTreeBiome = true;
                 biome = biomes[x, y];

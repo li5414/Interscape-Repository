@@ -38,11 +38,17 @@ public class Chunk {
     GameObject terrainChunk;
     GameObject waterChunk;
 
+    RuleTile[,] wallTiles;
+    RuleTile[,] pathTiles;
+    bool[,,] floorTiles;
+
     // reference other scripts
     static ChunkManager chunkManager = GameObject.FindWithTag("SystemPlaceholder").GetComponent<ChunkManager>();
     static BiomeCalculations bCalc = GameObject.FindWithTag("SystemPlaceholder").GetComponent<BiomeCalculations>();
     static GreeneryGeneration gen = GameObject.FindWithTag("SystemPlaceholder").GetComponent<GreeneryGeneration>();
     static WorldSettings worldSettings = GameObject.FindWithTag("SystemPlaceholder").GetComponent<WorldSettings>();
+
+    static BuildingResources buildingResources = GameObject.FindWithTag("SystemPlaceholder").GetComponent<BuildingResources>();
 
     static GameObject TreeParent = GameObject.Find("TreeParent");
 
@@ -78,13 +84,13 @@ public class Chunk {
         // generate grass details
         GenerateDetailsChunk();
 
+        // array of gameobjects (use dict/list instead?)
+        entities = gen.GeneratePlants(chunkPos, biomes, heights, treeParent);
+
         // potentially generate a village on this chunk
         handleVillageGeneration();
 
-        // array of gameobjects (use dict/list instead?)
-        entities = gen.GeneratePlants(chunkPos, biomes, heights, treeParent);
         treeParent.SetActive(false);
-
         chunkManager.chunksToLoad.Enqueue(this);
     }
 
@@ -235,7 +241,7 @@ public class Chunk {
         treeParent.SetActive(true);
 
         if (containsSand)
-            chunkManager.sandTilemap.SetTiles(tilePositionsWorld, sandTileArray);
+            buildingResources.sandTilemap.SetTiles(tilePositionsWorld, sandTileArray);
 
         if (containsGrass) {
             if (!terrainChunk) {
@@ -282,7 +288,7 @@ public class Chunk {
         // unload sand if there is some
         if (containsSand) {
             for (int i = 0; i < tilePositionsWorld.Length; i++) {
-                chunkManager.sandTilemap.SetTile(tilePositionsWorld[i], null);
+                buildingResources.sandTilemap.SetTile(tilePositionsWorld[i], null);
             }
         }
 

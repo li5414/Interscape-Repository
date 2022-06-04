@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class BuildingResources : MonoBehaviour {
     public GameObject villageObject;
+    public Tilemap sandTilemap;
     public Tilemap pathTilemap;
     public Tilemap wallTilemap;
     public Tilemap concreteFloorTilemap;

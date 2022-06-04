@@ -6,7 +6,6 @@ using System;
 public class ChunkManager : MonoBehaviour {
     // references / objects
     public Transform observer;
-    public Tilemap sandTilemap;
 
     // coordinate variables
     Vector2 viewerPosition;
