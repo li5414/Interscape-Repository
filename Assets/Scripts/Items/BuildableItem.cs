@@ -26,10 +26,10 @@ public class BuildableItem : Item {
 
     private Tilemap getTilemap(string tilemap) {
         if (tilemap == "WallTilemap")
-            return GameObject.FindWithTag("SystemPlaceholder").GetComponent<BuildingResources>().wallTilemap;
+            return GameObject.FindWithTag("GameManager").GetComponent<BuildingResources>().wallTilemap;
         if (tilemap == "PathTilemap")
-            return GameObject.FindWithTag("SystemPlaceholder").GetComponent<BuildingResources>().pathTilemap;
-        return GameObject.FindWithTag("SystemPlaceholder").GetComponent<BuildingResources>().TilemapDict[tilemap];
+            return GameObject.FindWithTag("GameManager").GetComponent<BuildingResources>().pathTilemap;
+        return GameObject.FindWithTag("GameManager").GetComponent<BuildingResources>().TilemapDict[tilemap];
     }
 
     public void BuildItemAt(Vector3 worldPos, Inventory inventory) {

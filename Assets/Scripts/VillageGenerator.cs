@@ -24,10 +24,10 @@ public class VillageGenerator : MonoBehaviour {
     static BuildingResources res;
     void Start() {
         if (res == null) {
-            res = GameObject.FindWithTag("SystemPlaceholder").GetComponent<BuildingResources>();
+            res = GameObject.FindWithTag("GameManager").GetComponent<BuildingResources>();
         }
 
-        int seed = GameObject.FindWithTag("SystemPlaceholder").GetComponent<WorldSettings>().SEED;
+        int seed = GameObject.FindWithTag("GameManager").GetComponent<WorldSettings>().SEED;
         prng = new System.Random((int)transform.position.x + (int)transform.position.y * seed);
 
         BUILDING_RULES = loadJSON("Assets/Resources/Buildings/BuildingRules.json");
@@ -47,7 +47,7 @@ public class VillageGenerator : MonoBehaviour {
 
     public static VillageGenerator SpawnVillage(Vector2Int chunkPos) {
         if (res == null) {
-            res = GameObject.FindWithTag("SystemPlaceholder").GetComponent<BuildingResources>();
+            res = GameObject.FindWithTag("GameManager").GetComponent<BuildingResources>();
         }
         return Instantiate(res.villageObject, new Vector3(chunkPos.x, chunkPos.y, 0), Quaternion.identity).GetComponent<VillageGenerator>();
     }

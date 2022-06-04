@@ -34,7 +34,7 @@ public class BiomeCalculations : MonoBehaviour {
 
     // this needs to be in awake() or else bad stuff happens
     private void Awake() {
-        worldSettings = GameObject.FindWithTag("SystemPlaceholder").GetComponent<WorldSettings>();
+        worldSettings = GameObject.FindWithTag("GameManager").GetComponent<WorldSettings>();
 
         //initialise biome table coords
         int count = 0;
@@ -52,7 +52,8 @@ public class BiomeCalculations : MonoBehaviour {
     void initialiseOctavesForHeight() {
         octaveOffsets = new Vector2[octaves];
         for (int i = 0; i < octaves; i++) {
-            float offsetX = worldSettings.PRNG.Next(-10000, 10000); // too high numbers returns same value
+            // too high numbers returns same value
+            float offsetX = worldSettings.PRNG.Next(-10000, 10000);
             float offsetY = worldSettings.PRNG.Next(-10000, 10000);
             octaveOffsets[i] = new Vector2(offsetX, offsetY);
         }

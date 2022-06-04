@@ -7903,8 +7903,8 @@ GameObject:
   - component: {fileID: 580340812}
   - component: {fileID: 580340813}
   m_Layer: 0
-  m_Name: System Placeholder
-  m_TagString: SystemPlaceholder
+  m_Name: GameManager
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

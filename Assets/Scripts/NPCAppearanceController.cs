@@ -58,7 +58,7 @@ public class NPCAppearanceController : MonoBehaviour {
     System.Random prng;
 
     void Start() {
-        seed = GameObject.FindWithTag("SystemPlaceholder").GetComponent<WorldSettings>().SEED;
+        seed = GameObject.FindWithTag("GameManager").GetComponent<WorldSettings>().SEED;
         prng = new System.Random((int)transform.position.x + (int)transform.position.y + seed);
 
         hairColour = HAIR_COLOURS[prng.Next(0, HAIR_COLOURS.Length)];

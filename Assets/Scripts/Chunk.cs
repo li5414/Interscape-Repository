@@ -43,12 +43,12 @@ public class Chunk {
     bool[,,] floorTiles;
 
     // reference other scripts
-    static ChunkManager chunkManager = GameObject.FindWithTag("SystemPlaceholder").GetComponent<ChunkManager>();
-    static BiomeCalculations bCalc = GameObject.FindWithTag("SystemPlaceholder").GetComponent<BiomeCalculations>();
-    static GreeneryGeneration gen = GameObject.FindWithTag("SystemPlaceholder").GetComponent<GreeneryGeneration>();
-    static WorldSettings worldSettings = GameObject.FindWithTag("SystemPlaceholder").GetComponent<WorldSettings>();
+    static ChunkManager chunkManager = GameObject.FindWithTag("GameManager").GetComponent<ChunkManager>();
+    static BiomeCalculations bCalc = GameObject.FindWithTag("GameManager").GetComponent<BiomeCalculations>();
+    static GreeneryGeneration gen = GameObject.FindWithTag("GameManager").GetComponent<GreeneryGeneration>();
+    static WorldSettings worldSettings = GameObject.FindWithTag("GameManager").GetComponent<WorldSettings>();
 
-    static BuildingResources buildingResources = GameObject.FindWithTag("SystemPlaceholder").GetComponent<BuildingResources>();
+    static BuildingResources buildingResources = GameObject.FindWithTag("GameManager").GetComponent<BuildingResources>();
 
     static GameObject TreeParent = GameObject.Find("TreeParent");
 
