@@ -28,14 +28,15 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7243719802383562256}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.2, y: -7.2}
-  m_SizeDelta: {x: 6.6951, y: 6.9095}
+  m_AnchoredPosition: {x: 17.5, y: -26.3}
+  m_SizeDelta: {x: 14.3945, y: 14.5138}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6865984161770632688
 CanvasRenderer:
@@ -95,11 +96,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 6
+  m_fontSize: 12.95
   m_fontSizeBase: 6
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 6
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 4
@@ -164,15 +165,16 @@ RectTransform:
   m_GameObject: {fileID: 4839990198412207669}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.88, y: 0.88, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7243719802383562256}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 16, y: 16}
+  m_AnchoredPosition: {x: -4.702, y: -4.18}
+  m_SizeDelta: {x: 49.404, y: 48.359}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8748818465593706460
 CanvasRenderer:
@@ -241,6 +243,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6734159676223611304}
   - {fileID: 4446933073494662636}
@@ -264,9 +267,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afecf2a1fc33048b7bd5b3c33f3d9315, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 8633018161081063223}
-  tooltip: {fileID: 0}
-  number: 0
   isHotbar: 0
 --- !u!222 &6652806874853950212
 CanvasRenderer:
