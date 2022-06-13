@@ -12,8 +12,7 @@ public class PlayerInteractions : MonoBehaviour {
     public float coolDown = 0;
     private Transform parent;
 
-    // Start is called before the first frame update
-    void Start() {
+    void Awake() {
         inventory = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory>();
         image = GetComponent<SpriteRenderer>();
         defaultColor = image.color;
