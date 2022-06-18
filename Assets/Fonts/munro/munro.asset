@@ -2462,14 +2462,15 @@ MonoBehaviour:
   tabSize: 10
 --- !u!21 &1820608650299938409
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: munro Material
   m_Shader: {fileID: 4800000, guid: 128e987d567d4e2c824d754223b3f3b0, type: 3}
-  m_ShaderKeywords: 
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -2487,6 +2488,7 @@ Material:
         m_Texture: {fileID: -5447120101359079148}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _ColorMask: 15
     - _MaskSoftnessX: 0
@@ -2500,5 +2502,5 @@ Material:
     - _VertexOffsetY: 0
     m_Colors:
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
-    - _FaceColor: {r: 0.5754717, g: 0.5564703, b: 0.5657728, a: 1}
+    - _FaceColor: {r: 0.8301887, g: 0.8027768, b: 0.81374156, a: 1}
   m_BuildTextureStacks: []
