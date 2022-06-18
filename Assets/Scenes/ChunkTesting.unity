@@ -1181,7 +1181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.28627452, g: 0.27058825, b: 0.32156864, a: 0.50980395}
+  m_Color: {r: 0.28235295, g: 0.25882354, b: 0.32941177, a: 0.5176471}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3015,8 +3015,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4279505170
-  m_fontColor: {r: 0.07058824, g: 0.06666667, b: 0.078431375, a: 1}
+    rgba: 4282136120
+  m_fontColor: {r: 0.21960784, g: 0.21176471, b: 0.23529412, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -24085,8 +24085,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4279702292
-  m_fontColor: {r: 0.078431375, g: 0.07450981, b: 0.09019608, a: 1}
+    rgba: 4282136120
+  m_fontColor: {r: 0.21960784, g: 0.21176471, b: 0.23529412, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -28415,7 +28415,7 @@ GameObject:
   - component: {fileID: 1920909999}
   - component: {fileID: 1920909998}
   m_Layer: 5
-  m_Name: Background
+  m_Name: Outline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28454,7 +28454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.28746885, g: 0.2708259, b: 0.3207547, a: 1}
+  m_Color: {r: 0.21960784, g: 0.21176471, b: 0.23529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
