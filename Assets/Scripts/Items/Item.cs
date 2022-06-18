@@ -23,11 +23,11 @@ public class Item {
         }
     }
 
-    public Item(string itemName, Sprite icon, string description, float weight, Color? iconColour = null) {
+    public Item(string itemName, Sprite icon, string description, float weight) {
         this.itemName = itemName;
         this.icon = icon;
         this.description = description;
         this.weight = weight;
-        this.iconColour = iconColour;
+        this.iconColour = null;
     }
 }

@@ -5,17 +5,18 @@ TagManager:
   serializedVersion: 2
   tags:
   - ItemTooltip
-  - Grid
   - Inventory
   - Canvas
   - ItemDropParent
   - PlayerHoldItem
   - Cursor
-  - SystemPlaceholder
   - RuleTilemap
   - ItemDrop
   - PathTilemap
   - FloorParent
+  - NPC
+  - Door
+  - GameManager
   layers:
   - Default
   - TransparentFX

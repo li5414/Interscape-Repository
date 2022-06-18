@@ -42,7 +42,7 @@ public class Hotbar : MonoBehaviour {
         for (int i = 0; i < HOTBAR_LENGTH; i++) {
             itemSlots[i].SetItems(inventory.itemSlots[i].GetItem(), inventory.itemSlots[i].GetQuantity());
         }
-        UpdateSelectedUI();
+        updateSelectedUI();
     }
 
     private void Update() {
@@ -70,11 +70,11 @@ public class Hotbar : MonoBehaviour {
         else if (currentSelected < 0)
             currentSelected = 9;
 
-        UpdateSelectedUI();
+        updateSelectedUI();
         ToggleCursor();
     }
 
-    public void UpdateSelectedUI() {
+    private void updateSelectedUI() {
         // update item sprites
         selected = itemSlots[currentSelected];
         if (selected.HasItem()) {

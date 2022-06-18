@@ -1,0 +1,104 @@
+{
+    "buildingRulesArray": [
+        {
+            "topConnectionPoint": {
+                "x": 3,
+                "y": 7
+            },
+            "bottomConnectionPoint": {
+                "x": 3,
+                "y": 0
+            },
+            "leftConnectionPoint": {
+                "x": 0,
+                "y": 3
+            },
+            "rightConnectionPoint": {
+                "x": 7,
+                "y": 3
+            },
+            "layout": [
+                " ______ ",
+                "________",
+                "________",
+                "________",
+                "________",
+                "________",
+                "________",
+                " ______ "
+            ]
+        },
+        {
+            "topConnectionPoint": {
+                "x": 0,
+                "y": 1
+            },
+            "bottomConnectionPoint": {
+                "x": 0,
+                "y": 0
+            },
+            "leftConnectionPoint": {
+                "x": 0,
+                "y": 0
+            },
+            "rightConnectionPoint": {
+                "x": 1,
+                "y": 0
+            },
+            "layout": [
+                "__",
+                "__"
+            ]
+        },
+        {
+            "topConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "bottomConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "leftConnectionPoint": {
+                "x": 0,
+                "y": 0
+            },
+            "rightConnectionPoint": {
+                "x": 7,
+                "y": 0
+            },
+            "layout": [
+                "________",
+                "________"
+            ]
+        },
+        {
+            "topConnectionPoint": {
+                "x": 0,
+                "y": 7
+            },
+            "bottomConnectionPoint": {
+                "x": 0,
+                "y": 0
+            },
+            "leftConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "rightConnectionPoint": {
+                "x": -1,
+                "y": -1
+            },
+            "layout": [
+                "__",
+                "__",
+                "__",
+                "__",
+                "__",
+                "__",
+                "__",
+                "__"
+            ]
+        }
+    ]
+}

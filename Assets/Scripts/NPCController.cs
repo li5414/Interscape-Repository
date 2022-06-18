@@ -11,7 +11,6 @@ public class NPCController : MonoBehaviour {
     public GameObject showPathObject;
     public bool displayPath = false;
     Animator a;
-    NPCState state = NPCState.STANDING;
     Facing facing = Facing.BotRight;
     Vector3 wanderAnchorPoint;
 
@@ -25,9 +24,8 @@ public class NPCController : MonoBehaviour {
     IEnumerator Stand() {
         while (true) {
             facing = GetRandomEnum<Facing>();
-            state = NPCState.STANDING;
             idleAnimation();
-            yield return new WaitForSeconds(Random.Range(3, 6));
+            yield return new WaitForSeconds(Random.Range(3, 8));
 
             if (Random.value < 0.3f) {
                 StartCoroutine(Walk());
@@ -44,17 +42,17 @@ public class NPCController : MonoBehaviour {
         }
 
         Vector2Int target = nullableTarget.Value;
-        state = NPCState.WALKING;
-        walkAnimation();
-
         List<PathFinderTile> path = PathFinder.FindPath(new Vector2Int((int)transform.position.x, (int)transform.position.y), target);
-        // Debug.Log("Count:" + path.Count);
-        // Debug.Log(path.First().X + ", " + path.First().Y);
+
+        if (path != null && path.Count > 0) {
+            walkAnimation();
+        }
+
         GameObject pathParent = null;
         if (displayPath)
             pathParent = showPath(path);
 
-        while (path != null && path.Count != 0 && !isOnTileCenter(target)) {
+        while (path != null && path.Count > 0 && !isOnTileCenter(target)) {
             // update the path
             if (isOnTileCenter(new Vector2Int(path.First().X, path.First().Y))) {
                 path.RemoveAt(0);
@@ -171,32 +169,6 @@ public class NPCController : MonoBehaviour {
         }
     }
 
-    private void runAnimation() {
-        switch (facing) {
-            case Facing.Up:
-                a.Play("BackRun");
-                break;
-            case Facing.TopRight:
-            case Facing.TopLeft:
-                a.Play("BackAngledRun");
-                break;
-            case Facing.Right:
-            case Facing.Left:
-                a.Play("SideRun");
-                break;
-            case Facing.BotLeft:
-            case Facing.BotRight:
-                a.Play("FrontAngledRun");
-                break;
-            case Facing.Down:
-                a.Play("FrontRun");
-                break;
-            default:
-                Debug.LogError("NPC run animation could not be found");
-                break;
-        }
-    }
-
     static T GetRandomEnum<T>() {
         System.Array A = System.Enum.GetValues(typeof(T));
         T V = (T)A.GetValue(UnityEngine.Random.Range(0, A.Length));
@@ -227,12 +199,6 @@ public class NPCController : MonoBehaviour {
                 return Facing.BotRight;
         }
     }
-}
-
-public enum NPCState {
-    STANDING,
-    WALKING,
-    RUNNING,
 }
 
 

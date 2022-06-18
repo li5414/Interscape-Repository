@@ -169,7 +169,7 @@ public class PathFinder : MonoBehaviour {
             // Debug.Log(hits[i].transform.gameObject.name);
             if (hits[i].transform != null) {
                 Collider2D collider = hits[i].transform.gameObject.GetComponent<Collider2D>();
-                if (collider != null && !collider.isTrigger) {
+                if (collider != null && !collider.isTrigger && collider.gameObject.tag != "Door") {
                     // Debug.Log("Not walkable");
                     return false;
                 }

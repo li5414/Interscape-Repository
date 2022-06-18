@@ -8,14 +8,16 @@ public class ItemDrop : MonoBehaviour {
     [SerializeField] Item item;
     private SpriteRenderer image;
     private int quantity;
+    private ItemDropSettings itemDropSettings;
 
     void Awake() {
+        itemDropSettings = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ItemDropSettings>();
         image = GetComponentsInChildren<SpriteRenderer>()[1];
     }
     private static float dropRadius = 0.8f;
 
     public bool pickupItem(ItemDrop itemDrop) {
-        if (ItemDropSettings.inventory.AddItems(itemDrop.item, itemDrop.quantity)) {
+        if (itemDropSettings.inventory.AddItems(itemDrop.item, itemDrop.quantity)) {
             Destroy(itemDrop.gameObject);
             return true;
         }
@@ -46,6 +48,7 @@ public class ItemDrop : MonoBehaviour {
     }
 
     public static bool DropItems(Item item, int quantity) {
-        return DropItemsAt(item, quantity, ItemDropSettings.player.transform.position);
+        ItemDropSettings itemDropSettings = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ItemDropSettings>();
+        return DropItemsAt(item, quantity, itemDropSettings.player.transform.position);
     }
 }

@@ -54,15 +54,22 @@ public class NPCAppearanceController : MonoBehaviour {
     Color32 clothesColour1;
     Color32 clothesColour2;
 
+    int seed = 0;
+    System.Random prng;
+
     void Start() {
-        hairColour = HAIR_COLOURS[Random.Range(0, HAIR_COLOURS.Length)];
-        eyeColour = EYE_COLOURS[Random.Range(0, EYE_COLOURS.Length)];
-        skinColour = SKIN_COLOURS[Random.Range(0, SKIN_COLOURS.Length)];
-        clothesColour1 = CLOTHES_COLOURS_1[Random.Range(0, CLOTHES_COLOURS_1.Length)];
-        clothesColour2 = CLOTHES_COLOURS_2[Random.Range(0, CLOTHES_COLOURS_2.Length)];
+        seed = GameObject.FindWithTag("GameManager").GetComponent<WorldSettings>().SEED;
+        prng = new System.Random((int)transform.position.x + (int)transform.position.y + seed);
+
+        hairColour = HAIR_COLOURS[prng.Next(0, HAIR_COLOURS.Length)];
+        eyeColour = EYE_COLOURS[prng.Next(0, EYE_COLOURS.Length)];
+        skinColour = SKIN_COLOURS[prng.Next(0, SKIN_COLOURS.Length)];
+        int clothesColorIndex = prng.Next(0, CLOTHES_COLOURS_1.Length);
+        clothesColour1 = CLOTHES_COLOURS_1[clothesColorIndex];
+        clothesColour2 = CLOTHES_COLOURS_2[clothesColorIndex];
 
         // small chance to swap clothes colors around
-        if (Random.value < 0.25) {
+        if (prng.NextDouble() < 0.25) {
             Color32 temp = clothesColour1;
             clothesColour1 = clothesColour2;
             clothesColour2 = temp;
@@ -72,7 +79,7 @@ public class NPCAppearanceController : MonoBehaviour {
     }
 
     public void randomiseHairShape() {
-        gameObject.transform.Find("Hair").GetComponent<UnityEngine.U2D.Animation.SpriteLibrary>().spriteLibraryAsset = HAIR_OPTIONS[Random.Range(0, HAIR_OPTIONS.Length)];
+        gameObject.transform.Find("Hair").GetComponent<UnityEngine.U2D.Animation.SpriteLibrary>().spriteLibraryAsset = HAIR_OPTIONS[prng.Next(0, HAIR_OPTIONS.Length)];
     }
 
     public void applyColours() {
