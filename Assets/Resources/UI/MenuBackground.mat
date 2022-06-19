@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SpriteFog
-  m_Shader: {fileID: -6465566751694194690, guid: 5fb0c49beaede4c9bb7ec7131af15e23,
+  m_Name: MenuBackground
+  m_Shader: {fileID: -6465566751694194690, guid: 8e83088261b2c416b9a4842ea8d32945,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -21,10 +21,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -38,14 +34,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats:
-    - _Dither: 67.9
-    - _DitherBlend: 0.05
-    - _Dithersize: 64
-    - _Pixelate: 250
-    - _Posterisation: 6
-    - _WaveSize: 2
-    m_Colors:
-    - _MainColor: {r: 1, g: 1, b: 1, a: 1}
-    - _ScrollSpeed: {r: 0.1, g: 0.05, b: 0, a: 0}
+    m_Floats: []
+    m_Colors: []
   m_BuildTextureStacks: []
