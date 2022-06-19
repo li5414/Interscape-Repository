@@ -44,5 +44,6 @@ Material:
     - _NoiseScale: 13.8
     - _Pixelization: 500
     - _Posterization: 15.1
+    - _Speed: 0.01
     m_Colors: []
   m_BuildTextureStacks: []

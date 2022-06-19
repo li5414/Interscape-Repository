@@ -43,9 +43,9 @@ Material:
     - _DitherBlend: 0.05
     - _Dithersize: 64
     - _Pixelate: 250
-    - _Posterisation: 6
-    - _WaveSize: 2
+    - _Posterisation: 8
+    - _WaveSize: 3
     m_Colors:
     - _MainColor: {r: 1, g: 1, b: 1, a: 1}
-    - _ScrollSpeed: {r: 0.1, g: 0.05, b: 0, a: 0}
+    - _ScrollSpeed: {r: 0.05, g: 0.02, b: 0, a: 0}
   m_BuildTextureStacks: []
