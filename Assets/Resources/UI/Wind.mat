@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MenuGrassShader
-  m_Shader: {fileID: -6465566751694194690, guid: 1c231ac7240434e548d6b9836eb2c4fa,
+  m_Name: Wind
+  m_Shader: {fileID: -6465566751694194690, guid: 26a41805227194d8895394382db41aad,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -39,12 +39,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _NoiseLayer2Blend: 0.3
-    - _NoiseLayerScale: 302.4
-    - _NoiseLayerScale2: 54.9
-    - _NoiseScale: 15.5
-    - _Pixelization: 500
-    - _Posterization: 17.65
-    - _Speed: 0.01
+    - _Blend: 0.004
+    - _Density: 82.78
+    - _Pixelisation: 800
+    - _Speed: 1.5
     m_Colors: []
   m_BuildTextureStacks: []
