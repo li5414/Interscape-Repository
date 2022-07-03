@@ -8516,6 +8516,7 @@ GameObject:
   - component: {fileID: 580340811}
   - component: {fileID: 580340812}
   - component: {fileID: 580340813}
+  - component: {fileID: 580340814}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -8648,6 +8649,19 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a5f8c52e6daa24145982cb4047f42f70, type: 2}
   - {fileID: 11400000, guid: 2ec73399625e04c94aa28d9d6980ce7d, type: 2}
   - {fileID: 11400000, guid: daeee0eab6b51444fa673b3cb968b80c, type: 2}
+--- !u!114 &580340814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580340806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68818ce721edb43bc85ca68d68ea732a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fileName: TestGameFile.json
 --- !u!1001 &599665234
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12739,21 +12753,26 @@ MonoBehaviour:
   itemTooltip: {fileID: 466265186}
   hotbar: {fileID: 907814039}
   cursor: {fileID: 326201710}
---- !u!4 &1134552889
-Transform:
+--- !u!224 &1134552889
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1134552887}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 205.46158, y: -93.487915, z: -3396.5488}
+  m_LocalPosition: {x: 0, y: 0, z: -3396.5488}
   m_LocalScale: {x: 0.6091843, y: 0.6091843, z: 0.6091843}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 894077862}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 205.46158, y: -93.487915}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1178686593
 PrefabInstance:
   m_ObjectHideFlags: 0
