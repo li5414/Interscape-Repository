@@ -22,6 +22,8 @@ public class SelectWorldButtonManager : MonoBehaviour
             if (fileName[0] != '.') {
                 GameObject obj = Instantiate(button, this.transform);
                 obj.GetComponentsInChildren<TextMeshProUGUI>()[0].text = WorldName.ToDisplayName(fileName);
+
+                obj.GetComponentInChildren<SelectWorldButtonHandler>().fileName = fileName;
             }
         }
     }
