@@ -20,6 +20,9 @@ public class DataPersistenceManager : MonoBehaviour
     }
 
     private void Start() {
+        if (WorldName.GetCurrentWorldFileName() != null) {
+            fileName = WorldName.GetCurrentWorldFileName();
+        }
         this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
         this.dataPersistenceObjects = FindAllDataPersistenceObjects();
         LoadGame();
@@ -45,7 +48,7 @@ public class DataPersistenceManager : MonoBehaviour
         }
         
         fileDataHandler.Save(gameData);
-        Debug.Log("Saved Game");
+        Debug.Log("Saved " + fileName);
     }
 
     public void LoadGame() {
@@ -59,7 +62,7 @@ public class DataPersistenceManager : MonoBehaviour
         foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects) {
             dataPersistenceObj.LoadData(gameData);
         }
-        Debug.Log("Loaded Game");
+        Debug.Log("Loaded " + fileName);
     }
 
     public List<IDataPersistence> FindAllDataPersistenceObjects() {

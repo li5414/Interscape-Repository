@@ -6,7 +6,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 
 
-public class WorldManager : MonoBehaviour
+public class SelectWorldButtonManager : MonoBehaviour
 {
     public GameObject button;
 
@@ -21,7 +21,7 @@ public class WorldManager : MonoBehaviour
 
             if (fileName[0] != '.') {
                 GameObject obj = Instantiate(button, this.transform);
-                obj.GetComponentsInChildren<TextMeshProUGUI>()[0].text = fileName;
+                obj.GetComponentsInChildren<TextMeshProUGUI>()[0].text = WorldName.ToDisplayName(fileName);
             }
         }
     }
