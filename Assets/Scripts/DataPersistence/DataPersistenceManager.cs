@@ -20,8 +20,10 @@ public class DataPersistenceManager : MonoBehaviour
     }
 
     private void Start() {
-        if (WorldName.GetCurrentWorldFileName() != null) {
-            fileName = WorldName.GetCurrentWorldFileName();
+        if (LoadWorldSettings.GetFileName() != null) {
+            fileName = LoadWorldSettings.GetFileName();
+        } else if (NewWorldSettings.GetFileName() != null) {
+            fileName = NewWorldSettings.GetFileName();
         }
         this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
         this.dataPersistenceObjects = FindAllDataPersistenceObjects();
@@ -39,7 +41,8 @@ public class DataPersistenceManager : MonoBehaviour
     }
 
     public void NewGame() {
-        this.gameData = new GameData();
+        Debug.Log("seed is " + NewWorldSettings.GetSeed());
+        this.gameData = new GameData(NewWorldSettings.GetSeed());
     }
 
     public void SaveGame() {

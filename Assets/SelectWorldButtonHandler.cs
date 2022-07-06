@@ -8,7 +8,7 @@ public class SelectWorldButtonHandler : MonoBehaviour
     public ChangeScene changeScene;
 
     public void LoadWorld() {
-        if (WorldName.SetCurrentWorldFileName(fileName))
+        if (LoadWorldSettings.SetFileName(fileName))
             changeScene.GotoScene();
         else
             Debug.LogError("An error occured while loading world: " + fileName);

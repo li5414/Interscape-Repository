@@ -8802,6 +8802,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1187235275 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3707253992518820346, guid: 11a04bed23eb84606993c8ef21fd5470,
+    type: 3}
+  m_PrefabInstance: {fileID: 941508658}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1199953361
 GameObject:
   m_ObjectHideFlags: 0
@@ -17749,6 +17761,26 @@ PrefabInstance:
       propertyPath: textInput
       value: 
       objectReference: {fileID: 1214794226}
+    - target: {fileID: 5811938148860764509, guid: c0376ca20e8b34157966fc150da32296,
+        type: 3}
+      propertyPath: seedTextInput
+      value: 
+      objectReference: {fileID: 1187235275}
+    - target: {fileID: 5811938148860764509, guid: c0376ca20e8b34157966fc150da32296,
+        type: 3}
+      propertyPath: fileNameTextInput
+      value: 
+      objectReference: {fileID: 1214794226}
+    - target: {fileID: 5811938148860764513, guid: c0376ca20e8b34157966fc150da32296,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ApplySettingsAndChangeScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 5811938148860764513, guid: c0376ca20e8b34157966fc150da32296,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: NewWorldSettings, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 5811938148860764514, guid: c0376ca20e8b34157966fc150da32296,
         type: 3}
       propertyPath: m_RootOrder
