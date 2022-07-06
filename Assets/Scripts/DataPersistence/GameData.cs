@@ -8,8 +8,8 @@ public class GameData
     public PlayerData playerData = new PlayerData();
     public WorldData worldData;
 
-    public GameData(int seed) {
-        this.worldData = new WorldData(seed);
+    public GameData(int seed, string seedString) {
+        this.worldData = new WorldData(seed, seedString);
     }
 }
 
@@ -23,9 +23,11 @@ public class PlayerData
 public class WorldData
 {   
     public int seed;
+    public string seedString;
 
-    public WorldData(int seed) {
+    public WorldData(int seed, string seedString) {
         this.seed = seed;
+        this.seedString = seedString;
     }
 }
 

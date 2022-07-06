@@ -41,8 +41,9 @@ public class DataPersistenceManager : MonoBehaviour
     }
 
     public void NewGame() {
-        Debug.Log("seed is " + NewWorldSettings.GetSeed());
-        this.gameData = new GameData(NewWorldSettings.GetSeed());
+        this.gameData = new GameData(
+            NewWorldSettings.GetSeed(), 
+            NewWorldSettings.GetSeedString());
     }
 
     public void SaveGame() {

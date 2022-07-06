@@ -10,6 +10,7 @@ public class NewWorldSettings : MonoBehaviour
 {
     private static string fileName;
     private static int seed;
+    private static string seedString;
 
     public TMP_InputField fileNameTextInput;
     public TMP_InputField seedTextInput;
@@ -18,6 +19,7 @@ public class NewWorldSettings : MonoBehaviour
     public void ApplySettingsAndChangeScene() {
         if (SetFileName(fileNameTextInput.text)) {
             SetSeed(seedTextInput.text);
+            seedString = seedTextInput.text;
             changeScene.GotoScene();
         }
         else
@@ -42,6 +44,10 @@ public class NewWorldSettings : MonoBehaviour
 
     public static int GetSeed() {
         return seed;
+    }
+
+    public static string GetSeedString() {
+        return seedString;
     }
 
     public static string ToFileName(string name) {
