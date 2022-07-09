@@ -6,6 +6,8 @@ using System;
 public class ChunkManager : MonoBehaviour {
     // references / objects
     public Transform observer;
+    public GameObject chunkObj;
+    public GameObject chunkParent;
 
     // coordinate variables
     Vector2 viewerPosition;
@@ -19,23 +21,19 @@ public class ChunkManager : MonoBehaviour {
     public Queue<Chunk> chunksToLoad = new Queue<Chunk>();
     Queue<Chunk> chunksToUnload = new Queue<Chunk>();
 
-    // reference to the tile files
-    public static TileResources tileResources;
-
     static WorldSettings worldSettings;
 
     public Dictionary<Vector2Int, VillageGenerator> newlyGeneratedVillages = new Dictionary<Vector2Int, VillageGenerator>();
 
     void Start() {
         worldSettings = GameObject.FindWithTag("GameManager").GetComponent<WorldSettings>();
-        tileResources = new TileResources();
 
         // initalise positions
         viewerPosition = new Vector2(observer.position.x, observer.position.y);
         currentChunkCoord = GetChunkCoord(viewerPosition);
         lastChunkCoord = GetChunkCoord(viewerPosition);
 
-        updateChunks();
+        // updateChunks();
     }
 
 
@@ -97,7 +95,7 @@ public class ChunkManager : MonoBehaviour {
         }
     }
 
-    public Vector2Int GetChunkCoord(Vector2 pos) {
+    public static Vector2Int GetChunkCoord(Vector2 pos) {
         Vector2Int chunkCoord = new Vector2Int();
         chunkCoord.x = Mathf.FloorToInt(pos.x / Consts.CHUNK_SIZE);
         chunkCoord.y = Mathf.FloorToInt(pos.y / Consts.CHUNK_SIZE);
@@ -120,9 +118,16 @@ public class ChunkManager : MonoBehaviour {
                     if (chunk.status != ChunkStatus.LOADED) {
                         chunksToLoad.Enqueue(chunk);
                     }
-                } else {
+                } 
+                else {
                     // else, generate new chunk
-                    Chunk chunk = new Chunk(chunkCoord);
+                    // Chunk chunk = new Chunk(chunkCoord);
+                    // TODO instantiate chunk object
+                    Chunk chunk = Instantiate(chunkObj, new Vector3(
+                        chunkCoord.x * Consts.CHUNK_SIZE, 
+                        chunkCoord.y * Consts.CHUNK_SIZE, 
+                        199), Quaternion.identity).GetComponent<Chunk>();
+                    chunk.gameObject.transform.SetParent(chunkParent.transform);
                     chunkDictionary.Add(chunkCoord, chunk);
                     chunksToGenerate.Enqueue(chunk);
                 }

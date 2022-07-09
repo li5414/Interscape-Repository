@@ -24,6 +24,7 @@ public class WorldData
 {   
     public int seed;
     public string seedString;
+    public Dictionary<Vector2Int, ChunkData> chunkData = new Dictionary<Vector2Int, ChunkData>();
 
     public WorldData(int seed, string seedString) {
         this.seed = seed;
