@@ -71,21 +71,37 @@ public class Chunk : MonoBehaviour, IDataPersistence {
         temps = terrainData.GetTemperaturesExtended(chunkPos.x, chunkPos.y, heights);
         humidities = terrainData.GetHumidityValuesExtended(chunkPos.x, chunkPos.y, heights);
         biomes = terrainData.GetBiomesExtended(heights, temps, humidities);
-
-        // initalise arrays to be be used for settiles()
         tilePositionsWorld = new Vector3Int[Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
 
-        // creates and sets tiles in tilearray to positions in position array
-        GenerateTilesChunked();
+        refreshContainFlags();
+        generateSand();
 
-        // generate the grass colour texture for that chunk
-        GenerateExtendedColourTexture();
+        generateExtendedColourTexture();
 
         // array of gameobjects (use dict/list instead?)
         objects = plantsGenerator.GeneratePlants(chunkPos, biomes, heights, treeParent);
 
         // potentially generate a village on this chunk
         handleVillageGeneration();
+
+        treeParent.SetActive(false);
+        chunkManager.chunksToLoad.Enqueue(this);
+    }
+
+    public void GenerateChunkDataFromFile(ChunkData chunkData) {
+        heights = terrainData.GetHeightValuesExtended(chunkPos.x, chunkPos.y);
+        temps = terrainData.GetTemperaturesExtended(chunkPos.x, chunkPos.y, heights);
+        humidities = terrainData.GetHumidityValuesExtended(chunkPos.x, chunkPos.y, heights);
+        biomes = terrainData.GetBiomesExtended(heights, temps, humidities);
+        tilePositionsWorld = new Vector3Int[Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
+        refreshContainFlags();
+
+        // TODO set sand
+
+        // generate the grass colour texture for that chunk
+        generateExtendedColourTexture();
+
+        // TODO get objects
 
         treeParent.SetActive(false);
         chunkManager.chunksToLoad.Enqueue(this);
@@ -162,7 +178,7 @@ public class Chunk : MonoBehaviour, IDataPersistence {
     }
 
     // the extended texture includes overlaps between chunks by 1 tile
-    public void GenerateExtendedColourTexture() {
+    private void generateExtendedColourTexture() {
         int newWidth = Consts.CHUNK_SIZE + 2;
         Texture2D extendedTerrainColours = new Texture2D(newWidth, newWidth);
         int i = 0;
@@ -195,7 +211,7 @@ public class Chunk : MonoBehaviour, IDataPersistence {
         terrainColours = extendedTerrainColours;
     }
 
-    public void GenerateTilesChunked() {
+    private void generateSand() {
         float heightVal;
 
         // in loop, enter all positions and tiles in arrays
@@ -211,16 +227,25 @@ public class Chunk : MonoBehaviour, IDataPersistence {
                 // sand layer
                 if (heightVal < Consts.BEACH_HEIGHT) {
                     sandTiles[at(i, j)] = tileResources.tileSandRule;
+                }
+            }
+        }
+    }
+
+    private void refreshContainFlags() {
+        float heightVal;
+        for (int i = 0; i < Consts.CHUNK_SIZE; i++) {
+            for (int j = 0; j < Consts.CHUNK_SIZE; j++) {
+                heightVal = heights[i, j];
+                if (heightVal < Consts.BEACH_HEIGHT) {
+                    sandTiles[at(i, j)] = tileResources.tileSandRule;
                     containsSand = true;
                 }
 
-                // grass layer
+                // minus extra amount to have some overlapping
                 if (heightVal >= Consts.WATER_HEIGHT - 0.1f) {
                     containsGrass = true;
                 }
-
-                // water layer
-                // we want some overlapping
                 if (heightVal < Consts.WATER_HEIGHT - 0.04f) {
                     containsWater = true;
                 }
@@ -295,20 +320,25 @@ public class Chunk : MonoBehaviour, IDataPersistence {
     }
 
     public void LoadData(GameData data) {
-        // chunkData = data.worldData.chunkData[chunkCoord];
     }
     public void SaveData(GameData data) {
+        // remove old chunk
+        ChunkData chunkToRemove = null;
+        foreach (ChunkData chunkData in data.worldData.chunkData) {
+            if (chunkData.chunkCoord == this.chunkCoord) {
+                chunkToRemove = chunkData;
+            }
+        }
+        if (chunkToRemove != null) {
+            data.worldData.chunkData.Remove(chunkToRemove);
+            Debug.Log("removed old chunk");
+        }
         data.worldData.chunkData.Add(new ChunkData(this));
     }
 
     // lookup index of 16x16 2D array condensed to 1D array
     public int at(int x, int y) {
         return (x * 16 + y);
-    }
-
-    // lookup index of 64x64 2D array condensed to 1D array
-    public int at64(int x, int y) {
-        return (x * 32 + y);
     }
 }
 

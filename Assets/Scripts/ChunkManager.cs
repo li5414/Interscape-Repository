@@ -25,6 +25,8 @@ public class ChunkManager : MonoBehaviour {
 
     public Dictionary<Vector2Int, VillageGenerator> newlyGeneratedVillages = new Dictionary<Vector2Int, VillageGenerator>();
 
+    public Dictionary<Vector2Int, ChunkData> chunksFromFile = new Dictionary<Vector2Int, ChunkData>();
+
     void Start() {
         worldSettings = GameObject.FindWithTag("GameManager").GetComponent<WorldSettings>();
 
@@ -44,7 +46,10 @@ public class ChunkManager : MonoBehaviour {
         // finishing generating chunks that need to be generated
         if (chunksToGenerate.Count > 0) {
             Chunk chunk = chunksToGenerate.Dequeue();
-            chunk.GenerateChunkData();
+            if (chunksFromFile.ContainsKey(chunk.chunkCoord))
+                chunk.GenerateChunkDataFromFile(chunksFromFile[chunk.chunkCoord]);
+            else
+                chunk.GenerateChunkData();
             chunk.status = ChunkStatus.UNLOADED;
         }
 

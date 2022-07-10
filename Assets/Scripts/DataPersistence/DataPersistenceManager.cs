@@ -12,6 +12,7 @@ public class DataPersistenceManager : MonoBehaviour
     private GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
     private FileDataHandler fileDataHandler;
+    private ChunkManager chunkManager;
 
     private void Awake() {
         if (instance != null) {
@@ -21,6 +22,7 @@ public class DataPersistenceManager : MonoBehaviour
     }
 
     private void Start() {
+        chunkManager = this.gameObject.GetComponent<ChunkManager>();
         if (LoadWorldSettings.GetFileName() != null) {
             fileName = LoadWorldSettings.GetFileName();
         } else if (NewWorldSettings.GetFileName() != null) {
@@ -61,10 +63,13 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void LoadGame() {
         this.gameData = fileDataHandler.Load();
+        
 
         if (this.gameData == null) {
             Debug.Log("No game data was found. Initialising to default");
             NewGame();
+        } else {
+            chunkManager.chunksFromFile = getChunksFromFile();
         }
 
         foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects) {
@@ -76,5 +81,15 @@ public class DataPersistenceManager : MonoBehaviour
     public List<IDataPersistence> FindAllDataPersistenceObjects() {
         IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
         return new List<IDataPersistence>(dataPersistenceObjects);
+    }
+
+    Dictionary<Vector2Int, ChunkData> getChunksFromFile() {
+        Dictionary<Vector2Int, ChunkData> chunksFromFile = new Dictionary<Vector2Int, ChunkData>();
+
+        Debug.Log(gameData);
+        foreach (ChunkData chunkData in gameData.worldData.chunkData) {
+            chunksFromFile.Add(chunkData.chunkCoord, chunkData);
+        }
+        return chunksFromFile;
     }
 }

@@ -21,7 +21,6 @@ public class ChunkData
         this.chunkCoord = chunk.chunkCoord;
 
         this.objects = new int[Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
-        Debug.Log("saving objects??");
         for (int i = 0; i < Consts.CHUNK_SIZE; i++) {
             for (int j = 0; j < Consts.CHUNK_SIZE; j++) {
                 GameObject objToSave = chunk.objects[i, j];
