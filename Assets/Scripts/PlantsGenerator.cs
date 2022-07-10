@@ -10,17 +10,14 @@ public class PlantsGenerator : MonoBehaviour {
     float offsetY;
     public GameObject treeParent;
     WorldSettings worldSettings;
+    NatureResources natureResources;
 
     private void Start() {
         worldSettings = gameObject.GetComponent<WorldSettings>();
+        natureResources = gameObject.GetComponent<NatureResources>();
+
         offsetX = worldSettings.PRNG.Next(-10000, 10000);
         offsetY = worldSettings.PRNG.Next(-10000, 10000);
-
-        for (int i = 0; i < NatureResources.objects.Length; i++) {
-            if (NatureResources.objects[i] == null) {
-                Debug.Log("object " + i + " is null");
-            }
-        }
     }
 
     public GameObject[,] GeneratePlants(Vector2Int chunkPos,
@@ -52,56 +49,56 @@ public class PlantsGenerator : MonoBehaviour {
                 switch (biome) {
                     case BiomeType.Grassland:
                         treeChance = 0.005f;
-                        tree1 = NatureResources.treeRed;
-                        tree2 = NatureResources.treeBlue;
-                        tree3 = NatureResources.treeYellow;
-                        tree4 = NatureResources.treeOak;
-                        shrub1 = NatureResources.cane;
-                        shrub2 = NatureResources.wheat;
-                        shrub3 = NatureResources.dead_bush;
-                        shrub4 = NatureResources.rock2;
+                        tree1 = natureResources.treeRed;
+                        tree2 = natureResources.treeBlue;
+                        tree3 = natureResources.treeYellow;
+                        tree4 = natureResources.treeOak;
+                        shrub1 = natureResources.cane;
+                        shrub2 = natureResources.wheat;
+                        shrub3 = natureResources.dead_bush;
+                        shrub4 = natureResources.rock2;
                         break;
                     case BiomeType.Savanna:
                         treeChance = 0.02f;
-                        tree1 = NatureResources.treeRed;
-                        tree2 = NatureResources.treeYellow;
-                        tree3 = NatureResources.treeJoshua;
-                        tree4 = NatureResources.treeYellow;
-                        shrub1 = NatureResources.dead_bush;
-                        shrub2 = NatureResources.rock2;
-                        shrub3 = NatureResources.rock1;
-                        shrub4 = NatureResources.wheat;
+                        tree1 = natureResources.treeRed;
+                        tree2 = natureResources.treeYellow;
+                        tree3 = natureResources.treeJoshua;
+                        tree4 = natureResources.treeYellow;
+                        shrub1 = natureResources.dead_bush;
+                        shrub2 = natureResources.rock2;
+                        shrub3 = natureResources.rock1;
+                        shrub4 = natureResources.wheat;
                         break;
                     case BiomeType.Taiga:
                         treeChance = 0.15f;
-                        tree1 = NatureResources.treePine;
-                        tree2 = NatureResources.treeBirch;
-                        tree3 = NatureResources.treePineSmall;
-                        tree4 = NatureResources.treeWhite;
-                        shrub1 = NatureResources.bush2;
-                        shrub2 = NatureResources.stick;
-                        shrub3 = NatureResources.rock2;
+                        tree1 = natureResources.treePine;
+                        tree2 = natureResources.treeBirch;
+                        tree3 = natureResources.treePineSmall;
+                        tree4 = natureResources.treeWhite;
+                        shrub1 = natureResources.bush2;
+                        shrub2 = natureResources.stick;
+                        shrub3 = natureResources.rock2;
                         shrub4 = null;
                         break;
                     case BiomeType.SeasonalForest:
                         treeChance = 0.15f;
-                        tree1 = NatureResources.treeForest1;
-                        tree2 = NatureResources.treeForest2;
-                        tree3 = NatureResources.treePine;
-                        tree4 = NatureResources.treeOak;
-                        shrub1 = NatureResources.bush1;
-                        shrub2 = NatureResources.bush2;
-                        shrub3 = NatureResources.rock2;
+                        tree1 = natureResources.treeForest1;
+                        tree2 = natureResources.treeForest2;
+                        tree3 = natureResources.treePine;
+                        tree4 = natureResources.treeOak;
+                        shrub1 = natureResources.bush1;
+                        shrub2 = natureResources.bush2;
+                        shrub3 = natureResources.rock2;
                         shrub4 = null;
                         break;
                     case BiomeType.Rainforest:
                         treeChance = 0.25f;
-                        tree1 = NatureResources.treeRainforest1;
-                        tree2 = NatureResources.treePalm;
-                        tree3 = NatureResources.treeForest1;
-                        tree4 = NatureResources.treeFig;
-                        shrub1 = NatureResources.cane;
-                        shrub2 = NatureResources.fern1;
+                        tree1 = natureResources.treeRainforest1;
+                        tree2 = natureResources.treePalm;
+                        tree3 = natureResources.treeForest1;
+                        tree4 = natureResources.treeFig;
+                        shrub1 = natureResources.cane;
+                        shrub2 = natureResources.fern1;
                         shrub3 = null;
                         shrub4 = null;
                         break;
@@ -111,10 +108,10 @@ public class PlantsGenerator : MonoBehaviour {
                         tree2 = null;
                         tree3 = null;
                         tree4 = null;
-                        shrub1 = NatureResources.dead_bush;
-                        shrub2 = NatureResources.bush2;
-                        shrub3 = NatureResources.rock2;
-                        shrub4 = NatureResources.rock1;
+                        shrub1 = natureResources.dead_bush;
+                        shrub2 = natureResources.bush2;
+                        shrub3 = natureResources.rock2;
+                        shrub4 = natureResources.rock1;
                         break;
                     case BiomeType.Desert:
                         isTreeBiome = false;
@@ -122,10 +119,10 @@ public class PlantsGenerator : MonoBehaviour {
                         tree2 = null;
                         tree3 = null;
                         tree4 = null;
-                        shrub1 = NatureResources.cactus;
-                        shrub2 = NatureResources.rock2;
-                        shrub3 = NatureResources.rock1;
-                        shrub4 = NatureResources.dead_bush;
+                        shrub1 = natureResources.cactus;
+                        shrub2 = natureResources.rock2;
+                        shrub3 = natureResources.rock1;
+                        shrub4 = natureResources.dead_bush;
                         break;
                     default:
                         isTreeBiome = false;

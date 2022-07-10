@@ -8548,6 +8548,7 @@ GameObject:
   - component: {fileID: 580340812}
   - component: {fileID: 580340813}
   - component: {fileID: 580340815}
+  - component: {fileID: 580340816}
   - component: {fileID: 580340814}
   m_Layer: 0
   m_Name: GameManager
@@ -8721,6 +8722,54 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 6627d052d08f845d8ad615d3ad6ca2b0, type: 3}
   - {fileID: 21300000, guid: 54b6dc36d434d4ec2905ccc43468edff, type: 3}
   - {fileID: 21300000, guid: 602ff21aceb9e440787d60dbdf560a42, type: 3}
+--- !u!114 &580340816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580340806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cc9d089d15da443c95d33f5224acad8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  treeBirch: {fileID: 114580872808119643, guid: 3847e0b8be76d46208c31a54daf28cf9,
+    type: 3}
+  treeBlue: {fileID: 7918531189973559813, guid: b5f60c33080a64409916805fc7ed8990,
+    type: 3}
+  treeFig: {fileID: 7216828695223730487, guid: 3f6ab274f2b2d494d95a6d5ef5fc7c09, type: 3}
+  treeForest1: {fileID: 8924373029284374839, guid: 2338b0b1283724a1fbb1b0626c2b708f,
+    type: 3}
+  treeForest2: {fileID: 5645439842827201918, guid: d83c3dabadb5d448780833033c9fd221,
+    type: 3}
+  treeJoshua: {fileID: 8320610201259957601, guid: 474a07d96f3d74f31a5fc6f5a344391e,
+    type: 3}
+  treeOak: {fileID: 6197893649628322073, guid: 05331120ac1d045b4ab6769c58a8e0a3, type: 3}
+  treePalm: {fileID: 5782270846451099535, guid: 7bc7b14b7f0f842369811b71df27a2e9,
+    type: 3}
+  treePine: {fileID: 1584468166958718188, guid: 0b4eab4c11eab4918871cd1f536ff3ed,
+    type: 3}
+  treePineSmall: {fileID: 2973405811308876357, guid: 5670083f914db4837b9137d827e3c111,
+    type: 3}
+  treeRainforest1: {fileID: 4086860364281425785, guid: fd4602a286b524dbf8fdc624ceb15f05,
+    type: 3}
+  treeRed: {fileID: 8262667805231033802, guid: 6610db2024d904634b1cbdcd0c6d2b41, type: 3}
+  treeWhite: {fileID: 1020380040004628785, guid: 20b18350d967a4012b78ee8f20068d21,
+    type: 3}
+  treeYellow: {fileID: 7245440535662898946, guid: 18967c23c01c0494fa85fdd5f36a9986,
+    type: 3}
+  wheat: {fileID: 4764373784588960035, guid: 41cd4f269edba474fbf398bcd7497605, type: 3}
+  cane: {fileID: 3191649458906007717, guid: 4db29742e6d4343f2941b6ae85f720cc, type: 3}
+  stick: {fileID: 1809033659704541312, guid: 903e03e84ed954ec59fb3dc7e9a14bc7, type: 3}
+  dead_bush: {fileID: 6425536705176831389, guid: 9c435e7fc95c14f47a21515babf097ee,
+    type: 3}
+  bush1: {fileID: 6469313160101149513, guid: 15d407b6282134a47aeb3fccc1adba41, type: 3}
+  bush2: {fileID: 1198327810925067984, guid: 992b1dbdaadd74a2abcb85f95f804061, type: 3}
+  fern1: {fileID: 8640033216185158451, guid: 1e950c714640047378b39e63a280ce2d, type: 3}
+  cactus: {fileID: 8966848980038405904, guid: cb1197136e5f545919a01842ec77639e, type: 3}
+  rock1: {fileID: 230339594612910677, guid: b9df5b160ae654d21a5f52543d06b4f8, type: 3}
+  rock2: {fileID: 1771575934891216458, guid: 40365740078ce4be9bc2d21ffa31ab18, type: 3}
 --- !u!1001 &599665234
 PrefabInstance:
   m_ObjectHideFlags: 0
