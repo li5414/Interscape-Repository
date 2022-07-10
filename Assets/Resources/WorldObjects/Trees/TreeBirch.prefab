@@ -83,6 +83,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3263150525595245362, guid: 1575259fda7ac4e329b74dae6408af35,
+        type: 3}
+      propertyPath: id
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8805742465986864053, guid: 1575259fda7ac4e329b74dae6408af35,
         type: 3}
       propertyPath: m_Name
@@ -91,12 +96,12 @@ PrefabInstance:
     - target: {fileID: 9176735538097815572, guid: 1575259fda7ac4e329b74dae6408af35,
         type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.x
-      value: 0.4854439
+      value: 0.4871795
       objectReference: {fileID: 0}
     - target: {fileID: 9176735538097815572, guid: 1575259fda7ac4e329b74dae6408af35,
         type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.y
-      value: 0.02613944
+      value: 0.016528925
       objectReference: {fileID: 0}
     - target: {fileID: 9176735538097815572, guid: 1575259fda7ac4e329b74dae6408af35,
         type: 3}

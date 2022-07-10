@@ -10,7 +10,7 @@ public class Chunk : MonoBehaviour, IDataPersistence {
     public Vector2Int chunkPos;
     public Vector2Int chunkCoord;
 
-    GameObject[,] objects;
+    public GameObject[,] objects { get; private set; }
     RuleTile[] sandTiles = new RuleTile[Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
     bool containsWater;
     bool containsSand;
@@ -42,7 +42,7 @@ public class Chunk : MonoBehaviour, IDataPersistence {
     static TerrainDataGenerator terrainData;
     static PlantsGenerator plantsGenerator;
     static WorldSettings worldSettings;
-    static BuildingResources buildingResources;
+    public static BuildingResources buildingResources { get; private set; }
     static TileResources tileResources;
 
     void Start() {

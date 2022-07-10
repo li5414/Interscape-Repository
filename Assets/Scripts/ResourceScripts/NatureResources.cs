@@ -33,4 +33,65 @@ public class NatureResources : MonoBehaviour
 	[Header("Rock Prefabs")]
 	public GameObject rock1; //1
 	public GameObject rock2; //2
+
+	public Dictionary<int, GameObject> idToGameObject;
+	// public Dictionary<int, GameObject> gameObjectToId;
+
+	public void Awake() {
+		idToGameObject = new Dictionary<int, GameObject>{
+			{1, treeBirch},
+			{2, treeBlue},
+			{3, treeFig},
+			{4, treeForest1},
+			{5, treeForest2},
+			{6, treeJoshua},
+			{7, treeOak},
+			{8, treePalm},
+			{9, treePine},
+			{10, treePineSmall},
+			{11, treeRainforest1},
+			{12, treeRed},
+			{13, treeWhite},
+			{14, treeYellow},
+
+			{15, wheat},
+			{16, cane},
+			{17, stick},
+			{18, dead_bush},
+			{19, bush1},
+			{20, bush2},
+			{21, fern1},
+			{22, cactus},
+			{23, rock1},
+			{24, rock2},
+		};
+
+	// 	gameObjectToId = new Dictionary<GameObject, int>{
+	// 		{treeBirch, 1},
+	// 		{treeBlue, 2},
+	// 		{treeFig, 3},
+	// 		{treeForest1, 4},
+	// 		{treeForest2, 5},
+	// 		{treeJoshua, 6},
+	// 		{treeOak, 7},
+	// 		{treePalm, 8},
+	// 		{treePine, 9},
+	// 		{treePineSmall, 10},
+	// 		{treeRainforest1, 11},
+	// 		{treeRed, 12},
+	// 		{treeWhite, 13},
+	// 		{treeYellow, 14},
+
+	// 		{wheat, 15},
+	// 		{cane, 16},
+	// 		{stick, 17},
+	// 		{dead_bush, 18},
+	// 		{bush1, 19},
+	// 		{bush2, 20},
+	// 		{fern1, 21},
+	// 		{cactus, 22},
+	// 		{rock1, 23},
+	// 		{rock2, 24},
+	// 	};
+	}
 }

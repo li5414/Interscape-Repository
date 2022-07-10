@@ -92,10 +92,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3394279562118883921, guid: c81e43be3e56d4afda456b78ee7c0af6,
+        type: 3}
+      propertyPath: id
+      value: 17
+      objectReference: {fileID: 0}
     - target: {fileID: 3511452262455481799, guid: c81e43be3e56d4afda456b78ee7c0af6,
         type: 3}
       propertyPath: m_Name
-      value: ShrubBase (1)
+      value: Shrub5
       objectReference: {fileID: 0}
     - target: {fileID: 5203076603948368158, guid: c81e43be3e56d4afda456b78ee7c0af6,
         type: 3}

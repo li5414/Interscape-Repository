@@ -83,20 +83,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3263150525595245362, guid: 1575259fda7ac4e329b74dae6408af35,
+        type: 3}
+      propertyPath: id
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 8805742465986864053, guid: 1575259fda7ac4e329b74dae6408af35,
         type: 3}
       propertyPath: m_Name
-      value: TreeBase (7) Variant
+      value: TreePine
       objectReference: {fileID: 0}
     - target: {fileID: 9176735538097815572, guid: 1575259fda7ac4e329b74dae6408af35,
         type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.x
-      value: 0.514049
+      value: 0.5119048
       objectReference: {fileID: 0}
     - target: {fileID: 9176735538097815572, guid: 1575259fda7ac4e329b74dae6408af35,
         type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.y
-      value: 0.029330743
+      value: 0.01734104
       objectReference: {fileID: 0}
     - target: {fileID: 9176735538097815572, guid: 1575259fda7ac4e329b74dae6408af35,
         type: 3}
