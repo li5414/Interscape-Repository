@@ -7,6 +7,7 @@ public class DataPersistenceManager : MonoBehaviour
 {
     [Header("File Storage Config")]
     [SerializeField] private string fileName;
+    public GameObject chunkParent;
     public static DataPersistenceManager instance { get; private set; }
     private GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
@@ -27,6 +28,7 @@ public class DataPersistenceManager : MonoBehaviour
         }
         this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
         this.dataPersistenceObjects = FindAllDataPersistenceObjects();
+
         LoadGame();
     }
 
@@ -47,6 +49,8 @@ public class DataPersistenceManager : MonoBehaviour
     }
 
     public void SaveGame() {
+        this.dataPersistenceObjects = FindAllDataPersistenceObjects();
+
         foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects) {
             dataPersistenceObj.SaveData(gameData);
         }
@@ -71,7 +75,6 @@ public class DataPersistenceManager : MonoBehaviour
 
     public List<IDataPersistence> FindAllDataPersistenceObjects() {
         IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
-
         return new List<IDataPersistence>(dataPersistenceObjects);
     }
 }

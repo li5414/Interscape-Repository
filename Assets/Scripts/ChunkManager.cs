@@ -36,8 +36,6 @@ public class ChunkManager : MonoBehaviour {
         // updateChunks();
     }
 
-
-
     void Update() {
         // get viewer and chunk position
         viewerPosition = new Vector2(observer.position.x, observer.position.y);

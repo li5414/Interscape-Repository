@@ -6,13 +6,10 @@ using UnityEngine.Assertions;
 using System;
 using System.IO;
 
-public class Chunk : MonoBehaviour {
+public class Chunk : MonoBehaviour, IDataPersistence {
     public Vector2Int chunkPos;
     public Vector2Int chunkCoord;
-    float[,] heights;
-    public ChunkData chunkData;
 
-    // can generate from chunk data file
     GameObject[,] objects;
     RuleTile[] sandTiles = new RuleTile[Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
     bool containsWater;
@@ -21,9 +18,9 @@ public class Chunk : MonoBehaviour {
     bool hasGeneratedWaterMaterial;
     bool hasGeneratedTerrainMaterial;
     
-    // don't need to read chunk data file to generate
     public ChunkStatus status;
     Vector3Int[] tilePositionsWorld;
+    float[,] heights;
     float[,] temps;
     float[,] humidities;
     BiomeType[,] biomes;
@@ -55,7 +52,6 @@ public class Chunk : MonoBehaviour {
             (int)transform.position.y);
         chunkCoord = ChunkManager.GetChunkCoord(chunkPos);
 
-        chunkData = new ChunkData(chunkCoord, terrainData);
         status = ChunkStatus.NOT_GENERATED;
     }
 
@@ -260,6 +256,7 @@ public class Chunk : MonoBehaviour {
                 hasGeneratedTerrainMaterial = true;
             } else {
                 terrainChunk.SetActive(true);
+                grassBlades.SetActive(true);
             }
         } else {
             terrainChunk.SetActive(false);
@@ -295,6 +292,13 @@ public class Chunk : MonoBehaviour {
                 buildingResources.sandTilemap.SetTile(tilePositionsWorld[i], null);
             }
         }
+    }
+
+    public void LoadData(GameData data) {
+        // chunkData = data.worldData.chunkData[chunkCoord];
+    }
+    public void SaveData(GameData data) {
+        data.worldData.chunkData.Add(new ChunkData(this));
     }
 
     // lookup index of 16x16 2D array condensed to 1D array

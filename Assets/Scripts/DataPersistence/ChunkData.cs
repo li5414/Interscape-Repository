@@ -7,23 +7,32 @@ public class ChunkData
 {
     public Vector2Int chunkPos;
     public Vector2Int chunkCoord;
-    public float[,] heights;
 
-    int[,] objects;
-    int[,] wallTiles;
-    bool[,] sandTiles;
-    bool[,] pathTiles;
-    bool[,,] floorTiles;
+    int[] objects;
+    int[] wallTiles;
+    bool[] sandTiles;
+    bool[] pathTiles;
+    FloorData floorTiles;
 
-    public ChunkData(Vector2Int chunkCoord, TerrainDataGenerator terrainData) {
+    public ChunkData(Chunk chunk) {
         // world position of bottom-left tile in chunk
-        this.chunkPos = new Vector2Int(
-            chunkCoord.x * Consts.CHUNK_SIZE, 
-            chunkCoord.y * Consts.CHUNK_SIZE);
-        
+        this.chunkPos = chunk.chunkPos;
         // number of chunks away from 0,0
-        this.chunkCoord = chunkCoord;
+        this.chunkCoord = chunk.chunkCoord;
 
-        this.heights = terrainData.GetHeightValuesExtended(chunkPos.x, chunkPos.y);
+        this.floorTiles = new FloorData();
     }
 }
+
+[System.Serializable]
+public class FloorData
+{
+    bool[] concreteFloorTiles;
+    bool[] darkBrickFloorTiles;
+    bool[] lightBrickFloorTiles;
+    bool[] lightWoodFloorTiles;
+    bool[] midWoodFloorTiles;
+    bool[] darkWoodFloorTiles;
+    bool[] stoneTileFloorTiles;
+}
+

@@ -8697,7 +8697,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68818ce721edb43bc85ca68d68ea732a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fileName: TestGameFile.json
+  fileName: Test Game
+  chunkParent: {fileID: 185400600}
 --- !u!114 &580340815
 MonoBehaviour:
   m_ObjectHideFlags: 0
