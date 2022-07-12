@@ -11,9 +11,12 @@ public class Chunk : MonoBehaviour, IDataPersistence {
     public Vector2Int chunkCoord;
 
     public GameObject[,] objects { get; private set; }
-    RuleTile[] sandTiles = new RuleTile[Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
+    public RuleTile[] sandTiles { get; private set; }
+    public RuleTile[] wallTiles { get; private set; }
+    public RuleTile[] pathTiles { get; private set; }
+    FloorRuleTileData FloorRuleTileData = new FloorRuleTileData();
+
     bool containsWater;
-    bool containsSand;
     bool containsGrass;
     bool hasGeneratedWaterMaterial;
     bool hasGeneratedTerrainMaterial;
@@ -66,13 +69,22 @@ public class Chunk : MonoBehaviour, IDataPersistence {
         }
     }
 
+    void setTilePositionsArray() {
+        tilePositionsWorld = new Vector3Int[Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
+        for (int i = 0; i < Consts.CHUNK_SIZE; i++) {
+            for (int j = 0; j < Consts.CHUNK_SIZE; j++) {
+                tilePositionsWorld[at(i, j)] = new Vector3Int(i + chunkPos.x, j + chunkPos.y, 0);
+            }
+        }
+    }
+
     public void GenerateChunkData() {
         heights = terrainData.GetHeightValuesExtended(chunkPos.x, chunkPos.y);
         temps = terrainData.GetTemperaturesExtended(chunkPos.x, chunkPos.y, heights);
         humidities = terrainData.GetHumidityValuesExtended(chunkPos.x, chunkPos.y, heights);
         biomes = terrainData.GetBiomesExtended(heights, temps, humidities);
-        tilePositionsWorld = new Vector3Int[Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
-
+        
+        setTilePositionsArray();
         refreshContainFlags();
         generateSand();
 
@@ -93,10 +105,21 @@ public class Chunk : MonoBehaviour, IDataPersistence {
         temps = terrainData.GetTemperaturesExtended(chunkPos.x, chunkPos.y, heights);
         humidities = terrainData.GetHumidityValuesExtended(chunkPos.x, chunkPos.y, heights);
         biomes = terrainData.GetBiomesExtended(heights, temps, humidities);
-        tilePositionsWorld = new Vector3Int[Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
+        
+        setTilePositionsArray();
         refreshContainFlags();
 
-        // TODO set sand
+        // set sand tiles
+        if (chunkData.sandTiles != null) {
+            for (int i = 0; i < chunkData.sandTiles.Length; i++) {
+                if (chunkData.sandTiles[i]) {
+                    if (this.sandTiles == null) {
+                        this.sandTiles = new RuleTile[Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
+                    }
+                    this.sandTiles[i] = tileResources.tileSandRule;
+                }
+            }
+        }
 
         // generate the grass colour texture for that chunk
         generateExtendedColourTexture();
@@ -226,6 +249,9 @@ public class Chunk : MonoBehaviour, IDataPersistence {
 
                 // sand layer
                 if (heightVal < Consts.BEACH_HEIGHT) {
+                    if (sandTiles == null) {
+                        sandTiles = new RuleTile[Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
+                    }
                     sandTiles[at(i, j)] = tileResources.tileSandRule;
                 }
             }
@@ -237,10 +263,6 @@ public class Chunk : MonoBehaviour, IDataPersistence {
         for (int i = 0; i < Consts.CHUNK_SIZE; i++) {
             for (int j = 0; j < Consts.CHUNK_SIZE; j++) {
                 heightVal = heights[i, j];
-                if (heightVal < Consts.BEACH_HEIGHT) {
-                    sandTiles[at(i, j)] = tileResources.tileSandRule;
-                    containsSand = true;
-                }
 
                 // minus extra amount to have some overlapping
                 if (heightVal >= Consts.WATER_HEIGHT - 0.1f) {
@@ -257,8 +279,9 @@ public class Chunk : MonoBehaviour, IDataPersistence {
         // set parent gameobject for the plants
         treeParent.SetActive(true);
 
-        if (containsSand)
+        if (sandTiles != null) {
             buildingResources.sandTilemap.SetTiles(tilePositionsWorld, sandTiles);
+        }
 
         if (containsGrass) {
             if (!hasGeneratedTerrainMaterial) {
@@ -312,7 +335,7 @@ public class Chunk : MonoBehaviour, IDataPersistence {
         waterChunk.SetActive(false);
 
         // unload sand if there is some
-        if (containsSand) {
+        if (sandTiles != null) {
             for (int i = 0; i < tilePositionsWorld.Length; i++) {
                 buildingResources.sandTilemap.SetTile(tilePositionsWorld[i], null);
             }

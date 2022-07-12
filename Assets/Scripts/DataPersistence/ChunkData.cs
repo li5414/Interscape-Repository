@@ -31,6 +31,19 @@ public class ChunkData
                 
             }
         }
+
+        // set sand tiles
+        if (chunk.sandTiles != null) {
+            for (int i = 0; i < chunk.sandTiles.Length; i++) {
+                if (chunk.sandTiles[i] != null) {
+                    if (sandTiles == null) {
+                        sandTiles = new bool[Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
+                    }
+                    sandTiles[i] = true;
+                }
+            }
+        }
+
         this.floorTiles = new FloorData();
     }
 
@@ -50,5 +63,17 @@ public class FloorData
     bool[] midWoodFloorTiles;
     bool[] darkWoodFloorTiles;
     bool[] stoneTileFloorTiles;
+}
+
+[System.Serializable]
+public class FloorRuleTileData
+{
+    RuleTile[] concreteFloorTiles;
+    RuleTile[] darkBrickFloorTiles;
+    RuleTile[] lightBrickFloorTiles;
+    RuleTile[] lightWoodFloorTiles;
+    RuleTile[] midWoodFloorTiles;
+    RuleTile[] darkWoodFloorTiles;
+    RuleTile[] stoneTileFloorTiles;
 }
 
