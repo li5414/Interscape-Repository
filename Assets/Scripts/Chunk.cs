@@ -47,6 +47,8 @@ public class Chunk : MonoBehaviour, IDataPersistence {
     static WorldSettings worldSettings;
     public static BuildingResources buildingResources { get; private set; }
     static TileResources tileResources;
+    static NatureResources natureResources;
+
 
     void Start() {
         findScriptReferences();
@@ -66,6 +68,7 @@ public class Chunk : MonoBehaviour, IDataPersistence {
             worldSettings = GameObject.FindWithTag("GameManager").GetComponent<WorldSettings>();
             buildingResources = GameObject.FindWithTag("GameManager").GetComponent<BuildingResources>();
             tileResources = GameObject.FindWithTag("GameManager").GetComponent<TileResources>();
+            natureResources = GameObject.FindWithTag("GameManager").GetComponent<NatureResources>();
         }
     }
 
@@ -125,6 +128,18 @@ public class Chunk : MonoBehaviour, IDataPersistence {
         generateExtendedColourTexture();
 
         // TODO get objects
+        this.objects = new GameObject[Consts.CHUNK_SIZE, Consts.CHUNK_SIZE];
+        for (int i = 0; i < Consts.CHUNK_SIZE; i++) {
+            for (int j = 0; j < Consts.CHUNK_SIZE; j++) {
+                if (chunkData.objects[at(i, j)] != 0) {
+                    Vector3 pos = new Vector3(chunkPos.x + i + 0.5f, chunkPos.y + j + 0.5f, 198);
+
+                    this.objects[i, j] = Instantiate(natureResources.idToGameObject[chunkData.objects[at(i, j)]], pos, Quaternion.identity);
+
+                    this.objects[i, j].transform.SetParent(treeParent.transform, true);
+                }
+            }
+        }
 
         treeParent.SetActive(false);
         chunkManager.chunksToLoad.Enqueue(this);
