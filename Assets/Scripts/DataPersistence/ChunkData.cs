@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
+
 
 [System.Serializable]
 public class ChunkData {
@@ -45,6 +47,7 @@ public class ChunkData {
 
         // set wall tiles
         if (chunk.wallTiles != null) {
+            Debug.Log("saving wall tiles");
             for (int i = 0; i < chunk.wallTiles.Length; i++) {
                 if (chunk.wallTiles[i] != null) {
                     if (wallTiles == null) {
@@ -73,16 +76,38 @@ public class FloorData {
     bool[] midWoodFloorTiles;
     bool[] darkWoodFloorTiles;
     bool[] stoneTileFloorTiles;
+
+    public List<bool[]> getAll() {
+        return new List<bool[]>{
+            concreteFloorTiles,
+            darkBrickFloorTiles,
+            lightBrickFloorTiles,
+            lightWoodFloorTiles,
+            midWoodFloorTiles,
+            darkWoodFloorTiles,
+            stoneTileFloorTiles};
+    }
 }
 
 [System.Serializable]
-public class FloorRuleTileData {
-    RuleTile[] concreteFloorTiles;
-    RuleTile[] darkBrickFloorTiles;
-    RuleTile[] lightBrickFloorTiles;
-    RuleTile[] lightWoodFloorTiles;
-    RuleTile[] midWoodFloorTiles;
-    RuleTile[] darkWoodFloorTiles;
-    RuleTile[] stoneTileFloorTiles;
+public class FloorTileData {
+    TileBase[] concreteFloorTiles;
+    TileBase[] darkBrickFloorTiles;
+    TileBase[] lightBrickFloorTiles;
+    TileBase[] lightWoodFloorTiles;
+    TileBase[] midWoodFloorTiles;
+    TileBase[] darkWoodFloorTiles;
+    TileBase[] stoneTileFloorTiles;
+
+    public List<TileBase[]> getAll() {
+        return new List<TileBase[]>{
+            concreteFloorTiles,
+            darkBrickFloorTiles,
+            lightBrickFloorTiles,
+            lightWoodFloorTiles,
+            midWoodFloorTiles,
+            darkWoodFloorTiles,
+            stoneTileFloorTiles};
+    }
 }
 

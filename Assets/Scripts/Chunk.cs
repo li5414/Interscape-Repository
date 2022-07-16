@@ -14,7 +14,7 @@ public class Chunk : MonoBehaviour, IDataPersistence {
     public RuleTile[] sandTiles { get; private set; }
     public TileBase[] wallTiles { get; private set; }
     public RuleTile[] pathTiles { get; private set; }
-    FloorRuleTileData FloorRuleTileData = new FloorRuleTileData();
+    FloorTileData floorRuleTileData = new FloorTileData();
 
     bool containsWater;
     bool containsGrass;
@@ -373,13 +373,31 @@ public class Chunk : MonoBehaviour, IDataPersistence {
             }
         }
 
-        // save tiles in the chunk
-        if (buildingResources.wallTilemap.GetTilesRangeCount(chunkBounds.min, chunkBounds.max) > 0) {
-            Debug.Log("unloading walls");
-            TileBase[] nullTileArray = new TileBase[tilePositionsWorld.Length];
-            wallTiles = buildingResources.wallTilemap.GetTilesBlock(chunkBounds);
+        // save tiles to their respective arrays
+        updateTileArrays();
+        TileBase[] nullTileArray = new TileBase[tilePositionsWorld.Length];
+
+        // unload tiles
+        if (wallTiles != null)
             buildingResources.wallTilemap.SetTilesBlock(chunkBounds, nullTileArray);
+
+    }
+
+    private void updateTileArrays() {
+        Debug.Log("updating tile arrays");
+        wallTiles = getTilesInChunk(buildingResources.wallTilemap);
+
+        for (int i = 0; i < buildingResources.getAllFloorTilemaps().Count; i++) {
+            Tilemap floorTilemap = buildingResources.getAllFloorTilemaps()[i];
+            floorRuleTileData.getAll()[i] = getTilesInChunk(floorTilemap);
         }
+    }
+
+    private TileBase[] getTilesInChunk(Tilemap tilemap) {
+        if (tilemap.GetTilesRangeCount(chunkBounds.min, chunkBounds.max) > 0) {
+            return tilemap.GetTilesBlock(chunkBounds);
+        }
+        return null;
     }
 
     public void LoadData(GameData data) {
@@ -394,14 +412,9 @@ public class Chunk : MonoBehaviour, IDataPersistence {
         }
         if (chunkToRemove != null) {
             data.worldData.chunkData.Remove(chunkToRemove);
-            Debug.Log("removed old chunk");
         }
 
-        // make sure we save the walls!
-        if (wallTiles == null && buildingResources.wallTilemap.GetTilesRangeCount(chunkBounds.min, chunkBounds.max) > 0) {
-            Debug.Log("saving walls");
-            wallTiles = buildingResources.wallTilemap.GetTilesBlock(chunkBounds);
-        }
+        updateTileArrays();
         data.worldData.chunkData.Add(new ChunkData(this));
     }
 

@@ -45,4 +45,14 @@ public class BuildingResources : MonoBehaviour {
         };
     }
 
+    public List<Tilemap> getAllFloorTilemaps() {
+        return new List<Tilemap>{
+            concreteFloorTilemap,
+            darkBrickFloorTilemap,
+            lightBrickFloorTilemap,
+            lightWoodFloorTilemap,
+            midWoodFloorTilemap,
+            darkWoodFloorTilemap,
+            stoneTileFloorTilemap};
+    }
 }
