@@ -12,7 +12,7 @@ public class Chunk : MonoBehaviour, IDataPersistence {
 
     public GameObject[,] objects { get; private set; }
     public RuleTile[] sandTiles { get; private set; }
-    public RuleTile[] wallTiles { get; private set; }
+    public TileBase[] wallTiles { get; private set; }
     public RuleTile[] pathTiles { get; private set; }
     FloorRuleTileData FloorRuleTileData = new FloorRuleTileData();
 
@@ -20,7 +20,7 @@ public class Chunk : MonoBehaviour, IDataPersistence {
     bool containsGrass;
     bool hasGeneratedWaterMaterial;
     bool hasGeneratedTerrainMaterial;
-    
+
     public ChunkStatus status;
     Vector3Int[] tilePositionsWorld;
     float[,] heights;
@@ -35,7 +35,7 @@ public class Chunk : MonoBehaviour, IDataPersistence {
     public GameObject grassBlades; // TODO change grass sprite
     public GameObject waterChunk;
     public GameObject treeParent;
-    
+
     private Vector2Int closestVillage;
 
     // TODO have a prng for each chunk?
@@ -53,7 +53,7 @@ public class Chunk : MonoBehaviour, IDataPersistence {
     void Start() {
         findScriptReferences();
         chunkPos = new Vector2Int(
-            (int)transform.position.x, 
+            (int)transform.position.x,
             (int)transform.position.y);
         chunkCoord = ChunkManager.GetChunkCoord(chunkPos);
 
@@ -86,7 +86,7 @@ public class Chunk : MonoBehaviour, IDataPersistence {
         temps = terrainData.GetTemperaturesExtended(chunkPos.x, chunkPos.y, heights);
         humidities = terrainData.GetHumidityValuesExtended(chunkPos.x, chunkPos.y, heights);
         biomes = terrainData.GetBiomesExtended(heights, temps, humidities);
-        
+
         setTilePositionsArray();
         refreshContainFlags();
         generateSand();
@@ -108,7 +108,7 @@ public class Chunk : MonoBehaviour, IDataPersistence {
         temps = terrainData.GetTemperaturesExtended(chunkPos.x, chunkPos.y, heights);
         humidities = terrainData.GetHumidityValuesExtended(chunkPos.x, chunkPos.y, heights);
         biomes = terrainData.GetBiomesExtended(heights, temps, humidities);
-        
+
         setTilePositionsArray();
         refreshContainFlags();
 
@@ -127,7 +127,7 @@ public class Chunk : MonoBehaviour, IDataPersistence {
         // generate the grass colour texture for that chunk
         generateExtendedColourTexture();
 
-        // TODO get objects
+        // get objects
         this.objects = new GameObject[Consts.CHUNK_SIZE, Consts.CHUNK_SIZE];
         for (int i = 0; i < Consts.CHUNK_SIZE; i++) {
             for (int j = 0; j < Consts.CHUNK_SIZE; j++) {
@@ -258,7 +258,6 @@ public class Chunk : MonoBehaviour, IDataPersistence {
 
                 // fill in tile position arrays
                 tilePositionsWorld[at(i, j)] = new Vector3Int(i + chunkPos.x, j + chunkPos.y, 0);
-
                 // get features for this tile
                 heightVal = heights[i, j];
 
@@ -298,6 +297,10 @@ public class Chunk : MonoBehaviour, IDataPersistence {
             buildingResources.sandTilemap.SetTiles(tilePositionsWorld, sandTiles);
         }
 
+        if (wallTiles != null) {
+            buildingResources.wallTilemap.SetTiles(tilePositionsWorld, wallTiles);
+        }
+
         if (containsGrass) {
             if (!hasGeneratedTerrainMaterial) {
                 // generate a new material and apply it to the chunk
@@ -308,7 +311,7 @@ public class Chunk : MonoBehaviour, IDataPersistence {
 
                 // generate a new material for the grass blades in the chunk
                 SpriteRenderer grassBladeRenderer = grassBlades.GetComponent<SpriteRenderer>();
-                
+
                 newMat = new Material(Shader.Find("Unlit/ChunkTerrainShader"));
                 newMat.CopyPropertiesFromMaterial(terrainData.chunkGrassMaterial);
                 grassBladeRenderer.material = newMat;
@@ -355,6 +358,14 @@ public class Chunk : MonoBehaviour, IDataPersistence {
                 buildingResources.sandTilemap.SetTile(tilePositionsWorld[i], null);
             }
         }
+
+        // get chunk bounds
+        BoundsInt chunkBounds = new BoundsInt(chunkPos.x, chunkPos.y, 0, Consts.CHUNK_SIZE, Consts.CHUNK_SIZE, 1);
+
+        // save tiles in the chunk
+        TileBase[] nullTileArray = new TileBase[tilePositionsWorld.Length];
+        wallTiles = buildingResources.wallTilemap.GetTilesBlock(chunkBounds);
+        buildingResources.wallTilemap.SetTilesBlock(chunkBounds, nullTileArray);
     }
 
     public void LoadData(GameData data) {
@@ -376,7 +387,7 @@ public class Chunk : MonoBehaviour, IDataPersistence {
 
     // lookup index of 16x16 2D array condensed to 1D array
     public int at(int x, int y) {
-        return (x * 16 + y);
+        return (x + 16 * y);
     }
 }
 

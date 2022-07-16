@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class DataPersistenceManager : MonoBehaviour
-{
+public class DataPersistenceManager : MonoBehaviour {
     [Header("File Storage Config")]
     [SerializeField] private string fileName;
     public GameObject chunkParent;
@@ -46,7 +45,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void NewGame() {
         this.gameData = new GameData(
-            NewWorldSettings.GetSeed(), 
+            NewWorldSettings.GetSeed(),
             NewWorldSettings.GetSeedString());
     }
 
@@ -56,14 +55,14 @@ public class DataPersistenceManager : MonoBehaviour
         foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects) {
             dataPersistenceObj.SaveData(gameData);
         }
-        
+
         fileDataHandler.Save(gameData);
         Debug.Log("Saved " + fileName);
     }
 
     public void LoadGame() {
         this.gameData = fileDataHandler.Load();
-        
+
 
         if (this.gameData == null) {
             Debug.Log("No game data was found. Initialising to default");
@@ -86,7 +85,6 @@ public class DataPersistenceManager : MonoBehaviour
     Dictionary<Vector2Int, ChunkData> getChunksFromFile() {
         Dictionary<Vector2Int, ChunkData> chunksFromFile = new Dictionary<Vector2Int, ChunkData>();
 
-        Debug.Log(gameData);
         foreach (ChunkData chunkData in gameData.worldData.chunkData) {
             chunksFromFile.Add(chunkData.chunkCoord, chunkData);
         }

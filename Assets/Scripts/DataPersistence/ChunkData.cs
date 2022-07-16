@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class ChunkData
-{
+public class ChunkData {
     public Vector2Int chunkPos;
     public Vector2Int chunkCoord;
 
@@ -28,7 +27,7 @@ public class ChunkData
                 if (objToSave != null) {
                     this.objects[IndexOf(i, j)] = objToSave.GetComponent<SaveId>().id;
                 }
-                
+
             }
         }
 
@@ -49,13 +48,12 @@ public class ChunkData
 
     // lookup index of 16x16 2D array condensed to 1D array
     public int IndexOf(int x, int y) {
-        return (x * 16 + y);
+        return (x + 16 * y);
     }
 }
 
 [System.Serializable]
-public class FloorData
-{
+public class FloorData {
     bool[] concreteFloorTiles;
     bool[] darkBrickFloorTiles;
     bool[] lightBrickFloorTiles;
@@ -66,8 +64,7 @@ public class FloorData
 }
 
 [System.Serializable]
-public class FloorRuleTileData
-{
+public class FloorRuleTileData {
     RuleTile[] concreteFloorTiles;
     RuleTile[] darkBrickFloorTiles;
     RuleTile[] lightBrickFloorTiles;
