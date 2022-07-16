@@ -294,7 +294,7 @@ public class VillageGenerator : MonoBehaviour {
         for (int i = 0; i < hits.Length; i++) {
             Collider2D collider = hits[i].transform.gameObject.GetComponent<Collider2D>();
             if (collider != null && collider.gameObject.tag != "ItemDrop" && collider.gameObject.tag != "Player" && collider.gameObject.tag != "NPC") {
-                Destroy(collider.gameObject);
+                Destroy(collider.gameObject.transform.parent.gameObject);
             }
         }
 
