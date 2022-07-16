@@ -6,6 +6,8 @@ using UnityEngine.Tilemaps;
 
 public class BuildingResources : MonoBehaviour {
     public GameObject villageObject;
+
+    [Header("Tilemap references")]
     public Tilemap sandTilemap;
     public Tilemap pathTilemap;
     public Tilemap wallTilemap;
@@ -17,10 +19,14 @@ public class BuildingResources : MonoBehaviour {
     public Tilemap darkWoodFloorTilemap;
     public Tilemap stoneTileFloorTilemap;
 
+    [Header("Tile references")]
     public RuleTile[] wallTiles;
     public RuleTile[] doorTiles;
+    public RuleTile floorBaseTile;
 
+    [HideInInspector]
     public Dictionary<int, RuleTile> idToRuleTile;
+    [HideInInspector]
     public Dictionary<string, Tilemap> TilemapDict;
 
 

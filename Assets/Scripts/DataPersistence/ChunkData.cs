@@ -21,7 +21,7 @@ public class ChunkData {
         // number of chunks away from 0,0
         this.chunkCoord = chunk.chunkCoord;
 
-        this.objects = new int[Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
+        this.objects = new int[Consts.CHUNK_SIZE_SQUARED];
         for (int i = 0; i < Consts.CHUNK_SIZE; i++) {
             for (int j = 0; j < Consts.CHUNK_SIZE; j++) {
                 GameObject objToSave = chunk.objects[i, j];
@@ -38,7 +38,7 @@ public class ChunkData {
             for (int i = 0; i < chunk.sandTiles.Length; i++) {
                 if (chunk.sandTiles[i] != null) {
                     if (sandTiles == null) {
-                        sandTiles = new bool[Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
+                        sandTiles = new bool[Consts.CHUNK_SIZE_SQUARED];
                     }
                     sandTiles[i] = true;
                 }
@@ -51,14 +51,14 @@ public class ChunkData {
             for (int i = 0; i < chunk.wallTiles.Length; i++) {
                 if (chunk.wallTiles[i] != null) {
                     if (wallTiles == null) {
-                        wallTiles = new int[Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
+                        wallTiles = new int[Consts.CHUNK_SIZE_SQUARED];
                     }
                     wallTiles[i] = ((RuleTile)chunk.wallTiles[i]).m_DefaultGameObject.GetComponent<SaveId>().id;
                 }
             }
         }
 
-        this.floorTiles = new FloorData();
+        this.floorTiles = new FloorData(chunk.floorTileData);
     }
 
     // lookup index of 16x16 2D array condensed to 1D array
@@ -87,27 +87,26 @@ public class FloorData {
             darkWoodFloorTiles,
             stoneTileFloorTiles};
     }
-}
 
-[System.Serializable]
-public class FloorTileData {
-    TileBase[] concreteFloorTiles;
-    TileBase[] darkBrickFloorTiles;
-    TileBase[] lightBrickFloorTiles;
-    TileBase[] lightWoodFloorTiles;
-    TileBase[] midWoodFloorTiles;
-    TileBase[] darkWoodFloorTiles;
-    TileBase[] stoneTileFloorTiles;
+    public FloorData(TileBase[][] floorTileData) {
+        concreteFloorTiles = TileToBooleanArray(floorTileData[0]);
+        darkBrickFloorTiles = TileToBooleanArray(floorTileData[1]);
+        lightBrickFloorTiles = TileToBooleanArray(floorTileData[2]);
+        lightWoodFloorTiles = TileToBooleanArray(floorTileData[3]);
+        midWoodFloorTiles = TileToBooleanArray(floorTileData[4]);
+        darkWoodFloorTiles = TileToBooleanArray(floorTileData[5]);
+        stoneTileFloorTiles = TileToBooleanArray(floorTileData[6]);
+    }
 
-    public List<TileBase[]> getAll() {
-        return new List<TileBase[]>{
-            concreteFloorTiles,
-            darkBrickFloorTiles,
-            lightBrickFloorTiles,
-            lightWoodFloorTiles,
-            midWoodFloorTiles,
-            darkWoodFloorTiles,
-            stoneTileFloorTiles};
+    public bool[] TileToBooleanArray(TileBase[] tileArray) {
+        if (tileArray == null)
+            return null;
+
+        bool[] boolArray = new bool[tileArray.Length];
+        for (int i = 0; i < tileArray.Length; i++) {
+            boolArray[i] = tileArray[i] != null;
+        }
+        return boolArray;
     }
 }
 

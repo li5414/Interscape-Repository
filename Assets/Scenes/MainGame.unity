@@ -8617,13 +8617,7 @@ MonoBehaviour:
   chunkGrassMaterial: {fileID: 2100000, guid: dd055e770ebd440ea9cb7a1ef99a2067, type: 2}
   chunkTerrainMaterial: {fileID: 2100000, guid: 7a7625735c84b40f1865734c4e48ccb3,
     type: 2}
-  chunkTerrainPrefab: {fileID: 3669637371159069409, guid: 2c48a794866434d869c045d4b7eccb93,
-    type: 3}
-  chunkTerrainParent: {fileID: 0}
   chunkWaterMaterial: {fileID: 2100000, guid: 2709a5f4e29fe4c109cedadd7be794eb, type: 2}
-  chunkWaterPrefab: {fileID: 3669637371159069409, guid: e96603af38d394e0cb8ede388eb030fd,
-    type: 3}
-  chunkWaterParent: {fileID: 0}
   player: {fileID: 1062241006}
 --- !u!114 &580340811
 MonoBehaviour:
@@ -8686,6 +8680,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a5f8c52e6daa24145982cb4047f42f70, type: 2}
   - {fileID: 11400000, guid: 2ec73399625e04c94aa28d9d6980ce7d, type: 2}
   - {fileID: 11400000, guid: daeee0eab6b51444fa673b3cb968b80c, type: 2}
+  floorBaseTile: {fileID: 11400000, guid: f67cfaa5adcb446378e4d473a87d0bcc, type: 2}
 --- !u!114 &580340814
 MonoBehaviour:
   m_ObjectHideFlags: 0
