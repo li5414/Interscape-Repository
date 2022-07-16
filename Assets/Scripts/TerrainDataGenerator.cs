@@ -16,11 +16,7 @@ public class TerrainDataGenerator : MonoBehaviour {
     public Texture2D biomeColourMap;
     public Material chunkGrassMaterial;
     public Material chunkTerrainMaterial;
-    public GameObject chunkTerrainPrefab;
-    public GameObject chunkTerrainParent;
     public Material chunkWaterMaterial;
-    public GameObject chunkWaterPrefab;
-    public GameObject chunkWaterParent;
 
     private WorldSettings worldSettings;
 

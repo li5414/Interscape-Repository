@@ -43,6 +43,18 @@ public class ChunkData {
             }
         }
 
+        // set wall tiles
+        if (chunk.wallTiles != null) {
+            for (int i = 0; i < chunk.wallTiles.Length; i++) {
+                if (chunk.wallTiles[i] != null) {
+                    if (wallTiles == null) {
+                        wallTiles = new int[Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
+                    }
+                    wallTiles[i] = ((RuleTile)chunk.wallTiles[i]).m_DefaultGameObject.GetComponent<SaveId>().id;
+                }
+            }
+        }
+
         this.floorTiles = new FloorData();
     }
 

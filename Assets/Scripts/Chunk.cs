@@ -49,6 +49,7 @@ public class Chunk : MonoBehaviour, IDataPersistence {
     static TileResources tileResources;
     static NatureResources natureResources;
 
+    BoundsInt chunkBounds;
 
     void Start() {
         findScriptReferences();
@@ -56,6 +57,7 @@ public class Chunk : MonoBehaviour, IDataPersistence {
             (int)transform.position.x,
             (int)transform.position.y);
         chunkCoord = ChunkManager.GetChunkCoord(chunkPos);
+        chunkBounds = new BoundsInt(chunkPos.x, chunkPos.y, 0, Consts.CHUNK_SIZE, Consts.CHUNK_SIZE, 1);
 
         status = ChunkStatus.NOT_GENERATED;
     }
@@ -137,6 +139,18 @@ public class Chunk : MonoBehaviour, IDataPersistence {
                     this.objects[i, j] = Instantiate(natureResources.idToGameObject[chunkData.objects[at(i, j)]], pos, Quaternion.identity);
 
                     this.objects[i, j].transform.SetParent(treeParent.transform, true);
+                }
+            }
+        }
+
+        // get wall tiles
+        if (chunkData.wallTiles != null) {
+            for (int i = 0; i < chunkData.wallTiles.Length; i++) {
+                if (chunkData.wallTiles[i] != 0) {
+                    if (this.wallTiles == null) {
+                        this.wallTiles = new RuleTile[Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
+                    }
+                    this.wallTiles[i] = buildingResources.idToRuleTile[chunkData.wallTiles[i]];
                 }
             }
         }
@@ -359,13 +373,13 @@ public class Chunk : MonoBehaviour, IDataPersistence {
             }
         }
 
-        // get chunk bounds
-        BoundsInt chunkBounds = new BoundsInt(chunkPos.x, chunkPos.y, 0, Consts.CHUNK_SIZE, Consts.CHUNK_SIZE, 1);
-
         // save tiles in the chunk
-        TileBase[] nullTileArray = new TileBase[tilePositionsWorld.Length];
-        wallTiles = buildingResources.wallTilemap.GetTilesBlock(chunkBounds);
-        buildingResources.wallTilemap.SetTilesBlock(chunkBounds, nullTileArray);
+        if (buildingResources.wallTilemap.GetTilesRangeCount(chunkBounds.min, chunkBounds.max) > 0) {
+            Debug.Log("unloading walls");
+            TileBase[] nullTileArray = new TileBase[tilePositionsWorld.Length];
+            wallTiles = buildingResources.wallTilemap.GetTilesBlock(chunkBounds);
+            buildingResources.wallTilemap.SetTilesBlock(chunkBounds, nullTileArray);
+        }
     }
 
     public void LoadData(GameData data) {
@@ -381,6 +395,12 @@ public class Chunk : MonoBehaviour, IDataPersistence {
         if (chunkToRemove != null) {
             data.worldData.chunkData.Remove(chunkToRemove);
             Debug.Log("removed old chunk");
+        }
+
+        // make sure we save the walls!
+        if (wallTiles == null && buildingResources.wallTilemap.GetTilesRangeCount(chunkBounds.min, chunkBounds.max) > 0) {
+            Debug.Log("saving walls");
+            wallTiles = buildingResources.wallTilemap.GetTilesBlock(chunkBounds);
         }
         data.worldData.chunkData.Add(new ChunkData(this));
     }

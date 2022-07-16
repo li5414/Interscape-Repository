@@ -20,6 +20,10 @@ public class BuildingResources : MonoBehaviour {
     public RuleTile[] wallTiles;
     public RuleTile[] doorTiles;
 
+    public Dictionary<int, RuleTile> idToRuleTile;
+    public Dictionary<string, Tilemap> TilemapDict;
+
+
     void Awake() {
         TilemapDict = new Dictionary<string, Tilemap>{
         {"ConcreteFloorTilemap", concreteFloorTilemap},
@@ -30,7 +34,15 @@ public class BuildingResources : MonoBehaviour {
         {"DarkWoodFloorTilemap", darkWoodFloorTilemap},
         {"StoneTileFloorTilemap", stoneTileFloorTilemap},
         };
+
+        idToRuleTile = new Dictionary<int, RuleTile>{
+            {1, wallTiles[0]},
+            {2, wallTiles[1]},
+            {3, wallTiles[2]},
+            {4, doorTiles[0]},
+            {5, doorTiles[1]},
+            {6, doorTiles[2]},
+        };
     }
 
-    public Dictionary<string, Tilemap> TilemapDict;
 }
