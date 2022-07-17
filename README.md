@@ -27,11 +27,9 @@ Here's some concept art for the player/npc sprites:
 </p>
 
 ## Demos
-<figure class="video_container" align="center">
-  <video controls="true" allowfullscreen="true" poster="Images/MenuDemoImage.png" width=600>
-    <source src="Images/MenuDemo.mp4" type="video/mp4">
-  </video>
-</figure>
+https://user-images.githubusercontent.com/59108399/179401028-f964b00e-e4ba-4119-9715-b0156890ed87.mp4
+
+https://user-images.githubusercontent.com/59108399/179400807-5d833b31-02e8-4a4b-a3e0-3d2065c934d4.mp4
 
 So far, this has been an entirely solo project. All animation/art is drawn from scratch by Jess in Procreate for iPad. 
 Should you have any thoughts or enquires about this project, feel free to send an email to jrhammer50@gmail.com :D
