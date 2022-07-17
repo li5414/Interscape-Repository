@@ -33,16 +33,6 @@ public class DataPersistenceManager : MonoBehaviour {
         LoadGame();
     }
 
-    void Update() {
-        // TODO make save game buttons
-        if (Input.GetKeyDown(KeyCode.L)) {
-            LoadGame();
-        }
-        if (Input.GetKeyDown(KeyCode.K)) {
-            SaveGame();
-        }
-    }
-
     public void NewGame() {
         this.gameData = new GameData(
             NewWorldSettings.GetSeed(),
