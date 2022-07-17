@@ -27,7 +27,7 @@ public class ChunkData {
                 GameObject objToSave = chunk.objects[i, j];
 
                 if (objToSave != null) {
-                    this.objects[IndexOf(i, j)] = objToSave.GetComponent<SaveId>().id;
+                    this.objects[Consts.IndexOf(i, j)] = objToSave.GetComponent<SaveId>().id;
                 }
 
             }
@@ -60,9 +60,34 @@ public class ChunkData {
         this.floorTiles = new FloorData(chunk.floorTileData);
     }
 
-    // lookup index of 16x16 2D array condensed to 1D array
-    public int IndexOf(int x, int y) {
-        return (x + 16 * y);
+    public static TileBase[] GenerateTiles(bool[] tileBools, RuleTile tile) {
+        TileBase[] tiles = null;
+        if (tileBools != null) {
+            for (int i = 0; i < tileBools.Length; i++) {
+                if (tileBools[i]) {
+                    if (tiles == null) {
+                        tiles = new TileBase[tileBools.Length];
+                    }
+                    tiles[i] = tile;
+                }
+            }
+        }
+        return tiles;
+    }
+
+    public static TileBase[] GenerateTiles(int[] tileIds, Dictionary<int, RuleTile> tileIdDict) {
+        TileBase[] tiles = null;
+        if (tileIds != null) {
+            for (int i = 0; i < tileIds.Length; i++) {
+                if (tileIds[i] > 0) {
+                    if (tiles == null) {
+                        tiles = new TileBase[tileIds.Length];
+                    }
+                    tiles[i] = tileIdDict[tileIds[i]];
+                }
+            }
+        }
+        return tiles;
     }
 }
 
@@ -76,7 +101,7 @@ public class FloorData {
     public bool[] darkWoodFloorTiles;
     public bool[] stoneTileFloorTiles;
 
-    public List<bool[]> getAll() {
+    public List<bool[]> GetAll() {
         return new List<bool[]>{
             concreteFloorTiles,
             darkBrickFloorTiles,
