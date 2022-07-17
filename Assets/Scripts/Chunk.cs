@@ -414,8 +414,20 @@ public class Chunk : MonoBehaviour, IDataPersistence {
         }
     }
 
+    public int GetTilesBlockCount(Tilemap tilemap, Vector3Int min, Vector3Int max) {
+        int count = 0;
+        for (int i = 0; i < max.y - min.y; i++) {
+            Vector3Int minRowPos = new Vector3Int(chunkBounds.min.x, chunkBounds.min.y + i, chunkBounds.min.z);
+            Vector3Int maxRowPos = new Vector3Int(chunkBounds.max.x - 1, chunkBounds.min.y + i, chunkBounds.max.z);
+
+            count += tilemap.GetTilesRangeCount(minRowPos, maxRowPos);
+        }
+        return count;
+    }
+
     private TileBase[] getTilesInChunk(Tilemap tilemap) {
-        if (tilemap.GetTilesRangeCount(chunkBounds.min, chunkBounds.max) > 0) {
+
+        if (GetTilesBlockCount(tilemap, chunkBounds.min, chunkBounds.max) > 0) {
             return tilemap.GetTilesBlock(chunkBounds);
         }
         return null;

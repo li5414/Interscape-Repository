@@ -47,7 +47,6 @@ public class ChunkData {
 
         // set wall tiles
         if (chunk.wallTiles != null) {
-            Debug.Log("saving wall tiles");
             for (int i = 0; i < chunk.wallTiles.Length; i++) {
                 if (chunk.wallTiles[i] != null) {
                     if (wallTiles == null) {
@@ -69,13 +68,13 @@ public class ChunkData {
 
 [System.Serializable]
 public class FloorData {
-    bool[] concreteFloorTiles;
-    bool[] darkBrickFloorTiles;
-    bool[] lightBrickFloorTiles;
-    bool[] lightWoodFloorTiles;
-    bool[] midWoodFloorTiles;
-    bool[] darkWoodFloorTiles;
-    bool[] stoneTileFloorTiles;
+    public bool[] concreteFloorTiles;
+    public bool[] darkBrickFloorTiles;
+    public bool[] lightBrickFloorTiles;
+    public bool[] lightWoodFloorTiles;
+    public bool[] midWoodFloorTiles;
+    public bool[] darkWoodFloorTiles;
+    public bool[] stoneTileFloorTiles;
 
     public List<bool[]> getAll() {
         return new List<bool[]>{
@@ -89,19 +88,18 @@ public class FloorData {
     }
 
     public FloorData(TileBase[][] floorTileData) {
-        concreteFloorTiles = TileToBooleanArray(floorTileData[0]);
-        darkBrickFloorTiles = TileToBooleanArray(floorTileData[1]);
-        lightBrickFloorTiles = TileToBooleanArray(floorTileData[2]);
-        lightWoodFloorTiles = TileToBooleanArray(floorTileData[3]);
-        midWoodFloorTiles = TileToBooleanArray(floorTileData[4]);
-        darkWoodFloorTiles = TileToBooleanArray(floorTileData[5]);
-        stoneTileFloorTiles = TileToBooleanArray(floorTileData[6]);
+        this.concreteFloorTiles = TileToBooleanArray(floorTileData[0]);
+        this.darkBrickFloorTiles = TileToBooleanArray(floorTileData[1]);
+        this.lightBrickFloorTiles = TileToBooleanArray(floorTileData[2]);
+        this.lightWoodFloorTiles = TileToBooleanArray(floorTileData[3]);
+        this.midWoodFloorTiles = TileToBooleanArray(floorTileData[4]);
+        this.darkWoodFloorTiles = TileToBooleanArray(floorTileData[5]);
+        this.stoneTileFloorTiles = TileToBooleanArray(floorTileData[6]);
     }
 
     public bool[] TileToBooleanArray(TileBase[] tileArray) {
         if (tileArray == null)
             return null;
-
         bool[] boolArray = new bool[tileArray.Length];
         for (int i = 0; i < tileArray.Length; i++) {
             boolArray[i] = tileArray[i] != null;
