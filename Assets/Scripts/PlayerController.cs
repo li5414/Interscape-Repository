@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour, IDataPersistence {
     private float BURDEN_EFFECT_CUTOFF = 0.75f;
     public float speed;
     private bool isBurdened = true;
@@ -213,6 +213,12 @@ public class PlayerController : MonoBehaviour {
         return amount;
     }
 
+    public void LoadData(GameData data) {
+        this.transform.position = data.playerData.position;
+    }
+    public void SaveData(GameData data) {
+        data.playerData.position = this.transform.position;
+    }
 }
 
 public enum Facing {

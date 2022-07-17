@@ -83,5 +83,10 @@ PrefabInstance:
       propertyPath: dropItemName
       value: Dark Wood Door
       objectReference: {fileID: 0}
+    - target: {fileID: 7648259469833188665, guid: c8c00e809ba65406a960740b7c4f997c,
+        type: 3}
+      propertyPath: id
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8c00e809ba65406a960740b7c4f997c, type: 3}

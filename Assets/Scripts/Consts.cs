@@ -6,6 +6,7 @@ using UnityEngine;
 public static class Consts {
     // length of a chunk in number of tiles
     public static int CHUNK_SIZE = 16;
+    public static int CHUNK_SIZE_SQUARED = 16 * 16;
 
     // length of the map in number of tiles
     public static int MAP_DIMENSION = 5000;
@@ -39,6 +40,11 @@ public static class Consts {
         {BiomeType.Tundra, new Color32(144, 179, 164, 255)},
         {BiomeType.Ice, new Color32 (218, 231, 235, 255)}
     };
+
+    // lookup index of 16x16 2D array condensed to 1D array
+    public static int IndexOf(int x, int y) {
+        return (x + 16 * y);
+    }
 }
 
 public enum BiomeType {

@@ -19,7 +19,7 @@ public class Item {
             this.weight = item.weight;
             this.iconColour = item.iconColour;
         } else {
-            Debug.LogError("Item " + itemName + "cannot be created because it doesn't exist");
+            Debug.LogError("Item " + itemName + " cannot be created because it doesn't exist");
         }
     }
 

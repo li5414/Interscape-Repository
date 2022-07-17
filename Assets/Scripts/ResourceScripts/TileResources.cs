@@ -3,30 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class TileResources {
+public class TileResources : MonoBehaviour {
 
-	public Tile tileGrass = Resources.Load<Tile> ("Tiles/Tile_Grass");
-	public Tile tileGrassBig = Resources.Load<Tile> ("Tiles/TileGrassLarge");
-	public RuleTile tileSandRule = Resources.Load<RuleTile> ("Tiles/Sand_Rule");
-	public Tile tileSand = Resources.Load<Tile> ("Tiles/Tile_Sand");
-	public Tile plainChunk = Resources.Load<Tile> ("Tiles/TilePlainChunk");
-	public Tile tileWater1 = Resources.Load<Tile> ("Tiles/Water_0");
-	public Tile tileWater2 = Resources.Load<Tile> ("Tiles/Water_1");
-	public Tile tileWater3 = Resources.Load<Tile> ("Tiles/Water_2");
-	public Tile tileWater4 = Resources.Load<Tile> ("Tiles/Water_3");
+    public RuleTile tileSandRule;
 
+    public Sprite[] grassDetailsChunk;
 
-	// grass details
-	// public Sprite [] grassDetails = Resources.LoadAll<Sprite>("Tiles/GrassBlades");
-	public Tile [] grassDetailsChunk;
+    public static int GetTilesBlockCount(Tilemap tilemap, Vector3Int min, Vector3Int max) {
+        int count = 0;
+        for (int i = 0; i < max.y - min.y; i++) {
+            Vector3Int minRowPos = new Vector3Int(min.x, min.y + i, min.z);
+            Vector3Int maxRowPos = new Vector3Int(max.x - 1, min.y + i, max.z);
 
-	public TileResources ()
-	{
-		grassDetailsChunk = new Tile [8];
-		for (int i = 0; i < 8; i ++) {
-			grassDetailsChunk [i] = ScriptableObject.CreateInstance<Tile> ();
-			grassDetailsChunk [i].sprite = Resources.Load<Sprite> ("Tiles/GrassBlades/GrassChunk" + i.ToString());
-		}
-	}
-
+            count += tilemap.GetTilesRangeCount(minRowPos, maxRowPos);
+        }
+        return count;
+    }
 }

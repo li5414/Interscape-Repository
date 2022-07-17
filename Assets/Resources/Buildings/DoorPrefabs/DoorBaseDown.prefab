@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1287180071786422692}
   - component: {fileID: 4387327199979666254}
   - component: {fileID: 3542373406151106732}
+  - component: {fileID: -237771861200862021}
   m_Layer: 0
   m_Name: DoorBaseDown
   m_TagString: Door
@@ -147,6 +148,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-237771861200862021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287180071786422694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f642675ef476a46d3a8cd4eb04156099, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
 --- !u!1 &1287180071980952942
 GameObject:
   m_ObjectHideFlags: 0

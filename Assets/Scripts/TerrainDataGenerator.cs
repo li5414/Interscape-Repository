@@ -16,11 +16,7 @@ public class TerrainDataGenerator : MonoBehaviour {
     public Texture2D biomeColourMap;
     public Material chunkGrassMaterial;
     public Material chunkTerrainMaterial;
-    public GameObject chunkTerrainPrefab;
-    public GameObject chunkTerrainParent;
     public Material chunkWaterMaterial;
-    public GameObject chunkWaterPrefab;
-    public GameObject chunkWaterParent;
 
     private WorldSettings worldSettings;
 
@@ -231,14 +227,13 @@ public class TerrainDataGenerator : MonoBehaviour {
         float moisture;
         float perlinValue;
 
-        // loop through all tiles in chunk
         for (int x = 0; x < Consts.CHUNK_SIZE; x++) {
             for (int y = 0; y < Consts.CHUNK_SIZE; y++) {
                 perlinValue = Mathf.PerlinNoise((chunkX + x) / (SCALE / 2) + octaveOffsets[2].x, (chunkY + y) / (SCALE / 2) + octaveOffsets[2].y);
                 moisture = perlinValue;
 
-                float height = Mathf.InverseLerp(-1f, 1f, heights[x, y]); // get height in range 0-1
-                                                                          //moisture *= (1 - height);
+                // get height in range 0-1
+                float height = Mathf.InverseLerp(-1f, 1f, heights[x, y]);
                 moisture -= height / 3;
                 moisture += 0.2f;
                 moistures[x, y] = Mathf.Clamp01(moisture);
@@ -252,14 +247,13 @@ public class TerrainDataGenerator : MonoBehaviour {
         float moisture;
         float perlinValue;
 
-        // loop through all tiles in chunk
         for (int x = 0; x < Consts.CHUNK_SIZE + 2; x++) {
             for (int y = 0; y < Consts.CHUNK_SIZE + 2; y++) {
                 perlinValue = Mathf.PerlinNoise((chunkX + x - 1) / (SCALE / 2) + octaveOffsets[2].x, (chunkY + y - 1) / (SCALE / 2) + octaveOffsets[2].y);
                 moisture = perlinValue;
 
-                float height = Mathf.InverseLerp(-1f, 1f, heights[x, y]); // get height in range 0-1
-                                                                          //moisture *= (1 - height);
+                // get height in range 0-1
+                float height = Mathf.InverseLerp(-1f, 1f, heights[x, y]);
                 moisture -= height / 3;
                 moisture += 0.2f;
                 moistures[x, y] = Mathf.Clamp01(moisture);
@@ -353,54 +347,57 @@ public class TerrainDataGenerator : MonoBehaviour {
         return biome;
     }
 
-    /*public Texture2D GenerateColourMap()
-	{
-		Debug.Log ("Generating colourmap for shader...");
-		Texture2D tex = new Texture2D (5000, 5000);
-		StartCoroutine (GeneratePartialColourMap (tex));
-		return tex;
-	}
+    // the extended texture includes overlaps between chunks by 1 tile
+    public Texture2D GenerateExtendedColourTexture(float[,] heights, float[,] temps, float[,] humidities) {
+        int newWidth = Consts.CHUNK_SIZE + 2;
+        Texture2D extendedTerrainColours = new Texture2D(newWidth, newWidth);
+        int i = 0;
+        int j = 0;
 
-	IEnumerator GeneratePartialColourMap (Texture2D tex)
-	{
-		for (int i = 0; i < tex.width; i++) {
-			for (int j = 0; j < tex.width; j++) {
-				float height = GetHeightValue (i, j);
+        for (i = 0; i < newWidth; i++) {
+            for (j = 0; j < newWidth; j++) {
+                float height = heights[i, j];
 
-				float temp = GetTemperature (i, j, height);
-				temp = Mathf.InverseLerp (-80f, 80f, temp);
-				temp *= biomeColourMap.width;
+                float temp = temps[i, j];
+                temp = Mathf.InverseLerp(-80f, 80f, temp);
+                temp *= biomeColourMap.width;
 
-				float humidity = GetHumidity (i, j, height);
-				humidity = 1 - humidity;
-				humidity *= biomeColourMap.width;
-				Color color = biomeColourMap.GetPixel ((int)temp, (int)humidity);
+                float humidity = humidities[i, j];
+                humidity = 1 - humidity;
+                humidity *= biomeColourMap.width;
+                Color color = biomeColourMap.GetPixel((int)temp, (int)humidity);
 
-				if (height < -0.29f) {
-					color = Consts.BIOME_COLOUR_DICT [BiomeType.Beach];
-					// could add water color here for minimap?
-				}
+                // if (height < -0.29f) {
+                // 	color = Consts.BIOME_COLOUR_DICT [BiomeType.Beach];
+                // }
+                // set alpha - lower alpha is deeper
+                color.a = Mathf.Clamp01(Mathf.InverseLerp(-1f, 1f, height));
+                extendedTerrainColours.SetPixel(i, j, color);
+            }
+        }
 
-				color.a = Mathf.Clamp01 (Mathf.InverseLerp (-1f, 1f, height)); // lower alpha is deeper
-				tex.SetPixel (i, j, color);
-			}
-			yield return null;
-		}
+        extendedTerrainColours.Apply();
+        extendedTerrainColours.wrapMode = TextureWrapMode.Clamp;
+        return extendedTerrainColours;
+    }
 
-		Debug.Log ("Finished generating colourmap. Saving...");
-		SavePNG (tex);
-		Debug.Log ("Saved!");
-	}
+    public TileBase[] GenerateSandTiles(float[,] heights, RuleTile sandTile) {
+        float heightVal;
+        TileBase[] sandTiles = null;
+        for (int i = 0; i < Consts.CHUNK_SIZE; i++) {
+            for (int j = 0; j < Consts.CHUNK_SIZE; j++) {
+                heightVal = heights[i, j];
 
-	void SavePNG (Texture2D tex)
-	{
-		byte [] bytes = tex.EncodeToPNG ();
-		var dirPath = Application.dataPath + "/Resources/ImageFolder";
-		if (!Directory.Exists (dirPath)) {
-			Directory.CreateDirectory (dirPath);
-		}
-		File.WriteAllBytes (dirPath + "GiantColourMap.png", bytes);
-	}*/
+                if (heightVal < Consts.BEACH_HEIGHT) {
+                    if (sandTiles == null) {
+                        sandTiles = new RuleTile[Consts.CHUNK_SIZE_SQUARED];
+                    }
+                    sandTiles[Consts.IndexOf(i, j)] = sandTile;
+                }
+            }
+        }
+        return sandTiles;
+    }
 
     // for testing purposes
     void PrintAtPos() {

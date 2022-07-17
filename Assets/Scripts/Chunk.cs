@@ -3,227 +3,233 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.Assertions;
-using System.Threading;
 using System;
 using System.IO;
 
-public class Chunk {
-    // components
+public class Chunk : MonoBehaviour, IDataPersistence {
     public Vector2Int chunkPos;
     public Vector2Int chunkCoord;
-    public ChunkStatus status;
+
+    public GameObject[,] objects { get; private set; }
+    public TileBase[] sandTiles { get; private set; }
+    public TileBase[] wallTiles { get; private set; }
+    public TileBase[] pathTiles { get; private set; }
+    public TileBase[][] floorTileData { get; private set; }
+
     bool containsWater;
-    bool containsSand;
     bool containsGrass;
+    bool hasGeneratedWaterMaterial;
+    bool hasGeneratedTerrainMaterial;
 
-    GameObject treeParent;
-
-    // position arrays
-    Vector3Int[] tilePositionsWorld;
-
-    // tile arrays
-    public RuleTile[] sandTileArray = new RuleTile[Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
-    public Tile[] waterTileArray = new Tile[Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
-
-    // tile to store the grass blade details (the size of the tile takes up the whole chunk)
-    public Tile deetChunk;
-
-    // biome information
-    public Texture2D terrainColours;
+    public ChunkStatus status;
     float[,] heights;
     float[,] temps;
     float[,] humidities;
-    GameObject[,] entities;
     BiomeType[,] biomes;
-    GameObject terrainChunk;
-    GameObject waterChunk;
 
-    RuleTile[,] wallTiles;
-    RuleTile[,] pathTiles;
-    bool[,,] floorTiles;
+    public Texture2D terrainColours;
 
-    // reference other scripts
-    static ChunkManager chunkManager = GameObject.FindWithTag("GameManager").GetComponent<ChunkManager>();
-    static TerrainDataGenerator terrainData = GameObject.FindWithTag("GameManager").GetComponent<TerrainDataGenerator>();
-    static PlantsGenerator plantsGenerator = GameObject.FindWithTag("GameManager").GetComponent<PlantsGenerator>();
-    static WorldSettings worldSettings = GameObject.FindWithTag("GameManager").GetComponent<WorldSettings>();
-
-    static BuildingResources buildingResources = GameObject.FindWithTag("GameManager").GetComponent<BuildingResources>();
-
-    static GameObject TreeParent = GameObject.Find("TreeParent");
+    // References assigned in prefab
+    public GameObject terrainChunk;
+    public GameObject grassBlades;
+    public GameObject waterChunk;
+    public GameObject treeParent;
 
     private Vector2Int closestVillage;
+    BoundsInt chunkBounds;
 
-    public Chunk(Vector2Int pos) {
-        // world position of bottom-left tile in chunk
-        chunkPos = new Vector2Int(pos.x * Consts.CHUNK_SIZE, pos.y * Consts.CHUNK_SIZE);
+    // TODO have a prng for each chunk?
 
-        // chunk position is number of chunks away from 0,0
-        chunkCoord = new Vector2Int(pos.x, pos.y);
+    // reference other scripts
+    static ChunkManager chunkManager;
+    static TerrainDataGenerator terrainData;
+    static PlantsGenerator plantsGenerator;
+    static WorldSettings worldSettings;
+    public static BuildingResources buildingResources { get; private set; }
+    static TileResources tileResources;
+    static NatureResources natureResources;
 
-        treeParent = new GameObject();
-        treeParent.transform.SetParent(TreeParent.gameObject.transform);
+    void Start() {
+        findScriptReferences();
+        chunkPos = new Vector2Int(
+            (int)transform.position.x,
+            (int)transform.position.y);
+        chunkCoord = ChunkManager.GetChunkCoord(chunkPos);
+        chunkBounds = new BoundsInt(chunkPos.x, chunkPos.y, 0, Consts.CHUNK_SIZE, Consts.CHUNK_SIZE, 1);
+        floorTileData = new TileBase[buildingResources.getAllFloorTilemaps().Count][];
+
         status = ChunkStatus.NOT_GENERATED;
     }
 
-    public void GenerateChunkData() {
+    void findScriptReferences() {
+        if (chunkManager == null) {
+            GameObject gameManager = GameObject.FindWithTag("GameManager");
+            chunkManager = gameManager.GetComponent<ChunkManager>();
+            terrainData = gameManager.GetComponent<TerrainDataGenerator>();
+            plantsGenerator = gameManager.GetComponent<PlantsGenerator>();
+            worldSettings = gameManager.GetComponent<WorldSettings>();
+            buildingResources = gameManager.GetComponent<BuildingResources>();
+            tileResources = gameManager.GetComponent<TileResources>();
+            natureResources = gameManager.GetComponent<NatureResources>();
+        }
+    }
+
+    public void GenerateChunk() {
         heights = terrainData.GetHeightValuesExtended(chunkPos.x, chunkPos.y);
         temps = terrainData.GetTemperaturesExtended(chunkPos.x, chunkPos.y, heights);
         humidities = terrainData.GetHumidityValuesExtended(chunkPos.x, chunkPos.y, heights);
         biomes = terrainData.GetBiomesExtended(heights, temps, humidities);
 
-        // initalise arrays to be be used for settiles()
-        tilePositionsWorld = new Vector3Int[Consts.CHUNK_SIZE * Consts.CHUNK_SIZE];
+        refreshContainFlags();
+        terrainColours = terrainData.GenerateExtendedColourTexture(heights, temps, humidities);
 
-        // creates and sets tiles in tilearray to positions in position array
-        GenerateTilesChunked();
+        // generate array of gameobjects (TODO optimise: use dict/list instead?)
+        objects = plantsGenerator.GeneratePlants(chunkPos, biomes, heights, treeParent);
 
-        // generate the grass colour texture for that chunk
-        GenerateExtendedColourTexture();
-
-        // generate grass details
-        GenerateDetailsChunk();
-
-        // array of gameobjects (use dict/list instead?)
-        entities = plantsGenerator.GeneratePlants(chunkPos, biomes, heights, treeParent);
-
-        // potentially generate a village on this chunk
-        handleVillageGeneration();
+        sandTiles = terrainData.GenerateSandTiles(heights, tileResources.tileSandRule);
+        VillageGenerator.TryGenerateVillage(chunkCoord, chunkPos, terrainData, chunkManager, worldSettings.SEED);
 
         treeParent.SetActive(false);
         chunkManager.chunksToLoad.Enqueue(this);
     }
 
-    private void handleVillageGeneration() {
-        if (isCloseToVillage()) {
-            VillageGenerator village;
-            if (chunkManager.newlyGeneratedVillages.TryGetValue(closestVillage, out village)) {
-                village.PlaceVillageChunkInWorld(chunkPos);
+    public void GenerateChunkFromFile(ChunkData chunkData) {
+        heights = terrainData.GetHeightValuesExtended(chunkPos.x, chunkPos.y);
+        temps = terrainData.GetTemperaturesExtended(chunkPos.x, chunkPos.y, heights);
+        humidities = terrainData.GetHumidityValuesExtended(chunkPos.x, chunkPos.y, heights);
+        biomes = terrainData.GetBiomesExtended(heights, temps, humidities);
+
+        refreshContainFlags();
+        terrainColours = terrainData.GenerateExtendedColourTexture(heights, temps, humidities);
+
+        generateObjectsFromChunkData(chunkData);
+
+        sandTiles = ChunkData.GenerateTiles(chunkData.sandTiles, tileResources.tileSandRule);
+        pathTiles = ChunkData.GenerateTiles(chunkData.pathTiles, buildingResources.dirtTile);
+        wallTiles = ChunkData.GenerateTiles(chunkData.wallTiles, buildingResources.idToRuleTile);
+
+        // get floor tiles
+        for (int floor = 0; floor < chunkData.floorTiles.GetAll().Count; floor++) {
+            bool[] floorTileBools = chunkData.floorTiles.GetAll()[floor];
+            floorTileData[floor] = ChunkData.GenerateTiles(floorTileBools, buildingResources.floorBaseTile);
+        }
+
+        treeParent.SetActive(false);
+        chunkManager.chunksToLoad.Enqueue(this);
+    }
+
+    public void LoadChunk() {
+        treeParent.SetActive(true);
+
+        if (sandTiles != null)
+            buildingResources.sandTilemap.SetTilesBlock(chunkBounds, sandTiles);
+        if (pathTiles != null)
+            buildingResources.pathTilemap.SetTilesBlock(chunkBounds, pathTiles);
+        if (wallTiles != null)
+            buildingResources.wallTilemap.SetTilesBlock(chunkBounds, wallTiles);
+        for (int floor = 0; floor < floorTileData.Length; floor++) {
+            Tilemap floorTilemap = buildingResources.getAllFloorTilemaps()[floor];
+            if (floorTileData[floor] != null) {
+                floorTilemap.SetTilesBlock(chunkBounds, floorTileData[floor]);
+            }
+        }
+
+        if (containsGrass) {
+            if (!hasGeneratedTerrainMaterial) {
+                generateTerrainMaterials();
             } else {
-                Vector2Int villagePos = new Vector2Int(closestVillage.x * Consts.CHUNK_SIZE, closestVillage.y * Consts.CHUNK_SIZE);
-                village = VillageGenerator.SpawnVillage(villagePos);
-                chunkManager.newlyGeneratedVillages.Add(closestVillage, village);
-                village.PlaceVillageChunkInWorld(chunkPos);
+                terrainChunk.SetActive(true);
+                grassBlades.SetActive(true);
             }
+        } else {
+            terrainChunk.SetActive(false);
+            grassBlades.SetActive(false);
+        }
+
+        if (containsWater) {
+            if (!hasGeneratedWaterMaterial) {
+                generateWaterMaterials();
+            } else {
+                waterChunk.SetActive(true);
+            }
+        } else {
+            waterChunk.SetActive(false);
         }
     }
 
-    private bool isCloseToVillage() {
-        // TODO figure out a way to check if village lands on a chunk that is not so inefficient lol
-        for (int i = -2; i <= 2; i++) {
-            for (int j = -2; j <= 2; j++) {
-                if ((chunkCoord.x + i) % 8 == 0 && (chunkCoord.y + j) % 8 == 0) {
-                    int chunkPosX = (chunkCoord.x + i) * Consts.CHUNK_SIZE;
-                    int chunkPosY = (chunkCoord.y + j) * Consts.CHUNK_SIZE;
+    public void UnloadChunk() {
+        treeParent.SetActive(false);
+        terrainChunk.SetActive(false);
+        grassBlades.SetActive(false);
+        waterChunk.SetActive(false);
 
-                    // stop villages generating on water
-                    if (terrainData.GetHeightValue(
-                        chunkPosX + (int)(Consts.CHUNK_SIZE / 2),
-                        chunkPosY + (int)(Consts.CHUNK_SIZE / 2))
-                        < Consts.BEACH_HEIGHT + 0.2)
-                        return false;
+        updateTileArrays();
+        TileBase[] nullTileArray = new TileBase[Consts.CHUNK_SIZE_SQUARED];
 
-                    // TODO optimise using hash function instead of prng
-                    System.Random tempPrng = new System.Random(chunkPosX + chunkPosY + worldSettings.SEED);
-
-                    if (tempPrng.NextDouble() < 0.2) {
-                        closestVillage = new Vector2Int(chunkCoord.x + i, chunkCoord.y + j);
-                        return true;
-                    }
-                }
-            }
+        // unload sand
+        if (sandTiles != null) {
+            buildingResources.sandTilemap.SetTilesBlock(chunkBounds, nullTileArray);
         }
-        return false;
+
+        // unload dirt
+        if (pathTiles != null) {
+            buildingResources.pathTilemap.SetTilesBlock(chunkBounds, nullTileArray);
+        }
+
+        // unload walls
+        if (wallTiles != null)
+            buildingResources.wallTilemap.SetTilesBlock(chunkBounds, nullTileArray);
+
+        // unload floors
+        for (int i = 0; i < buildingResources.getAllFloorTilemaps().Count; i++) {
+            Tilemap floorTilemap = buildingResources.getAllFloorTilemaps()[i];
+            floorTilemap.SetTilesBlock(chunkBounds, nullTileArray);
+        }
     }
 
-    public void GenerateColourTexture() {
-        terrainColours = new Texture2D(Consts.CHUNK_SIZE, Consts.CHUNK_SIZE);
+    public void LoadData(GameData data) {
+    }
+    public void SaveData(GameData data) {
+        // remove old chunk
+        ChunkData chunkToRemove = null;
+        foreach (ChunkData chunkData in data.worldData.chunkData) {
+            if (chunkData.chunkCoord == this.chunkCoord) {
+                chunkToRemove = chunkData;
+            }
+        }
+        if (chunkToRemove != null) {
+            data.worldData.chunkData.Remove(chunkToRemove);
+        }
+
+        updateTileArrays();
+        data.worldData.chunkData.Add(new ChunkData(this));
+    }
+
+    private void generateObjectsFromChunkData(ChunkData chunkData) {
+        this.objects = new GameObject[Consts.CHUNK_SIZE, Consts.CHUNK_SIZE];
         for (int i = 0; i < Consts.CHUNK_SIZE; i++) {
             for (int j = 0; j < Consts.CHUNK_SIZE; j++) {
-                float height = heights[i, j];
+                if (chunkData.objects[Consts.IndexOf(i, j)] != 0) {
+                    Vector3 pos = new Vector3(chunkPos.x + i + 0.5f, chunkPos.y + j + 0.5f, 198);
 
-                float temp = temps[i, j];
-                temp = Mathf.InverseLerp(-80f, 80f, temp);
-                temp *= terrainData.biomeColourMap.width;
+                    this.objects[i, j] = Instantiate(natureResources.idToGameObject[chunkData.objects[Consts.IndexOf(i, j)]], pos, Quaternion.identity);
 
-                float humidity = humidities[i, j];
-                humidity = 1 - humidity;
-                humidity *= terrainData.biomeColourMap.width;
-                Color color = terrainData.biomeColourMap.GetPixel((int)temp, (int)humidity);
-
-                if (height < -0.29f) {
-                    color = Consts.BIOME_COLOUR_DICT[BiomeType.Beach];
+                    this.objects[i, j].transform.SetParent(treeParent.transform, true);
                 }
-                color.a = Mathf.Clamp01(Mathf.InverseLerp(-1f, 1f, height)); // lower alpha is deeper
-                terrainColours.SetPixel(i, j, color);
             }
         }
-        terrainColours.Apply();
-
-        // get rid of lines between textures :D
-        terrainColours.wrapMode = TextureWrapMode.Clamp;
     }
 
-    // the extended texture includes overlaps between chunks by 1 tile
-    public void GenerateExtendedColourTexture() {
-        int newWidth = Consts.CHUNK_SIZE + 2;
-        Texture2D extendedTerrainColours = new Texture2D(newWidth, newWidth);
-        int i = 0;
-        int j = 0;
-
-        for (i = 0; i < newWidth; i++) {
-            for (j = 0; j < newWidth; j++) {
-                float height = heights[i, j];
-
-                float temp = temps[i, j];
-                temp = Mathf.InverseLerp(-80f, 80f, temp);
-                temp *= terrainData.biomeColourMap.width;
-
-                float humidity = humidities[i, j];
-                humidity = 1 - humidity;
-                humidity *= terrainData.biomeColourMap.width;
-                Color color = terrainData.biomeColourMap.GetPixel((int)temp, (int)humidity);
-
-                // if (height < -0.29f) {
-                // 	color = Consts.BIOME_COLOUR_DICT [BiomeType.Beach];
-                // }
-                // set alpha - lower alpha is deeper
-                color.a = Mathf.Clamp01(Mathf.InverseLerp(-1f, 1f, height));
-                extendedTerrainColours.SetPixel(i, j, color);
-            }
-        }
-
-        extendedTerrainColours.Apply();
-        extendedTerrainColours.wrapMode = TextureWrapMode.Clamp;
-        terrainColours = extendedTerrainColours;
-    }
-
-    public void GenerateTilesChunked() {
+    private void refreshContainFlags() {
         float heightVal;
-
-        // in loop, enter all positions and tiles in arrays
         for (int i = 0; i < Consts.CHUNK_SIZE; i++) {
             for (int j = 0; j < Consts.CHUNK_SIZE; j++) {
-
-                // fill in tile position arrays
-                tilePositionsWorld[at(i, j)] = new Vector3Int(i + chunkPos.x, j + chunkPos.y, 0);
-
-                // get features for this tile
                 heightVal = heights[i, j];
 
-                // sand layer
-                if (heightVal < Consts.BEACH_HEIGHT) {
-                    sandTileArray[at(i, j)] = ChunkManager.tileResources.tileSandRule;
-                    containsSand = true;
-                }
-
-                // grass layer
+                // minus extra amount to have some overlapping
                 if (heightVal >= Consts.WATER_HEIGHT - 0.1f) {
                     containsGrass = true;
                 }
-
-                // water layer
-                // we want some overlapping
                 if (heightVal < Consts.WATER_HEIGHT - 0.04f) {
                     containsWater = true;
                 }
@@ -231,86 +237,50 @@ public class Chunk {
         }
     }
 
-    public void GenerateDetailsChunk() {
+    private void updateTileArrays() {
+        wallTiles = getTilesInChunk(buildingResources.wallTilemap);
+        pathTiles = getTilesInChunk(buildingResources.pathTilemap);
+
+        for (int i = 0; i < buildingResources.getAllFloorTilemaps().Count; i++) {
+            Tilemap floorTilemap = buildingResources.getAllFloorTilemaps()[i];
+            floorTileData[i] = getTilesInChunk(floorTilemap);
+        }
+    }
+
+    private TileBase[] getTilesInChunk(Tilemap tilemap) {
+        if (TileResources.GetTilesBlockCount(tilemap, chunkBounds.min, chunkBounds.max) > 0) {
+            return tilemap.GetTilesBlock(chunkBounds);
+        }
+        return null;
+    }
+
+    private void generateTerrainMaterials() {
+        // generate a new material and apply it to the chunk
+        Material newMat = new Material(Shader.Find("Unlit/ChunkTerrainShader"));
+        newMat.CopyPropertiesFromMaterial(terrainData.chunkTerrainMaterial);
+        terrainChunk.GetComponent<SpriteRenderer>().material = newMat;
+        terrainChunk.GetComponent<SpriteRenderer>().material.SetTexture("_TileColours", terrainColours);
+
+        // generate a new material for the grass blades in the chunk
+        SpriteRenderer grassBladeRenderer = grassBlades.GetComponent<SpriteRenderer>();
+
+        newMat = new Material(Shader.Find("Unlit/ChunkTerrainShader"));
+        newMat.CopyPropertiesFromMaterial(terrainData.chunkGrassMaterial);
+        grassBladeRenderer.material = newMat;
+        grassBladeRenderer.material.SetTexture("_TileColours", terrainColours);
+
         int randNum = worldSettings.PRNG.Next(0, 7);
-        deetChunk = ChunkManager.tileResources.grassDetailsChunk[randNum];
+        grassBladeRenderer.sprite = tileResources.grassDetailsChunk[randNum];
+        hasGeneratedTerrainMaterial = true;
     }
 
-    public void LoadChunk() {
-        // set parent gameobject for the plants
-        treeParent.SetActive(true);
-
-        if (containsSand)
-            buildingResources.sandTilemap.SetTiles(tilePositionsWorld, sandTileArray);
-
-        if (containsGrass) {
-            if (!terrainChunk) {
-                terrainChunk = UnityEngine.Object.Instantiate(terrainData.chunkTerrainPrefab, new Vector3Int(chunkPos.x + Consts.CHUNK_SIZE / 2, chunkPos.y + Consts.CHUNK_SIZE / 2, 199), Quaternion.identity);
-                terrainChunk.transform.SetParent(terrainData.chunkTerrainParent.gameObject.transform);
-
-                // generate a new material and apply it to the chunk
-                Material newMat = new Material(Shader.Find("Unlit/ChunkTerrainShader"));
-                newMat.CopyPropertiesFromMaterial(terrainData.chunkTerrainMaterial);
-                terrainChunk.GetComponent<SpriteRenderer>().material = newMat;
-                terrainChunk.GetComponent<SpriteRenderer>().material.SetTexture("_TileColours", terrainColours);
-
-                // generate a new material for the grass blades in the chunk
-                newMat = new Material(Shader.Find("Unlit/ChunkTerrainShader"));
-                newMat.CopyPropertiesFromMaterial(terrainData.chunkGrassMaterial);
-                terrainChunk.GetComponentsInChildren<SpriteRenderer>()[1].material = newMat;
-                terrainChunk.GetComponentsInChildren<SpriteRenderer>()[1].material.SetTexture("_TileColours", terrainColours);
-            } else {
-                terrainChunk.SetActive(true);
-            }
-        }
-
-        if (containsWater) {
-            if (!waterChunk) {
-                // generate a new material for the water in the chunk
-                waterChunk = UnityEngine.Object.Instantiate(terrainData.chunkWaterPrefab, new Vector3Int(chunkPos.x + Consts.CHUNK_SIZE / 2, chunkPos.y + Consts.CHUNK_SIZE / 2, 198), Quaternion.identity);
-                waterChunk.transform.SetParent(terrainData.chunkWaterParent.gameObject.transform);
-
-                // generate a new material and apply it to the chunk
-                Material newWaterMaterial = new Material(Shader.Find("Unlit/ChunkWaterShader"));
-                newWaterMaterial.CopyPropertiesFromMaterial(terrainData.chunkWaterMaterial);
-                waterChunk.GetComponent<SpriteRenderer>().material = newWaterMaterial;
-                waterChunk.GetComponent<SpriteRenderer>().material.SetTexture("_TileColours", terrainColours);
-            } else {
-                waterChunk.SetActive(true);
-            }
-        }
-    }
-
-    public void UnloadChunk() {
-        // disable things
-        treeParent.SetActive(false);
-
-        // unload sand if there is some
-        if (containsSand) {
-            for (int i = 0; i < tilePositionsWorld.Length; i++) {
-                buildingResources.sandTilemap.SetTile(tilePositionsWorld[i], null);
-            }
-        }
-
-        // unload grass if there is some
-        if (containsGrass) {
-            terrainChunk.SetActive(false);
-        }
-
-        // unload water if there is some
-        if (containsWater) {
-            waterChunk.SetActive(false);
-        }
-    }
-
-    // lookup index of 16x16 2D array condensed to 1D array
-    public int at(int x, int y) {
-        return (x * 16 + y);
-    }
-
-    // lookup index of 64x64 2D array condensed to 1D array
-    public int at64(int x, int y) {
-        return (x * 32 + y);
+    private void generateWaterMaterials() {
+        // generate a new material for the water in the chunk
+        Material newWaterMaterial = new Material(Shader.Find("Unlit/ChunkWaterShader"));
+        newWaterMaterial.CopyPropertiesFromMaterial(terrainData.chunkWaterMaterial);
+        waterChunk.GetComponent<SpriteRenderer>().material = newWaterMaterial;
+        waterChunk.GetComponent<SpriteRenderer>().material.SetTexture("_TileColours", terrainColours);
+        hasGeneratedWaterMaterial = true;
     }
 }
 
@@ -319,5 +289,3 @@ public enum ChunkStatus {
     LOADED,
     UNLOADED,
 }
-
-

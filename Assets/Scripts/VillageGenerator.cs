@@ -294,7 +294,7 @@ public class VillageGenerator : MonoBehaviour {
         for (int i = 0; i < hits.Length; i++) {
             Collider2D collider = hits[i].transform.gameObject.GetComponent<Collider2D>();
             if (collider != null && collider.gameObject.tag != "ItemDrop" && collider.gameObject.tag != "Player" && collider.gameObject.tag != "NPC") {
-                Destroy(collider.gameObject);
+                Destroy(collider.gameObject.transform.parent.gameObject);
             }
         }
 
@@ -303,6 +303,48 @@ public class VillageGenerator : MonoBehaviour {
 
     private char getChar(string[] layout, int x, int y) {
         return layout[layout.Length - 1 - y][x];
+    }
+
+    public static void TryGenerateVillage(Vector2Int chunkCoord, Vector2Int chunkPos, TerrainDataGenerator terrainData, ChunkManager chunkManager, int seed) {
+        Vector2Int? closestVillage = getClosestVillagePos(chunkCoord, terrainData, seed);
+        if (closestVillage.HasValue) {
+            VillageGenerator village;
+            if (chunkManager.newlyGeneratedVillages.TryGetValue(closestVillage.Value, out village)) {
+                village.PlaceVillageChunkInWorld(chunkPos);
+            } else {
+                Vector2Int villagePos = new Vector2Int(closestVillage.Value.x * Consts.CHUNK_SIZE, closestVillage.Value.y * Consts.CHUNK_SIZE);
+                village = VillageGenerator.SpawnVillage(villagePos);
+                chunkManager.newlyGeneratedVillages.Add(closestVillage.Value, village);
+                village.PlaceVillageChunkInWorld(chunkPos);
+            }
+        }
+    }
+
+    private static Vector2Int? getClosestVillagePos(Vector2Int chunkCoord, TerrainDataGenerator terrainData, int seed) {
+        // TODO figure out a way to check if village lands on a chunk that is not so inefficient lol
+        for (int i = -2; i <= 2; i++) {
+            for (int j = -2; j <= 2; j++) {
+                if ((chunkCoord.x + i) % 8 == 0 && (chunkCoord.y + j) % 8 == 0) {
+                    int chunkPosX = (chunkCoord.x + i) * Consts.CHUNK_SIZE;
+                    int chunkPosY = (chunkCoord.y + j) * Consts.CHUNK_SIZE;
+
+                    // stop villages generating on water
+                    if (terrainData.GetHeightValue(
+                        chunkPosX + (int)(Consts.CHUNK_SIZE / 2),
+                        chunkPosY + (int)(Consts.CHUNK_SIZE / 2))
+                        < Consts.BEACH_HEIGHT + 0.2)
+                        return null;
+
+                    // TODO optimise using hash function instead of prng
+                    System.Random tempPrng = new System.Random(chunkPosX + chunkPosY + seed);
+
+                    if (tempPrng.NextDouble() < 0.2) {
+                        return new Vector2Int(chunkCoord.x + i, chunkCoord.y + j);
+                    }
+                }
+            }
+        }
+        return null;
     }
 }
 

@@ -11,12 +11,6 @@ Here are some different biomes so far. Biome blending has been implemented in a 
   <img src="Images/Taiga.png" width="250" title="Taiga">
 </p>
 
-Here are some screenshots of the UI so far. The inventory has a weight system that gives the player a speed debuff if they carry too much.
-<p align="center">
-  <img src="Images/Inv.png" width="400" >
-  <img src="Images/WithUI.png" width="400" >
-</p>
-
 I am also working on adding buildings, floors and paths. The walls are made from individual tiles of which the player can place or remove as they please. The doors currently slide open/close automatically when the player walks near.
 <p align="center">
   <img src="Images/Buildings.png" width="600" >
@@ -31,6 +25,11 @@ Here's some concept art for the player/npc sprites:
 <p align="center">
   <img src="Images/CharacterConcepts.gif" width="300" >
 </p>
+
+## Demos
+https://user-images.githubusercontent.com/59108399/179401028-f964b00e-e4ba-4119-9715-b0156890ed87.mp4
+
+https://user-images.githubusercontent.com/59108399/179400807-5d833b31-02e8-4a4b-a3e0-3d2065c934d4.mp4
 
 So far, this has been an entirely solo project. All animation/art is drawn from scratch by Jess in Procreate for iPad. 
 Should you have any thoughts or enquires about this project, feel free to send an email to jrhammer50@gmail.com :D

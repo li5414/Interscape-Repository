@@ -33,6 +33,7 @@ public class Inventory : MonoBehaviour {
         AddItem(new Tool("Stone axe", 75));
         AddItem(new TerrainTool("Hoe", 75));
         AddItems(new BuildableItem("Mid Wood Floor"), 5);
+        AddItems(new BuildableItem("Light Cobblestone Wall"), 10);
 
         // hotbar.UpdateSelectedUI();
         gameObject.SetActive(false);
