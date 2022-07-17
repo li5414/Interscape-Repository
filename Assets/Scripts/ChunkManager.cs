@@ -47,9 +47,9 @@ public class ChunkManager : MonoBehaviour {
         if (chunksToGenerate.Count > 0) {
             Chunk chunk = chunksToGenerate.Dequeue();
             if (chunksFromFile.ContainsKey(chunk.chunkCoord))
-                chunk.GenerateChunkDataFromFile(chunksFromFile[chunk.chunkCoord]);
+                chunk.GenerateChunkFromFile(chunksFromFile[chunk.chunkCoord]);
             else
-                chunk.GenerateChunkData();
+                chunk.GenerateChunk();
             chunk.status = ChunkStatus.UNLOADED;
         }
 
@@ -121,14 +121,13 @@ public class ChunkManager : MonoBehaviour {
                     if (chunk.status != ChunkStatus.LOADED) {
                         chunksToLoad.Enqueue(chunk);
                     }
-                } 
-                else {
+                } else {
                     // else, generate new chunk
                     // Chunk chunk = new Chunk(chunkCoord);
                     // TODO instantiate chunk object
                     Chunk chunk = Instantiate(chunkObj, new Vector3(
-                        chunkCoord.x * Consts.CHUNK_SIZE, 
-                        chunkCoord.y * Consts.CHUNK_SIZE, 
+                        chunkCoord.x * Consts.CHUNK_SIZE,
+                        chunkCoord.y * Consts.CHUNK_SIZE,
                         199), Quaternion.identity).GetComponent<Chunk>();
                     chunk.gameObject.transform.SetParent(chunkParent.transform);
                     chunkDictionary.Add(chunkCoord, chunk);

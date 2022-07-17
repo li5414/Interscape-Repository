@@ -11,7 +11,7 @@ public class Chunk : MonoBehaviour, IDataPersistence {
     public Vector2Int chunkCoord;
 
     public GameObject[,] objects { get; private set; }
-    public RuleTile[] sandTiles { get; private set; }
+    public TileBase[] sandTiles { get; private set; }
     public TileBase[] wallTiles { get; private set; }
     public RuleTile[] pathTiles { get; private set; }
     public TileBase[][] floorTileData { get; private set; }
@@ -22,7 +22,6 @@ public class Chunk : MonoBehaviour, IDataPersistence {
     bool hasGeneratedTerrainMaterial;
 
     public ChunkStatus status;
-    Vector3Int[] tilePositionsWorld;
     float[,] heights;
     float[,] temps;
     float[,] humidities;
@@ -32,11 +31,12 @@ public class Chunk : MonoBehaviour, IDataPersistence {
 
     // References assigned in prefab
     public GameObject terrainChunk;
-    public GameObject grassBlades; // TODO change grass sprite
+    public GameObject grassBlades;
     public GameObject waterChunk;
     public GameObject treeParent;
 
     private Vector2Int closestVillage;
+    BoundsInt chunkBounds;
 
     // TODO have a prng for each chunk?
 
@@ -48,8 +48,6 @@ public class Chunk : MonoBehaviour, IDataPersistence {
     public static BuildingResources buildingResources { get; private set; }
     static TileResources tileResources;
     static NatureResources natureResources;
-
-    BoundsInt chunkBounds;
 
     void Start() {
         findScriptReferences();
@@ -75,62 +73,50 @@ public class Chunk : MonoBehaviour, IDataPersistence {
         }
     }
 
-    void setTilePositionsArray() {
-        tilePositionsWorld = new Vector3Int[Consts.CHUNK_SIZE_SQUARED];
-        for (int i = 0; i < Consts.CHUNK_SIZE; i++) {
-            for (int j = 0; j < Consts.CHUNK_SIZE; j++) {
-                tilePositionsWorld[at(i, j)] = new Vector3Int(i + chunkPos.x, j + chunkPos.y, 0);
-            }
-        }
-    }
-
-    public void GenerateChunkData() {
+    public void GenerateChunk() {
         heights = terrainData.GetHeightValuesExtended(chunkPos.x, chunkPos.y);
         temps = terrainData.GetTemperaturesExtended(chunkPos.x, chunkPos.y, heights);
         humidities = terrainData.GetHumidityValuesExtended(chunkPos.x, chunkPos.y, heights);
         biomes = terrainData.GetBiomesExtended(heights, temps, humidities);
 
-        // setTilePositionsArray();
         refreshContainFlags();
-        generateSand();
-
         generateExtendedColourTexture();
 
-        // array of gameobjects (use dict/list instead?)
+        // generate array of gameobjects (TODO optimise: use dict/list instead?)
         objects = plantsGenerator.GeneratePlants(chunkPos, biomes, heights, treeParent);
 
-        // potentially generate a village on this chunk
-        handleVillageGeneration();
+        generateSand();
+        generateVillage();
 
         treeParent.SetActive(false);
         chunkManager.chunksToLoad.Enqueue(this);
     }
 
-    public void GenerateChunkDataFromFile(ChunkData chunkData) {
+    public void GenerateChunkFromFile(ChunkData chunkData) {
         heights = terrainData.GetHeightValuesExtended(chunkPos.x, chunkPos.y);
         temps = terrainData.GetTemperaturesExtended(chunkPos.x, chunkPos.y, heights);
         humidities = terrainData.GetHumidityValuesExtended(chunkPos.x, chunkPos.y, heights);
         biomes = terrainData.GetBiomesExtended(heights, temps, humidities);
 
-        setTilePositionsArray();
         refreshContainFlags();
-
-        // set sand tiles
-        if (chunkData.sandTiles != null) {
-            for (int i = 0; i < chunkData.sandTiles.Length; i++) {
-                if (chunkData.sandTiles[i]) {
-                    if (this.sandTiles == null) {
-                        this.sandTiles = new RuleTile[Consts.CHUNK_SIZE_SQUARED];
-                    }
-                    this.sandTiles[i] = tileResources.tileSandRule;
-                }
-            }
-        }
-
-        // generate the grass colour texture for that chunk
         generateExtendedColourTexture();
 
-        // get objects
+        getObjectsFromChunkData(chunkData);
+
+        sandTiles = getTilesFromArray(chunkData.sandTiles, tileResources.tileSandRule);
+        wallTiles = getTilesFromArray(chunkData.wallTiles, buildingResources.idToRuleTile);
+
+        // get floor tiles
+        for (int floor = 0; floor < chunkData.floorTiles.getAll().Count; floor++) {
+            bool[] floorTileBools = chunkData.floorTiles.getAll()[floor];
+            floorTileData[floor] = getTilesFromArray(floorTileBools, buildingResources.floorBaseTile);
+        }
+
+        treeParent.SetActive(false);
+        chunkManager.chunksToLoad.Enqueue(this);
+    }
+
+    private void getObjectsFromChunkData(ChunkData chunkData) {
         this.objects = new GameObject[Consts.CHUNK_SIZE, Consts.CHUNK_SIZE];
         for (int i = 0; i < Consts.CHUNK_SIZE; i++) {
             for (int j = 0; j < Consts.CHUNK_SIZE; j++) {
@@ -143,39 +129,39 @@ public class Chunk : MonoBehaviour, IDataPersistence {
                 }
             }
         }
-
-        // get wall tiles
-        if (chunkData.wallTiles != null) {
-            for (int i = 0; i < chunkData.wallTiles.Length; i++) {
-                if (chunkData.wallTiles[i] != 0) {
-                    if (this.wallTiles == null) {
-                        this.wallTiles = new RuleTile[Consts.CHUNK_SIZE_SQUARED];
-                    }
-                    this.wallTiles[i] = buildingResources.idToRuleTile[chunkData.wallTiles[i]];
-                }
-            }
-        }
-
-        // get floor tiles
-        for (int floor = 0; floor < chunkData.floorTiles.getAll().Count; floor++) {
-            bool[] floorTileFlags = chunkData.floorTiles.getAll()[floor];
-            if (floorTileFlags != null) {
-                for (int i = 0; i < floorTileFlags.Length; i++) {
-                    if (floorTileFlags[i]) {
-                        if (floorTileData[floor] == null) {
-                            floorTileData[floor] = new TileBase[Consts.CHUNK_SIZE_SQUARED];
-                        }
-                        floorTileData[floor][i] = buildingResources.floorBaseTile;
-                    }
-                }
-            }
-        }
-
-        treeParent.SetActive(false);
-        chunkManager.chunksToLoad.Enqueue(this);
     }
 
-    private void handleVillageGeneration() {
+    private TileBase[] getTilesFromArray(bool[] tileBools, RuleTile tile) {
+        TileBase[] tiles = null;
+        if (tileBools != null) {
+            for (int i = 0; i < tileBools.Length; i++) {
+                if (tileBools[i]) {
+                    if (tiles == null) {
+                        tiles = new TileBase[tileBools.Length];
+                    }
+                    tiles[i] = tile;
+                }
+            }
+        }
+        return tiles;
+    }
+
+    private TileBase[] getTilesFromArray(int[] tileIds, Dictionary<int, RuleTile> tileIdDict) {
+        TileBase[] tiles = null;
+        if (tileIds != null) {
+            for (int i = 0; i < tileIds.Length; i++) {
+                if (tileIds[i] > 0) {
+                    if (tiles == null) {
+                        tiles = new TileBase[tileIds.Length];
+                    }
+                    tiles[i] = tileIdDict[tileIds[i]];
+                }
+            }
+        }
+        return tiles;
+    }
+
+    private void generateVillage() {
         if (isCloseToVillage()) {
             VillageGenerator village;
             if (chunkManager.newlyGeneratedVillages.TryGetValue(closestVillage, out village)) {
