@@ -45,6 +45,18 @@ public class ChunkData {
             }
         }
 
+        // set path tiles
+        if (chunk.pathTiles != null) {
+            for (int i = 0; i < chunk.pathTiles.Length; i++) {
+                if (chunk.pathTiles[i] != null) {
+                    if (pathTiles == null) {
+                        pathTiles = new bool[Consts.CHUNK_SIZE_SQUARED];
+                    }
+                    pathTiles[i] = true;
+                }
+            }
+        }
+
         // set wall tiles
         if (chunk.wallTiles != null) {
             for (int i = 0; i < chunk.wallTiles.Length; i++) {

@@ -23,6 +23,7 @@ public class BuildingResources : MonoBehaviour {
     public RuleTile[] wallTiles;
     public RuleTile[] doorTiles;
     public RuleTile floorBaseTile;
+    public RuleTile dirtTile;
 
     [HideInInspector]
     public Dictionary<int, RuleTile> idToRuleTile;

@@ -13,7 +13,7 @@ public class Chunk : MonoBehaviour, IDataPersistence {
     public GameObject[,] objects { get; private set; }
     public TileBase[] sandTiles { get; private set; }
     public TileBase[] wallTiles { get; private set; }
-    public RuleTile[] pathTiles { get; private set; }
+    public TileBase[] pathTiles { get; private set; }
     public TileBase[][] floorTileData { get; private set; }
 
     bool containsWater;
@@ -105,6 +105,7 @@ public class Chunk : MonoBehaviour, IDataPersistence {
         generateObjectsFromChunkData(chunkData);
 
         sandTiles = ChunkData.GenerateTiles(chunkData.sandTiles, tileResources.tileSandRule);
+        pathTiles = ChunkData.GenerateTiles(chunkData.pathTiles, buildingResources.dirtTile);
         wallTiles = ChunkData.GenerateTiles(chunkData.wallTiles, buildingResources.idToRuleTile);
 
         // get floor tiles
@@ -122,6 +123,8 @@ public class Chunk : MonoBehaviour, IDataPersistence {
 
         if (sandTiles != null)
             buildingResources.sandTilemap.SetTilesBlock(chunkBounds, sandTiles);
+        if (pathTiles != null)
+            buildingResources.pathTilemap.SetTilesBlock(chunkBounds, pathTiles);
         if (wallTiles != null)
             buildingResources.wallTilemap.SetTilesBlock(chunkBounds, wallTiles);
         for (int floor = 0; floor < floorTileData.Length; floor++) {
@@ -166,6 +169,11 @@ public class Chunk : MonoBehaviour, IDataPersistence {
         // unload sand
         if (sandTiles != null) {
             buildingResources.sandTilemap.SetTilesBlock(chunkBounds, nullTileArray);
+        }
+
+        // unload dirt
+        if (pathTiles != null) {
+            buildingResources.pathTilemap.SetTilesBlock(chunkBounds, nullTileArray);
         }
 
         // unload walls
@@ -231,6 +239,7 @@ public class Chunk : MonoBehaviour, IDataPersistence {
 
     private void updateTileArrays() {
         wallTiles = getTilesInChunk(buildingResources.wallTilemap);
+        pathTiles = getTilesInChunk(buildingResources.pathTilemap);
 
         for (int i = 0; i < buildingResources.getAllFloorTilemaps().Count; i++) {
             Tilemap floorTilemap = buildingResources.getAllFloorTilemaps()[i];
